@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html	xmlns="http://www.w3.org/1999/xhtml"
+			xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" 
+			xmlns:th="http://www.thymeleaf.org"
+			xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+			layout:decorator="layout/default">
+
+<th:block layout:fragment="css">
+</th:block>
+<th:block layout:fragment="script">
+</th:block>
+
+<div layout:fragment="content">
+	<div class="container" style="margin-top: 210px;">
+		<div class=" d-flex flex-wrap justify-content-center">
+			<div th:each="list : ${list}">
+				<div class="card" style="margin-right:5px">
+					<img th:src="${list.imgSrc}" class="card-img-top"
+							 th:alt="${list.code}" style="height: 21rem; width: 21rem;">
+					<div class="card-body">
+						<h5 class="card-title" th:text="${list.price}"></h5>
+						<p class="card-text">남은시간: <span th:text="${list.timeLeft}"></span></p>
+						<a th:href="@{/product-details(code=${list.code})}"
+							 class="btn btn-dark mb-3" style="width:19rem">응모하러 가기</a><br/>
+						<p sec:authorize="hasRole('ADMIN')">
+							<a href="" class="btn btn-warning mb-3" style="width:19rem">MODIFY</a><br/>
+							<a href="" class="btn btn-danger" style="width:19rem">DELETE</a>
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+</html>

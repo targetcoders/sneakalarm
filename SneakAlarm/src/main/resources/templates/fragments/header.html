@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"  
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+<header th:fragment="headerFragment">
+<nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light d-flex flex-column">
+  <div class="container-fluid justify-content-center">
+    <a class="navbar-brand" href="/home">
+      <img th:src="@{image/pc/bogo.jpg}" class="bogo" alt="Bogo">
+    </a>
+  </div>
+  <div class="container-fluid justify-content-center flex-wrap" style="margin-top:15px">
+    <a class="navbar-btn" href="#">
+  		<img th:src="@{image/pc/SNEAK_nav.png}" alt="Sneak"/>
+  	</a>
+  	<a class="navbar-btn" href="#">
+  		<img th:src="@{image/pc/ALARM_nav.png}" alt="Alarm"/>
+  	</a>
+  	<a class="navbar-btn" href="#">
+  		<img th:src="@{image/pc/NEWS_nav.png}" alt="News"/>
+  	</a>
+  	<a class="navbar-btn" href="#">
+  		<img th:src="@{image/pc/EVENTS_nav.png}" alt="Events"/>
+  	</a>
+  	<a class="navbar-btn" href="#">
+  		<img th:src="@{image/pc/PRICE_nav.png}" alt="Price"/>
+  	</a>
+		<a sec:authorize="hasRole('ADMIN')" class="navbar-text" href="product-insert">
+			INSERT-PRODUCT
+		</a>
+  </div>
+</nav>
+</header>
+
+</html>

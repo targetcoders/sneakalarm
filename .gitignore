@@ -1,0 +1,8 @@
+/.metadata/
+*.yml
+
+*.jar
+
+*.log
+*.sql
+*.sqlite
