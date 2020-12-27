@@ -72,10 +72,10 @@ public class ProductServiceImpl implements ProductService {
 
     ArrayList<File> fileList = (ArrayList<File>) productInsertVO.getFileList();
     String[] urlList = new String[fileList.size()];
+    String code = productInsertVO.getCode();
 
     int idx = 0;
     for (File file : fileList) {
-      String code = productInsertVO.getCode();
       String url = "https://" + "s3." + region + ".amazonaws.com/" + bucket + "/"
           + productFolderName + code + "/" + file.getName();
       urlList[idx++] = url;
