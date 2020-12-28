@@ -8,24 +8,57 @@
 <th:block layout:fragment="css">
 </th:block>
 <th:block layout:fragment="script">
+<script>
+$('document').ready(function(){
+	
+	$('.home-product-modify').click(function(){
+		var code = $(this).attr("is");
+		var form = $('<form></form>');
+		form.attr('action','/modify-product-form');
+		form.attr('method','post');
+		form.appendTo('body');
+		form.append($('<input type="hidden" value="'+code+'" name="code"/>'));
+		form.submit();
+	});
+	
+ 	$('.home-product-delete').click(function(){
+		var code = $(this).attr("is");
+ 		var res = confirm('code: '+code+'\n정말 삭제하시겠습니까?');
+ 		if(res){
+   		$.ajax({
+	  		url:'./product-delete',
+	    	type:'get',
+	    	data:{
+	     		code: code
+	    	},
+	    	success: function(data) {
+	    		$("#card-"+code).remove();
+	   		},
+	    	error: function(){
+	    		alert('error!');
+	    	}
+   		});
+ 		}
+  });
+});
+</script>
 </th:block>
 
 <div layout:fragment="content">
-	<div class="container" style="margin-top: 210px;">
-		<div class=" d-flex flex-wrap justify-content-center">
-			<div th:each="list : ${list}">
-				<div class="card" style="margin-right:5px">
-					<img th:src="${list.imgSrc}" class="card-img-top"
-							 th:alt="${list.code}" style="height: 21rem; width: 21rem;">
-					<div class="card-body">
-						<h5 class="card-title" th:text="${list.price}"></h5>
-						<p class="card-text">남은시간: <span th:text="${list.timeLeft}"></span></p>
-						<a th:href="@{/product-details(code=${list.code})}"
-							 class="btn btn-dark mb-3" style="width:19rem">응모하러 가기</a><br/>
-						<p sec:authorize="hasRole('ADMIN')">
-							<a href="" class="btn btn-warning mb-3" style="width:19rem">MODIFY</a><br/>
-							<a href="" class="btn btn-danger" style="width:19rem">DELETE</a>
-						</p>
+	<div class="container" style="margin-top: 100px;">
+		<div sec:authorize="hasRole('ADMIN')" class="d-flex justify-content-center">
+  		<a href="product-insert" style="margin-bottom:15px">
+				INSERT-PRODUCT
+			</a>
+		</div>
+		<div class="container d-flex flex-wrap justify-content-center">
+			<div class="home-product" th:each="list : ${list}">
+				<div class="d-flex flex-column" th:id="|card-${list.code}|">
+					<a th:href="@{/product-details(code=${list.code})}"><img th:src="${list.imgSrc}" class="home-product-img"
+							 th:alt="${list.code}"></a>
+					<div sec:authorize="hasRole('ADMIN')" class="d-flex">
+						<a class="btn btn-warning home-product-modify flex-grow-1" th:is="${list.code}">Modify</a>
+						<a class="btn btn-danger home-product-delete flex-grow-1" th:is="${list.code}">Delete</a>
 					</div>
 				</div>
 			</div>

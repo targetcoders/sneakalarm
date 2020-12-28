@@ -17,5 +17,17 @@
 		FROM 	product
 		WHERE	code=#{code}
 	</select>
-	 
+	
+	<delete id="deleteProduct" parameterType="String">
+		DELETE FROM product
+		WHERE code=#{code}
+	</delete>
+	
+	 <update id="updateProduct" parameterType="com.sneakalarm.product.dto.ProductVO">
+	 	UPDATE 	product
+	 	SET 		name=#{name}, code=#{code}, price=#{price}, brand=#{brand}, content=#{content}, imgSrc=#{imgSrc}, 
+	 					filtercode=#{filterCode}, startdate=#{startDate}, enddate=#{endDate}, popularity=#{popularity}, 
+	 					insertdate=#{insertDate}, flag_show=#{flag_show}, flag_del=#{flag_del}
+	 	WHERE 	code=#{code}
+	 </update>
 </mapper>

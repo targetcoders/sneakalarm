@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import com.sneakalarm.product.dto.ProductCardVO;
 import com.sneakalarm.product.dto.ProductInsertVO;
 import com.sneakalarm.product.dto.ProductVO;
@@ -26,6 +27,20 @@ public class ProductController {
     return "views/home";
   }
 
+  @PostMapping("/modify-product-form")
+  public String modifyProduct(@Param("code") String code, Model model) {
+    ArrayList<ProductVO> list = (ArrayList<ProductVO>) productServiceImpl.getProductList(code);
+    ProductVO productVO = list.get(0);
+    model.addAttribute("productVO", productVO);
+    return "views/modify-product";
+  }
+
+  @PostMapping("/modify-product")
+  public String modifyProduct(ProductInsertVO productInsertVO) {
+    productServiceImpl.updateProduct(productInsertVO);
+    return "views/home";
+  }
+
   @GetMapping("/product-insert")
   public String insertProductForm() {
     return "views/product-insert";
@@ -35,6 +50,12 @@ public class ProductController {
   public String insertProduct(ProductInsertVO productInsertVO) throws Exception {
     productServiceImpl.insertProduct(productInsertVO);
     return "views/home";
+  }
+
+  @GetMapping("/product-delete")
+  @ResponseBody
+  public boolean productDelete(String code) {
+    return productServiceImpl.deleteProduct(code);
   }
 
   @GetMapping("/product-details")

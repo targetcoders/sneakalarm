@@ -24,6 +24,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   protected void configure(HttpSecurity http) throws Exception {
 
     setAntMatchers(http, "ROLE_");
+    http.headers().disable();
+
     http.csrf().disable().formLogin().loginPage("/login").failureUrl("/login?error").permitAll()
         .defaultSuccessUrl("/home").and().logout()
         .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))

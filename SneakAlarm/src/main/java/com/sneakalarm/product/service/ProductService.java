@@ -11,4 +11,8 @@ public interface ProductService {
   void insertProduct(ProductInsertVO productInsertVO) throws Exception;
 
   List<ProductVO> getProductList(String code);
+
+  boolean deleteProduct(String code);
+
+  void updateProduct(ProductInsertVO productInsertVO);
 }

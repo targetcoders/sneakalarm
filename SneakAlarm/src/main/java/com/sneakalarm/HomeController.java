@@ -6,8 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class HomeController {
   @GetMapping("/")
-  public String comingsoon() {
-    return "views/comingsoon";
+  public String home() {
+    return "views/home";
   }
-
 }

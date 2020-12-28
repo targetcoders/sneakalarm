@@ -4,12 +4,13 @@
       layout:decorator="layout/default">
 
 <th:block layout:fragment="css">
-  <link rel="stylesheet" th:href="@{css/product-insert}" />
 </th:block>
 
 <th:block layout:fragment="script">
 <script src="https://sdk.amazonaws.com/js/aws-sdk-2.283.1.min.js"></script>
-<script>
+<script type="text/javascript" th:src="@{se2/js/service/HuskyEZCreator.js}" charset="utf-8"></script>
+<script type="text/javascript">
+		
 var albumBucketName = 'sneakalarm.media';
 var bucketRegion = 'ap-northeast-2';
 var IdentityPoolId = 'ap-northeast-2:e33e44cf-1621-4149-98b8-9dd28c45ecc8';
@@ -26,6 +27,7 @@ var s3 = new AWS.S3({
 
 $('document').ready(function(){
  	$('#submitBtn').click(function(){
+ 		submitContents();
    	$.ajax({
 	  	url:'./product-insert',
 	    type:'post',
@@ -53,34 +55,46 @@ function imgUpload(){
  	if (!files.length) {
  		return alert('Please choose a file to upload first.');
  	}
- 	var file = files[0];
- 	var fileName = file.name;
- 	var albumPhotosKey = 'product/'+encodeURIComponent(albumName) + '/';
- 	console.log('albumPhotosKey:'+albumPhotosKey);
- 	var photoKey = albumPhotosKey + fileName;
- 	s3.upload({
- 		Key: photoKey,
- 		Body: file,
- 		ACL: 'public-read'
- 	}, 
- 	function(err, data) {
- 		if (err) {
- 	  	alert('There was an error uploading your photo: ', err.message);
+ 		var file = files[0];
+ 		var fileName = file.name;
+ 		console.log('fileName:'+fileName);
+ 		var path = encodeURIComponent(albumName);
+ 		console.log(path);
+	 	var pathSplit = path.split('/');
+	 	var albumPhotosKey;
+	 	if(pathSplit.length>1){
+	 		albumPhotosKey = 'product/'+pathSplit[2]+'/';
 	 	}
- 	  alert('Successfully uploaded photo.');
- 	  location.href='/home';
-  });
+	 	else{
+	 		albumPhotosKey = 'product/'+path+'/';
+	 	}
+	 	console.log('albumPhotosKey:'+albumPhotosKey);
+	 	var photoKey = albumPhotosKey + fileName;
+	 	
+	 	s3.upload({
+	 		Key: photoKey,
+	 		Body: file,
+	 		ACL: 'public-read'
+	 	}, 
+	 	function(err, data) {
+	 		if (err) {
+	 	  	alert('There was an error uploading your photo: ', err.message);
+		 	}
+	 		alert('Successfully uploaded photo.');
+	 	 	  location.href='/home';
+	   });
 }	
+
 </script>
 </th:block>
 
 <div layout:fragment="content">
-<div class="container-fluid d-flex justify-content-center" style="margin-top:210px">
-<div>
+<div class="container-fluid d-flex justify-content-center" style="margin-top:100px">
+<div class="productinsert">
 <h1 class="text-center mb-3">제품 등록</h1>
-<form action="/product-insert" method="post" id="insertform" style="width:1000px">
+<form action="/product-insert" method="post" id="insertform" class="productinsert-form" >
   <div class="mb-3 row">
-		<label for="name" class="col-sm-2 col-form-label text-center">제품 명</label>
+		<label for="name" class="col-sm-2 col-form-label text-center">모델</label>
 			<div class="col-sm-10">
 				<input type="text" class="form-control" id="name" name="name" required="required"/>
 			</div>
@@ -106,7 +120,7 @@ function imgUpload(){
 	<div class="mb-3 row">
 		<label for="content" class="col-sm-2 col-form-label text-center">내용</label>
 			<div class="col-sm-10">
-				<textarea class="form-control" id="content" name="content" rows="15" cols="5" required="required"></textarea>
+				<textarea name="content" id="content" rows="10" cols="100"></textarea>
 			</div>
 	</div>
 	<div class="mb-3 row">
@@ -116,10 +130,28 @@ function imgUpload(){
  			</div>
 	</div>
 	<div class="mb-3 row">
-		<button type="button" class="btn btn-primary col-sm-12" id="submitBtn">등록</button>
+		<button type="button" class="btn btn-danger col-sm-12" id="submitBtn">등록</button>
 	</div>
 </form>
 </div>
 </div>
+<script>
+		var oEditors = [];
+		nhn.husky.EZCreator.createInIFrame({
+ 			oAppRef: oEditors,
+ 			elPlaceHolder: "content",
+ 			sSkinURI: "se2/SmartEditor2Skin.html",
+ 			fCreator: "createSEditor2"
+		});
+		
+		// ‘저장’ 버튼을 누르는 등 저장을 위한 액션을 했을 때 submitContents가 호출된다고 가정한다.
+	function submitContents() {
+		 // 에디터의 내용이 textarea에 적용된다.
+		 oEditors.getById["content"].exec("UPDATE_CONTENTS_FIELD", []);
+		 // 에디터의 내용에 대한 값 검증은 이곳에서
+		 // document.getElementById("content").value를 이용해서 처리한다.
+	}
+	</script>
 </div>
+
 </html>

@@ -115,4 +115,34 @@ public class ProductServiceImpl implements ProductService {
   public List<ProductVO> getProductList(String code) {
     return productMapper.getProductList(code);
   }
+
+  @Override
+  public boolean deleteProduct(String code) {
+    productMapper.deleteProduct(code);
+    return true;
+  }
+
+  @Override
+  public void updateProduct(ProductInsertVO productInsertVO) {
+    ArrayList<ProductVO> list =
+        (ArrayList<ProductVO>) productMapper.getProductList(productInsertVO.getCode());
+    ProductVO p = list.get(0);
+    p.setName(productInsertVO.getName());
+    p.setPrice(productInsertVO.getPrice());
+    p.setBrand(productInsertVO.getBrand());
+    p.setContent(productInsertVO.getContent());
+    ArrayList<File> fileList = (ArrayList<File>) productInsertVO.getFileList();
+    String[] urlList = new String[fileList.size()];
+    String code = productInsertVO.getCode();
+
+    int idx = 0;
+    for (File file : fileList) {
+      String url = "https://" + "s3." + region + ".amazonaws.com/" + bucket + "/"
+          + productFolderName + code + "/" + file.getName();
+      urlList[idx++] = url;
+    }
+    String imgSrc = StringUtils.join(",", urlList);
+    p.setImgSrc(imgSrc);
+    productMapper.updateProduct(p);
+  }
 }
