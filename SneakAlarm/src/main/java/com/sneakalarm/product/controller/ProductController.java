@@ -1,6 +1,5 @@
 package com.sneakalarm.product.controller;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,13 +32,8 @@ public class ProductController {
   }
 
   @PostMapping("/product-insert")
-  public String insertProduct(ProductInsertVO productInsertVO) throws IOException {
-    try {
-      productServiceImpl.insertProduct(productInsertVO);
-    } catch (Exception e) {
-      e.printStackTrace();
-      return "views/home";
-    }
+  public String insertProduct(ProductInsertVO productInsertVO) throws Exception {
+    productServiceImpl.insertProduct(productInsertVO);
     return "views/home";
   }
 

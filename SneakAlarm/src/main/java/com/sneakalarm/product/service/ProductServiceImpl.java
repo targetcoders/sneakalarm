@@ -63,11 +63,11 @@ public class ProductServiceImpl implements ProductService {
   }
 
   @Override
-  public void insertProduct(ProductInsertVO productInsertVO) throws Exception {
+  public void insertProduct(ProductInsertVO productInsertVO) {
     ArrayList<ProductVO> prodList =
         (ArrayList<ProductVO>) productMapper.getProductList(productInsertVO.getCode());
     if (prodList.size() != 0) {
-      throw new Exception();
+      return;
     }
 
     ArrayList<File> fileList = (ArrayList<File>) productInsertVO.getFileList();
