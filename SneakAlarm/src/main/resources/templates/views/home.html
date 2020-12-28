@@ -8,7 +8,7 @@
 <th:block layout:fragment="css">
 </th:block>
 <th:block layout:fragment="script">
-<script>
+<script sec:authorize="hasRole('ADMIN')">
 $('document').ready(function(){
 	
 	$('.home-product-modify').click(function(){
