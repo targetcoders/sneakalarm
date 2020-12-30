@@ -73,9 +73,16 @@ public class ProductServiceImpl implements ProductService {
     ArrayList<File> fileList = (ArrayList<File>) productInsertVO.getFileList();
     String[] urlList = new String[fileList.size()];
     String code = productInsertVO.getCode();
-
     int idx = 0;
     for (File file : fileList) {
+      String fileName = file.getName();
+      System.out.println(fileName);
+      if (fileName.substring(0, 2) == "C:") {
+        fileName = fileName.substring(13);
+      }
+      System.out.println(fileName);
+      // fileName.replaceAll("/^C:\\fakepath\\/gi", "");
+
       String url = "https://" + "s3." + region + ".amazonaws.com/" + bucket + "/"
           + productFolderName + code + "/" + file.getName();
       urlList[idx++] = url;
