@@ -77,7 +77,7 @@ public class ProductServiceImpl implements ProductService {
     for (File file : fileList) {
       String fileName = file.getName();
       System.out.println(fileName);
-      if (fileName.substring(0, 2) == "C:") {
+      if (fileName.substring(0, 2).contentEquals("C:")) {
         fileName = fileName.substring(13);
       }
       System.out.println(fileName);
