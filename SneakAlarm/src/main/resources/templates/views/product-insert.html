@@ -25,8 +25,19 @@ var s3 = new AWS.S3({
 	  params: {Bucket: albumBucketName}
 });
 
+
+
 $('document').ready(function(){
+	$('#photoupload').change(function(){
+		var fileList = this.files;
+		for(var i=0; i<fileList.length; i++){
+			fileList[i].name = fileList[i].name.replace(/^C:\\fakepath\\/gi, '');
+			console.log(fileList[i].name);
+		}
+	});
+	
  	$('#submitBtn').click(function(){
+ 		console.log($('photoupload').val());
  		submitContents();
    	$.ajax({
 	  	url:'./product-insert',
@@ -47,43 +58,38 @@ $('document').ready(function(){
 	    }
 	  });
   });
+ 	function imgUpload(){
+ 	 	var albumName = $('#code').val();
+ 	 	var files = document.getElementById('photoupload').files;
+ 	 	console.log('got files');
+ 	 	if (!files.length) {
+ 	 		return alert('Please choose a file to upload first.');
+ 	 	}
+ 	 	var file = files[0];
+ 	 	var fileName = file.name.replace(/^C:\\fakepath\\/gi, '');
+ 	 	console.log('fileName:'+fileName);
+ 		var albumPhotosKey = 'product/'+encodeURIComponent(albumName)+'/';
+ 		console.log('albumPhotosKey:'+albumPhotosKey);
+ 		var photoKey = albumPhotosKey + fileName;
+ 		
+ 		s3.upload({
+ 			Key: photoKey,
+ 			Body: file,
+ 			ACL: 'public-read'
+ 		}, 
+ 		function(err, data) {
+ 			if (err) {
+ 		  	alert('There was an error uploading your photo: ', err.message);
+ 			}
+ 			alert('Successfully uploaded photo.');
+ 		 	  location.href='/';
+ 		});
+ 	}	
 });
-function imgUpload(){
- 	var albumName = $('#code').val();
- 	var files = document.getElementById('photoupload').files;
- 	console.log('got files');
- 	if (!files.length) {
- 		return alert('Please choose a file to upload first.');
- 	}
- 		var file = files[0];
- 		var fileName = file.name;
- 		console.log('fileName:'+fileName);
- 		var path = encodeURIComponent(albumName);
- 		console.log(path);
-	 	var pathSplit = path.split('/');
-	 	var albumPhotosKey;
-	 	if(pathSplit.length>1){
-	 		albumPhotosKey = 'product/'+pathSplit[2]+'/';
-	 	}
-	 	else{
-	 		albumPhotosKey = 'product/'+path+'/';
-	 	}
-	 	console.log('albumPhotosKey:'+albumPhotosKey);
-	 	var photoKey = albumPhotosKey + fileName;
-	 	
-	 	s3.upload({
-	 		Key: photoKey,
-	 		Body: file,
-	 		ACL: 'public-read'
-	 	}, 
-	 	function(err, data) {
-	 		if (err) {
-	 	  	alert('There was an error uploading your photo: ', err.message);
-		 	}
-	 		alert('Successfully uploaded photo.');
-	 	 	  location.href='/home';
-	   });
-}	
+
+function deleteFakepath(){
+	
+}
 
 </script>
 </th:block>
@@ -126,7 +132,8 @@ function imgUpload(){
 	<div class="mb-3 row">
  			<label for="photoupload" class="col-sm-2 col-form-label text-center">이미지</label>
  			<div class="col-sm-10">
- 			<input class="form-control form-control-lg" type="file" id="photoupload" name="fileList" multiple required="required">
+ 			<input class="form-control form-control-lg" type="file" id="photoupload" name="fileList" multiple required="required" onchange="deleteFakepath()">
+ 			<div id="filenames">??</div>
  			</div>
 	</div>
 	<div class="mb-3 row">

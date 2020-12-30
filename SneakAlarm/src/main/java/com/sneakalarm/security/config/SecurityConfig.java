@@ -27,10 +27,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     http.headers().disable();
 
     http.csrf().disable().formLogin().loginPage("/login").failureUrl("/login?error").permitAll()
-        .defaultSuccessUrl("/home").and().logout()
+        .defaultSuccessUrl("/").and().logout()
         .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-        .addLogoutHandler(new TaskImplementingLogoutHandler()).permitAll()
-        .logoutSuccessUrl("/home");
+        .addLogoutHandler(new TaskImplementingLogoutHandler()).permitAll().logoutSuccessUrl("/");
   }
 
   protected void setAntMatchers(HttpSecurity http, String rolePrefix) throws Exception {

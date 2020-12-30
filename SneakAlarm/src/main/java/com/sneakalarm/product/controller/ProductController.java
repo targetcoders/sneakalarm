@@ -19,7 +19,7 @@ public class ProductController {
   @Autowired
   ProductService productServiceImpl;
 
-  @GetMapping("/home")
+  @GetMapping("/")
   public String getProductCardList(Model model) {
     ArrayList<ProductCardVO> list =
         (ArrayList<ProductCardVO>) productServiceImpl.getProductCardList();
