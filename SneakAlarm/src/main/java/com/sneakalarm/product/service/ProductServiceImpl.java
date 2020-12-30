@@ -144,8 +144,14 @@ public class ProductServiceImpl implements ProductService {
 
     int idx = 0;
     for (File file : fileList) {
+      String fileName = file.getName();
+      System.out.println(fileName);
+      if (fileName.substring(0, 2).contentEquals("C:")) {
+        fileName = fileName.substring(12);
+      }
+      System.out.println(fileName);
       String url = "https://" + "s3." + region + ".amazonaws.com/" + bucket + "/"
-          + productFolderName + code + "/" + file.getName();
+          + productFolderName + code + "/" + fileName;
       urlList[idx++] = url;
     }
     String imgSrc = StringUtils.join(",", urlList);
