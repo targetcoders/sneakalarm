@@ -15,9 +15,9 @@
 
 <div layout:fragment="content">
 <div class="container">
-	<div class="container detail-img">
-			<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
-  		<div class="carousel-inner d-flex jusfity-content-center">
+	<div class="container detail-img" style="margin-top:77.5px">
+		<div id="carouselExampleControls" class="carousel slide d-flex jusfity-content-center" data-bs-ride="carousel">
+  		<div class="carousel-inner">
   			<div th:each="url, index : ${urlList_detail}" th:if="${index.count} eq 1" class="carousel-item active">
   				<img th:src="${url}" alt="..." class="detail-img">
   			</div>
@@ -33,7 +33,7 @@
     		<span class="carousel-control-next-icon" aria-hidden="true"></span>
     		<span class="visually-hidden">Next</span>
   		</a>
-			</div>
+		</div>
 	</div>
 		<hr style="margin-top:20px;margin-bottom:20px"> 
 		<div class="container d-flex justify-content-center">
