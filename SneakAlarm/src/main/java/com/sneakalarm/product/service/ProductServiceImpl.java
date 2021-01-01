@@ -198,8 +198,7 @@ public class ProductServiceImpl implements ProductService {
       }
       String imgSrc_detail = String.join(",", urlList_detail);
       p.setImgSrc_detail(imgSrc_detail);
-
-      productMapper.updateProduct(p);
     }
+    productMapper.updateProduct(p);
   }
 }

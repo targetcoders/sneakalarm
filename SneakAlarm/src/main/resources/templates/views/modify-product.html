@@ -1,14 +1,17 @@
 <!DOCTYPE html>
-<html	xmlns:th="http://www.thymeleaf.org"
+<html	xmlns="http://www.w3.org/1999/xhtml"
+			xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" 
+			xmlns:th="http://www.thymeleaf.org"
 			xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 			layout:decorator="layout/default">
+
 
 <th:block layout:fragment="css">
 </th:block>
 
 <th:block layout:fragment="script">
 <script src="https://sdk.amazonaws.com/js/aws-sdk-2.283.1.min.js"></script>
-<script type="text/javascript" th:src="@{se2/js/service/HuskyEZCreator.js}" charset="utf-8"></script>
+<script sec:authorize="hasRole('ADMIN')" type="text/javascript" th:src="@{se2/js/service/HuskyEZCreator.js}" charset="utf-8"></script>
 <script type="text/javascript">
 		
 var albumBucketName = 'sneakalarm.media';
@@ -36,12 +39,12 @@ $('document').ready(function(){
 	});
 	$('#modifyBtn').click(function(){
 		submitContents();
-		var formData = new FormData(document.getElementById('modifyform'));
-		//formData.append('content',document.getElementById('content').value);
 		if ((photouploadLength > 0 && photoupload_detailLength == 0)|| (photouploadLength == 0 && photoupload_detailLength > 0)) {
-			alert('이미지를 변경하시려면 홈 이미지와 상세 이미지를 모두 선택해주세요.');
+			return alert('이미지를 변경하시려면 홈 이미지와 상세 이미지를 모두 선택해주세요.');
 		}
-		else if (photouploadLength > 0 && photoupload_detailLength > 0) {
+
+		var formData = new FormData(document.getElementById('modifyform'));
+		if (photouploadLength > 0 && photoupload_detailLength > 0) {
 			$.ajax({
 				url: '/modify-product',
 				data: formData,
@@ -107,10 +110,7 @@ $('document').ready(function(){
 			$.ajax({
 				url: '/modify-product',
 				data: {
-					name: $('#name').val(),
 					code: $('#code').val(),
-					price: $('#price').val(),
-					brand: $('#brand').val(),
 					content: $('#content').val(),
 					photoupload: null,
 					photoupload_detail: null
@@ -135,19 +135,19 @@ $('document').ready(function(){
 <div class="productinsert">
 <h1 class="text-center mb-3">제품 수정</h1>
 <form action="/modify-product" method="post" id="modifyform" class="productinsert-form" >
-  <div class="mb-3 row">
+  <!-- <div class="mb-3 row">
 		<label for="name" class="col-sm-2 col-form-label text-center">모델</label>
 			<div class="col-sm-10">
 				<input type="text" class="form-control" th:value="${productVO.name}" id="name" name="name" required="required"/>
 			</div>
-	</div>
+	</div> -->
 	<div class="mb-3 row">
 		<label for="code" class="col-sm-2 col-form-label text-center">상품 코드</label>
 			<div class="col-sm-10">
 				<input type="text" class="form-control" th:value="${productVO.code}" id="code" name="code" required="required" readonly/>
 			</div>
 	</div>
-	<div class="mb-3 row">
+	<!-- <div class="mb-3 row">
 		<label for="price" class="col-sm-2 col-form-label text-center">발매 가격</label>
 			<div class="col-sm-10">
 				<input type="text" class="form-control" th:value="${productVO.price}" id="price" name="price" required="required"/>
@@ -158,7 +158,7 @@ $('document').ready(function(){
 			<div class="col-sm-10">
 				<input type="text" class="form-control" th:value="${productVO.brand}" id="brand" name="brand" required="required"/>
 			</div>
-	</div>
+	</div> -->
 	<div class="mb-3 row">
 		<label for="content" class="col-sm-2 col-form-label text-center">내용</label>
 			<div class="col-sm-10">

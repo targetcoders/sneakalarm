@@ -25,9 +25,22 @@ var s3 = new AWS.S3({
 	  params: {Bucket: albumBucketName}
 });
 
+var photouploadLength = 0;
+var photoupload_detailLength = 0;
 $('document').ready(function(){
+	$('#photoupload').change(function(){
+		photouploadLength = document.getElementById('photoupload').files.length;
+	});
+	$('#photoupload_detail').change(function(){
+		photoupload_detailLength = document.getElementById('photoupload_detail').files.length;
+	});
 	$('#submitBtn').click(function(){
 		submitContents();
+		if ($('#photoupload').val().length == 0 || $('#photoupload_detail').val().length==0 || 
+				$('#code').val()=='' || $('#content').val()=='') {
+			return alert('입력하지 않은 값이 있는지 확인해주세요.');
+		}
+		
 		var formData = new FormData(document.getElementById('insertform'));
 		$.ajax({
 			url: '/product-insert',
