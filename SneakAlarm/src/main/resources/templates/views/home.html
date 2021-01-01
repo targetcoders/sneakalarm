@@ -45,7 +45,7 @@ $('document').ready(function(){
 </th:block>
 
 <div layout:fragment="content">
-	<div class="container" style="margin-top: 100px;">
+	<div class="container w-100" style="margin-top: 100px;">
 		<div sec:authorize="hasRole('ADMIN')" class="d-flex justify-content-center">
   		<a href="product-insert" style="margin-bottom:15px">
 				INSERT-PRODUCT
@@ -54,7 +54,7 @@ $('document').ready(function(){
 		<div class="container d-flex flex-wrap justify-content-center">
 			<div class="home-product" th:each="list : ${list}">
 				<div class="d-flex flex-column" th:id="|card-${list.code}|">
-					<a th:href="@{/product-details(code=${list.code})}"><img th:src="${list.imgSrc}" class="home-product-img"
+					<a th:href="@{/product-details(code=${list.code})}"><img th:src="${list.imgSrc_home}" class="home-product-img"
 							 th:alt="${list.code}"></a>
 					<div sec:authorize="hasRole('ADMIN')" class="d-flex">
 						<a class="btn btn-warning home-product-modify flex-grow-1" th:is="${list.code}">Modify</a>

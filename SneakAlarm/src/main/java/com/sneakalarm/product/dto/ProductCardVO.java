@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class ProductCardVO {
-  private String imgSrc;
+  private String imgSrc_home;
   private String name;
   private String startDate;
   private String endDate;

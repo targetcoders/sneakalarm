@@ -1,7 +1,5 @@
 <!DOCTYPE html>
-<html	xmlns="http://www.w3.org/1999/xhtml"
-			xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" 
-			xmlns:th="http://www.thymeleaf.org"
+<html	xmlns:th="http://www.thymeleaf.org"
 			xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 			layout:decorator="layout/default">
 
@@ -27,66 +25,108 @@ var s3 = new AWS.S3({
 	  params: {Bucket: albumBucketName}
 });
 
+var photouploadLength = 0;
+var photoupload_detailLength = 0;
 $('document').ready(function(){
- 	$('#modifyBtn').click(function(){
- 		submitContents();
-		imgUpload();
-  });
+	$('#photoupload').change(function(){
+		photouploadLength = document.getElementById('photoupload').files.length;
+	});
+	$('#photoupload_detail').change(function(){
+		photoupload_detailLength = document.getElementById('photoupload_detail').files.length;
+	});
+	$('#modifyBtn').click(function(){
+		submitContents();
+		var formData = new FormData(document.getElementById('modifyform'));
+		//formData.append('content',document.getElementById('content').value);
+		if ((photouploadLength > 0 && photoupload_detailLength == 0)|| (photouploadLength == 0 && photoupload_detailLength > 0)) {
+			alert('이미지를 변경하시려면 홈 이미지와 상세 이미지를 모두 선택해주세요.');
+		}
+		else if (photouploadLength > 0 && photoupload_detailLength > 0) {
+			$.ajax({
+				url: '/modify-product',
+				data: formData,
+				processData: false,
+				contentType: false,
+				type: 'POST',
+				success: function(){
+					new Promise(function(data){
+						var albumName = $('#code').val();
+					 	var file = document.getElementById('photoupload').files[0];
+					 	var fileName = file.name;
+						var albumPhotosKey = 'product/'+encodeURIComponent(albumName)+'/';
+						var photoKey = albumPhotosKey + fileName;
+					 		s3.upload({
+								Key: photoKey,
+								Body: file,
+								ACL: 'public-read'
+							}, 
+							function(err, data) {
+								if (err) {
+							  	return alert('There was an error uploading your photo: ', err.message);
+								}
+								
+								var files = document.getElementById('photoupload_detail').files;
+								for(let i=0; i<files.length; i++){
+									setTimeout(function(){
+										var file = files[i];
+										var fileName = file.name;
+										new Promise(function(data){
+											var albumName = $('#code').val();
+											var albumPhotosKey = 'product/'+encodeURIComponent(albumName)+'/';
+									 		var photoKey = albumPhotosKey + fileName;
+									 		data({photoKey:photoKey, file:file});
+										})
+										.then(function(data){
+											s3.upload({
+									 			Key: data.photoKey,
+									 			Body: data.file,
+									 			ACL: 'public-read'
+									 		}, 
+									 		function(err, data) {
+									 			if (err) {
+									 		  	return alert('There was an error uploading your photo: ', err.message);
+									 			}
+									 			if(i == files.length-1){
+									 				alert('이미지와 내용이 수정되었습니다.');
+									 				location.href='/';
+									 			}
+									 		});
+										});	
+									},500);
+							}
+								
+							});
+					});
+				},
+				error: function(){
+					alert('error!');
+				}
+			});
+		}
+		else {
+			$.ajax({
+				url: '/modify-product',
+				data: {
+					name: $('#name').val(),
+					code: $('#code').val(),
+					price: $('#price').val(),
+					brand: $('#brand').val(),
+					content: $('#content').val(),
+					photoupload: null,
+					photoupload_detail: null
+				},
+				type: 'POST',
+				success: function(){
+					alert('내용이 수정되었습니다.');
+					location.href="/";	
+				},
+				error: function(){
+					alert('error!');
+				}
+			});
+		}
+	});
 });
-function imgUpload(){
- 	var albumName = $('#code').val();
- 	var files = document.getElementById('photoupload').files;
- 	console.log('got files');
- 	if (!files.length) {
- 		return alert('Please choose a file to upload first.');
- 	}
- 		var file = files[0];
- 		var fileName = file.name;
- 		console.log('fileName:'+fileName);
- 		var path = encodeURIComponent(albumName);
- 		console.log(path);
-	 	var pathSplit = path.split('/');
-	 	var albumPhotosKey;
-	 	if(pathSplit.length>1){
-	 		albumPhotosKey = 'product/'+pathSplit[2]+'/';
-	 	}
-	 	else{
-	 		albumPhotosKey = 'product/'+path+'/';
-	 	}
-	 	console.log('albumPhotosKey:'+albumPhotosKey);
-	 	var photoKey = albumPhotosKey + fileName;
-	 	
-	 	s3.upload({
-	 		Key: photoKey,
-	 		Body: file,
-	 		ACL: 'public-read'
-	 	}, 
-	 	function(err, data) {
-	 		if (err) {
-	 	  	return alert('There was an error uploading your photo: ', err.message);
-		 	}
-	 		$.ajax({
-	 			url:'/modify-product',
-	 			type:'post',
-	 			data:{
-	 				name: $('#name').val(),
-	 				price: $('#price').val(),
-	 				code: $('#code').val(),
-	 				brand: $('#brand').val(),
-	 				fileList: $('#photoupload').val(),
-	 				content: $('#content').val()
-	 			},
-	 			success: function(data) {
-	 				alert('수정되었습니다.');
-	    		location.href='/';
-	   		},
-	    	error: function(){
-	    		alert('error!');
-	    	}
-	 		});
-	   });
-}	
-
 </script>
 </th:block>
 
@@ -94,7 +134,7 @@ function imgUpload(){
 <div class="container-fluid d-flex justify-content-center" style="margin-top:100px">
 <div class="productinsert">
 <h1 class="text-center mb-3">제품 수정</h1>
-<form action="/modify-product" method="post" id="modifyForm" class="productinsert-form" >
+<form action="/modify-product" method="post" id="modifyform" class="productinsert-form" >
   <div class="mb-3 row">
 		<label for="name" class="col-sm-2 col-form-label text-center">모델</label>
 			<div class="col-sm-10">
@@ -122,13 +162,19 @@ function imgUpload(){
 	<div class="mb-3 row">
 		<label for="content" class="col-sm-2 col-form-label text-center">내용</label>
 			<div class="col-sm-10">
-				<textarea name="content" th:utext="${productVO.content}" id="content" rows="10" cols="100">에디터에 기본으로 삽입할 글(수정 모드)이 없다면 이 value 값을 지정하지 않으시면 됩니다.</textarea>
+				<textarea name="content" th:utext="${productVO.content}" id="content" rows="10" cols="100"></textarea>
 			</div>
 	</div>
 	<div class="mb-3 row">
- 			<label for="photoupload" class="col-sm-2 col-form-label text-center">이미지</label>
+ 			<label for="photoupload" class="col-sm-2 col-form-label text-center">홈 이미지</label>
  			<div class="col-sm-10">
- 			<input class="form-control form-control-lg" type="file" id="photoupload" name="fileList" multiple required="required">
+ 			<input class="form-control form-control-lg" type="file" id="photoupload" name="fileList_home" multiple>
+ 			</div>
+	</div>
+	<div class="mb-3 row">
+ 			<label for="photoupload_detail" class="col-sm-2 col-form-label text-center">상세 이미지</label>
+ 			<div class="col-sm-10">
+ 			<input class="form-control form-control-lg" type="file" id="photoupload_detail" name="fileList_detail" multiple>
  			</div>
 	</div>
 	<div class="mb-3 row">

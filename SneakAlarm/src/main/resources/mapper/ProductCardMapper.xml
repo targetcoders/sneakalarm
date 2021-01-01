@@ -5,8 +5,9 @@
 
 	<select id="getProductCardList" 
 	resultType="com.sneakalarm.product.dto.ProductCardVO">
-		SELECT	name, startDate, endDate, price, imgSrc, code
+		SELECT	name, startDate, endDate, price, imgSrc_home, code
 		FROM 	product
+		ORDER BY insertdate DESC
 	</select>
 	 
 </mapper>

@@ -10,7 +10,7 @@ public interface ProductMapper {
 
   public List<ProductVO> getProductList(String code);
 
-  void deleteProduct(String code);
+  public void deleteProduct(String code);
 
-  void updateProduct(ProductVO productVO);
+  public void updateProduct(ProductVO productVO);
 }
