@@ -1,6 +1,5 @@
 package com.sneakalarm.product.service;
 
-import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -9,7 +8,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import com.amazonaws.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
 import com.sneakalarm.product.dao.ProductCardMapper;
 import com.sneakalarm.product.dao.ProductMapper;
 import com.sneakalarm.product.dto.ProductCardVO;
@@ -43,56 +42,79 @@ public class ProductServiceImpl implements ProductService {
 
     ArrayList<ProductCardVO> list =
         (ArrayList<ProductCardVO>) productCardMapper.getProductCardList();
+    ArrayList<ProductCardVO> ret = new ArrayList<ProductCardVO>();
 
-    for (ProductCardVO productCard : list) {
+    for (int i = 0; i < list.size(); i++) {
       SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
       try {
+        ProductCardVO prod = list.get(i);
         Date nowDate = new Date();
-        Date endDate = f.parse(productCard.getEndDate());
+        Date endDate = f.parse(prod.getEndDate());
         String timeLeft = getTimeLeft(endDate, nowDate);
-        productCard.setTimeLeft(timeLeft);
-        String imgSrcOrigin = productCard.getImgSrc();
+        prod.setTimeLeft(timeLeft);
+        String imgSrcOrigin = prod.getImgSrc_home();
         String[] imgSrcList = imgSrcOrigin.split(",");
-        productCard.setImgSrc(imgSrcList[0]);
-
+        prod.setImgSrc_home(imgSrcList[0]);
+        ret.add(prod);
       } catch (ParseException e) {
         e.printStackTrace();
       }
     }
-    return list;
+
+    return ret;
   }
 
   @Override
-  public void insertProduct(ProductInsertVO productInsertVO) {
+  public boolean insertProduct(ProductInsertVO productInsertVO) {
     ArrayList<ProductVO> prodList =
         (ArrayList<ProductVO>) productMapper.getProductList(productInsertVO.getCode());
     if (prodList.size() != 0) {
-      return;
+      return false;
     }
 
-    ArrayList<File> fileList = (ArrayList<File>) productInsertVO.getFileList();
-    String[] urlList = new String[fileList.size()];
+    ArrayList<MultipartFile> fileList_home =
+        (ArrayList<MultipartFile>) productInsertVO.getFileList_home();
+    System.out.println("fileList_home: " + fileList_home + " size:" + fileList_home.size());
+    ArrayList<MultipartFile> fileList_detail =
+        (ArrayList<MultipartFile>) productInsertVO.getFileList_detail();
+    System.out.println("fileList_detail:" + fileList_detail + " size:" + fileList_detail.size());
+    ArrayList<String> urlList_home = new ArrayList<String>();
     String code = productInsertVO.getCode();
-    int idx = 0;
-    for (File file : fileList) {
-      String fileName = file.getName();
+
+    for (MultipartFile file : fileList_home) {
+      String fileName = file.getOriginalFilename();
       System.out.println(fileName);
       if (fileName.substring(0, 2).contentEquals("C:")) {
         fileName = fileName.substring(12);
       }
       System.out.println(fileName);
-      // fileName.replaceAll("/^C:\\fakepath\\/gi", "");
 
       String url = "https://" + "s3." + region + ".amazonaws.com/" + bucket + "/"
           + productFolderName + code + "/" + fileName;
-      urlList[idx++] = url;
+      urlList_home.add(url);
+    }
+
+    ArrayList<String> urlList_detail = new ArrayList<String>();
+    for (MultipartFile file : fileList_detail) {
+      String fileName = file.getOriginalFilename();
+      System.out.println(fileName);
+      if (fileName.substring(0, 2).contentEquals("C:")) {
+        fileName = fileName.substring(12);
+      }
+      System.out.println("detail:" + fileName);
+
+      String url = "https://" + "s3." + region + ".amazonaws.com/" + bucket + "/"
+          + productFolderName + code + "/" + fileName;
+      urlList_detail.add(url);
     }
 
     String now = getNowDate();
-    String imgSrc = StringUtils.join(",", urlList);
+    String imgSrc_home = String.join(",", urlList_home);
+    String imgSrc_detail = String.join(",", urlList_detail);
 
     ProductVO productVO = new ProductVO(productInsertVO);
-    productVO.setImgSrc(imgSrc);
+    productVO.setImgSrc_home(imgSrc_home);
+    productVO.setImgSrc_detail(imgSrc_detail);
     productVO.setFilterCode("000");
     productVO.setStartDate(now);
     productVO.setEndDate(now);
@@ -101,6 +123,7 @@ public class ProductServiceImpl implements ProductService {
     productVO.setFlag_show(true);
     productVO.setFlag_del(false);
     productMapper.insertProduct(productVO);
+    return true;
   }
 
   public String getNowDate() {
@@ -138,24 +161,45 @@ public class ProductServiceImpl implements ProductService {
     p.setPrice(productInsertVO.getPrice());
     p.setBrand(productInsertVO.getBrand());
     p.setContent(productInsertVO.getContent());
-    ArrayList<File> fileList = (ArrayList<File>) productInsertVO.getFileList();
-    String[] urlList = new String[fileList.size()];
-    String code = productInsertVO.getCode();
 
-    int idx = 0;
-    for (File file : fileList) {
-      String fileName = file.getName();
-      System.out.println(fileName);
-      if (fileName.substring(0, 2).contentEquals("C:")) {
-        fileName = fileName.substring(12);
+    ArrayList<MultipartFile> fileList_home =
+        (ArrayList<MultipartFile>) productInsertVO.getFileList_home();
+    ArrayList<MultipartFile> fileList_detail =
+        (ArrayList<MultipartFile>) productInsertVO.getFileList_detail();
+    if (fileList_home != null && fileList_detail != null) {
+      ArrayList<String> urlList_home = new ArrayList<String>();
+      ArrayList<String> urlList_detail = new ArrayList<String>();
+      String code = productInsertVO.getCode();
+
+      for (MultipartFile file : fileList_home) {
+        String fileName = file.getOriginalFilename();
+        System.out.println(fileName);
+        if (fileName.substring(0, 2).contentEquals("C:")) {
+          fileName = fileName.substring(12);
+        }
+        System.out.println(fileName);
+        String url = "https://" + "s3." + region + ".amazonaws.com/" + bucket + "/"
+            + productFolderName + code + "/" + fileName;
+        urlList_home.add(url);
       }
-      System.out.println(fileName);
-      String url = "https://" + "s3." + region + ".amazonaws.com/" + bucket + "/"
-          + productFolderName + code + "/" + fileName;
-      urlList[idx++] = url;
+      String imgSrc_home = String.join(",", urlList_home);
+      p.setImgSrc_home(imgSrc_home);
+
+      for (MultipartFile file : fileList_detail) {
+        String fileName = file.getOriginalFilename();
+        System.out.println(fileName);
+        if (fileName.substring(0, 2).contentEquals("C:")) {
+          fileName = fileName.substring(12);
+        }
+        System.out.println(fileName);
+        String url = "https://" + "s3." + region + ".amazonaws.com/" + bucket + "/"
+            + productFolderName + code + "/" + fileName;
+        urlList_detail.add(url);
+      }
+      String imgSrc_detail = String.join(",", urlList_detail);
+      p.setImgSrc_detail(imgSrc_detail);
+
+      productMapper.updateProduct(p);
     }
-    String imgSrc = StringUtils.join(",", urlList);
-    p.setImgSrc(imgSrc);
-    productMapper.updateProduct(p);
   }
 }

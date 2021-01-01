@@ -9,7 +9,8 @@ public class ProductVO {
   private String price;
   private String brand;
   private String content;
-  private String imgSrc;
+  private String imgSrc_home;
+  private String imgSrc_detail;
   private String filterCode;
   private String startDate;
   private String endDate;

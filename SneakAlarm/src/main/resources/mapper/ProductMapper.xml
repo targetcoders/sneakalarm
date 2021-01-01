@@ -5,9 +5,9 @@
 
 	<insert id="insertProduct" 
 	parameterType="com.sneakalarm.product.dto.ProductVO">
-		INSERT	INTO product(name, code, price, brand, content, imgsrc, filtercode,
+		INSERT	INTO product(name, code, price, brand, content, imgsrc_home, imgsrc_detail, filtercode,
 							startdate, enddate, popularity, insertdate, flag_show, flag_del)
-		VALUES 	(#{name}, #{code}, #{price}, #{brand}, #{content}, #{imgSrc}, #{filterCode}, 
+		VALUES 	(#{name}, #{code}, #{price}, #{brand}, #{content}, #{imgSrc_home}, #{imgSrc_detail}, #{filterCode}, 
 				 #{startDate}, #{endDate}, #{popularity}, #{insertDate}, #{flag_show}, #{flag_del})
 
 	</insert>
@@ -25,9 +25,9 @@
 	
 	 <update id="updateProduct" parameterType="com.sneakalarm.product.dto.ProductVO">
 	 	UPDATE 	product
-	 	SET 		name=#{name}, code=#{code}, price=#{price}, brand=#{brand}, content=#{content}, imgSrc=#{imgSrc}, 
-	 					filtercode=#{filterCode}, startdate=#{startDate}, enddate=#{endDate}, popularity=#{popularity}, 
-	 					insertdate=#{insertDate}, flag_show=#{flag_show}, flag_del=#{flag_del}
+	 	SET 		name=#{name}, price=#{price}, brand=#{brand}, content=#{content}, 
+	 					imgsrc_home=#{imgSrc_home}, imgsrc_detail=#{imgSrc_detail}, 
+	 					filtercode=#{filterCode}, startdate=#{startDate}, enddate=#{endDate}, popularity=#{popularity} 
 	 	WHERE 	code=#{code}
 	 </update>
 </mapper>

@@ -36,9 +36,10 @@ public class ProductController {
   }
 
   @PostMapping("/modify-product")
-  public String modifyProduct(ProductInsertVO productInsertVO) {
+  @ResponseBody
+  public boolean modifyProduct(ProductInsertVO productInsertVO) {
     productServiceImpl.updateProduct(productInsertVO);
-    return "views/home";
+    return true;
   }
 
   @GetMapping("/product-insert")
@@ -47,9 +48,10 @@ public class ProductController {
   }
 
   @PostMapping("/product-insert")
-  public String insertProduct(ProductInsertVO productInsertVO) throws Exception {
+  @ResponseBody
+  public boolean insertProduct(ProductInsertVO productInsertVO) throws Exception {
     productServiceImpl.insertProduct(productInsertVO);
-    return "views/home";
+    return true;
   }
 
   @GetMapping("/product-delete")
@@ -62,14 +64,14 @@ public class ProductController {
   public String getProductDetails(@Param("code") String code, Model model) {
     ArrayList<ProductVO> productVOList =
         (ArrayList<ProductVO>) productServiceImpl.getProductList(code);
-    ProductVO productVO = productVOList.get(0);
-    String[] urlArray = productVO.getImgSrc().split(",");
-    ArrayList<String> urlList = new ArrayList<String>();
-    for (String url : urlArray) {
-      urlList.add(url);
+    if (productVOList.size() == 0) {
+      return "/";
     }
+    ProductVO productVO = productVOList.get(0);
+
+    String[] urlArray = productVO.getImgSrc_detail().split(",");
     model.addAttribute("productVO", productVO);
-    model.addAttribute("urlList", urlList);
+    model.addAttribute("urlList_detail", urlArray);
     return "views/product-details";
   }
 

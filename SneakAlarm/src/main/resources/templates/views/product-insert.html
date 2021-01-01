@@ -25,72 +25,73 @@ var s3 = new AWS.S3({
 	  params: {Bucket: albumBucketName}
 });
 
-
-
 $('document').ready(function(){
-	$('#photoupload').change(function(){
-		var fileList = this.files;
-		for(var i=0; i<fileList.length; i++){
-			fileList[i].name = fileList[i].name.replace(/^C:\\fakepath\\/gi, '');
-			console.log(fileList[i].name);
-		}
+	$('#submitBtn').click(function(){
+		submitContents();
+		var formData = new FormData(document.getElementById('insertform'));
+		$.ajax({
+			url: '/product-insert',
+			data: formData,
+			processData: false,
+			contentType: false,
+			type: 'POST',
+			success: function(){
+				new Promise(function(data){
+					var albumName = $('#code').val();
+				 	var file = document.getElementById('photoupload').files[0];
+				 	var fileName = file.name;
+					var albumPhotosKey = 'product/'+encodeURIComponent(albumName)+'/';
+					var photoKey = albumPhotosKey + fileName;
+				 		s3.upload({
+							Key: photoKey,
+							Body: file,
+							ACL: 'public-read'
+						}, 
+						function(err, data) {
+							if (err) {
+						  	return alert('There was an error uploading your photo: ', err.message);
+							}
+							
+							var files = document.getElementById('photoupload_detail').files;
+							console.log(files);
+							for(let i=0; i<files.length; i++){
+								setTimeout(function(){
+									var file = files[i];
+									console.log(file);
+									var fileName = file.name;
+									new Promise(function(data){
+										var albumName = $('#code').val();
+										var albumPhotosKey = 'product/'+encodeURIComponent(albumName)+'/';
+								 		var photoKey = albumPhotosKey + fileName;
+								 		data({photoKey:photoKey, file:file});
+									})
+									.then(function(data){
+										s3.upload({
+								 			Key: data.photoKey,
+								 			Body: data.file,
+								 			ACL: 'public-read'
+								 		}, 
+								 		function(err, data) {
+								 			if (err) {
+								 		  	return alert('There was an error uploading your photo: ', err.message);
+								 			}
+								 			if(i == files.length-1){
+								 				alert('제품이 성공적으로 등록되었습니다.');
+								 				location.href='/';
+								 			}
+								 		});
+									});	
+								},500);
+						}
+						});
+				});
+			},
+			error: function(){
+				alert('error!');
+			}
+		});
 	});
-	
- 	$('#submitBtn').click(function(){
- 		console.log($('photoupload').val());
- 		submitContents();
-   	$.ajax({
-	  	url:'./product-insert',
-	    type:'post',
-	    data:{
-       	name: $('#name').val(),
-	     	code: $('#code').val(),
-	     	price: $('#price').val(),
-	     	brand: $('#brand').val(),
-	     	content: $('#content').val(),
-	     	fileList: $('#photoupload').val()
-	    },
-	    success: function(data) {
-				imgUpload();
-	   	},
-	    error: function(){
-	    	alert('error!');
-	    }
-	  });
-  });
- 	function imgUpload(){
- 	 	var albumName = $('#code').val();
- 	 	var files = document.getElementById('photoupload').files;
- 	 	console.log('got files');
- 	 	if (!files.length) {
- 	 		return alert('Please choose a file to upload first.');
- 	 	}
- 	 	var file = files[0];
- 	 	var fileName = file.name.replace(/^C:\\fakepath\\/gi, '');
- 	 	console.log('fileName:'+fileName);
- 		var albumPhotosKey = 'product/'+encodeURIComponent(albumName)+'/';
- 		console.log('albumPhotosKey:'+albumPhotosKey);
- 		var photoKey = albumPhotosKey + fileName;
- 		
- 		s3.upload({
- 			Key: photoKey,
- 			Body: file,
- 			ACL: 'public-read'
- 		}, 
- 		function(err, data) {
- 			if (err) {
- 		  	alert('There was an error uploading your photo: ', err.message);
- 			}
- 			alert('Successfully uploaded photo.');
- 		 	  location.href='/';
- 		});
- 	}	
 });
-
-function deleteFakepath(){
-	
-}
-
 </script>
 </th:block>
 
@@ -98,20 +99,20 @@ function deleteFakepath(){
 <div class="container-fluid d-flex justify-content-center" style="margin-top:100px">
 <div class="productinsert">
 <h1 class="text-center mb-3">제품 등록</h1>
-<form action="/product-insert" method="post" id="insertform" class="productinsert-form" >
-  <div class="mb-3 row">
+<form action="/product-insert" method="post" id="insertform" class="productinsert-form">
+  <!-- <div class="mb-3 row">
 		<label for="name" class="col-sm-2 col-form-label text-center">모델</label>
 			<div class="col-sm-10">
 				<input type="text" class="form-control" id="name" name="name" required="required"/>
 			</div>
-	</div>
+	</div> -->
 	<div class="mb-3 row">
 		<label for="code" class="col-sm-2 col-form-label text-center">상품 코드</label>
 			<div class="col-sm-10">
 				<input type="text" class="form-control" id="code" name="code" required="required"/>
 			</div>
 	</div>
-	<div class="mb-3 row">
+	<!-- <div class="mb-3 row">
 		<label for="price" class="col-sm-2 col-form-label text-center">발매 가격</label>
 			<div class="col-sm-10">
 				<input type="text" class="form-control" id="price" name="price" required="required"/>
@@ -122,7 +123,7 @@ function deleteFakepath(){
 			<div class="col-sm-10">
 				<input type="text" class="form-control" id="brand" name="brand" required="required"/>
 			</div>
-	</div>
+	</div> -->
 	<div class="mb-3 row">
 		<label for="content" class="col-sm-2 col-form-label text-center">내용</label>
 			<div class="col-sm-10">
@@ -130,10 +131,15 @@ function deleteFakepath(){
 			</div>
 	</div>
 	<div class="mb-3 row">
- 			<label for="photoupload" class="col-sm-2 col-form-label text-center">이미지</label>
+ 			<label for="photoupload" class="col-sm-2 col-form-label text-center">홈 이미지</label>
  			<div class="col-sm-10">
- 			<input class="form-control form-control-lg" type="file" id="photoupload" name="fileList" multiple required="required" onchange="deleteFakepath()">
- 			<div id="filenames">??</div>
+ 			<input class="form-control form-control-lg" type="file" id="photoupload" name="fileList_home" multiple required="required" >
+ 			</div>
+	</div>
+	<div class="mb-3 row">
+ 			<label for="photoupload_detail" class="col-sm-2 col-form-label text-center">상세 이미지</label>
+ 			<div class="col-sm-10">
+ 			<input class="form-control form-control-lg" type="file" id="photoupload_detail" name="fileList_detail" multiple required="required">
  			</div>
 	</div>
 	<div class="mb-3 row">
