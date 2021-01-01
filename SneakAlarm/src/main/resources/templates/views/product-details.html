@@ -16,7 +16,7 @@
 <div layout:fragment="content">
 <div class="container">
 	<div class="container detail-img" style="margin-top:77.5px">
-		<div id="carouselExampleControls" class="carousel slide d-flex jusfity-content-center" data-bs-ride="carousel">
+		<div id="carouselExampleControls" class="carousel slide carousel-dark d-flex jusfity-content-center" data-bs-ride="carousel">
   		<div class="carousel-inner">
   			<div th:each="url, index : ${urlList_detail}" th:if="${index.count} eq 1" class="carousel-item active">
   				<img th:src="${url}" alt="..." class="detail-img">
