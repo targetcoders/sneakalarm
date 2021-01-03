@@ -14,12 +14,6 @@ $('document').ready(function(){
 	$('.home-product-modify').click(function(){
 		var code = $(this).attr("is");
 		location.href="/modify-product?code="+code;
-		/* var form = $('<form></form>');
-		form.attr('action','/modify-product-form');
-		form.attr('method','post');
-		form.appendTo('body');
-		form.append($('<input type="hidden" value="'+code+'" name="code"/>'));
-		form.submit(); */
 	});
 	
  	$('.home-product-delete').click(function(){

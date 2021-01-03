@@ -24,7 +24,7 @@ $('document').ready(function(){
 	    	},
 	    	success: function(data) {
 	    		alert('삭제되었습니다.');
-	    		location.href="/";
+	    		location.replace("/");
 	   		},
 	    	error: function(){
 	    		alert('error!');
@@ -33,6 +33,10 @@ $('document').ready(function(){
 			}
 	});
 });
+
+function move(code){
+	location.replace("/modify-product?code="+code);
+}
 
 
 </script>
@@ -67,8 +71,7 @@ $('document').ready(function(){
 			</div>
 		</div>
 		<div class="d-grid gap-3 d-md-flex justify-content-md-center" style="margin-bottom:20px">
-		<a sec:authorize="hasRole('ADMIN')" th:href="@{/modify-product(code=${productVO.code})}"
-							 class="btn btn-dark itemalign-center">
+		<a sec:authorize="hasRole('ADMIN')" class="btn btn-dark itemalign-center" th:onclick="javascript:move([[${productVO.code}]])">
 			MODIFY		 
 		</a>
 		<button sec:authorize="hasRole('ADMIN')" class="btn btn-dark itemalign-center" id="detail-product-delete" th:is="${productVO.code}">
