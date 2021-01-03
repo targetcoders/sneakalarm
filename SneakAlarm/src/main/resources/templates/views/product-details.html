@@ -10,6 +10,31 @@
 
 <th:block layout:fragment="script">
 <script>
+$('document').ready(function(){
+	
+	$('#detail-product-delete').click(function(){
+		var code = $(this).attr('is');
+			var res = confirm('code: '+code+'\n정말 삭제하시겠습니까?');
+			if(res){
+			$.ajax({
+	  		url:'/product-delete',
+	    	type:'get',
+	    	data:{
+	     		code: code
+	    	},
+	    	success: function(data) {
+	    		alert('삭제되었습니다.');
+	    		location.href="/";
+	   		},
+	    	error: function(){
+	    		alert('error!');
+	    	}
+			});
+			}
+	});
+});
+
+
 </script>
 </th:block>
 
@@ -42,8 +67,15 @@
 			</div>
 		</div>
 		<div class="d-grid gap-3 d-md-flex justify-content-md-center" style="margin-bottom:20px">
+		<a sec:authorize="hasRole('ADMIN')" th:href="@{/modify-product(code=${productVO.code})}"
+							 class="btn btn-dark itemalign-center">
+			MODIFY		 
+		</a>
+		<button sec:authorize="hasRole('ADMIN')" class="btn btn-dark itemalign-center" id="detail-product-delete" th:is="${productVO.code}">
+			DELETE	 
+		</button>
 		<a sec:authorize="hasRole('ADMIN')" th:href="@{/raffle-insert(code=${productVO.code},name=${productVO.name})}"
-							 class="btn btn-dark itemalign-center" style="display:none">
+							 class="btn btn-dark itemalign-center" id="#detail-product-delete" style="display:none">
 			RAFFLE-INSERT					 
 		</a>
 		</div>

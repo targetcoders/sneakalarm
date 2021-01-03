@@ -27,7 +27,7 @@ public class ProductController {
     return "views/home";
   }
 
-  @PostMapping("/modify-product-form")
+  @GetMapping("/modify-product")
   public String modifyProduct(@Param("code") String code, Model model) {
     ArrayList<ProductVO> list = (ArrayList<ProductVO>) productServiceImpl.getProductList(code);
     ProductVO productVO = list.get(0);

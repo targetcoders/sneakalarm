@@ -13,12 +13,13 @@ $('document').ready(function(){
 	
 	$('.home-product-modify').click(function(){
 		var code = $(this).attr("is");
-		var form = $('<form></form>');
+		location.href="/modify-product?code="+code;
+		/* var form = $('<form></form>');
 		form.attr('action','/modify-product-form');
 		form.attr('method','post');
 		form.appendTo('body');
 		form.append($('<input type="hidden" value="'+code+'" name="code"/>'));
-		form.submit();
+		form.submit(); */
 	});
 	
  	$('.home-product-delete').click(function(){
@@ -26,7 +27,7 @@ $('document').ready(function(){
  		var res = confirm('code: '+code+'\n정말 삭제하시겠습니까?');
  		if(res){
    		$.ajax({
-	  		url:'./product-delete',
+	  		url:'/product-delete',
 	    	type:'get',
 	    	data:{
 	     		code: code
