@@ -9,7 +9,7 @@
 </th:block>
 
 <th:block layout:fragment="script">
-<script>
+<script sec:authorize="hasRole('ADMIN')">
 $('document').ready(function(){
 	
 	$('#detail-product-delete').click(function(){
@@ -37,8 +37,6 @@ $('document').ready(function(){
 function move(code){
 	location.replace("/modify-product?code="+code);
 }
-
-
 </script>
 </th:block>
 
