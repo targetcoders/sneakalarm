@@ -10,9 +10,9 @@ public interface ProductService {
 
   boolean insertProduct(ProductInsertVO productInsertVO) throws Exception;
 
-  List<ProductVO> getProductList(String code);
+  List<ProductVO> getProductList(String id);
 
-  boolean deleteProduct(String code);
+  boolean deleteProduct(String id);
 
   void updateProduct(ProductInsertVO productInsertVO);
 }

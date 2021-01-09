@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html	xmlns="http://www.w3.org/1999/xhtml" 
+			xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+      layout:decorator="layout/default">
+	
+<th:block layout:fragment="css">
+<link rel="stylesheet" th:href="@{/css/product-detail.css}" type="text/css">
+</th:block>
+
+<th:block layout:fragment="script">
+<script sec:authorize="hasRole('ADMIN')">
+$('document').ready(function(){
+	
+	$('#detail-product-delete').click(function(){
+		var id = $(this).attr('is');
+			var res = confirm('id: '+id+'\n정말 삭제하시겠습니까?');
+			if(res){
+			$.ajax({
+	  		url:'/product-delete',
+	    	type:'get',
+	    	data:{
+	     		id: id
+	    	},
+	    	success: function(data) {
+	    		alert('삭제되었습니다.');
+	    		location.replace("/");
+	   		},
+	    	error: function(){
+	    		alert('error!');
+	    	}
+			});
+			}
+	});
+});
+
+function move(id){
+	location.replace("/product-modify?id="+id);
+}
+</script>
+</th:block>
+
+<div layout:fragment="content">
+<div class="container" id="product-detail-container">
+	<div class="container-fluid">
+		<div id="carousel-detail-img" class="carousel slide carousel-dark" data-bs-ride="carousel">
+  		<div class="carousel-inner detail-img">
+  			<div th:each="url, index : ${urlList_detail}" th:if="${index.count} eq 1" class="carousel-item active" data-bs-interval="7000">
+  				<img th:src="${url}" alt="..." class="detail-img">
+  			</div>
+  			<div th:each="url, index : ${urlList_detail}" th:unless="${index.count} eq 1" class="carousel-item" data-bs-interval="3500">
+  				<img th:src="${url}" alt="..." class="detail-img">
+  			</div>
+  		</div>
+  		<a class="carousel-control-prev" href="#carousel-detail-img" role="button" data-bs-slide="prev">
+    		<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    		<span class="visually-hidden">Previous</span>
+  		</a>
+  		<a class="carousel-control-next" href="#carousel-detail-img" role="button" data-bs-slide="next">
+    		<span class="carousel-control-next-icon" aria-hidden="true"></span>
+    		<span class="visually-hidden">Next</span>
+  		</a>
+		</div>
+	</div>
+		<div class="container d-flex justify-content-center">
+			<div class="information d-flex flex-column justify-content-center" id="information-container">
+				<div class="information-head" id="information-head">
+					<div class="information-head-model text-center">
+						<span th:utext="${productVO.model_kr}" id="model_kr"></span><br>
+						<span th:utext="${productVO.model_en}" id="model_en"></span>
+					</div>
+				</div>
+			<div class="information-body d-flex flex-column align-items-center">
+				<div class="information-body-section1">
+				<table class="table table-bordered">
+				<tbody>
+				<tr>
+					<td class="tableRowName"><b>발매 일자</b></td>
+					<td colspan="2"><b><span th:utext="${productVO.releaseStartDate}"></span> ~ <span th:utext="${productVO.releaseEndDate}"></span></b></td>
+				</tr>
+				<tr id="premiumPrice">
+					<td class="tableRowName"><span id="premiumPriceName"><b>프리미엄</b></span></td>
+					<td colspan="2"><b><span id="premiumPriceValue" th:utext="${productVO.premiumPrice}"></span></b></td>
+				</tr>
+				<tr>
+					<td class="tableRowName">최근 거래 가격</td>
+					<td colspan="2"><span th:utext="${productVO.lowestSoldPrice}"></span> ~ <span th:utext="${productVO.highestSoldPrice}"></span></td>
+				</tr>
+				<tr>
+					<td class="tableRowName">평균 거래 가격</td>
+					<td colspan="2"><span th:utext="${productVO.averageSalePrice}"></span></td>
+				</tr>
+				<tr>
+					<td class="tableRowName">발매 가격</td>
+					<td colspan="2"><span th:utext="${productVO.retailPrice}"></span></td>
+				</tr>
+					<tr style="border-top: 2px solid">
+						<td class="tableRowName">브랜드</td>
+						<td class="tableRowName">사이즈</td>
+						<td class="tableRowName">코드</td> 
+					</tr>
+					<tr>
+						<td class="tableRowValue"><span th:utext="${productVO.brand}"></span></td>
+						<td class="tableRowValue"><span th:utext="${productVO.size}"></span></td>
+						<td class="tableRowValue"><span th:utext="${productVO.code}"></span></td>
+					</tr>
+				</tbody>
+				</table>
+				<div id="lastUpdatedDate">
+					<span th:utext="|[${productVO.lastUpdateDate} 기준]|" style="color:#B8B8B8"></span>
+				</div>
+				</div>
+				<div class="information-body-content" style="color:#5e5e5e">
+					<span th:utext=${productVO.content} ></span><br>
+				</div>
+				</div>
+			</div>
+		</div>
+		<div class="d-grid gap-3 d-md-flex justify-content-md-center" style="margin-bottom:20px">
+		<a sec:authorize="hasRole('ADMIN')" class="btn btn-dark itemalign-center" th:onclick="javascript:move([[${productVO.id}]])">
+			MODIFY		 
+		</a>
+		<button sec:authorize="hasRole('ADMIN')" class="btn btn-dark itemalign-center" id="detail-product-delete" th:is="${productVO.id}">
+			DELETE	 
+		</button>
+		<a sec:authorize="hasRole('ADMIN')" th:href="@{/raffle-insert(code=${productVO.code})}"
+							 class="btn btn-dark itemalign-center" id="#detail-product-delete" style="display:none">
+			RAFFLE-INSERT					 
+		</a>
+		</div>
+</div>
+</div>
+
+</html>

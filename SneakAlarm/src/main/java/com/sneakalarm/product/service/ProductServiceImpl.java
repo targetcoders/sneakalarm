@@ -1,6 +1,5 @@
 package com.sneakalarm.product.service;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -45,20 +44,16 @@ public class ProductServiceImpl implements ProductService {
     ArrayList<ProductCardVO> ret = new ArrayList<ProductCardVO>();
 
     for (int i = 0; i < list.size(); i++) {
-      SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-      try {
-        ProductCardVO prod = list.get(i);
-        Date nowDate = new Date();
-        Date endDate = f.parse(prod.getEndDate());
-        String timeLeft = getTimeLeft(endDate, nowDate);
-        prod.setTimeLeft(timeLeft);
-        String imgSrcOrigin = prod.getImgSrc_home();
-        String[] imgSrcList = imgSrcOrigin.split(",");
-        prod.setImgSrc_home(imgSrcList[0]);
-        ret.add(prod);
-      } catch (ParseException e) {
-        e.printStackTrace();
-      }
+      // SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+      ProductCardVO productCard = list.get(i);
+      // Date nowDate = new Date();
+      // Date endDate = f.parse(productCard.getReleaseEndDate());
+      // String timeLeft = getTimeLeft(endDate, nowDate);
+      // productCard.setTimeLeft(timeLeft);
+      String imgSrcOrigin = productCard.getImgSrc_home();
+      String[] imgSrcList = imgSrcOrigin.split(",");
+      productCard.setImgSrc_home(imgSrcList[0]);
+      ret.add(productCard);
     }
 
     return ret;
@@ -74,10 +69,8 @@ public class ProductServiceImpl implements ProductService {
 
     ArrayList<MultipartFile> fileList_home =
         (ArrayList<MultipartFile>) productInsertVO.getFileList_home();
-    System.out.println("fileList_home: " + fileList_home + " size:" + fileList_home.size());
     ArrayList<MultipartFile> fileList_detail =
         (ArrayList<MultipartFile>) productInsertVO.getFileList_detail();
-    System.out.println("fileList_detail:" + fileList_detail + " size:" + fileList_detail.size());
     ArrayList<String> urlList_home = new ArrayList<String>();
     String code = productInsertVO.getCode();
 
@@ -87,7 +80,6 @@ public class ProductServiceImpl implements ProductService {
       if (fileName.substring(0, 2).contentEquals("C:")) {
         fileName = fileName.substring(12);
       }
-      System.out.println(fileName);
 
       String url = "https://" + "s3." + region + ".amazonaws.com/" + bucket + "/"
           + productFolderName + code + "/" + fileName;
@@ -97,11 +89,9 @@ public class ProductServiceImpl implements ProductService {
     ArrayList<String> urlList_detail = new ArrayList<String>();
     for (MultipartFile file : fileList_detail) {
       String fileName = file.getOriginalFilename();
-      System.out.println(fileName);
       if (fileName.substring(0, 2).contentEquals("C:")) {
         fileName = fileName.substring(12);
       }
-      System.out.println("detail:" + fileName);
 
       String url = "https://" + "s3." + region + ".amazonaws.com/" + bucket + "/"
           + productFolderName + code + "/" + fileName;
@@ -115,19 +105,21 @@ public class ProductServiceImpl implements ProductService {
     ProductVO productVO = new ProductVO(productInsertVO);
     productVO.setImgSrc_home(imgSrc_home);
     productVO.setImgSrc_detail(imgSrc_detail);
-    productVO.setFilterCode("000");
-    productVO.setStartDate(now);
-    productVO.setEndDate(now);
+    // productVO.setReleaseStartDate(now);
+    // productVO.setReleaseEndDate(now);
+    productVO.setLastUpdateDate(now);
     productVO.setPopularity("0");
     productVO.setInsertDate(now);
-    productVO.setFlag_show(true);
-    productVO.setFlag_del(false);
+    productVO.setReleaseDate(now);
+    productVO.setCountry("모두/해외/국내/");
+    productVO.setDraw("선착/응모");
+    productVO.setIsDeleted(false);
     productMapper.insertProduct(productVO);
     return true;
   }
 
   public String getNowDate() {
-    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
     Date date = new Date();
     return sdf.format(date);
   }
@@ -155,17 +147,31 @@ public class ProductServiceImpl implements ProductService {
   @Override
   public void updateProduct(ProductInsertVO productInsertVO) {
     ArrayList<ProductVO> list =
-        (ArrayList<ProductVO>) productMapper.getProductList(productInsertVO.getCode());
-    ProductVO p = list.get(0);
-    p.setName(productInsertVO.getName());
-    p.setPrice(productInsertVO.getPrice());
-    p.setBrand(productInsertVO.getBrand());
-    p.setContent(productInsertVO.getContent());
+        (ArrayList<ProductVO>) productMapper.getProductList(productInsertVO.getId());
+    ProductVO product = list.get(0);
+
+    product.setModel_kr(productInsertVO.getModel_kr());
+    product.setModel_en(productInsertVO.getModel_en());
+    product.setRetailPrice(productInsertVO.getRetailPrice());
+    product.setBrand(productInsertVO.getBrand());
+    product.setContent(productInsertVO.getContent());
+    product.setReleaseStartDate(productInsertVO.getReleaseStartDate());
+    product.setReleaseEndDate(productInsertVO.getReleaseEndDate());
+    product.setPremiumPrice(productInsertVO.getPremiumPrice());
+    product.setAverageSalePrice(productInsertVO.getAverageSalePrice());
+    product.setLowestSoldPrice(productInsertVO.getLowestSoldPrice());
+    product.setHighestSoldPrice(productInsertVO.getHighestSoldPrice());
+    product.setSize(productInsertVO.getSize());
+    product.setCode(productInsertVO.getCode());
+    if (productInsertVO.getIsChanged().equals("true")) {
+      product.setLastUpdateDate(getNowDate());
+    }
 
     ArrayList<MultipartFile> fileList_home =
         (ArrayList<MultipartFile>) productInsertVO.getFileList_home();
     ArrayList<MultipartFile> fileList_detail =
         (ArrayList<MultipartFile>) productInsertVO.getFileList_detail();
+
     if (fileList_home != null && fileList_detail != null) {
       ArrayList<String> urlList_home = new ArrayList<String>();
       ArrayList<String> urlList_detail = new ArrayList<String>();
@@ -177,28 +183,25 @@ public class ProductServiceImpl implements ProductService {
         if (fileName.substring(0, 2).contentEquals("C:")) {
           fileName = fileName.substring(12);
         }
-        System.out.println(fileName);
         String url = "https://" + "s3." + region + ".amazonaws.com/" + bucket + "/"
             + productFolderName + code + "/" + fileName;
         urlList_home.add(url);
       }
       String imgSrc_home = String.join(",", urlList_home);
-      p.setImgSrc_home(imgSrc_home);
+      product.setImgSrc_home(imgSrc_home);
 
       for (MultipartFile file : fileList_detail) {
         String fileName = file.getOriginalFilename();
-        System.out.println(fileName);
         if (fileName.substring(0, 2).contentEquals("C:")) {
           fileName = fileName.substring(12);
         }
-        System.out.println(fileName);
         String url = "https://" + "s3." + region + ".amazonaws.com/" + bucket + "/"
             + productFolderName + code + "/" + fileName;
         urlList_detail.add(url);
       }
       String imgSrc_detail = String.join(",", urlList_detail);
-      p.setImgSrc_detail(imgSrc_detail);
+      product.setImgSrc_detail(imgSrc_detail);
     }
-    productMapper.updateProduct(p);
+    productMapper.updateProduct(product);
   }
 }

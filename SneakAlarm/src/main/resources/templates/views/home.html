@@ -12,22 +12,22 @@
 $('document').ready(function(){
 	
 	$('.home-product-modify').click(function(){
-		var code = $(this).attr("is");
-		location.href="/modify-product?code="+code;
+		var id = $(this).attr("is");
+		location.href="/product-modify?id="+id;
 	});
 	
  	$('.home-product-delete').click(function(){
-		var code = $(this).attr("is");
- 		var res = confirm('code: '+code+'\n정말 삭제하시겠습니까?');
+		var id = $(this).attr("is");
+ 		var res = confirm('id: '+id+'\n정말 삭제하시겠습니까?');
  		if(res){
    		$.ajax({
 	  		url:'/product-delete',
 	    	type:'get',
 	    	data:{
-	     		code: code
+	     		id: id
 	    	},
 	    	success: function(data) {
-	    		$("#card-"+code).remove();
+	    		$("#card-"+id).remove();
 	   		},
 	    	error: function(){
 	    		alert('error!');
@@ -40,20 +40,19 @@ $('document').ready(function(){
 </th:block>
 
 <div layout:fragment="content">
-	<div class="container w-100" style="margin-top: 77.5px;">
+	<div class="container w-100 d-flex flex-wrap justify-content-center" style="margin-top: 77.5px;">
 		<div sec:authorize="hasRole('ADMIN')" class="d-flex justify-content-center">
   		<a href="product-insert" style="margin-bottom:15px">
 				INSERT-PRODUCT
 			</a>
 		</div>
-		<div class="container d-flex flex-wrap justify-content-center">
+		<div class="container-fluid d-flex flex-wrap justify-content-center">
 			<div class="home-product" th:each="list : ${list}">
-				<div class="d-flex flex-column" th:id="|card-${list.code}|">
-					<a th:href="@{/product-details(code=${list.code})}"><img th:src="${list.imgSrc_home}" class="home-product-img"
-							 th:alt="${list.code}"></a>
+				<div class="d-flex flex-column" th:id="|card-${list.id}|">
+					<a th:href="@{/product-detail(id=${list.id})}"><img th:src="${list.imgSrc_home}" class="home-product-img"></a>
 					<div sec:authorize="hasRole('ADMIN')" class="d-flex">
-						<a class="btn btn-warning home-product-modify flex-grow-1" th:is="${list.code}">Modify</a>
-						<a class="btn btn-danger home-product-delete flex-grow-1" th:is="${list.code}">Delete</a>
+						<a class="btn btn-warning home-product-modify flex-grow-1" th:is="${list.id}">Modify</a>
+						<a class="btn btn-danger home-product-delete flex-grow-1" th:is="${list.id}">Delete</a>
 					</div>
 				</div>
 			</div>

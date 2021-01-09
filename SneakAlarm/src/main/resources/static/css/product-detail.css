@@ -1,1 +1,55 @@
 @charset "UTF-8";
+
+#information-container {
+	width: 700px;
+	margin-top:40px;
+}
+#model_kr {
+	font-size: 24px;
+	font-weight: bold;
+}
+#model_en {
+	font-size: 14px;
+	font-weight: bold;
+	color: #b8b8b8;
+}
+#information-head {
+	margin-bottom: 12.5px;
+}
+.information .table {
+	width:500px;
+}
+.information-body div {
+	margin-bottom:12.5px;
+	font-size: 14px;
+}
+#lastUpdatedDate {
+	font-size: 12px;
+	text-align: center;
+}
+.information-section1{
+
+}
+.information-body-content {
+	width: 500px;
+	text-align: left;
+}
+#product-detail-container {
+	margin-top:77.5px;
+}
+#premiumPrice {
+	background-color: #000000;
+	font-style: italic;
+}
+#premiumPriceName {
+	color: #ffffff;
+}
+#premiumPriceValue {
+	color: #fe0100;
+}
+.tableRowName {
+	text-align: center;
+}
+.tableRowValue {
+	text-align: center;
+}

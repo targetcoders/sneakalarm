@@ -6,13 +6,23 @@ import lombok.Data;
 
 @Data
 public class ProductInsertVO {
-  private String name;
+  private String id;
+  private String model_kr;
+  private String model_en;
   private String code;
-  private String price;
+  private String retailPrice;
   private String brand;
   private String content;
+  private String releaseStartDate;
+  private String releaseEndDate;
+  private String premiumPrice;
+  private String averageSalePrice;
+  private String size;
+  private String lowestSoldPrice;
+  private String highestSoldPrice;
   private List<MultipartFile> fileList_home;
   private List<MultipartFile> fileList_detail;
+  private String isChanged;
 
   public ProductInsertVO() {}
 }

@@ -4,13 +4,13 @@ import lombok.Data;
 
 @Data
 public class ProductCardVO {
-  private String imgSrc_home;
-  private String name;
-  private String startDate;
-  private String endDate;
-  private String timeLeft;
-  private String price;
+  private long id;
+  private String model;
   private String code;
+  private String retailPrice;
+  private String releaseEndDate;
+  private String timeLeft;
+  private String imgSrc_home;
 
   public ProductCardVO() {}
 }

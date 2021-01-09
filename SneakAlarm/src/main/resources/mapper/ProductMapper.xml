@@ -5,29 +5,32 @@
 
 	<insert id="insertProduct" 
 	parameterType="com.sneakalarm.product.dto.ProductVO">
-		INSERT	INTO product(name, code, price, brand, content, imgsrc_home, imgsrc_detail, filtercode,
-							startdate, enddate, popularity, insertdate, flag_show, flag_del)
-		VALUES 	(#{name}, #{code}, #{price}, #{brand}, #{content}, #{imgSrc_home}, #{imgSrc_detail}, #{filterCode}, 
-				 #{startDate}, #{endDate}, #{popularity}, #{insertDate}, #{flag_show}, #{flag_del})
-
+		INSERT	INTO product(model_kr, model_en, code, retailPrice, brand, content, imgSrc_home, imgSrc_detail,
+							releaseStartDate, releaseEndDate, popularity, insertDate, releaseDate, premiumPrice, averageSalePrice, 
+							lastUpdateDate, size, country, draw, lowestSoldPrice, highestSoldPrice, isDeleted)
+		VALUES 	(#{model_kr}, #{model_en}, #{code}, #{retailPrice}, #{brand}, #{content}, #{imgSrc_home}, #{imgSrc_detail},
+							#{releaseStartDate}, #{releaseEndDate}, #{popularity}, #{insertDate}, #{releaseDate}, #{premiumPrice}, #{averageSalePrice}, 
+							#{lastUpdateDate}, #{size}, #{country}, #{draw}, #{lowestSoldPrice}, #{highestSoldPrice}, #{isDeleted})
 	</insert>
 	
 	<select id="getProductList" parameterType="String" resultType="com.sneakalarm.product.dto.ProductVO">
 		SELECT	*
 		FROM 	product
-		WHERE	code=#{code}
+		WHERE	id=#{id}
 	</select>
 	
 	<delete id="deleteProduct" parameterType="String">
 		DELETE FROM product
-		WHERE code=#{code}
+		WHERE id=#{id}
 	</delete>
 	
 	 <update id="updateProduct" parameterType="com.sneakalarm.product.dto.ProductVO">
 	 	UPDATE 	product
-	 	SET 		name=#{name}, price=#{price}, brand=#{brand}, content=#{content}, 
-	 					imgsrc_home=#{imgSrc_home}, imgsrc_detail=#{imgSrc_detail}, 
-	 					filtercode=#{filterCode}, startdate=#{startDate}, enddate=#{endDate}, popularity=#{popularity} 
-	 	WHERE 	code=#{code}
+	 	SET 		model_kr=#{model_kr}, model_en=#{model_en}, retailPrice=#{retailPrice}, brand=#{brand}, 
+	 					imgsrc_home=#{imgSrc_home}, imgsrc_detail=#{imgSrc_detail}, premiumPrice=#{premiumPrice},
+	 					averageSalePrice=#{averageSalePrice}, lastUpdateDate=#{lastUpdateDate}, size=#{size}, 
+	 					lowestSoldPrice=#{lowestSoldPrice}, highestSoldPrice=#{highestSoldPrice}, content=#{content},
+	 					releaseStartDate=#{releaseStartDate}, releaseEndDate=#{releaseEndDate}, code=#{code}
+	 	WHERE 	id=#{id}
 	 </update>
 </mapper>
