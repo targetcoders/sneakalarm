@@ -4,28 +4,46 @@ import lombok.Data;
 
 @Data
 public class ProductVO {
-  private String name;
+  private String id;
+  private String model_kr;
+  private String model_en;
   private String code;
-  private String price;
+  private String retailPrice;
   private String brand;
   private String content;
   private String imgSrc_home;
   private String imgSrc_detail;
-  private String filterCode;
-  private String startDate;
-  private String endDate;
+  private String releaseStartDate;
+  private String releaseEndDate;
   private String popularity;
   private String insertDate;
-  private Boolean flag_show;
-  private Boolean flag_del;
+  private String releaseDate;
+  private String premiumPrice;
+  private String averageSalePrice;
+  private String lastUpdateDate;
+  private String size;
+  private String country;
+  private String draw;
+  private String lowestSoldPrice;
+  private String highestSoldPrice;
+  private Boolean isDeleted;
 
   public ProductVO() {}
 
   public ProductVO(ProductInsertVO productInsertVO) {
-    this.name = productInsertVO.getName();
+    this.model_kr = productInsertVO.getModel_kr();
+    this.model_en = productInsertVO.getModel_en();
     this.code = productInsertVO.getCode();
-    this.price = productInsertVO.getPrice();
+    this.retailPrice = productInsertVO.getRetailPrice();
     this.brand = productInsertVO.getBrand();
     this.content = productInsertVO.getContent();
+    this.releaseStartDate = productInsertVO.getReleaseStartDate();
+    this.releaseEndDate = productInsertVO.getReleaseEndDate();
+    this.premiumPrice = productInsertVO.getPremiumPrice();
+    this.averageSalePrice = productInsertVO.getAverageSalePrice();
+    this.size = productInsertVO.getSize();
+    this.lowestSoldPrice = productInsertVO.getLowestSoldPrice();
+    this.highestSoldPrice = productInsertVO.getHighestSoldPrice();
+    this.id = productInsertVO.getId();
   }
 }

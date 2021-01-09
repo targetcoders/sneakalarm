@@ -8,9 +8,9 @@ import com.sneakalarm.product.dto.ProductVO;
 public interface ProductMapper {
   public void insertProduct(ProductVO productVO);
 
-  public List<ProductVO> getProductList(String code);
+  public List<ProductVO> getProductList(String id);
 
-  public void deleteProduct(String code);
+  public void deleteProduct(String id);
 
   public void updateProduct(ProductVO productVO);
 }

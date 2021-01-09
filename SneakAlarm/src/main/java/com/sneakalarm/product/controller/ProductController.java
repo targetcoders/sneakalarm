@@ -27,15 +27,15 @@ public class ProductController {
     return "views/home";
   }
 
-  @GetMapping("/modify-product")
-  public String modifyProduct(@Param("code") String code, Model model) {
-    ArrayList<ProductVO> list = (ArrayList<ProductVO>) productServiceImpl.getProductList(code);
+  @GetMapping("/product-modify")
+  public String modifyProduct(@Param("id") String id, Model model) {
+    ArrayList<ProductVO> list = (ArrayList<ProductVO>) productServiceImpl.getProductList(id);
     ProductVO productVO = list.get(0);
     model.addAttribute("productVO", productVO);
-    return "views/modify-product";
+    return "views/product-modify";
   }
 
-  @PostMapping("/modify-product")
+  @PostMapping("/product-modify")
   @ResponseBody
   public boolean modifyProduct(ProductInsertVO productInsertVO) {
     productServiceImpl.updateProduct(productInsertVO);
@@ -56,14 +56,14 @@ public class ProductController {
 
   @GetMapping("/product-delete")
   @ResponseBody
-  public boolean productDelete(String code) {
-    return productServiceImpl.deleteProduct(code);
+  public boolean productDelete(String id) {
+    return productServiceImpl.deleteProduct(id);
   }
 
-  @GetMapping("/product-details")
-  public String getProductDetails(@Param("code") String code, Model model) {
+  @GetMapping("/product-detail")
+  public String getProductDetails(@Param("id") String id, Model model) {
     ArrayList<ProductVO> productVOList =
-        (ArrayList<ProductVO>) productServiceImpl.getProductList(code);
+        (ArrayList<ProductVO>) productServiceImpl.getProductList(id);
     if (productVOList.size() == 0) {
       return "/";
     }
@@ -72,7 +72,7 @@ public class ProductController {
     String[] urlArray = productVO.getImgSrc_detail().split(",");
     model.addAttribute("productVO", productVO);
     model.addAttribute("urlList_detail", urlArray);
-    return "views/product-details";
+    return "views/product-detail";
   }
 
 }
