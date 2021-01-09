@@ -173,7 +173,7 @@ $('document').ready(function(){
 				type: 'POST',
 				success: function(){
 					alert('내용이 수정되었습니다.');
-					location.replace("/product-details?id="+id);
+					location.replace("/product-detail?id="+id);
 				},
 				error: function(){
 					alert('error!');
@@ -206,7 +206,7 @@ $('document').ready(function(){
 		</div>
 		<hr>
 		<div class="mb-3 row">
-			<label for="releaseStartDate" class="col-sm-2 col-form-label text-center">발매기간<br>(01/31 10:00 금 ~ 02/10 18:00 토)</label>
+			<label for="releaseStartDate" class="col-sm-2 col-form-label text-center">발매기간<br>(01/31 금 10:00 ~ 02/10 토 18:00)</label>
 			<div class="col-sm-4">
 				<input type="text" class="form-control" id="releaseStartDate" name="releaseStartDate" th:value="${productVO.releaseStartDate}" required="required"/>
 			</div>
@@ -236,15 +236,21 @@ $('document').ready(function(){
 		<hr>
 		<div class="mb-3 row">
 			<label for="averageSalePrice" class="col-sm-2 col-form-label text-center">평균거래가격<br>(321,000원)</label>
-			<div class="col-sm-10">
+			<div class="col-sm-9">
 				<input type="text" class="form-control" id="averageSalePrice" name="averageSalePrice" th:value="${productVO.averageSalePrice}" required="required"/>
+			</div>
+			<div class="col-sm-1">
+				원
 			</div>
 		</div>
 		<hr>
 		<div class="mb-3 row">
 			<label for="retailPrice" class="col-sm-2 col-form-label text-center">발매가격<br>(199,000원)</label>
-			<div class="col-sm-10">
+			<div class="col-sm-9">
 				<input type="text" class="form-control" id="retailPrice" name="retailPrice" th:value="${productVO.retailPrice}" required="required"/>
+			</div>
+			<div class="col-sm-1">
+				원
 			</div>
 		</div>
 		<hr>
@@ -272,7 +278,7 @@ $('document').ready(function(){
 		<div class="mb-3 row">
 			<label for="content" class="col-sm-2 col-form-label text-center">내용</label>
 			<div class="col-sm-10">
-				<textarea name="content" id="content" rows="10" cols="110" th:utext="${productVO.content}" ></textarea>
+				<textarea name="content" id="content" rows="10" cols="85" th:utext="${productVO.content}" ></textarea>
 			</div>
 		</div>
 		<hr>

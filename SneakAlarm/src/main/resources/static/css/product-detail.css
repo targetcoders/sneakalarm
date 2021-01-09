@@ -14,13 +14,13 @@
 	color: #b8b8b8;
 }
 #information-head {
-	margin-bottom: 12.5px;
+	margin-bottom: 18px;
 }
 .information .table {
 	width:500px;
 }
 .information-body div {
-	margin-bottom:12.5px;
+	margin-bottom:18px;
 	font-size: 14px;
 }
 #lastUpdatedDate {
@@ -52,4 +52,7 @@
 }
 .tableRowValue {
 	text-align: center;
+}
+#infoTable {
+	margin-bottom: 5px;
 }
