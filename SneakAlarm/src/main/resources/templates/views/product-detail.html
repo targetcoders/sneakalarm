@@ -73,7 +73,7 @@ function move(id){
 				</div>
 			<div class="information-body d-flex flex-column align-items-center">
 				<div class="information-body-section1">
-				<table class="table table-bordered">
+				<table class="table table-bordered" id="infoTable">
 				<tbody>
 				<tr>
 					<td class="tableRowName"><b>발매 일자</b></td>
@@ -89,11 +89,11 @@ function move(id){
 				</tr>
 				<tr>
 					<td class="tableRowName">평균 거래 가격</td>
-					<td colspan="2"><span th:utext="${productVO.averageSalePrice}"></span></td>
+					<td colspan="2"><span th:utext="${productVO.averageSalePrice}"></span>원</td>
 				</tr>
 				<tr>
 					<td class="tableRowName">발매 가격</td>
-					<td colspan="2"><span th:utext="${productVO.retailPrice}"></span></td>
+					<td colspan="2"><span th:utext="${productVO.retailPrice}"></span>원</td>
 				</tr>
 					<tr style="border-top: 2px solid">
 						<td class="tableRowName">브랜드</td>
@@ -110,9 +110,9 @@ function move(id){
 				<div id="lastUpdatedDate">
 					<span th:utext="|[${productVO.lastUpdateDate} 기준]|" style="color:#B8B8B8"></span>
 				</div>
-				</div>
 				<div class="information-body-content" style="color:#5e5e5e">
 					<span th:utext=${productVO.content} ></span><br>
+				</div>
 				</div>
 				</div>
 			</div>
