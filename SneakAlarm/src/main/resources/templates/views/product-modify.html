@@ -18,7 +18,7 @@ function validCheck(){
 	return $('#highestSoldPrice').val()=='' || $('#lowestSoldPrice').val()=='' || 
 	$('#size').val()=='' || 
 	$('#averageSalePrice').val()=='' || $('#premiumPrice').val()=='' || 
-	$('#releaseEndDate').val()=='' || $('#releaseStartDate').val()=='' || 
+	$('#releaseStartDate').val()=='' || 
 	$('#content').val()=='' || $('#brand').val()=='' || $('#code').val()=='' || 
 	$('#model_kr').val()=='' || $('#model_en').val()=='' || $('#retailPrice').val()=='';
 }		
@@ -206,7 +206,7 @@ $('document').ready(function(){
 		</div>
 		<hr>
 		<div class="mb-3 row">
-			<label for="releaseStartDate" class="col-sm-2 col-form-label text-center">발매기간<br>(01/31 금 10:00 ~ 02/10 토 18:00)</label>
+			<label for="releaseStartDate" class="col-sm-2 col-form-label text-center">발매일자<br>(01/31 금 10:00 ~ 02/10 토 18:00)</label>
 			<div class="col-sm-4">
 				<input type="text" class="form-control" id="releaseStartDate" name="releaseStartDate" th:value="${productVO.releaseStartDate}" required="required"/>
 			</div>
@@ -217,12 +217,19 @@ $('document').ready(function(){
 		</div>
 		<hr>
 		<div class="mb-3 row">
-			<label for="premiumPrice" class="col-sm-2 col-form-label text-center">프리미엄<br> (+ 000,000원 (200.9%))</label>
+			<label for="averageSalePrice" class="col-sm-2 col-form-label text-center">평균거래가격<br>(\321,000 (200.9%))</label>
+			<div class="col-sm-10">
+				<input type="text" class="form-control" id="averageSalePrice" name="averageSalePrice" th:value="${productVO.averageSalePrice}" required="required"/>
+			</div>
+		</div>
+		<hr>
+		<div class="mb-3 row">
+			<label for="premiumPrice" class="col-sm-2 col-form-label text-center">프리미엄<br>(\123,000)</label>
 			<div class="col-sm-10">
 				<input type="text" class="form-control" id="premiumPrice" name="premiumPrice" th:value="${productVO.premiumPrice}" required="required"/>
 			</div>
 		</div>
-		<hr>
+				<hr>
 		<div class="mb-3 row">
 			<label for="lowestSoldPrice" class="col-sm-2 col-form-label text-center">최근거래가격<br>(lowest ~ highest)</label>
 			<div class="col-sm-4">
@@ -233,24 +240,15 @@ $('document').ready(function(){
 				<input type="text" class="form-control" id="highestSoldPrice" name="highestSoldPrice" th:value="${productVO.highestSoldPrice}" required="required"/>
 			</div>
 		</div>
-		<hr>
-		<div class="mb-3 row">
-			<label for="averageSalePrice" class="col-sm-2 col-form-label text-center">평균거래가격<br>(321,000원)</label>
-			<div class="col-sm-9">
-				<input type="text" class="form-control" id="averageSalePrice" name="averageSalePrice" th:value="${productVO.averageSalePrice}" required="required"/>
-			</div>
-			<div class="col-sm-1">
-				원
-			</div>
-		</div>
+
+
+
+
 		<hr>
 		<div class="mb-3 row">
 			<label for="retailPrice" class="col-sm-2 col-form-label text-center">발매가격<br>(199,000원)</label>
-			<div class="col-sm-9">
+			<div class="col-sm-10">
 				<input type="text" class="form-control" id="retailPrice" name="retailPrice" th:value="${productVO.retailPrice}" required="required"/>
-			</div>
-			<div class="col-sm-1">
-				원
 			</div>
 		</div>
 		<hr>
