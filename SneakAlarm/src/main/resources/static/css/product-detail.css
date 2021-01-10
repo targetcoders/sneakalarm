@@ -17,7 +17,7 @@
 	margin-bottom: 18px;
 }
 .information .table {
-	width:500px;
+	width:400px;
 }
 .information-body div {
 	margin-bottom:18px;
@@ -28,11 +28,8 @@
 	text-align: center;
 	margin-bottom: 28px;
 }
-.information-section1{
-
-}
-.information-body-content {
-	width: 500px;
+#information-body-content {
+	width: 400px;
 	text-align: left;
 }
 #product-detail-container {
@@ -80,4 +77,13 @@
 }
 #averageSalePriceValue {
 	color:#fe0100;
+}
+@media ( min-width : 768px) {
+	#information-body-content {
+		width: 500px;
+		text-align: left;
+	}
+	.information .table {
+		width: 500px;
+	}
 }
