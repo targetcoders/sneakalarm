@@ -26,6 +26,7 @@
 #lastUpdatedDate {
 	font-size: 12px;
 	text-align: center;
+	margin-bottom: 28px;
 }
 .information-section1{
 
@@ -38,21 +39,45 @@
 	margin-top:77.5px;
 }
 #premiumPrice {
-	background-color: #000000;
-	font-style: italic;
+
 }
 #premiumPriceName {
-	color: #ffffff;
+
 }
 #premiumPriceValue {
-	color: #fe0100;
 }
 .tableRowName {
+	border-left: none;
 	text-align: center;
+	font-weight: bold;
 }
 .tableRowValue {
-	text-align: center;
+	border-right: none;
+	font-weight: bold;
 }
 #infoTable {
 	margin-bottom: 5px;
+}
+.table2RowName {
+	text-align:center;
+	color:#5e5e5e;
+}
+.table2RowValue {
+	text-align:center;
+	color:#5e5e5e;
+}
+#releaseDateName {
+	background-color: black;
+	color: #ffffff;
+	font-style: italic;
+	font-weight: bold;
+}
+#releaseDateValue {
+	background-color: black;
+	color:#fe0100;
+	font-style: italic;
+	font-weight: bold;
+}
+#averageSalePriceValue {
+	color:#fe0100;
 }

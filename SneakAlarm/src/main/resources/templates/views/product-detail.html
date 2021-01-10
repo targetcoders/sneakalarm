@@ -73,42 +73,42 @@ function move(id){
 				</div>
 			<div class="information-body d-flex flex-column align-items-center">
 				<div class="information-body-section1">
-				<table class="table table-bordered" id="infoTable">
+				<table class="table table-bordered" id="infoTable" >
 				<tbody>
 				<tr>
-					<td class="tableRowName"><b>발매 일자</b></td>
-					<td colspan="2"><b><span th:utext="${productVO.releaseStartDate}"></span> ~ <span th:utext="${productVO.releaseEndDate}"></span></b></td>
-				</tr>
-				<tr id="premiumPrice">
-					<td class="tableRowName"><span id="premiumPriceName"><b>프리미엄</b></span></td>
-					<td colspan="2"><b><span id="premiumPriceValue" th:utext="${productVO.premiumPrice}"></span></b></td>
-				</tr>
-				<tr>
-					<td class="tableRowName">최근 거래 가격</td>
-					<td colspan="2"><span th:utext="${productVO.lowestSoldPrice}"></span> ~ <span th:utext="${productVO.highestSoldPrice}"></span></td>
+					<td class="tableRowName" id="releaseDateName">발매 일자</td>
+					<td colspan="2" id="releaseDateValue"><b><span th:utext="${productVO.releaseStartDate}"></span> ~ <span th:utext="${productVO.releaseEndDate}"></span></b></td>
 				</tr>
 				<tr>
 					<td class="tableRowName">평균 거래 가격</td>
-					<td colspan="2"><span th:utext="${productVO.averageSalePrice}"></span>원</td>
+					<td colspan="2" class="tableRowValue" id="averageSalePriceValue"><span th:utext="${productVO.averageSalePrice}"></span></td>
+				</tr>
+				<tr id="premiumPrice">
+					<td class="tableRowName"><span id="premiumPriceName">프리미엄</span></td>
+					<td colspan="2" class="tableRowValue"><span id="premiumPriceValue" th:utext="${productVO.premiumPrice}"></span></td>
+				</tr>
+				<tr>
+					<td class="tableRowName">최근 거래 가격</td>
+					<td colspan="2" class="tableRowValue"><span th:utext="${productVO.lowestSoldPrice}"></span> ~ <span th:utext="${productVO.highestSoldPrice}"></span></td>
 				</tr>
 				<tr>
 					<td class="tableRowName">발매 가격</td>
-					<td colspan="2"><span th:utext="${productVO.retailPrice}"></span>원</td>
+					<td colspan="2" class="tableRowValue"><span th:utext="${productVO.retailPrice}"></span></td>
 				</tr>
 					<tr style="border-top: 2px solid">
-						<td class="tableRowName">브랜드</td>
-						<td class="tableRowName">사이즈</td>
-						<td class="tableRowName">코드</td> 
+						<td style="border-left: none; border-right: none;" class="table2RowName">브랜드</td>
+						<td style="border-left: none; border-right: none;" class="table2RowName">사이즈</td>
+						<td style="border-left: none; border-right: none;" class="table2RowName">코드</td> 
 					</tr>
-					<tr>
-						<td class="tableRowValue"><span th:utext="${productVO.brand}"></span></td>
-						<td class="tableRowValue"><span th:utext="${productVO.size}"></span></td>
-						<td class="tableRowValue"><span th:utext="${productVO.code}"></span></td>
+					<tr style="border-bottom: none;">
+						<td style="border-left: none; border-right: none;" class="table2RowValue"><span th:utext="${productVO.brand}"></span></td>
+						<td style="border-left: none; border-right: none;" class="table2RowValue"><span th:utext="${productVO.size}"></span></td>
+						<td style="border-left: none; border-right: none;" class="table2RowValue"><span th:utext="${productVO.code}"></span></td>
 					</tr>
 				</tbody>
 				</table>
 				<div id="lastUpdatedDate">
-					<span th:utext="|[${productVO.lastUpdateDate} 기준]|" style="color:#B8B8B8"></span>
+					<span th:utext="|${productVO.lastUpdateDate} 기준|" style="color:#B8B8B8"></span>
 				</div>
 				<div class="information-body-content" style="color:#5e5e5e">
 					<span th:utext=${productVO.content} ></span><br>
