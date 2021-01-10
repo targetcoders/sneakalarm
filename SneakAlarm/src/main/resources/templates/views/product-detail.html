@@ -72,7 +72,7 @@ function move(id){
 					</div>
 				</div>
 			<div class="information-body d-flex flex-column align-items-center">
-				<div class="information-body-section1">
+				<div class="information-body">
 				<table class="table table-bordered" id="infoTable" >
 				<tbody>
 				<tr>
@@ -110,7 +110,7 @@ function move(id){
 				<div id="lastUpdatedDate">
 					<span th:utext="|${productVO.lastUpdateDate} 기준|" style="color:#B8B8B8"></span>
 				</div>
-				<div class="information-body-content" style="color:#5e5e5e">
+				<div id="information-body-content" style="color:#5e5e5e">
 					<span th:utext=${productVO.content} ></span><br>
 				</div>
 				</div>
