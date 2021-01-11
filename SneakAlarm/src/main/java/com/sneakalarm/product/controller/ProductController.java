@@ -68,6 +68,9 @@ public class ProductController {
       return "/";
     }
     ProductVO productVO = productVOList.get(0);
+    String lastUpdateDate = productVO.getLastUpdateDate();
+    String[] lastUpdateDateList = lastUpdateDate.split(" ");
+    productVO.setLastUpdateDate(lastUpdateDateList[0]);
 
     String[] urlArray = productVO.getImgSrc_detail().split(",");
     model.addAttribute("productVO", productVO);

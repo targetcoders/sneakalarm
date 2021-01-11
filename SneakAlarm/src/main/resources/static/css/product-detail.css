@@ -5,11 +5,11 @@
 	margin-top:40px;
 }
 #model_kr {
-	font-size: 24px;
+	font-size: 20px;
 	font-weight: bold;
 }
 #model_en {
-	font-size: 14px;
+	font-size: 10px;
 	font-weight: bold;
 	color: #b8b8b8;
 }
@@ -17,7 +17,8 @@
 	margin-bottom: 18px;
 }
 .information .table {
-	width:400px;
+	font-size:12px;
+	width:100%;
 }
 .information-body div {
 	margin-bottom:18px;
@@ -29,8 +30,9 @@
 	margin-bottom: 28px;
 }
 #information-body-content {
-	width: 400px;
+	width: 100%;
 	text-align: left;
+	font-size: 12px;
 }
 #product-detail-container {
 	margin-top:77.5px;
@@ -46,7 +48,7 @@
 .tableRowName {
 	border-left: none;
 	text-align: center;
-	font-weight: bold;
+	font-weight: bold;	
 }
 .tableRowValue {
 	border-right: none;
@@ -79,11 +81,22 @@
 	color:#fe0100;
 }
 @media ( min-width : 768px) {
-	#information-body-content {
-		width: 500px;
-		text-align: left;
+	#model_kr {
+		font-size: 24px;
+		font-weight: bold;
+	}
+	#model_en {
+		font-size: 14px;
+		font-weight: bold;
+		color: #b8b8b8;
 	}
 	.information .table {
-		width: 500px;
+		width:100%;
+		font-size:16px;
+	}
+	#information-body-content {
+		width: 100%;
+		text-align: left;
+		font-size:16px;
 	}
 }
