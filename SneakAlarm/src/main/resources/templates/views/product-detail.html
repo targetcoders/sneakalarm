@@ -76,7 +76,7 @@ function move(id){
 				<table class="table table-bordered" id="infoTable" >
 				<tbody>
 				<tr>
-					<td class="tableRowName" id="releaseDateName">발매 일자</td>
+					<td class="tableRowName" id="releaseDateName">발매 일</td>
 					<td colspan="2" id="releaseDateValue"><b><span th:utext="${productVO.releaseStartDate}"></span> ~ <span th:utext="${productVO.releaseEndDate}"></span></b></td>
 				</tr>
 				<tr>
@@ -84,11 +84,11 @@ function move(id){
 					<td colspan="2" class="tableRowValue" id="averageSalePriceValue"><span th:utext="${productVO.averageSalePrice}"></span></td>
 				</tr>
 				<tr id="premiumPrice">
-					<td class="tableRowName"><span id="premiumPriceName">프리미엄</span></td>
+					<td class="tableRowName"><span id="premiumPriceName">평균 프리미엄</span></td>
 					<td colspan="2" class="tableRowValue"><span id="premiumPriceValue" th:utext="${productVO.premiumPrice}"></span></td>
 				</tr>
 				<tr>
-					<td class="tableRowName">최근 거래 가격</td>
+					<td class="tableRowName">거래 가격 범위</td>
 					<td colspan="2" class="tableRowValue"><span th:utext="${productVO.lowestSoldPrice}"></span> ~ <span th:utext="${productVO.highestSoldPrice}"></span></td>
 				</tr>
 				<tr>
