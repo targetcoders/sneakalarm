@@ -221,7 +221,7 @@ public class ProductServiceImpl implements ProductService {
       // MM/dd
       yearMonthAndDay = year + dateArray[0] + dateArray[1].substring(0, 2);
     } else {
-      yearMonthAndDay = "99999999";
+      yearMonthAndDay = year + "0000";
     }
     return yearMonthAndDay;
   }
