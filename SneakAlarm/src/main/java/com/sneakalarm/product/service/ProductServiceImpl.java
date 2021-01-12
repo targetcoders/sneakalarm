@@ -2,6 +2,8 @@ package com.sneakalarm.product.service;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,13 +41,14 @@ public class ProductServiceImpl implements ProductService {
   @Override
   public ArrayList<ProductCardVO> getProductCardList() {
 
-    ArrayList<ProductCardVO> list =
+    ArrayList<ProductCardVO> cardList =
         (ArrayList<ProductCardVO>) productCardMapper.getProductCardList();
     ArrayList<ProductCardVO> ret = new ArrayList<ProductCardVO>();
+    ArrayList<ProductCardVO> sortedCardList = sortProductCardList(cardList);
 
-    for (int i = 0; i < list.size(); i++) {
+    for (int i = 0; i < sortedCardList.size(); i++) {
       // SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-      ProductCardVO productCard = list.get(i);
+      ProductCardVO productCard = sortedCardList.get(i);
       // Date nowDate = new Date();
       // Date endDate = f.parse(productCard.getReleaseEndDate());
       // String timeLeft = getTimeLeft(endDate, nowDate);
@@ -113,7 +116,7 @@ public class ProductServiceImpl implements ProductService {
     productVO.setReleaseDate(now);
     productVO.setCountry("모두/해외/국내/");
     productVO.setDraw("선착/응모");
-    productVO.setIsDeleted(false);
+    productVO.setIsDeleted(0);
     productMapper.insertProduct(productVO);
     return true;
   }
@@ -203,5 +206,65 @@ public class ProductServiceImpl implements ProductService {
       product.setImgSrc_detail(imgSrc_detail);
     }
     productMapper.updateProduct(product);
+  }
+
+  public String getMonthAndDay(String[] dateArray) {
+    String monthAndDay = "";
+    if (dateArray.length == 3) {
+      // yyyy/MM/dd
+      monthAndDay = dateArray[1] + dateArray[2];
+    } else if (dateArray.length == 2) {
+      // MM/dd
+      monthAndDay = dateArray[0] + dateArray[1];
+    } else {
+      monthAndDay = "9999";
+    }
+    return monthAndDay;
+  }
+
+  public ArrayList<ProductCardVO> sortProductCardList(ArrayList<ProductCardVO> productCardList) {
+    ArrayList<ProductCardVO> ret = new ArrayList<ProductCardVO>();
+    for (ProductCardVO p : productCardList) {
+      String startDate = p.getReleaseStartDate();
+      String endDate = p.getReleaseEndDate();
+
+      String[] startDateArray = startDate.split("/");
+      String[] endDateArray = endDate.split("/");
+      String startMonthAndDay = getMonthAndDay(startDateArray);
+      String endMonthAndDay = getMonthAndDay(endDateArray);
+
+      p.setReleaseStartMonthAndDay(startMonthAndDay);
+      p.setReleaseEndMonthAndDay(endMonthAndDay);
+      Date now = new Date();
+      SimpleDateFormat sdf = new SimpleDateFormat("MMdd");
+      String nowMonthAndDay = sdf.format(now);
+      System.out.println("nowMonthAndDay: " + nowMonthAndDay + " "
+          + Integer.parseInt(nowMonthAndDay) + " " + Integer.parseInt(endMonthAndDay));
+      if (Integer.parseInt(nowMonthAndDay) > Integer.parseInt(endMonthAndDay)) {
+        p.setIsDeleted(1);
+      }
+      ret.add(p);
+    }
+    Collections.sort(ret, new Assending());
+    for (ProductCardVO p : ret) {
+      System.out.println(p);
+      System.out.println("---");
+    }
+    return ret;
+  }
+
+  public class Assending implements Comparator<ProductCardVO> {
+
+    @Override
+    public int compare(ProductCardVO o1, ProductCardVO o2) {
+      if (o1.getIsDeleted() != o2.getIsDeleted()) {
+        if (o1.getIsDeleted() > o2.getIsDeleted()) {
+          return 1;
+        }
+        return (o1.getIsDeleted() == o2.getIsDeleted()) ? 0 : -1;
+      } else {
+        return o1.getReleaseStartMonthAndDay().compareTo(o2.getReleaseStartMonthAndDay());
+      }
+    }
   }
 }
