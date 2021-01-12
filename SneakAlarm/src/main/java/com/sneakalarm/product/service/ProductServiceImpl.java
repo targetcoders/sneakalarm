@@ -44,6 +44,7 @@ public class ProductServiceImpl implements ProductService {
     ArrayList<ProductCardVO> cardList =
         (ArrayList<ProductCardVO>) productCardMapper.getProductCardList();
     ArrayList<ProductCardVO> ret = new ArrayList<ProductCardVO>();
+
     ArrayList<ProductCardVO> sortedCardList = sortProductCardList(cardList);
 
     for (int i = 0; i < sortedCardList.size(); i++) {
@@ -243,6 +244,8 @@ public class ProductServiceImpl implements ProductService {
       String nowMonthAndDay = sdf.format(now);
       if (Integer.parseInt(nowMonthAndDay) > Integer.parseInt(endYearMonthAndDay)) {
         p.setIsDeleted(1);
+      } else {
+        p.setIsDeleted(0);
       }
       ret.add(p);
     }
@@ -258,14 +261,12 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public int compare(ProductCardVO o1, ProductCardVO o2) {
-      if (o1.getIsDeleted() != o2.getIsDeleted()) {
-        if (o1.getIsDeleted() > o2.getIsDeleted()) {
-          return 1;
-        }
-        return (o1.getIsDeleted() == o2.getIsDeleted()) ? 0 : -1;
-      } else {
+      if (o1.getIsDeleted() == o2.getIsDeleted()) {
         return o1.getReleaseStartMonthAndDay().compareTo(o2.getReleaseStartMonthAndDay());
-      }
+      } else if (o1.getIsDeleted() > o2.getIsDeleted()) {
+        return 1;
+      } else
+        return -1;
     }
   }
 }
