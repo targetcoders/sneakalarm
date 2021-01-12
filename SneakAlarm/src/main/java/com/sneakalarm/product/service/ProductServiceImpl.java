@@ -209,17 +209,20 @@ public class ProductServiceImpl implements ProductService {
   }
 
   public String getMonthAndDay(String[] dateArray) {
-    String monthAndDay = "";
+    String yearMonthAndDay = "";
+    Date now = new Date();
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
+    String year = sdf.format(now);
     if (dateArray.length == 3) {
       // yyyy/MM/dd
-      monthAndDay = dateArray[1] + dateArray[2];
+      yearMonthAndDay = dateArray[0] + dateArray[1] + dateArray[2].substring(0, 2);
     } else if (dateArray.length == 2) {
       // MM/dd
-      monthAndDay = dateArray[0] + dateArray[1];
+      yearMonthAndDay = year + dateArray[0] + dateArray[1].substring(0, 2);
     } else {
-      monthAndDay = "9999";
+      yearMonthAndDay = "99999999";
     }
-    return monthAndDay;
+    return yearMonthAndDay;
   }
 
   public ArrayList<ProductCardVO> sortProductCardList(ArrayList<ProductCardVO> productCardList) {
@@ -230,17 +233,15 @@ public class ProductServiceImpl implements ProductService {
 
       String[] startDateArray = startDate.split("/");
       String[] endDateArray = endDate.split("/");
-      String startMonthAndDay = getMonthAndDay(startDateArray);
-      String endMonthAndDay = getMonthAndDay(endDateArray);
+      String startYearMonthAndDay = getMonthAndDay(startDateArray);
+      String endYearMonthAndDay = getMonthAndDay(endDateArray);
 
-      p.setReleaseStartMonthAndDay(startMonthAndDay);
-      p.setReleaseEndMonthAndDay(endMonthAndDay);
+      p.setReleaseStartMonthAndDay(startYearMonthAndDay);
+      p.setReleaseEndMonthAndDay(endYearMonthAndDay);
       Date now = new Date();
-      SimpleDateFormat sdf = new SimpleDateFormat("MMdd");
+      SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
       String nowMonthAndDay = sdf.format(now);
-      System.out.println("nowMonthAndDay: " + nowMonthAndDay + " "
-          + Integer.parseInt(nowMonthAndDay) + " " + Integer.parseInt(endMonthAndDay));
-      if (Integer.parseInt(nowMonthAndDay) > Integer.parseInt(endMonthAndDay)) {
+      if (Integer.parseInt(nowMonthAndDay) > Integer.parseInt(endYearMonthAndDay)) {
         p.setIsDeleted(1);
       }
       ret.add(p);
