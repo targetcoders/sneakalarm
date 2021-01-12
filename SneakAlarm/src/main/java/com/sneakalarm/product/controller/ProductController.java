@@ -67,6 +67,7 @@ public class ProductController {
     if (productVOList.size() == 0) {
       return "/";
     }
+
     ProductVO productVO = productVOList.get(0);
     String lastUpdateDate = productVO.getLastUpdateDate();
     String[] lastUpdateDateList = lastUpdateDate.split(" ");

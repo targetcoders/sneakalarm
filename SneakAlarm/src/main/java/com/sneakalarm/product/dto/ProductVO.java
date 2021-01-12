@@ -26,7 +26,7 @@ public class ProductVO {
   private String draw;
   private String lowestSoldPrice;
   private String highestSoldPrice;
-  private Boolean isDeleted;
+  private int isDeleted;
 
   public ProductVO() {}
 
@@ -46,4 +46,6 @@ public class ProductVO {
     this.highestSoldPrice = productInsertVO.getHighestSoldPrice();
     this.id = productInsertVO.getId();
   }
+
+
 }
