@@ -49,11 +49,11 @@ public class ProductServiceImpl implements ProductService {
 
     for (int i = 0; i < sortedCardList.size(); i++) {
       // SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-      ProductCardVO productCard = sortedCardList.get(i);
       // Date nowDate = new Date();
       // Date endDate = f.parse(productCard.getReleaseEndDate());
       // String timeLeft = getTimeLeft(endDate, nowDate);
       // productCard.setTimeLeft(timeLeft);
+      ProductCardVO productCard = sortedCardList.get(i);
       String imgSrcOrigin = productCard.getImgSrc_home();
       String[] imgSrcList = imgSrcOrigin.split(",");
       productCard.setImgSrc_home(imgSrcList[0]);

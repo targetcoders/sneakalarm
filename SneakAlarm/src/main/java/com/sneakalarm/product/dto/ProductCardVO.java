@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class ProductCardVO {
   private long id;
-  private String model;
+  private String model_kr;
   private String code;
   private String retailPrice;
   private String releaseStartDate;
