@@ -319,7 +319,7 @@ function move(id){
 	<div class="d-flex flex-column align-items-center" th:id="|card-${list.id}|">
 			<div class="container d-flex flex-column raffleCardDetail">
 			
-			<div class="d-flex" th:if="${list.status == '시작전'}" style="opacity:0.25; pointer-events:none; cursor:default;">
+			<div class="d-flex" th:if="${list.status == '시작전'}" style="opacity:0.25;">
 				<div class="d-flex flex-column justify-content-center align-items-center" style="margin-right:20px">
 					<img th:src="${list.imgSrc}" style="height:70px; width:70px;"/>
 				</div>
