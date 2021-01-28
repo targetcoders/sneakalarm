@@ -153,7 +153,7 @@ public class ProductController {
     model.addAttribute("endedFirstcomeList", endedFirstcomeRet);
     model.addAttribute("notEndedFirstcomeList", notEndedFirstcomeRet);
     model.addAttribute("goingRaffleNum", notEndedRaffleRet.size() - readyRaffleNum);
-    model.addAttribute("goingFirstcomeNum", notEndedFirstcomeRet.size() - readyFirstcomeNum);
+    model.addAttribute("goingFirstcomeNum", notEndedFirstcomeRet.size());
     model.addAttribute("endedRaffleNum", endedRaffleRet.size());
     model.addAttribute("notEndedRaffleNum", notEndedRaffleRet.size());
     model.addAttribute("endedFirstcomeNum", endedFirstcomeRet.size());
