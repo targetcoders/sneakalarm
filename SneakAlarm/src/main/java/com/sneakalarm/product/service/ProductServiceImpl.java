@@ -234,7 +234,7 @@ public class ProductServiceImpl implements ProductService {
       String endDate = p.getReleaseEndDate();
 
       Date now = new Date();
-      SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd E hh:mm");
+      SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd E HH:mm");
       String nowMonthAndDay = sdf.format(now);
       if (nowMonthAndDay.compareTo(endDate) >= 0) {
         p.setIsDeleted(1);
