@@ -13,7 +13,7 @@ import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import lombok.Data;
 
 @Configuration
-@MapperScan(basePackages = "com.sneakalarm.product, co m.sneakalarm.security")
+@MapperScan(basePackages = "com.sneakalarm.product, com.sneakalarm.security, com.sneakalarm.raffle")
 @ConfigurationProperties(prefix = "spring.datasource")
 @Data
 public class DataAccessConfig {

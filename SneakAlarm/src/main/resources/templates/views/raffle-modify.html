@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/default">
+
+<th:block layout:fragment="css">
+</th:block>
+
+<th:block layout:fragment="script">
+<script src="https://sdk.amazonaws.com/js/aws-sdk-2.283.1.min.js"></script>
+<script type="text/javascript" th:src="@{se2/js/service/HuskyEZCreator.js}" charset="utf-8"></script>
+<script type="text/javascript" th:src="@{js/util.js}" charset="utf-8"></script>
+<script>
+var albumBucketName = 'sneakalarm.media';
+var bucketRegion = 'ap-northeast-2';
+var IdentityPoolId = 'ap-northeast-2:e33e44cf-1621-4149-98b8-9dd28c45ecc8';
+
+
+AWS.config.update({
+	  region: bucketRegion,
+	  credentials: new AWS.CognitoIdentityCredentials({ IdentityPoolId: IdentityPoolId })
+});
+var s3 = new AWS.S3({
+	  apiVersion: '2006-03-01',
+	  params: {Bucket: albumBucketName}
+});
+
+
+
+function validCheck(){
+	return 	$('#country').val()=='' || $('#url').val()=='' || $('#storeName').val()=='';
+}
+
+$('document').ready(function(){
+	var raffleTypeDefaultValue = $('#raffleTypeDefaultValue').val();
+	if(raffleTypeDefaultValue == '선착순'){
+		$('#raffleType0').attr('checked','checked');
+	} else {
+		$('#raffleType1').attr('checked','checked');
+	}
+	
+	var deliveryDefaultValue = $('#deliveryDefaultValue').val();
+	if(deliveryDefaultValue == ''){
+		$('#delivery0').attr('checked','checked');
+	} else if(deliveryDefaultValue == '직배'){
+		$('#delivery1').attr('checked','checked');
+	} else if(deliveryDefaultValue == '배대지'){
+		$('#delivery2').attr('checked','checked');
+	} else if(deliveryDefaultValue == '택배배송'){
+		$('#delivery3').attr('checked','checked');
+	} else {
+		$('#delivery4').attr('checked','checked');
+	}
+	
+	var payTypeDefaultValue = $('#payTypeDefaultValue').val();
+	if(payTypeDefaultValue == ''){
+		$('#payType0').attr('checked','checked');
+	} else if(payTypeDefaultValue == '선결제'){
+		$('#payType1').attr('checked','checked');
+	} else if(payTypeDefaultValue == '당첨 자동 결제'){
+		$('#payType2').attr('checked','checked');
+	} else {
+		$('#payType3').attr('checked','checked');
+	}
+	
+	$('#submitBtn').click(function(){
+		submitContents();
+		if($('#content').val() == '<p><br></p>'){
+			$('#content').val('');
+		}
+		if (validCheck()) {
+			return alert('입력하지 않은 값이 있는지 확인해주세요.');
+		}
+		
+		if (document.getElementById('photoupload').files.length > 0) {
+		var formData = new FormData(document.getElementById('modifyform'));
+		$.ajax({
+			url: '/raffle-modify',
+			data: formData,
+			processData: false,
+			contentType: false,
+			type: 'POST',
+			success: function(){
+				new Promise(function(data){
+					var albumName = 'logo';
+				 	var file = document.getElementById('photoupload').files[0];
+				 	var fileName = file.name;
+					var albumPhotosKey = 'raffle/'+encodeURIComponent(albumName)+'/';
+					var photoKey = albumPhotosKey + fileName;
+					console.log(photoKey);
+					setTimeout(function(){
+				 		s3.upload({
+							Key: photoKey,
+							Body: file,
+							ACL: 'public-read'
+						}, 
+						function(err, data) {
+							if (err) {
+						  	return alert('There was an error uploading your photo: ', err.message);
+							}
+							alert('드로우가 성공적으로 등록되었습니다.');
+							location.replace("/product-detail?id="+$('#productId').val());
+						});
+					},500); 
+				});
+			},
+			error: function(){
+				alert('error!');
+			}
+		});
+		} else {
+			var id = getParam('id');
+			$('#raffleId').attr('value',id);
+			var formData = new FormData(document.getElementById('modifyform'));
+			$.ajax({
+				url: '/raffle-modify',
+				data: formData,
+				processData: false,
+				contentType: false,
+				type: 'POST',
+				success: function(){
+					alert('내용이 수정되었습니다.');
+					location.replace("/product-detail?id="+$('#productId').val());
+				},
+				error: function(){
+					alert('error!');
+				}
+			});
+		}
+	});
+});
+
+</script>
+</th:block>
+
+<div layout:fragment="content">
+<div class="container-fluid d-flex justify-content-center" style="margin-top:80px">
+<div>
+<h1 class="text-center">DRAW MODIFICATION</h1>
+<form id="modifyform" method="post" style="width:1000px">
+<input type="hidden" name="productId" id="productId" th:attr="value = ${raffleVO.productId}" readonly/>
+<input type="hidden" name="id" id="raffleId" th:attr="value = ${raffleVO.id}" readonly/>
+<div class="mb-3 row">
+<label for="storeName" class="col-sm-2 col-form-label text-center">* 매장 이름</label>
+	<div class="col-sm-10">
+	<input type="text" class="form-control" id="storeName" name="storeName" th:attr="value=${raffleVO.storeName}" required="required"/>
+	</div>
+</div>
+<div class="mb-3 row">
+	<div class="col-sm-2 text-center">* 응모 링크</div>
+	<div class="col-sm-10">
+	<input type="text" class="form-control" id="url" name="url" th:attr="value=${raffleVO.url}" placeholder="https://sneakalarm.com"/>
+	</div>
+</div>
+<div class="mb-3 row">
+<label for="country" class="col-sm-2 col-form-label text-center">* 국가</label>
+	<div class="col-sm-10">
+	<input type="text" class="form-control" id="country" name="country" th:attr="value=${raffleVO.country}" required="required"/>
+	</div>
+</div>
+<div class="mb-3 row">
+	<label for="startDate" class="col-sm-2 col-form-label text-center">시작일</label>
+	<div class="col-sm-5">
+	<input type="date" class="form-control" id="startDate" th:attr="value=${raffleVO.startDate}" name="startDate"/>
+	<input type="time" class="form-control" id="startTime" th:attr="value=${raffleVO.startTime}" name="startTime"/>
+	</div>
+</div>
+<div class="mb-3 row">
+	<label for="endDate" class="col-sm-2 col-form-label text-center">종료일</label>
+	<div class="col-sm-5">
+	<input type="date" class="form-control" id="endDate" th:attr="value=${raffleVO.endDate}" name="endDate"/>
+	<input type="time" class="form-control" id="endTime" th:attr="value=${raffleVO.endTime}" name="endTime"/>
+	</div>
+</div>
+<div class="mb-3 row">
+	<div class="col-sm-2 text-center">* 드로우 방식</div>
+	<div class="col-sm-10">
+	<input type="hidden" id="raffleTypeDefaultValue" th:attr="value = ${raffleVO.raffleType}" readonly>
+	<input type="radio" name="raffleType" id="raffleType0" value="선착순"> 선착순&nbsp;&nbsp;&nbsp;&nbsp;
+	<input type="radio" name="raffleType" id="raffleType1" value="응모"> 응모
+	</div>
+</div>
+<div class="mb-3 row">
+	<div class="col-sm-2 text-center">* 수령 방법</div>
+	<div class="col-sm-10">
+	<input type="hidden" id="deliveryDefaultValue" th:attr="value = ${raffleVO.delivery}" readonly>
+	<input type="radio" name="delivery" id="delivery0" value=""> X&nbsp;&nbsp;&nbsp;&nbsp;
+	<input type="radio" name="delivery" id="delivery1" value="직배"> 직배&nbsp;&nbsp;&nbsp;&nbsp;
+	<input type="radio" name="delivery" id="delivery2" value="배대지"> 배대지&nbsp;&nbsp;&nbsp;&nbsp;
+	<input type="radio" name="delivery" id="delivery3" value="택배배송"> 택배배송&nbsp;&nbsp;&nbsp;&nbsp;
+	<input type="radio" name="delivery" id="delivery4" value="방문수령"> 방문수령
+	</div>
+</div>
+<div class="mb-3 row">
+	<div class="col-sm-2 text-center">* 지불 방법</div>
+	<div class="col-sm-10">
+	<input type="hidden" id="payTypeDefaultValue" th:attr="value = ${raffleVO.payType}" readonly>
+	<input type="radio" name="payType" id="payType0" value=""> X&nbsp;&nbsp;&nbsp;&nbsp;
+	<input type="radio" name="payType" id="payType1" value="선결제"> 선결제&nbsp;&nbsp;&nbsp;&nbsp;
+	<input type="radio" name="payType" id="payType2" value="당첨 자동 결제"> 당첨 자동 결제&nbsp;&nbsp;&nbsp;&nbsp;
+	<input type="radio" name="payType" id="payType3" value="당첨 직접 결제"> 당첨 직접 결제
+	</div>
+</div>
+<div class="mb-3 row">
+<label for="specialCase" class="col-sm-2 col-form-label text-center">특이 사항</label>
+	<div class="col-sm-10">
+	<input class="form-control" id="specialCase" name="specialCase" type="text" th:attr="value=${raffleVO.specialCase}" placeholder="회원가입 후 응모 / 팔로우 확인 등" />
+	</div>
+</div>
+<div class="mb-3 row">
+	<div class="col-sm-2 text-center">판매 가격</div>
+	<div class="col-sm-10">
+	<input type="text" class="form-control" name="releasePrice" id="releasePrice" th:attr="value=${raffleVO.releasePrice}" placeholder="1,000,000"/>
+	</div>
+</div>
+<div class="mb-3 row">
+	<label for="content" class="col-sm-2 col-form-label text-center">추가 설명</label>
+	<div class="col-sm-10">
+	<textarea id="content" name="content" rows="10" cols="85" th:utext="${raffleVO.content}"></textarea>
+	</div>
+</div>
+<div class="mb-3 row">
+ 	<label for="formFile" class="col-sm-2 col-form-label text-center">이미지</label>
+	<div class="col-sm-10">
+	<input class="form-control form-control-lg" type="file" id="photoupload" name="file">
+	</div>
+</div>
+	<div class="mb-3 row">
+	<button type="button" id="submitBtn" class="btn btn-dark col-sm-12">등록</button>
+	</div>
+</form>
+</div>
+</div>
+<script>
+		var oEditors = [];
+		nhn.husky.EZCreator.createInIFrame({
+ 			oAppRef: oEditors,
+ 			elPlaceHolder: "content",
+ 			sSkinURI: "se2/SmartEditor2Skin.html",
+ 			fCreator: "createSEditor2"
+		});
+		
+		// ‘저장’ 버튼을 누르는 등 저장을 위한 액션을 했을 때 submitContents가 호출된다고 가정한다.
+	function submitContents() {
+		 // 에디터의 내용이 textarea에 적용된다.
+		 oEditors.getById["content"].exec("UPDATE_CONTENTS_FIELD", []);
+		 // 에디터의 내용에 대한 값 검증은 이곳에서
+		 // document.getElementById("content").value를 이용해서 처리한다.
+	}
+</script>
+</div>
+</html>

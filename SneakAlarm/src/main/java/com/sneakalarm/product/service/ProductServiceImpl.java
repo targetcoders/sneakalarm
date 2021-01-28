@@ -14,6 +14,8 @@ import com.sneakalarm.product.dao.ProductCardMapper;
 import com.sneakalarm.product.dao.ProductMapper;
 import com.sneakalarm.product.dto.ProductCardVO;
 import com.sneakalarm.product.dto.ProductInsertVO;
+import com.sneakalarm.product.dto.ProductUpdateEndDateTimeVO;
+import com.sneakalarm.product.dto.ProductUpdateStartDateTimeVO;
 import com.sneakalarm.product.dto.ProductVO;
 
 @Service
@@ -86,7 +88,7 @@ public class ProductServiceImpl implements ProductService {
       }
 
       String url = "https://" + "s3." + region + ".amazonaws.com/" + bucket + "/"
-          + productFolderName + code + "/" + fileName;
+          + productFolderName + "/" + code + "/" + fileName;
       urlList_home.add(url);
     }
 
@@ -98,7 +100,7 @@ public class ProductServiceImpl implements ProductService {
       }
 
       String url = "https://" + "s3." + region + ".amazonaws.com/" + bucket + "/"
-          + productFolderName + code + "/" + fileName;
+          + productFolderName + "/" + code + "/" + fileName;
       urlList_detail.add(url);
     }
 
@@ -229,20 +231,12 @@ public class ProductServiceImpl implements ProductService {
   public ArrayList<ProductCardVO> sortProductCardList(ArrayList<ProductCardVO> productCardList) {
     ArrayList<ProductCardVO> ret = new ArrayList<ProductCardVO>();
     for (ProductCardVO p : productCardList) {
-      String startDate = p.getReleaseStartDate();
       String endDate = p.getReleaseEndDate();
 
-      String[] startDateArray = startDate.split("/");
-      String[] endDateArray = endDate.split("/");
-      String startYearMonthAndDay = getMonthAndDay(startDateArray);
-      String endYearMonthAndDay = getMonthAndDay(endDateArray);
-
-      p.setReleaseStartMonthAndDay(startYearMonthAndDay);
-      p.setReleaseEndMonthAndDay(endYearMonthAndDay);
       Date now = new Date();
-      SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+      SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd E hh:mm");
       String nowMonthAndDay = sdf.format(now);
-      if (Integer.parseInt(nowMonthAndDay) > Integer.parseInt(endYearMonthAndDay)) {
+      if (nowMonthAndDay.compareTo(endDate) >= 0 || endDate.equals("RELEASING SOON")) {
         p.setIsDeleted(1);
       } else {
         p.setIsDeleted(0);
@@ -250,10 +244,6 @@ public class ProductServiceImpl implements ProductService {
       ret.add(p);
     }
     Collections.sort(ret, new Assending());
-    for (ProductCardVO p : ret) {
-      System.out.println(p);
-      System.out.println("---");
-    }
     return ret;
   }
 
@@ -262,11 +252,23 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public int compare(ProductCardVO o1, ProductCardVO o2) {
       if (o1.getIsDeleted() == o2.getIsDeleted()) {
-        return o1.getReleaseStartMonthAndDay().compareTo(o2.getReleaseStartMonthAndDay());
+        return o1.getReleaseEndDate().compareTo(o2.getReleaseEndDate());
       } else if (o1.getIsDeleted() > o2.getIsDeleted()) {
         return 1;
       } else
         return -1;
     }
   }
+
+  @Override
+  public void updateStartDateTime(ProductUpdateStartDateTimeVO productUpdateStartDateTimeVO) {
+    productMapper.updateStartDateTime(productUpdateStartDateTimeVO);
+  }
+
+
+  @Override
+  public void updateEndDateTime(ProductUpdateEndDateTimeVO productUpdateEndDateTimeVO) {
+    productMapper.updateEndDateTime(productUpdateEndDateTimeVO);
+  }
+
 }
