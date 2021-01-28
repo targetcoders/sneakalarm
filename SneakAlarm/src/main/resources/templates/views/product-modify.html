@@ -18,8 +18,7 @@ function validCheck(){
 	return $('#highestSoldPrice').val()=='' || $('#lowestSoldPrice').val()=='' || 
 	$('#size').val()=='' || 
 	$('#averageSalePrice').val()=='' || $('#premiumPrice').val()=='' || 
-	$('#releaseStartDate').val()=='' || 
-	$('#content').val()=='' || $('#brand').val()=='' || $('#code').val()=='' || 
+	$('#brand').val()=='' || $('#code').val()=='' || 
 	$('#model_kr').val()=='' || $('#model_en').val()=='' || $('#retailPrice').val()=='';
 }		
 
@@ -180,46 +179,36 @@ $('document').ready(function(){
 	<form action="/product-insert" method="post" id="modifyform" class="productinsert-form">
 		<hr>
   	<div class="mb-3 row">
-			<label for="model_kr" class="col-sm-2 col-form-label text-center">한글 모델명</label>
+			<label for="model_kr" class="col-sm-2 col-form-label text-center">* 한글 모델명</label>
 			<div class="col-sm-10">
 				<input type="text" class="form-control" id="model_kr" name="model_kr" th:value="${productVO.model_kr}" required="required"/>
 			</div>
 		</div>
 		<hr>
 		<div class="mb-3 row">
-			<label for="model_en" class="col-sm-2 col-form-label text-center">영어 모델명</label>
+			<label for="model_en" class="col-sm-2 col-form-label text-center">* 영어 모델명</label>
 			<div class="col-sm-10">
 				<input type="text" class="form-control" id="model_en" name="model_en" th:value="${productVO.model_en}" required="required"/>
 			</div>
 		</div>
 		<hr>
-		<div class="mb-3 row">
-			<label for="releaseStartDate" class="col-sm-2 col-form-label text-center">발매일<br>(01/31 금 10:00 ~ 02/10 토 18:00)</label>
-			<div class="col-sm-4">
-				<input type="text" class="form-control" id="releaseStartDate" name="releaseStartDate" th:value="${productVO.releaseStartDate}" required="required"/>
-			</div>
-			<div class="col-sm-2 text-center">~</div>
-			<div class="col-sm-4">
-				<input type="text" class="form-control" id="releaseEndDate" name="releaseEndDate" th:value="${productVO.releaseEndDate}" required="required"/>
-			</div>
-		</div>
 		<hr>
 		<div class="mb-3 row">
-			<label for="averageSalePrice" class="col-sm-2 col-form-label text-center">평균거래가격<br>(321,000 (200.9%))</label>
+			<label for="averageSalePrice" class="col-sm-2 col-form-label text-center">* 평균거래가격<br>(321,000 (200.9%))</label>
 			<div class="col-sm-10">
 				<input type="text" class="form-control" id="averageSalePrice" name="averageSalePrice" th:value="${productVO.averageSalePrice}" required="required"/>
 			</div>
 		</div>
 		<hr>
 		<div class="mb-3 row">
-			<label for="premiumPrice" class="col-sm-2 col-form-label text-center">평균프리미엄<br>(123,000)</label>
+			<label for="premiumPrice" class="col-sm-2 col-form-label text-center">* 평균프리미엄<br>(123,000)</label>
 			<div class="col-sm-10">
 				<input type="text" class="form-control" id="premiumPrice" name="premiumPrice" th:value="${productVO.premiumPrice}" required="required"/>
 			</div>
 		</div>
 				<hr>
 		<div class="mb-3 row">
-			<label for="lowestSoldPrice" class="col-sm-2 col-form-label text-center">거래가격범위<br>(lowest ~ highest)</label>
+			<label for="lowestSoldPrice" class="col-sm-2 col-form-label text-center">* 거래가격범위<br>(lowest ~ highest)</label>
 			<div class="col-sm-4">
 				<input type="text" class="form-control" id="lowestSoldPrice" name="lowestSoldPrice" th:value="${productVO.lowestSoldPrice}" required="required"/>
 			</div>
@@ -230,28 +219,28 @@ $('document').ready(function(){
 		</div>
 		<hr>
 		<div class="mb-3 row">
-			<label for="retailPrice" class="col-sm-2 col-form-label text-center">발매가격<br>(199,000)</label>
+			<label for="retailPrice" class="col-sm-2 col-form-label text-center">* 발매가격<br>(199,000)</label>
 			<div class="col-sm-10">
 				<input type="text" class="form-control" id="retailPrice" name="retailPrice" th:value="${productVO.retailPrice}" required="required"/>
 			</div>
 		</div>
 		<hr>
 		<div class="mb-3 row">
-			<label for="brand" class="col-sm-2 col-form-label text-center">브랜드<br>(Nike)</label>
+			<label for="brand" class="col-sm-2 col-form-label text-center">* 브랜드<br>(Nike)</label>
 			<div class="col-sm-10">
 				<input type="text" class="form-control" id="brand" name="brand" th:value="${productVO.brand}" required="required"/>
 			</div>
 		</div>
 		<hr>
 		<div class="mb-3 row">
-			<label for="size" class="col-sm-2 col-form-label text-center">사이즈<br>(220 ~ 290)</label>
+			<label for="size" class="col-sm-2 col-form-label text-center">* 사이즈<br>(220 ~ 290)</label>
 			<div class="col-sm-10">
 				<input type="text" class="form-control" id="size" name="size" th:value="${productVO.size}" required="required"/>
 			</div>
 		</div>
 		<hr>
 		<div class="mb-3 row">
-			<label for="code" class="col-sm-2 col-form-label text-center">코드</label>
+			<label for="code" class="col-sm-2 col-form-label text-center">* 코드</label>
 			<div class="col-sm-10">
 				<input type="text" class="form-control" id="code" name="code" th:value="${productVO.code}" required="required"/>
 			</div>
