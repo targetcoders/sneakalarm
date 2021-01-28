@@ -325,6 +325,7 @@ function move(id){
 				</div>
 				<div>
 					<a th:href="${list.url}" style="text-decoration:none"><span class="draw-storeName" th:text="${list.storeName}"></span></a> <span th:if="${list.specialCase != ''}" th:text="|[${list.specialCase}]|" style="color:#fe0100; font-weight:bold;"></span><br/>
+					<span class="raffleDateTime" th:text="|시작: ${list.startDate}|"></span>&nbsp;<span class="raffleDateTime" th:text="${list.startTime}"></span><br/>
 					<span class="raffleDateTime" th:text="|종료: ${list.endDate}|"></span>&nbsp;<span class="raffleDateTime" th:text="${list.endTime}"></span><br/>
 					<span th:text="${list.country}"></span>&nbsp;<span th:text="${list.delivery}"></span>
 					<span th:if="${list.payType != ''}" th:text="|(${list.payType})|"></span>
@@ -367,6 +368,7 @@ function move(id){
 		</div>
 		<div class="endedRaffleCard" style="display:none;">
 			<a class="endedCardURL" th:href="${list.url}" style="text-decoration:none;"><span class="draw-storeName" th:text="${list.storeName}"></span></a> <span th:if="${list.specialCase != ''}" th:text="|[${list.specialCase}]|" style="color:#fe0100; font-weight:bold;"></span><br/>
+			<span class="raffleDateTime" th:text="|시작: ${list.startDate}|"></span>&nbsp;<span class="raffleDateTime" th:text="${list.startTime}"></span><br/>
 			<span class="raffleDateTime" th:text="|종료: ${list.endDate}|"></span>&nbsp;<span class="raffleDateTime" th:text="${list.endTime}"></span><br/> 
 			<span th:text="${list.country}"></span>&nbsp;<span th:text="${list.delivery}"></span>
 			<span th:if="${list.payType != ''}" th:text="|(${list.payType})|"></span>
