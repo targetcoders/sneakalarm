@@ -4,65 +4,202 @@
       layout:decorator="layout/default">
 
 <th:block layout:fragment="css">
-  <link rel="stylesheet" th:href="@{css/product-insert}" />
 </th:block>
 
 <th:block layout:fragment="script">
+<script src="https://sdk.amazonaws.com/js/aws-sdk-2.283.1.min.js"></script>
+<script type="text/javascript" th:src="@{se2/js/service/HuskyEZCreator.js}" charset="utf-8"></script>
+<script type="text/javascript" th:src="@{js/util.js}" charset="utf-8"></script>
+<script>
+var albumBucketName = 'sneakalarm.media';
+var bucketRegion = 'ap-northeast-2';
+var IdentityPoolId = 'ap-northeast-2:e33e44cf-1621-4149-98b8-9dd28c45ecc8';
+
+
+AWS.config.update({
+	  region: bucketRegion,
+	  credentials: new AWS.CognitoIdentityCredentials({ IdentityPoolId: IdentityPoolId })
+});
+var s3 = new AWS.S3({
+	  apiVersion: '2006-03-01',
+	  params: {Bucket: albumBucketName}
+});
+
+
+
+function validCheck(){
+	return 	$('#country').val()=='' || $('#url').val()=='' || $('#storeName').val()==''  || $('#photoupload').val()=='';
+}
+
+$('document').ready(function(){
+	const offset = new Date().getTimezoneOffset() * 60000;
+	var nowDateTime = new Date(Date.now()-offset);
+	
+	$('#startDate').val(nowDateTime.toISOString().slice(0, 10));
+	$('#startTime').val(nowDateTime.toISOString().slice(11, 16));
+	$('#endDate').val(nowDateTime.toISOString().slice(0, 10));
+	$('#endTime').val(nowDateTime.toISOString().slice(11, 16));
+	
+	$('#submitBtn').click(function(){
+		submitContents();
+		if($('#content').val() == '<p><br></p>'){
+			$('#content').val('');
+		}
+		if (validCheck()) {
+			return alert('입력하지 않은 값이 있는지 확인해주세요.');
+		}
+		var formData = new FormData(document.getElementById('insertform'));
+		$.ajax({
+			url: '/raffle-insert',
+			data: formData,
+			processData: false,
+			contentType: false,
+			type: 'POST',
+			success: function(){
+				new Promise(function(data){
+					var albumName = 'logo';
+				 	var file = document.getElementById('photoupload').files[0];
+				 	var fileName = file.name;
+					var albumPhotosKey = 'raffle/'+encodeURIComponent(albumName)+'/';
+					var photoKey = albumPhotosKey + fileName;
+					console.log(photoKey);
+					setTimeout(function(){
+				 		s3.upload({
+							Key: photoKey,
+							Body: file,
+							ACL: 'public-read'
+						}, 
+						function(err, data) {
+							if (err) {
+						  	return alert('There was an error uploading your photo: ', err.message);
+							}
+							alert('드로우가 성공적으로 등록되었습니다.');
+							location.replace("/product-detail?id="+$('#productId').val());
+						});
+					},500); 
+				});
+			},
+			error: function(){
+				alert('error!');
+			}
+		});
+	});
+});
+
+</script>
 </th:block>
 
 <div layout:fragment="content">
-<div class="container-fluid d-flex justify-content-center" style="margin-top:210px">
+<div class="container-fluid d-flex justify-content-center" style="margin-top:80px">
 <div>
-<h1 th:text="${param.name}" class="text-center"></h1>
-<form action="/insert-product" method="post" style="width:1000px">
-	
-	<div class="mb-3 row">
-		<label for="model" class="col-sm-2 col-form-label text-center">모델</label>
-		<div class="col-sm-10">
-			<input type="text" readonly class="form-control-plaintext" id="model" th:value="${param.code}">
-		</div>
- 	</div>
-  <div class="mb-3 row">
-		<label for="name" class="col-sm-2 col-form-label text-center">브랜드</label>
-			<div class="col-sm-10">
-				<input type="text" class="form-control" id="name" name="name" required="required"/>
-			</div>
+<h1 class="text-center">DRAW REGISTRATION</h1>
+<form id="insertform" method="post" style="width:1000px">
+<input type="hidden" name="productId" id="productId" th:attr="value = ${productId}" readonly/>
+
+<div class="mb-3 row">
+<label for="storeName" class="col-sm-2 col-form-label text-center">* 매장 이름</label>
+	<div class="col-sm-10">
+	<input type="text" class="form-control" id="storeName" name="storeName" required="required"/>
 	</div>
-	<div class="mb-3 row">
-		<label for="" class="col-sm-2 col-form-label text-center">위치</label>
-			<div class="col-sm-10">
-				<input type="text" class="form-control" id="code" name="code" required="required"/>
-			</div>
+</div>
+<div class="mb-3 row">
+	<div class="col-sm-2 text-center">* 응모 링크</div>
+	<div class="col-sm-10">
+	<input type="text" class="form-control" id="url" name="url" placeholder="https://sneakalarm.com"/>
 	</div>
-	<div class="mb-3 row">
-		<label for="price" class="col-sm-2 col-form-label text-center">시작일시</label>
-			<div class="col-sm-10">
-				<input type="text" class="form-control" id="price" name="price" required="required"/>
-			</div>
+</div>
+<div class="mb-3 row">
+<label for="country" class="col-sm-2 col-form-label text-center">* 국가</label>
+	<div class="col-sm-10">
+	<input type="text" class="form-control" id="country" name="country" value="한국" required="required"/>
 	</div>
-	<div class="mb-3 row">
-		<label for="brand" class="col-sm-2 col-form-label text-center">종료일시</label>
-			<div class="col-sm-10">
-				<input type="text" class="form-control" id="brand" name="brand" required="required"/>
-			</div>
+</div>
+<div class="mb-3 row">
+	<label for="startDate" class="col-sm-2 col-form-label text-center">시작일</label>
+	<div class="col-sm-5">
+	<input type="date" class="form-control" id="startDate" name="startDate"/>
+	<input type="time" class="form-control" id="startTime" name="startTime"/>
 	</div>
-	<div class="mb-3 row">
-		<label for="content" class="col-sm-2 col-form-label text-center">추가 설명</label>
-			<div class="col-sm-10">
-				<textarea class="form-control" id="content" name="content" rows="15" cols="5" required="required"></textarea>
-			</div>
+</div>
+<div class="mb-3 row">
+	<label for="endDate" class="col-sm-2 col-form-label text-center">종료일</label>
+	<div class="col-sm-5">
+	<input type="date" class="form-control" id="endDate" name="endDate"/>
+	<input type="time" class="form-control" id="endTime" name="endTime"/>
 	</div>
-	<div class="mb-3 row">
- 			<label for="formFile" class="col-sm-2 col-form-label text-center">이미지</label>
- 			<div class="col-sm-10">
- 			<input class="form-control form-control-lg" type="file" id="formFile" name="file" required="required">
- 			</div>
+</div>
+<div class="mb-3 row">
+	<div class="col-sm-2 text-center">드로우 방식</div>
+	<div class="col-sm-10">
+	<input type="radio" name="raffleType" value="선착순"> 선착순&nbsp;&nbsp;&nbsp;&nbsp;
+	<input type="radio" name="raffleType" value="응모" checked="checked"> 응모
 	</div>
+</div>
+<div class="mb-3 row">
+	<div class="col-sm-2 text-center">* 수령 방법</div>
+	<div class="col-sm-10">
+	<input type="radio" name="delivery" value=""> X&nbsp;&nbsp;&nbsp;&nbsp;
+	<input type="radio" name="delivery" value="직배"> 직배&nbsp;&nbsp;&nbsp;&nbsp;
+	<input type="radio" name="delivery" value="배대지"> 배대지&nbsp;&nbsp;&nbsp;&nbsp;
+	<input type="radio" name="delivery" value="택배배송"> 택배배송&nbsp;&nbsp;&nbsp;&nbsp;
+	<input type="radio" name="delivery" value="방문수령" checked="checked"> 방문수령
+	</div>
+</div>
+<div class="mb-3 row">
+	<div class="col-sm-2 text-center">* 지불 방법</div>
+	<div class="col-sm-10">
+	<input type="radio" name="payType" value=""> X&nbsp;&nbsp;&nbsp;&nbsp;
+	<input type="radio" name="payType" value="선결제"> 선결제&nbsp;&nbsp;&nbsp;&nbsp;
+	<input type="radio" name="payType" value="당첨  자동 결제"> 당첨 자동 결제&nbsp;&nbsp;&nbsp;&nbsp;
+	<input type="radio" name="payType" value="당첨 직접 결제" checked="checked"> 당첨 직접 결제
+	</div>
+</div>
+<div class="mb-3 row">
+<label for="specialCase" class="col-sm-2 col-form-label text-center">특이 사항</label>
+	<div class="col-sm-10">
+	<input class="form-control form-control" id="specialCase" name="specialCase" type="text" placeholder="회원가입 후 응모 / 팔로우 확인 등" />
+	</div>
+</div>
+<div class="mb-3 row">
+	<div class="col-sm-2 text-center">판매 가격</div>
+	<div class="col-sm-10">
+	<input type="text" class="form-control" name="releasePrice" id="releasePrice" placeholder="1,000,000"/>
+	</div>
+</div>
+<div class="mb-3 row">
+	<label for="content" class="col-sm-2 col-form-label text-center">추가 설명</label>
+	<div class="col-sm-10">
+	<textarea id="content" name="content" rows="10" cols="85"></textarea>
+	</div>
+</div>
+<div class="mb-3 row">
+ 	<label for="formFile" class="col-sm-2 col-form-label text-center">* 이미지</label>
+	<div class="col-sm-10">
+	<input class="form-control form-control-lg" type="file" id="photoupload" name="file">
+	</div>
+</div>
 	<div class="mb-3 row">
-		<button type="submit" class="btn btn-dark col-sm-12">등록</button>
+	<button type="button" id="submitBtn" class="btn btn-dark col-sm-12">등록</button>
 	</div>
 </form>
 </div>
 </div>
+<script>
+		var oEditors = [];
+		nhn.husky.EZCreator.createInIFrame({
+ 			oAppRef: oEditors,
+ 			elPlaceHolder: "content",
+ 			sSkinURI: "se2/SmartEditor2Skin.html",
+ 			fCreator: "createSEditor2"
+		});
+		
+		// ‘저장’ 버튼을 누르는 등 저장을 위한 액션을 했을 때 submitContents가 호출된다고 가정한다.
+	function submitContents() {
+		 // 에디터의 내용이 textarea에 적용된다.
+		 oEditors.getById["content"].exec("UPDATE_CONTENTS_FIELD", []);
+		 // 에디터의 내용에 대한 값 검증은 이곳에서
+		 // document.getElementById("content").value를 이용해서 처리한다.
+	}
+</script>
 </div>
 </html>

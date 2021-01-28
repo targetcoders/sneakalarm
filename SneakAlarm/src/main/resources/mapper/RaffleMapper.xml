@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.sneakalarm.raffle.dao.RaffleMapper" >
+
+	<insert id="raffleInsert" 
+	parameterType="com.sneakalarm.raffle.dto.RaffleVO">
+		INSERT	INTO raffle(specialCase, url, productId, raffleType, releasePrice, imgSrc, storeName, country, delivery, payType, startDate, startTime, endDate, endTime, content)
+		VALUES 	(#{specialCase}, #{url}, #{productId}, #{raffleType}, #{releasePrice}, #{imgSrc}, #{storeName}, #{country}, #{delivery}, #{payType}, #{startDate}, #{startTime}, #{endDate}, #{endTime}, #{content})
+	</insert>
+	
+	<select id="getRaffleList" parameterType="String" 
+	resultType="com.sneakalarm.raffle.dto.RaffleVO">
+		SELECT *
+		FROM raffle
+		WHERE productId = #{productID}
+	</select>
+	
+	<select id="getRaffle" parameterType="Integer" 
+	resultType="com.sneakalarm.raffle.dto.RaffleVO">
+		SELECT *
+		FROM raffle
+		WHERE id = #{id}
+	</select>
+	
+	<update id="updateRaffle" parameterType="com.sneakalarm.raffle.dto.RaffleVO">
+		UPDATE 	raffle
+		SET			url=#{url}, raffleType=#{raffleType}, releasePrice=#{releasePrice},
+						storeName=#{storeName}, country=#{country}, delivery=#{delivery},
+						payType=#{payType}, startDate=#{startDate}, startTime=#{startTime},
+						endDate=#{endDate}, endTime=#{endTime}, content=#{content},
+						specialCase=#{specialCase}, imgSrc=#{imgSrc} 
+		WHERE		id=#{id}
+	</update>
+	
+	<delete id="deleteRaffle" parameterType="Integer">
+		DELETE FROM raffle
+		WHERE id=#{id}
+	</delete>
+
+</mapper>

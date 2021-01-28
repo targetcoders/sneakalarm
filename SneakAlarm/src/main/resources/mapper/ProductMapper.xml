@@ -33,4 +33,16 @@
 	 					releaseStartDate=#{releaseStartDate}, releaseEndDate=#{releaseEndDate}, code=#{code}
 	 	WHERE 	id=#{id}
 	 </update>
+	 
+	 	<update id="updateStartDateTime" parameterType="com.sneakalarm.product.dto.ProductUpdateStartDateTimeVO">
+		UPDATE	product
+		SET			releaseStartDate=#{startDateTime}
+		WHERE		id=#{productId}
+	</update>
+	
+	<update id="updateEndDateTime" parameterType="com.sneakalarm.product.dto.ProductUpdateEndDateTimeVO">
+		UPDATE	product
+		SET			releaseEndDate=#{endDateTime}
+		WHERE		id=#{productId}
+	</update>
 </mapper>

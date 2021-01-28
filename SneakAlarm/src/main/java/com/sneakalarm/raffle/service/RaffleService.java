@@ -1,0 +1,19 @@
+package com.sneakalarm.raffle.service;
+
+import java.util.ArrayList;
+import com.sneakalarm.raffle.dto.RaffleCardVO;
+import com.sneakalarm.raffle.dto.RaffleInsertVO;
+import com.sneakalarm.raffle.dto.RaffleVO;
+
+public interface RaffleService {
+  void raffleInsert(RaffleInsertVO raffleInsertVO);
+
+  ArrayList<RaffleVO> getRaffleList(Integer raffleId);
+
+  ArrayList<RaffleCardVO> getRaffleCardList(String productId);
+
+  void updateRaffle(RaffleInsertVO raffleInsertVO);
+
+  void deleteRaffle(Integer id);
+
+}
