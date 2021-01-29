@@ -29,8 +29,13 @@
 	font-weight:bold;
 }
 .detail-raffle {
- margin-bottom: 25px;
+ 
 }
+
+hr {
+	border: solid 2px #b8b8b8;
+}
+
 #showEndedFirstcomeCards {
  cursor: pointer;
  font-size: 18px;
@@ -75,7 +80,7 @@ $('document').ready(function(){
 			$('#raffleCardDetail-content'+raffleId).show();
 		}
 		else{
-			$('#raffleCardDetail-content'+raffleId).hide();
+			$('#raffleCardDetail-content'+raffleId).hide();	
 		}
 	});
 	
@@ -83,20 +88,24 @@ $('document').ready(function(){
 		if($(this).attr('is') == '0'){
 			$(this).attr('is','1');
 			$('.endedFirstcomeCard').show();
+			$('.endedFirstcomeCard').css('margin-bottom','10px');
 		}
 		else {
 			$(this).attr('is','0');
 			$('.endedFirstcomeCard').hide();
+			$('.endedFirstcomeCard').css('margin-bottom','0px');
 		}
 	});
 	$('#showEndedRaffleCards').click(function(){
 		if($(this).attr('is') == '0'){
 			$(this).attr('is','1');
 			$('.endedRaffleCard').show();
+			$('.endedRaffleCard').css('margin-bottom','10px');
 		}
 		else {
 			$(this).attr('is','0');
 			$('.endedRaffleCard').hide();
+			$('.endedRaffleCard').css('margin-bottom','0px');
 		}
 	});
 });
@@ -236,7 +245,7 @@ function move(id){
 				</div>
 			</div>
 		</div>
-		<div class="d-grid gap-3 d-md-flex justify-content-md-center" style="margin-bottom:20px">
+		<div sec:authorize="hasRole('ADMIN')" class="d-grid gap-3 d-md-flex justify-content-md-center" style="margin-bottom:20px">
 		<a sec:authorize="hasRole('ADMIN')" class="btn btn-dark itemalign-center" th:onclick="javascript:move([[${productVO.id}]])">
 			MODIFY		 
 		</a>
@@ -254,7 +263,7 @@ function move(id){
 <div class="container-fluid d-flex flex-wrap justify-content-center align-items-center firstcome-list-container" style="width:370px">
 	<h2 style="margin-bottom:20px">선착순<span th:text="|(${goingFirstcomeNum})|"></span></h2>
 	
-	<div class="detail-raffle" th:each="list : ${notEndedFirstcomeList}">
+	<div class="detail-raffle w-100" th:each="list : ${notEndedFirstcomeList}">
 		<div class="d-flex flex-column align-items-center" th:id="|card-${list.id}|">
 		<div class="container d-flex flex-column raffleCardDetail">
 	
@@ -263,7 +272,8 @@ function move(id){
 				<img th:src="${list.imgSrc}" style="height:70px; width:70px;"/>
 			</div>
 			<div>
-				<a th:href="${list.url}" style="text-decoration:none"><span class="draw-storeName" th:text="${list.storeName}"></span></a> <span th:if="${list.specialCase != ''}" th:text="|[${list.specialCase}]|" style="color:#fe0100; font-weight:bold;"></span><br/>
+				<a th:href="${list.url}" style="text-decoration:none"><span class="draw-storeName" th:text="${list.storeName}"></span></a><br/> 
+				<span th:if="${list.specialCase != ''}" th:text="|[${list.specialCase}]|" style="color:#fe0100; font-weight:bold;"></span><span th:if="${list.specialCase != ''}"><br/></span>
 				<span class="raffleDateTime" th:text="|시작: ${list.startDate}|"></span>&nbsp;<span class="raffleDateTime" th:text="${list.startTime}"></span><br/> 
 				<span th:text="${list.country}"></span>&nbsp;<span th:text="${list.delivery}"></span>
 				<span th:if="${list.payType != ''}" th:text="|(${list.payType})|"></span>
@@ -282,18 +292,19 @@ function move(id){
 	</div>
 	
 	<div class="container-fluid d-flex justify-content-center">
-		<span id="showEndedFirstcomeCards" is="0" style="margin-top:25px">지난 선착순 보기<span th:text="|(${endedFirstcomeNum})|"></span></span>
+		<span id="showEndedFirstcomeCards" is="0" style="margin-top:25px; margin-bottom:25px;">지난 선착순 보기<span th:text="|(${endedFirstcomeNum})|"></span></span>
 	</div>
-	<div class="detail-raffle d-flex justify-content-center" th:each="list : ${endedFirstcomeList}">
+	<div class="detail-raffle w-100" th:each="list : ${endedFirstcomeList}">
 	<div class="d-flex flex-column align-items-center" th:id="|card-${list.id}|">
-		<div class="container d-flex flex-column endedFirstcomeCard raffleCardDetail" style="display:none">
+		<div class="container-fluid d-flex flex-column endedFirstcomeCard raffleCardDetail" >
 		
 		<div class="d-flex" style="opacity:0.25;">
 			<div class="d-flex flex-column justify-content-center align-items-center endedFirstcomeCard" style="margin-right:20px">
 				<img class="endedFirstcomeCard" th:src="${list.imgSrc}" style="height:70px; width:70px; display:none;"/>
 			</div>
 			<div class="endedFirstcomeCard" style="display:none;">
-				<a class="endedCardURL" th:href="${list.url}" style="text-decoration:none;"><span class="draw-storeName" th:text="${list.storeName}"></span></a> <span th:if="${list.specialCase != ''}" th:text="|[${list.specialCase}]|" style="color:#fe0100; font-weight:bold;"></span><br/>
+				<a class="endedCardURL" th:href="${list.url}" style="text-decoration:none;"><span class="draw-storeName" th:text="${list.storeName}"></span></a><br/>
+				<span th:if="${list.specialCase != ''}" th:text="|[${list.specialCase}]|" style="color:#fe0100; font-weight:bold;"></span><span th:if="${list.specialCase != ''}"><br/></span>
 				<span class="raffleDateTime" th:text="|시작: ${list.startDate}|"></span>&nbsp;<span class="raffleDateTime" th:text="${list.startTime}"></span><br/> 
 				<span th:text="${list.country}"></span>&nbsp;<span th:text="${list.delivery}"></span>
 				<span th:if="${list.payType != ''}" th:text="|(${list.payType})|"></span>
@@ -315,16 +326,17 @@ function move(id){
 <div class="container-fluid d-flex flex-wrap justify-content-center align-items-center raffle-list-container" style="width:370px">
 	<h2 style="margin-bottom:20px">응모<span th:text="|(${goingRaffleNum})|"></span></h2>
 	
-	<div class="detail-raffle d-flex justify-content-center" th:each="list : ${notEndedRaffleList}">
+	<div class="detail-raffle w-100" th:each="list : ${notEndedRaffleList}">
 	<div class="d-flex flex-column align-items-center" th:id="|card-${list.id}|">
-			<div class="container d-flex flex-column raffleCardDetail">
+			<div class="container-fluid d-flex flex-column raffleCardDetail">
 			
 			<div class="d-flex" th:if="${list.status == '시작전'}" style="opacity:0.25;">
 				<div class="d-flex flex-column justify-content-center align-items-center" style="margin-right:20px">
 					<img th:src="${list.imgSrc}" style="height:70px; width:70px;"/>
 				</div>
 				<div>
-					<a th:href="${list.url}" style="text-decoration:none"><span class="draw-storeName" th:text="${list.storeName}"></span></a> <span th:if="${list.specialCase != ''}" th:text="|[${list.specialCase}]|" style="color:#fe0100; font-weight:bold;"></span><br/>
+					<a th:href="${list.url}" style="text-decoration:none"><span class="draw-storeName" th:text="${list.storeName}"></span></a><br/>
+					<span th:if="${list.specialCase != ''}" th:text="|[${list.specialCase}]|" style="color:#fe0100; font-weight:bold;"></span><span th:if="${list.specialCase != ''}"><br/></span>
 					<span class="raffleDateTime" th:text="|시작: ${list.startDate}|"></span>&nbsp;<span class="raffleDateTime" th:text="${list.startTime}"></span><br/>
 					<span class="raffleDateTime" th:text="|종료: ${list.endDate}|"></span>&nbsp;<span class="raffleDateTime" th:text="${list.endTime}"></span><br/>
 					<span th:text="${list.country}"></span>&nbsp;<span th:text="${list.delivery}"></span>
@@ -339,7 +351,8 @@ function move(id){
 					<img th:src="${list.imgSrc}" style="height:70px; width:70px;"/>
 				</div>
 				<div>
-					<a th:href="${list.url}" style="text-decoration:none"><span class="draw-storeName" th:text="${list.storeName}"></span></a> <span th:if="${list.specialCase != ''}" th:text="|[${list.specialCase}]|" style="color:#fe0100; font-weight:bold;"></span><br/>
+					<a th:href="${list.url}" style="text-decoration:none"><span class="draw-storeName" th:text="${list.storeName}"></span></a><br/>
+					<span th:if="${list.specialCase != ''}" th:text="|[${list.specialCase}]|" style="color:#fe0100; font-weight:bold;"></span><span th:if="${list.specialCase != ''}"><br/></span>
 					<span class="raffleDateTime" th:text="|종료: ${list.endDate}|"></span>&nbsp;<span class="raffleDateTime" th:text="${list.endTime}"></span><br/>
 					<span th:text="${list.country}"></span>&nbsp;<span th:text="${list.delivery}"></span>
 					<span th:if="${list.payType != ''}" th:text="|(${list.payType})|"></span>
@@ -352,22 +365,23 @@ function move(id){
 				<a class="btn btn-warning detail-raffle-modify flex-grow-1" th:is="${list.id}">Modify</a>
 				<a class="btn btn-danger detail-raffle-delete flex-grow-1" th:is="${list.id}">Delete</a>
 			</div>
+			
 			</div>
 	</div>
 	</div>
 	<div class="container-fluid d-flex justify-content-center">
-		<span id="showEndedRaffleCards" style="margin-top:25px" is="0">지난 응모 보기<span th:text="|(${endedRaffleNum})|"></span></span>
+		<span id="showEndedRaffleCards" style="margin-top:25px; margin-bottom:25px" is="0">지난 응모 보기<span th:text="|(${endedRaffleNum})|"></span></span>
 	</div>
-	<div class="detail-raffle d-flex justify-content-center" th:each="list : ${endedRaffleList}">
+	<div class="detail-raffle w-100" th:each="list : ${endedRaffleList}">
 	<div class="d-flex flex-column align-items-center" th:id="|card-${list.id}|">
-		<div class="container d-flex flex-column raffleCardDetail">
-		
+		<div class="container-fluid d-flex flex-column endedRaffleCard raffleCardDetail" >
 		<div class="d-flex" style="opacity:0.25;">
 		<div class="d-flex flex-column justify-content-center align-items-center endedRaffleCard" style="margin-right:20px;">
 			<img class="endedRaffleCard" th:src="${list.imgSrc}" style="height:70px; width:70px; display:none;"/>
 		</div>
 		<div class="endedRaffleCard" style="display:none;">
-			<a class="endedCardURL" th:href="${list.url}" style="text-decoration:none;"><span class="draw-storeName" th:text="${list.storeName}"></span></a> <span th:if="${list.specialCase != ''}" th:text="|[${list.specialCase}]|" style="color:#fe0100; font-weight:bold;"></span><br/>
+			<a class="endedCardURL" th:href="${list.url}" style="text-decoration:none;"><span class="draw-storeName" th:text="${list.storeName}"></span></a><br/>
+			<span th:if="${list.specialCase != ''}" th:text="|[${list.specialCase}]|" style="color:#fe0100; font-weight:bold;"></span><span th:if="${list.specialCase != ''}"><br/></span>
 			<span class="raffleDateTime" th:text="|시작: ${list.startDate}|"></span>&nbsp;<span class="raffleDateTime" th:text="${list.startTime}"></span><br/>
 			<span class="raffleDateTime" th:text="|종료: ${list.endDate}|"></span>&nbsp;<span class="raffleDateTime" th:text="${list.endTime}"></span><br/> 
 			<span th:text="${list.country}"></span>&nbsp;<span th:text="${list.delivery}"></span>
@@ -381,7 +395,6 @@ function move(id){
 			<a class="endedRaffleCard btn btn-warning detail-raffle-modify flex-grow-1" th:is="${list.id}" style="display:none">Modify</a>
 			<a class="endedRaffleCard btn btn-danger detail-raffle-delete flex-grow-1" th:is="${list.id}" style="display:none">Delete</a>
 		</div>
-		
 		</div>
 	</div>
 	</div>

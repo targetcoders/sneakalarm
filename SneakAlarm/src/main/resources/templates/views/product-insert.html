@@ -13,7 +13,7 @@ hr {
 
 <th:block layout:fragment="script">
 <script src="https://sdk.amazonaws.com/js/aws-sdk-2.283.1.min.js"></script>
-<script type="text/javascript" th:src="@{se2/js/service/HuskyEZCreator.js}" charset="utf-8"></script>
+<!-- <script type="text/javascript" th:src="@{se2/js/service/HuskyEZCreator.js}" charset="utf-8"></script> -->
 <script type="text/javascript" th:src="@{js/util.js}" charset="utf-8"></script>
 <script type="text/javascript">
 var albumBucketName = 'sneakalarm.media';
@@ -40,12 +40,13 @@ function validCheck(){
 $('document').ready(function(){
 	
 	$('#submitBtn').click(function(){
-		submitContents();
 		if (validCheck()) {
 			return alert('입력하지 않은 값이 있는지 확인해주세요.');
 		}
 		
 		var formData = new FormData(document.getElementById('insertform'));
+		formData.append('releaseStartDate','');
+		formData.append('releaseEndDate','RELEASING SOON');
 		$.ajax({
 			url: '/product-insert',
 			data: formData,
@@ -190,7 +191,7 @@ $('document').ready(function(){
 		<div class="mb-3 row">
 			<label for="content" class="col-sm-2 col-form-label text-center">내용</label>
 			<div class="col-sm-10">
-				<textarea name="content" id="content" rows="10" cols="85"></textarea>
+				<textarea class="form-control" name="content" id="content" style="height:150px;width:100%"></textarea>
 			</div>
 		</div>
 		<hr>
@@ -213,9 +214,7 @@ $('document').ready(function(){
 	</form>
 </div>
 </div>
-
-
-<script>
+<!-- <script>
 		var oEditors = [];
 		nhn.husky.EZCreator.createInIFrame({
  			oAppRef: oEditors,
@@ -231,6 +230,6 @@ $('document').ready(function(){
 		 // 에디터의 내용에 대한 값 검증은 이곳에서
 		 // document.getElementById("content").value를 이용해서 처리한다.
 	}
-</script>
+</script> -->
 </div>
 </html>
