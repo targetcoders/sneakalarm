@@ -8,7 +8,7 @@
 
 <th:block layout:fragment="script">
 <script src="https://sdk.amazonaws.com/js/aws-sdk-2.283.1.min.js"></script>
-<script type="text/javascript" th:src="@{se2/js/service/HuskyEZCreator.js}" charset="utf-8"></script>
+<!-- <script type="text/javascript" th:src="@{se2/js/service/HuskyEZCreator.js}" charset="utf-8"></script> -->
 <script type="text/javascript" th:src="@{js/util.js}" charset="utf-8"></script>
 <script>
 var albumBucketName = 'sneakalarm.media';
@@ -41,7 +41,6 @@ $('document').ready(function(){
 	$('#endTime').val(nowDateTime.toISOString().slice(11, 16));
 	
 	$('#submitBtn').click(function(){
-		submitContents();
 		if($('#content').val() == '<p><br></p>'){
 			$('#content').val('');
 		}
@@ -90,10 +89,10 @@ $('document').ready(function(){
 </th:block>
 
 <div layout:fragment="content">
-<div class="container-fluid d-flex justify-content-center" style="margin-top:80px">
-<div>
+<div class="container-fluid d-flex justify-content-center" style="margin-top:77.5px">
+<div class="productinsert">
 <h1 class="text-center">DRAW REGISTRATION</h1>
-<form id="insertform" method="post" style="width:1000px">
+<form id="insertform" class="productinsert-form" method="post">
 <input type="hidden" name="productId" id="productId" th:attr="value = ${productId}" readonly/>
 
 <div class="mb-3 row">
@@ -169,7 +168,7 @@ $('document').ready(function(){
 <div class="mb-3 row">
 	<label for="content" class="col-sm-2 col-form-label text-center">추가 설명</label>
 	<div class="col-sm-10">
-	<textarea id="content" name="content" rows="10" cols="85"></textarea>
+	<textarea class="form-control" id="content" name="content" style="height:150px;width:100%"></textarea>
 	</div>
 </div>
 <div class="mb-3 row">
@@ -184,22 +183,5 @@ $('document').ready(function(){
 </form>
 </div>
 </div>
-<script>
-		var oEditors = [];
-		nhn.husky.EZCreator.createInIFrame({
- 			oAppRef: oEditors,
- 			elPlaceHolder: "content",
- 			sSkinURI: "se2/SmartEditor2Skin.html",
- 			fCreator: "createSEditor2"
-		});
-		
-		// ‘저장’ 버튼을 누르는 등 저장을 위한 액션을 했을 때 submitContents가 호출된다고 가정한다.
-	function submitContents() {
-		 // 에디터의 내용이 textarea에 적용된다.
-		 oEditors.getById["content"].exec("UPDATE_CONTENTS_FIELD", []);
-		 // 에디터의 내용에 대한 값 검증은 이곳에서
-		 // document.getElementById("content").value를 이용해서 처리한다.
-	}
-</script>
 </div>
 </html>
