@@ -63,9 +63,16 @@ public class ProductServiceImpl implements ProductService {
     ArrayList<ProductCardVO> ret = new ArrayList<ProductCardVO>();
     for (ProductCardVO p : productCardList) {
       String endDate = p.getReleaseEndDate();
+      if (endDate.equals("RELEASING SOON")) {
+        p.setStatus("ended");
+        ret.add(p);
+        continue;
+      }
+      endDate = endDate.substring(0, 11) + endDate.substring(13, 18);
       String startDate = p.getReleaseStartDate();
+      startDate = startDate.substring(0, 11) + startDate.substring(13, 18);
       Date now = new Date();
-      SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd E HH:mm");
+      SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
       String nowDate = sdf.format(now);
       System.out.println(p.getModel_kr());
       System.out.println("nowDate: " + nowDate);
@@ -73,23 +80,21 @@ public class ProductServiceImpl implements ProductService {
       System.out.println("endDate: " + endDate);
       String status = "";
 
-      if (endDate.equals("RELEASING SOON")) {
-        p.setStatus("ended");
+
+      int res = nowDate.compareTo(endDate);
+      System.out.println("res: " + res);
+      if (res >= 0) {
+        status = "ended";
       } else {
-        int res = nowDate.compareTo(endDate);
-        System.out.println("res: " + res);
-        if (res >= 0) {
-          status = "ended";
+        if (nowDate.compareTo(startDate) < 0) {
+          status = "ready";
         } else {
-          if (nowDate.compareTo(startDate) < 0) {
-            status = "ready";
-          } else {
-            status = "going";
-          }
+          status = "going";
         }
-        p.setStatus(status);
-        System.out.println("status: " + status);
       }
+      p.setStatus(status);
+      System.out.println("status: " + status);
+
       ret.add(p);
     }
     return ret;
