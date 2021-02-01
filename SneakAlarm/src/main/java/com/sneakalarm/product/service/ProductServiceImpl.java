@@ -74,15 +74,15 @@ public class ProductServiceImpl implements ProductService {
       Date now = new Date();
       SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
       String nowDate = sdf.format(now);
-      System.out.println(p.getModel_kr());
-      System.out.println("nowDate: " + nowDate);
-      System.out.println("startDate: " + startDate);
-      System.out.println("endDate: " + endDate);
+      // System.out.println(p.getModel_kr());
+      // System.out.println("nowDate: " + nowDate);
+      // System.out.println("startDate: " + startDate);
+      // System.out.println("endDate: " + endDate);
       String status = "";
 
 
       int res = nowDate.compareTo(endDate);
-      System.out.println("res: " + res);
+      // System.out.println("res: " + res);
       if (res >= 0) {
         status = "ended";
       } else {
@@ -93,7 +93,7 @@ public class ProductServiceImpl implements ProductService {
         }
       }
       p.setStatus(status);
-      System.out.println("status: " + status);
+      // System.out.println("status: " + status);
 
       ret.add(p);
     }
