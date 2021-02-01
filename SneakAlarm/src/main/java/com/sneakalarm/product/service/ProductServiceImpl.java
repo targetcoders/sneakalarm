@@ -2,7 +2,6 @@ package com.sneakalarm.product.service;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
@@ -232,18 +231,30 @@ public class ProductServiceImpl implements ProductService {
     ArrayList<ProductCardVO> ret = new ArrayList<ProductCardVO>();
     for (ProductCardVO p : productCardList) {
       String endDate = p.getReleaseEndDate();
-
+      String startDate = p.getReleaseStartDate();
       Date now = new Date();
       SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd E HH:mm");
-      String nowMonthAndDay = sdf.format(now);
-      if (nowMonthAndDay.compareTo(endDate) >= 0) {
-        p.setIsDeleted(1);
+      String nowDate = sdf.format(now);
+
+      String status = "";
+
+      if (endDate.equals("RELEASING SOON")) {
+        p.setStatus("ready");
       } else {
-        p.setIsDeleted(0);
+        int res = nowDate.compareTo(endDate);
+        if (res > 0) {
+          status = "ended";
+        } else if (res < 0) {
+          if (nowDate.compareTo(startDate) < 0) {
+            status = "ready";
+          } else {
+            status = "going";
+          }
+        }
+        p.setStatus(status);
       }
       ret.add(p);
     }
-    Collections.sort(ret, new Assending());
     return ret;
   }
 
@@ -251,9 +262,9 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public int compare(ProductCardVO o1, ProductCardVO o2) {
-      if (o1.getIsDeleted() == o2.getIsDeleted()) {
+      if (o1.getStatus().equals(o2.getStatus())) {
         return o1.getReleaseEndDate().compareTo(o2.getReleaseEndDate());
-      } else if (o1.getIsDeleted() > o2.getIsDeleted()) {
+      } else if (o1.getStatus().compareTo(o2.getStatus()) == -1) {
         return 1;
       } else
         return -1;

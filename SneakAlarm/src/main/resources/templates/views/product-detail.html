@@ -261,9 +261,9 @@ function move(id){
 
 <div id="raffle-container" class="container-fluid d-flex flex-wrap align-items-start">
 <div class="container-fluid d-flex flex-wrap justify-content-center align-items-center firstcome-list-container" style="width:370px">
-	<h2 style="margin-bottom:20px">선착순<span th:text="|(${goingFirstcomeNum})|"></span></h2>
+	<h2 style="margin-bottom:20px">선착순<span th:text="|: ${goingFirstcomeNum}|"></span></h2>
 	
-	<div class="detail-raffle w-100" th:each="list : ${notEndedFirstcomeList}">
+	<div class="detail-raffle w-100" th:each="list : ${goingFirstcomeList}">
 		<div class="d-flex flex-column align-items-center" th:id="|card-${list.id}|">
 		<div class="container d-flex flex-column raffleCardDetail">
 	
@@ -281,7 +281,34 @@ function move(id){
 			</div>
 		</div>
 		
-		<div th:id="|raffleCardDetail-content${list.id}|" th:utext="${list.content}" style="border:1px solid #B8B8B8; display:none"></div>
+		<pre th:id="|raffleCardDetail-content${list.id}|" th:utext="${list.content}" style="border:1px solid #B8B8B8; display:none"></pre>
+			<div sec:authorize="hasRole('ADMIN')" class="d-flex">
+				<a class="btn btn-warning detail-raffle-modify flex-grow-1" th:is="${list.id}">Modify</a>
+				<a class="btn btn-danger detail-raffle-delete flex-grow-1" th:is="${list.id}">Delete</a>
+			</div>
+		</div>
+		
+		</div>
+	</div>
+		<div class="detail-raffle w-100" th:each="list : ${readyFirstcomeList}">
+		<div class="d-flex flex-column align-items-center" th:id="|card-${list.id}|">
+		<div class="container d-flex flex-column raffleCardDetail">
+	
+		<div class="d-flex">
+			<div class="d-flex flex-column justify-content-center align-items-center" style="margin-right:20px">
+				<img th:src="${list.imgSrc}" style="height:70px; width:70px;"/>
+			</div>
+			<div>
+				<a th:href="${list.url}" style="text-decoration:none"><span class="draw-storeName" th:text="${list.storeName}"></span></a><br/> 
+				<span th:if="${list.specialCase != ''}" th:text="|[${list.specialCase}]|" style="color:#fe0100; font-weight:bold;"></span><span th:if="${list.specialCase != ''}"><br/></span>
+				<span class="raffleDateTime" th:text="|시작: ${list.startDate}|"></span>&nbsp;<span class="raffleDateTime" th:text="${list.startTime}"></span><br/> 
+				<span th:text="${list.country}"></span>&nbsp;<span th:text="${list.delivery}"></span>
+				<span th:if="${list.payType != ''}" th:text="|(${list.payType})|"></span>
+				<span th:if="${list.content != ''}"><button type="button" class="sneakBtn" th:is="${list.id}"><img th:src="@{image/raffle/button/SNEAK_60x15.png}"/></button></span>
+			</div>
+		</div>
+		
+		<pre th:id="|raffleCardDetail-content${list.id}|" th:utext="${list.content}" style="border:1px solid #B8B8B8; display:none"></pre>
 			<div sec:authorize="hasRole('ADMIN')" class="d-flex">
 				<a class="btn btn-warning detail-raffle-modify flex-grow-1" th:is="${list.id}">Modify</a>
 				<a class="btn btn-danger detail-raffle-delete flex-grow-1" th:is="${list.id}">Delete</a>
@@ -312,7 +339,7 @@ function move(id){
 			</div>
 		</div>
 		
-		<div th:id="|raffleCardDetail-content${list.id}|" th:utext="${list.content}" style="border:1px solid #B8B8B8; display:none"></div>
+		<pre th:id="|raffleCardDetail-content${list.id}|" th:utext="${list.content}" style="border:1px solid #B8B8B8; display:none"></pre>
 		<div sec:authorize="hasRole('ADMIN')" class="d-flex">
 			<a class="endedFirstcomeCard btn btn-warning detail-raffle-modify flex-grow-1" th:is="${list.id}" style="display:none;">Modify</a>
 			<a class="endedFirstcomeCard btn btn-danger detail-raffle-delete flex-grow-1" th:is="${list.id}" style="display:none;">Delete</a>
@@ -324,54 +351,68 @@ function move(id){
 </div>
 
 <div class="container-fluid d-flex flex-wrap justify-content-center align-items-center raffle-list-container" style="width:370px">
-	<h2 style="margin-bottom:20px">응모<span th:text="|(${goingRaffleNum})|"></span></h2>
+	<h2 style="margin-bottom:20px">응모<span th:text="|: ${goingRaffleNum}|"></span></h2>
 	
-	<div class="detail-raffle w-100" th:each="list : ${notEndedRaffleList}">
+	<div class="detail-raffle w-100" th:each="list : ${goingRaffleList}">
 	<div class="d-flex flex-column align-items-center" th:id="|card-${list.id}|">
-			<div class="container-fluid d-flex flex-column raffleCardDetail">
+		<div class="container-fluid d-flex flex-column raffleCardDetail">
 			
-			<div class="d-flex" th:if="${list.status == '시작전'}" style="opacity:0.25;">
-				<div class="d-flex flex-column justify-content-center align-items-center" style="margin-right:20px">
-					<img th:src="${list.imgSrc}" style="height:70px; width:70px;"/>
-				</div>
-				<div>
-					<a th:href="${list.url}" style="text-decoration:none"><span class="draw-storeName" th:text="${list.storeName}"></span></a><br/>
-					<span th:if="${list.specialCase != ''}" th:text="|[${list.specialCase}]|" style="color:#fe0100; font-weight:bold;"></span><span th:if="${list.specialCase != ''}"><br/></span>
-					<span class="raffleDateTime" th:text="|시작: ${list.startDate}|"></span>&nbsp;<span class="raffleDateTime" th:text="${list.startTime}"></span><br/>
-					<span class="raffleDateTime" th:text="|종료: ${list.endDate}|"></span>&nbsp;<span class="raffleDateTime" th:text="${list.endTime}"></span><br/>
-					<span th:text="${list.country}"></span>&nbsp;<span th:text="${list.delivery}"></span>
-					<span th:if="${list.payType != ''}" th:text="|(${list.payType})|"></span>
-			  	<span th:if="${list.content != ''}"><button type="button" class="sneakBtn" th:is="${list.id}"><img th:src="@{image/raffle/button/SNEAK_60x15.png}"/></button></span>
-			  </div>
-			  <div th:id="|raffleCardDetail-content${list.id}|" th:utext="${list.content}" style="border:1px solid #B8B8B8; opacity:0.25; display:none"></div>
+		<div class="d-flex">
+			<div class="d-flex flex-column justify-content-center align-items-center" style="margin-right:20px">
+				<img th:src="${list.imgSrc}" style="height:70px; width:70px;"/>
 			</div>
-			
-			<div class="d-flex" th:if="${list.status != '시작전'}">
-				<div class="d-flex flex-column justify-content-center align-items-center" style="margin-right:20px">
-					<img th:src="${list.imgSrc}" style="height:70px; width:70px;"/>
-				</div>
-				<div>
-					<a th:href="${list.url}" style="text-decoration:none"><span class="draw-storeName" th:text="${list.storeName}"></span></a><br/>
-					<span th:if="${list.specialCase != ''}" th:text="|[${list.specialCase}]|" style="color:#fe0100; font-weight:bold;"></span><span th:if="${list.specialCase != ''}"><br/></span>
-					<span class="raffleDateTime" th:text="|종료: ${list.endDate}|"></span>&nbsp;<span class="raffleDateTime" th:text="${list.endTime}"></span><br/>
-					<span th:text="${list.country}"></span>&nbsp;<span th:text="${list.delivery}"></span>
-					<span th:if="${list.payType != ''}" th:text="|(${list.payType})|"></span>
-			  	<span th:if="${list.content != ''}"><button type="button" class="sneakBtn" th:is="${list.id}"><img th:src="@{image/raffle/button/SNEAK_60x15.png}"/></button></span>
-			  </div>
-			</div>
-			
-			<div th:id="|raffleCardDetail-content${list.id}|" th:utext="${list.content}" style="border:1px solid #B8B8B8; display:none"></div>
-			<div sec:authorize="hasRole('ADMIN')" class="d-flex">
-				<a class="btn btn-warning detail-raffle-modify flex-grow-1" th:is="${list.id}">Modify</a>
-				<a class="btn btn-danger detail-raffle-delete flex-grow-1" th:is="${list.id}">Delete</a>
-			</div>
-			
-			</div>
+			<div>
+				<a th:href="${list.url}" style="text-decoration:none"><span class="draw-storeName" th:text="${list.storeName}"></span></a><br/>
+				<span th:if="${list.specialCase != ''}" th:text="|[${list.specialCase}]|" style="color:#fe0100; font-weight:bold;"></span><span th:if="${list.specialCase != ''}"><br/></span>
+				<span class="raffleDateTime" th:text="|종료: ${list.endDate}|"></span>&nbsp;<span class="raffleDateTime" th:text="${list.endTime}"></span><br/>
+				<span th:text="${list.country}"></span>&nbsp;<span th:text="${list.delivery}"></span>
+				<span th:if="${list.payType != ''}" th:text="|(${list.payType})|"></span>
+		  	<span th:if="${list.content != ''}"><button type="button" class="sneakBtn" th:is="${list.id}"><img th:src="@{image/raffle/button/SNEAK_60x15.png}"/></button></span>
+		  </div>
+		</div>
+			  
+		<pre th:id="|raffleCardDetail-content${list.id}|" th:utext="${list.content}" style="border:1px solid #B8B8B8; display:none"></pre>
+		<div sec:authorize="hasRole('ADMIN')" class="d-flex">
+			<a class="btn btn-warning detail-raffle-modify flex-grow-1" th:is="${list.id}">Modify</a>
+			<a class="btn btn-danger detail-raffle-delete flex-grow-1" th:is="${list.id}">Delete</a>
+		</div>
+						
+		</div>
 	</div>
 	</div>
+	<div class="detail-raffle w-100" th:each="list : ${readyRaffleList}">
+	<div class="d-flex flex-column align-items-center" th:id="|card-${list.id}|">
+		<div class="container-fluid d-flex flex-column raffleCardDetail">
+		
+		<div class="d-flex"  style="opacity:0.25;">
+			<div class="d-flex flex-column justify-content-center align-items-center" style="margin-right:20px">
+				<img th:src="${list.imgSrc}" style="height:70px; width:70px;"/>
+			</div>
+			<div>
+				<a th:href="${list.url}" style="text-decoration:none"><span class="draw-storeName" th:text="${list.storeName}"></span></a><br/>
+				<span th:if="${list.specialCase != ''}" th:text="|[${list.specialCase}]|" style="color:#fe0100; font-weight:bold;"></span><span th:if="${list.specialCase != ''}"><br/></span>
+				<span class="raffleDateTime" th:text="|시작: ${list.startDate}|"></span>&nbsp;<span class="raffleDateTime" th:text="${list.startTime}"></span><br/>
+				<span class="raffleDateTime" th:text="|종료: ${list.endDate}|"></span>&nbsp;<span class="raffleDateTime" th:text="${list.endTime}"></span><br/>
+				<span th:text="${list.country}"></span>&nbsp;<span th:text="${list.delivery}"></span>
+				<span th:if="${list.payType != ''}" th:text="|(${list.payType})|"></span>
+		  	<span th:if="${list.content != ''}"><button type="button" class="sneakBtn" th:is="${list.id}"><img th:src="@{image/raffle/button/SNEAK_60x15.png}"/></button></span>
+		  </div>
+		</div>
+			
+		<pre th:id="|raffleCardDetail-content${list.id}|" th:utext="${list.content}" style="border:1px solid #B8B8B8; display:none"></pre>
+		<div sec:authorize="hasRole('ADMIN')" class="d-flex">
+			<a class="btn btn-warning detail-raffle-modify flex-grow-1" th:is="${list.id}">Modify</a>
+			<a class="btn btn-danger detail-raffle-delete flex-grow-1" th:is="${list.id}">Delete</a>
+		</div>
+			
+		</div>
+	</div>
+	</div>
+	
 	<div class="container-fluid d-flex justify-content-center">
 		<span id="showEndedRaffleCards" style="margin-top:25px; margin-bottom:25px" is="0">지난 응모 보기<span th:text="|(${endedRaffleNum})|"></span></span>
 	</div>
+	
 	<div class="detail-raffle w-100" th:each="list : ${endedRaffleList}">
 	<div class="d-flex flex-column align-items-center" th:id="|card-${list.id}|">
 		<div class="container-fluid d-flex flex-column endedRaffleCard raffleCardDetail" >
@@ -390,7 +431,7 @@ function move(id){
 		</div>
 		</div>
 		
-		<div th:id="|raffleCardDetail-content${list.id}|" th:utext="${list.content}" style="border:1px solid #B8B8B8; display:none"></div>
+		<pre th:id="|raffleCardDetail-content${list.id}|" th:utext="${list.content}" style="border:1px solid #B8B8B8; display:none"></pre>
 		<div sec:authorize="hasRole('ADMIN')" class="d-flex">
 			<a class="endedRaffleCard btn btn-warning detail-raffle-modify flex-grow-1" th:is="${list.id}" style="display:none">Modify</a>
 			<a class="endedRaffleCard btn btn-danger detail-raffle-delete flex-grow-1" th:is="${list.id}" style="display:none">Delete</a>

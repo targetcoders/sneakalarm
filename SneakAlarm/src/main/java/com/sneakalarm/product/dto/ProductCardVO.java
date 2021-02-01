@@ -14,7 +14,7 @@ public class ProductCardVO {
   private String imgSrc_home;
   private String releaseStartMonthAndDay;
   private String releaseEndMonthAndDay;
-  private int isDeleted;
+  private String status;
 
   public ProductCardVO() {}
 }
