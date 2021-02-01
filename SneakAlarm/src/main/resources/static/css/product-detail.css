@@ -65,13 +65,13 @@
 	text-align:center;
 	color:#5e5e5e;
 }
-#releaseDateName {
+.SAstyleWhite {
 	background-color: black;
 	color: #ffffff;
 	font-style: italic;
 	font-weight: bold;
 }
-#releaseDateValue {
+.SAstyleRed {
 	background-color: black;
 	color:#fe0100;
 	font-style: italic;
