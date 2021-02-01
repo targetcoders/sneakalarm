@@ -54,10 +54,29 @@ $('document').ready(function(){
 			</a>
 		</div>
 		<div class="container-fluid d-flex flex-wrap justify-content-center">
-			<div class="home-product" th:each="list : ${list}">
+			<div class="home-product" th:each="list : ${goingCardList}">
 				<div class="d-flex flex-column align-items-center" th:id="|card-${list.id}|">
-					<a th:href="@{/product-detail(id=${list.id})}" th:if="${list.isDeleted} eq 1" style="opacity:0.2;"><img th:src="${list.imgSrc_home}" class="home-product-img"></a>
-					<a th:href="@{/product-detail(id=${list.id})}" th:unless="${list.isDeleted} eq 1"><img th:src="${list.imgSrc_home}" class="home-product-img"></a>
+					<a th:href="@{/product-detail(id=${list.id})}"><img th:src="${list.imgSrc_home}" class="home-product-img"></a>
+					<span th:text="${list.model_kr}" id="home-product-model_kr"></span>
+					<div sec:authorize="hasRole('ADMIN')" class="d-flex">
+						<a class="btn btn-warning home-product-modify flex-grow-1" th:is="${list.id}">Modify</a>
+						<a class="btn btn-danger home-product-delete flex-grow-1" th:is="${list.id}">Delete</a>
+					</div>
+				</div>
+			</div>
+			<div class="home-product" th:each="list : ${readyCardList}">
+				<div class="d-flex flex-column align-items-center" th:id="|card-${list.id}|">
+					<a th:href="@{/product-detail(id=${list.id})}" style="opacity:0.4;"><img th:src="${list.imgSrc_home}" class="home-product-img"></a>
+					<span th:text="${list.model_kr}" id="home-product-model_kr"></span>
+					<div sec:authorize="hasRole('ADMIN')" class="d-flex">
+						<a class="btn btn-warning home-product-modify flex-grow-1" th:is="${list.id}">Modify</a>
+						<a class="btn btn-danger home-product-delete flex-grow-1" th:is="${list.id}">Delete</a>
+					</div>
+				</div>
+			</div>
+ 			<div class="home-product" th:each="list : ${endedCardList}">
+				<div class="d-flex flex-column align-items-center" th:id="|card-${list.id}|">
+					<a th:href="@{/product-detail(id=${list.id})}" style="opacity:0.1;"><img th:src="${list.imgSrc_home}" class="home-product-img"></a>
 					<span th:text="${list.model_kr}" id="home-product-model_kr"></span>
 					<div sec:authorize="hasRole('ADMIN')" class="d-flex">
 						<a class="btn btn-warning home-product-modify flex-grow-1" th:is="${list.id}">Modify</a>

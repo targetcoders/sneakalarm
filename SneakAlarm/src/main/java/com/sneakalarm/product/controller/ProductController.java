@@ -31,10 +31,32 @@ public class ProductController {
   RaffleService raffleService;
 
   @GetMapping("/")
-  public String getProductCardList(Model model) {
+  public String getProductCardList(Model model) throws ParseException {
     ArrayList<ProductCardVO> list =
         (ArrayList<ProductCardVO>) productServiceImpl.getProductCardList();
-    model.addAttribute("list", list);
+    ArrayList<ProductCardVO> readyCardList = new ArrayList<ProductCardVO>();
+    ArrayList<ProductCardVO> goingCardList = new ArrayList<ProductCardVO>();
+    ArrayList<ProductCardVO> endedCardList = new ArrayList<ProductCardVO>();
+
+    for (ProductCardVO card : list) {
+      String status = card.getStatus();
+      if (status.equals("ready")) {
+        readyCardList.add(card);
+      }
+      if (status.equals("going")) {
+        goingCardList.add(card);
+      }
+      if (status.equals("ended")) {
+        endedCardList.add(card);
+      }
+    }
+    Collections.sort(readyCardList, new ProductAscending());
+    Collections.sort(goingCardList, new ProductAscending());
+    Collections.sort(endedCardList, new ProductAscending());
+
+    model.addAttribute("readyCardList", readyCardList);
+    model.addAttribute("goingCardList", goingCardList);
+    model.addAttribute("endedCardList", endedCardList);
     return "views/home";
   }
 
@@ -86,19 +108,18 @@ public class ProductController {
     String[] urlArray = productVO.getImgSrc_detail().split(",");
     ArrayList<RaffleCardVO> raffleCardList = raffleService.getRaffleCardList(id);
     ArrayList<RaffleCardVO> endedRaffleRet = new ArrayList<RaffleCardVO>();
-    ArrayList<RaffleCardVO> notEndedRaffleRet = new ArrayList<RaffleCardVO>();
+    ArrayList<RaffleCardVO> readyRaffleRet = new ArrayList<RaffleCardVO>();
+    ArrayList<RaffleCardVO> goingRaffleRet = new ArrayList<RaffleCardVO>();
     ArrayList<RaffleCardVO> endedFirstcomeRet = new ArrayList<RaffleCardVO>();
-    ArrayList<RaffleCardVO> notEndedFirstcomeRet = new ArrayList<RaffleCardVO>();
-
-    int readyRaffleNum = 0;
-    int readyFirstcomeNum = 0;
+    ArrayList<RaffleCardVO> readyFirstcomeRet = new ArrayList<RaffleCardVO>();
+    ArrayList<RaffleCardVO> goingFirstcomeRet = new ArrayList<RaffleCardVO>();
 
     for (RaffleCardVO raffleCardVO : raffleCardList) {
       String startDate = raffleCardVO.getStartDate();
       String endDate = raffleCardVO.getEndDate();
       String startTime = raffleCardVO.getStartTime();
       String endTime = raffleCardVO.getEndTime();
-      String status = getStatus(startDate, startTime, endDate, endTime);
+      String status = getRaffleStatus(startDate, startTime, endDate, endTime);
       String startWeek = getWeek(startDate, "yyyy-MM-dd");
       String endWeek = getWeek(endDate, "yyyy-MM-dd");
 
@@ -112,25 +133,20 @@ public class ProductController {
         if (status.equals("종료")) {
           endedRaffleRet.add(raffleCardVO);
         } else if (status.equals("시작전")) {
-          readyRaffleNum += 1;
-          notEndedRaffleRet.add(raffleCardVO);
+          readyRaffleRet.add(raffleCardVO);
         } else {
-          notEndedRaffleRet.add(raffleCardVO);
+          goingRaffleRet.add(raffleCardVO);
         }
       } else {
         if (status.equals("종료")) {
           endedFirstcomeRet.add(raffleCardVO);
         } else if (status.equals("시작전")) {
-          readyFirstcomeNum += 1;
-          notEndedFirstcomeRet.add(raffleCardVO);
+          readyFirstcomeRet.add(raffleCardVO);
         } else {
-          notEndedFirstcomeRet.add(raffleCardVO);
+          goingFirstcomeRet.add(raffleCardVO);
         }
       }
     }
-    Collections.sort(notEndedRaffleRet, new DrawAscending());
-    Collections.sort(notEndedFirstcomeRet, new DrawAscending());
-
 
     String drawStartDateTime = getDrawStartDateTime(raffleCardList);
     String drawEndDateTime = getDrawEndDateTime(raffleCardList);
@@ -146,18 +162,30 @@ public class ProductController {
     productServiceImpl.updateStartDateTime(productUpdateStartDateTimeVO);
     productServiceImpl.updateEndDateTime(productUpdateEndDateTimeVO);
 
+    Collections.sort(goingRaffleRet, new DrawAscending());
+    Collections.sort(readyRaffleRet, new DrawAscending());
+    Collections.sort(endedRaffleRet, new DrawAscending());
+    Collections.sort(goingFirstcomeRet, new DrawAscending());
+    Collections.sort(readyFirstcomeRet, new DrawAscending());
+    Collections.sort(endedFirstcomeRet, new DrawAscending());
+
     model.addAttribute("productVO", productVO);
     model.addAttribute("urlList_detail", urlArray);
+
+    model.addAttribute("goingRaffleList", goingRaffleRet);
+    model.addAttribute("readyRaffleList", readyRaffleRet);
     model.addAttribute("endedRaffleList", endedRaffleRet);
-    model.addAttribute("notEndedRaffleList", notEndedRaffleRet);
+    model.addAttribute("goingFirstcomeList", goingFirstcomeRet);
+    model.addAttribute("readyFirstcomeList", readyFirstcomeRet);
     model.addAttribute("endedFirstcomeList", endedFirstcomeRet);
-    model.addAttribute("notEndedFirstcomeList", notEndedFirstcomeRet);
-    model.addAttribute("goingRaffleNum", notEndedRaffleRet.size() - readyRaffleNum);
-    model.addAttribute("goingFirstcomeNum", notEndedFirstcomeRet.size());
+
+    model.addAttribute("goingRaffleNum", goingRaffleRet.size());
+    model.addAttribute("readyRaffleNum", readyRaffleRet.size());
     model.addAttribute("endedRaffleNum", endedRaffleRet.size());
-    model.addAttribute("notEndedRaffleNum", notEndedRaffleRet.size());
+    model.addAttribute("goingFirstcomeNum", goingFirstcomeRet.size());
+    model.addAttribute("readyFirstcomeNum", readyFirstcomeRet.size());
     model.addAttribute("endedFirstcomeNum", endedFirstcomeRet.size());
-    model.addAttribute("notEndedFirstcomeNum", notEndedFirstcomeRet.size());
+
     model.addAttribute("drawStartDateTime", drawStartDateTime);
     model.addAttribute("drawEndDateTime", drawEndDateTime);
     return "views/product-detail";
@@ -195,10 +223,10 @@ public class ProductController {
     return drawEndDateTime;
   }
 
-  public String getStatus(String startDate, String startTime, String endDate, String endTime)
+  public String getRaffleStatus(String startDate, String startTime, String endDate, String endTime)
       throws ParseException {
     String status = "";
-    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
     Date nowDateTime = new Date();
     Date startDateTime = sdf.parse(startDate + " " + startTime);
     Date endDateTime = sdf.parse(endDate + " " + endTime);
@@ -206,7 +234,7 @@ public class ProductController {
     int res = nowDateTime.compareTo(endDateTime);
     if (res > 0) {
       status = "종료";
-    } else if (res < 0) {
+    } else if (res <= 0) {
       if (nowDateTime.compareTo(startDateTime) < 0) {
         status = "시작전";
       } else {
@@ -214,6 +242,18 @@ public class ProductController {
       }
     }
     return status;
+  }
+
+  public boolean isEndedProductCard(String endDate) throws ParseException {
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+    Date nowDateTime = new Date();
+    Date endDateTime = sdf.parse(endDate);
+
+    int res = nowDateTime.compareTo(endDateTime);
+    if (res >= 0) {
+      return true;
+    }
+    return false;
   }
 
   public String getWeek(String date, String dateType) throws Exception {
@@ -258,14 +298,18 @@ public class ProductController {
   public class DrawAscending implements Comparator<RaffleCardVO> {
     @Override
     public int compare(RaffleCardVO o1, RaffleCardVO o2) {
-      if (o1.getStatus().length() == o2.getStatus().length()) {
-        String endDateTime1 = o1.getEndDate() + o1.getEndTime();
-        String endDateTime2 = o2.getEndDate() + o2.getEndTime();
+      String endDateTime1 = o1.getEndDate() + o1.getEndTime();
+      String endDateTime2 = o2.getEndDate() + o2.getEndTime();
+      return endDateTime1.compareTo(endDateTime2);
+    }
+  }
 
-        return endDateTime1.compareTo(endDateTime2);
-      } else {
-        return -1;
-      }
+  public class ProductAscending implements Comparator<ProductCardVO> {
+    @Override
+    public int compare(ProductCardVO o1, ProductCardVO o2) {
+      String endDateTime1 = o1.getReleaseEndDate() + o1.getReleaseEndDate();
+      String endDateTime2 = o2.getReleaseEndDate() + o2.getReleaseEndDate();
+      return endDateTime1.compareTo(endDateTime2);
     }
   }
 }
