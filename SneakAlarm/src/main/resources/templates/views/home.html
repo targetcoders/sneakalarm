@@ -12,6 +12,16 @@
 		font-weight: bold;
 		color: #5e5e5e;
 	}
+	.home-product-status-going {
+		font-size: 12px;
+		font-weight: bold;
+		color: #fe0100;
+	}
+	.home-product-status-ready {
+		font-size: 12px;
+		font-weight: bold;
+		color: #5e5e5e;
+	}
 </style>
 </th:block>
 <th:block layout:fragment="script">
@@ -58,6 +68,7 @@ $('document').ready(function(){
 				<div class="d-flex flex-column align-items-center" th:id="|card-${list.id}|">
 					<a th:href="@{/product-detail(id=${list.id})}"><img th:src="${list.imgSrc_home}" class="home-product-img"></a>
 					<span th:text="${list.model_kr}" id="home-product-model_kr"></span>
+					<span class="home-product-status-going">[진행 중!]</span>
 					<div sec:authorize="hasRole('ADMIN')" class="d-flex">
 						<a class="btn btn-warning home-product-modify flex-grow-1" th:is="${list.id}">Modify</a>
 						<a class="btn btn-danger home-product-delete flex-grow-1" th:is="${list.id}">Delete</a>
@@ -68,6 +79,7 @@ $('document').ready(function(){
 				<div class="d-flex flex-column align-items-center" th:id="|card-${list.id}|">
 					<a th:href="@{/product-detail(id=${list.id})}" style="opacity:0.4;"><img th:src="${list.imgSrc_home}" class="home-product-img"></a>
 					<span th:text="${list.model_kr}" id="home-product-model_kr"></span>
+					<span class="home-product-status-ready">[시작 전]</span>
 					<div sec:authorize="hasRole('ADMIN')" class="d-flex">
 						<a class="btn btn-warning home-product-modify flex-grow-1" th:is="${list.id}">Modify</a>
 						<a class="btn btn-danger home-product-delete flex-grow-1" th:is="${list.id}">Delete</a>
