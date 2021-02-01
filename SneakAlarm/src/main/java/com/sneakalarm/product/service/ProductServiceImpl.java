@@ -46,21 +46,52 @@ public class ProductServiceImpl implements ProductService {
         (ArrayList<ProductCardVO>) productCardMapper.getProductCardList();
     ArrayList<ProductCardVO> ret = new ArrayList<ProductCardVO>();
 
-    ArrayList<ProductCardVO> sortedCardList = sortProductCardList(cardList);
+    ArrayList<ProductCardVO> settedCardList = setProductCardStatus(cardList);
 
-    for (int i = 0; i < sortedCardList.size(); i++) {
-      // SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-      // Date nowDate = new Date();
-      // Date endDate = f.parse(productCard.getReleaseEndDate());
-      // String timeLeft = getTimeLeft(endDate, nowDate);
-      // productCard.setTimeLeft(timeLeft);
-      ProductCardVO productCard = sortedCardList.get(i);
+    for (int i = 0; i < settedCardList.size(); i++) {
+      ProductCardVO productCard = settedCardList.get(i);
       String imgSrcOrigin = productCard.getImgSrc_home();
       String[] imgSrcList = imgSrcOrigin.split(",");
       productCard.setImgSrc_home(imgSrcList[0]);
       ret.add(productCard);
     }
 
+    return ret;
+  }
+
+  public ArrayList<ProductCardVO> setProductCardStatus(ArrayList<ProductCardVO> productCardList) {
+    ArrayList<ProductCardVO> ret = new ArrayList<ProductCardVO>();
+    for (ProductCardVO p : productCardList) {
+      String endDate = p.getReleaseEndDate();
+      String startDate = p.getReleaseStartDate();
+      Date now = new Date();
+      SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd E HH:mm");
+      String nowDate = sdf.format(now);
+      System.out.println(p.getModel_kr());
+      System.out.println("nowDate: " + nowDate);
+      System.out.println("startDate: " + startDate);
+      System.out.println("endDate: " + endDate);
+      String status = "";
+
+      if (endDate.equals("RELEASING SOON")) {
+        p.setStatus("ended");
+      } else {
+        int res = nowDate.compareTo(endDate);
+        System.out.println("res: " + res);
+        if (res >= 0) {
+          status = "ended";
+        } else {
+          if (nowDate.compareTo(startDate) < 0) {
+            status = "ready";
+          } else {
+            status = "going";
+          }
+        }
+        p.setStatus(status);
+        System.out.println("status: " + status);
+      }
+      ret.add(p);
+    }
     return ret;
   }
 
@@ -116,7 +147,7 @@ public class ProductServiceImpl implements ProductService {
     productVO.setPopularity("0");
     productVO.setInsertDate(now);
     productVO.setReleaseDate(now);
-    productVO.setCountry("모두/해외/국내/");
+    productVO.setCountry("모두/해외/국내");
     productVO.setDraw("선착/응모");
     productVO.setIsDeleted(0);
     productMapper.insertProduct(productVO);
@@ -189,7 +220,7 @@ public class ProductServiceImpl implements ProductService {
           fileName = fileName.substring(12);
         }
         String url = "https://" + "s3." + region + ".amazonaws.com/" + bucket + "/"
-            + productFolderName + code + "/" + fileName;
+            + productFolderName + "/" + code + "/" + fileName;
         urlList_home.add(url);
       }
       String imgSrc_home = String.join(",", urlList_home);
@@ -201,61 +232,13 @@ public class ProductServiceImpl implements ProductService {
           fileName = fileName.substring(12);
         }
         String url = "https://" + "s3." + region + ".amazonaws.com/" + bucket + "/"
-            + productFolderName + code + "/" + fileName;
+            + productFolderName + "/" + code + "/" + fileName;
         urlList_detail.add(url);
       }
       String imgSrc_detail = String.join(",", urlList_detail);
       product.setImgSrc_detail(imgSrc_detail);
     }
     productMapper.updateProduct(product);
-  }
-
-  public String getMonthAndDay(String[] dateArray) {
-    String yearMonthAndDay = "";
-    Date now = new Date();
-    SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
-    String year = sdf.format(now);
-    if (dateArray.length == 3) {
-      // yyyy/MM/dd
-      yearMonthAndDay = dateArray[0] + dateArray[1] + dateArray[2].substring(0, 2);
-    } else if (dateArray.length == 2) {
-      // MM/dd
-      yearMonthAndDay = year + dateArray[0] + dateArray[1].substring(0, 2);
-    } else {
-      yearMonthAndDay = year + "0000";
-    }
-    return yearMonthAndDay;
-  }
-
-  public ArrayList<ProductCardVO> sortProductCardList(ArrayList<ProductCardVO> productCardList) {
-    ArrayList<ProductCardVO> ret = new ArrayList<ProductCardVO>();
-    for (ProductCardVO p : productCardList) {
-      String endDate = p.getReleaseEndDate();
-      String startDate = p.getReleaseStartDate();
-      Date now = new Date();
-      SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd E HH:mm");
-      String nowDate = sdf.format(now);
-
-      String status = "";
-
-      if (endDate.equals("RELEASING SOON")) {
-        p.setStatus("ready");
-      } else {
-        int res = nowDate.compareTo(endDate);
-        if (res > 0) {
-          status = "ended";
-        } else if (res < 0) {
-          if (nowDate.compareTo(startDate) < 0) {
-            status = "ready";
-          } else {
-            status = "going";
-          }
-        }
-        p.setStatus(status);
-      }
-      ret.add(p);
-    }
-    return ret;
   }
 
   public class Assending implements Comparator<ProductCardVO> {

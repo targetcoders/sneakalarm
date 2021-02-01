@@ -194,6 +194,8 @@ public class ProductController {
   public String getDrawStartDateTime(ArrayList<RaffleCardVO> raffleCardVOList) {
     String drawStartDateTime = "9999-99-99";
     for (RaffleCardVO raffleCardVO : raffleCardVOList) {
+      if (raffleCardVO.getStatus().equals("종료"))
+        continue;
       String startDate = raffleCardVO.getStartDate();
       String startTime = raffleCardVO.getStartTime();
       String startDateTime = startDate + " " + startTime;
@@ -210,6 +212,8 @@ public class ProductController {
   public String getDrawEndDateTime(ArrayList<RaffleCardVO> raffleCardVOList) {
     String drawEndDateTime = "";
     for (RaffleCardVO raffleCardVO : raffleCardVOList) {
+      if (raffleCardVO.getStatus().equals("종료"))
+        continue;
       String endDate = raffleCardVO.getEndDate();
       String endTime = raffleCardVO.getEndTime();
       String endDateTime = endDate + " " + endTime;
@@ -217,6 +221,7 @@ public class ProductController {
         drawEndDateTime = endDateTime;
       }
     }
+
     if (drawEndDateTime.equals("")) {
       drawEndDateTime = "RELEASING SOON";
     }
