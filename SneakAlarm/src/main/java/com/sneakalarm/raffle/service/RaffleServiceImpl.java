@@ -8,6 +8,8 @@ import com.sneakalarm.raffle.dao.RaffleMapper;
 import com.sneakalarm.raffle.dto.RaffleCardVO;
 import com.sneakalarm.raffle.dto.RaffleInsertVO;
 import com.sneakalarm.raffle.dto.RaffleVO;
+import com.sneakalarm.util.StringUtil;
+import com.sneakalarm.util.dto.BucketVO;
 
 @Service
 public class RaffleServiceImpl implements RaffleService {
@@ -24,6 +26,9 @@ public class RaffleServiceImpl implements RaffleService {
   private String folderName;
 
   @Autowired
+  private StringUtil stringUtil;
+
+  @Autowired
   RaffleMapper raffleMapper;
 
   @Override
@@ -31,7 +36,8 @@ public class RaffleServiceImpl implements RaffleService {
     RaffleVO raffleVO = new RaffleVO(raffleInsertVO);
     String fileName = raffleInsertVO.getFile().getOriginalFilename();
     Integer productId = raffleInsertVO.getProductId();
-    String imgSrc = getURL(region, bucket, folderName, fileName, productId);
+    BucketVO bucketVO = new BucketVO(region, bucket, folderName);
+    String imgSrc = stringUtil.getDrawImgURL(bucketVO, productId, fileName);
     raffleVO.setImgSrc(imgSrc);
     raffleMapper.raffleInsert(raffleVO);
   }
@@ -47,12 +53,6 @@ public class RaffleServiceImpl implements RaffleService {
     }
 
     return ret;
-  }
-
-  public String getURL(String region, String bucket, String folderName, String fileName,
-      Integer productId) {
-    return "https://s3." + region + ".amazonaws.com/" + bucket + "/" + folderName + "/logo/"
-        + fileName;
   }
 
   public ArrayList<RaffleVO> getRaffleList(Integer raffleId) {
@@ -80,13 +80,12 @@ public class RaffleServiceImpl implements RaffleService {
     raffleVO.setUrl(raffleInsertVO.getUrl());
     String fileName = raffleInsertVO.getFile().getOriginalFilename();
     if (!fileName.equals("")) {
+      BucketVO bucketVO = new BucketVO(region, bucket, folderName);
       Integer productId = raffleInsertVO.getProductId();
-      String src = getURL(region, bucket, folderName, fileName, productId);
-      raffleVO.setImgSrc(src);
+      raffleVO.setImgSrc(stringUtil.getDrawImgURL(bucketVO, productId, fileName));
     }
     raffleMapper.updateRaffle(raffleVO);
   }
-
 
   @Override
   public void deleteRaffle(Integer id) {
