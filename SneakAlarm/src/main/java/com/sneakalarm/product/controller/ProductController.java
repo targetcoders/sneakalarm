@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import com.sneakalarm.product.ProductConst;
 import com.sneakalarm.product.dto.ProductCardVO;
 import com.sneakalarm.product.dto.ProductInsertVO;
 import com.sneakalarm.product.dto.ProductUpdateEndDateTimeVO;
@@ -30,6 +31,9 @@ public class ProductController {
   @Autowired
   RaffleService raffleService;
 
+  @Autowired
+  ProductConst productConst;
+
   @GetMapping("/")
   public String getProductCardList(Model model) throws ParseException {
     ArrayList<ProductCardVO> list =
@@ -40,14 +44,18 @@ public class ProductController {
 
     for (ProductCardVO card : list) {
       String status = card.getStatus();
-      if (status.equals("ready")) {
-        readyCardList.add(card);
-      }
-      if (status.equals("going")) {
-        goingCardList.add(card);
-      }
-      if (status.equals("ended")) {
-        endedCardList.add(card);
+      switch (status) {
+        case ProductConst.STATUS_READY:
+          readyCardList.add(card);
+          break;
+        case ProductConst.STATUS_GOING:
+          goingCardList.add(card);
+          break;
+        case ProductConst.STATUS_ENDED:
+          endedCardList.add(card);
+          break;
+        default:
+          break;
       }
     }
     Collections.sort(readyCardList, new ProductAscending());
@@ -107,12 +115,24 @@ public class ProductController {
     productVO.setLastUpdateDate(lastUpdateDateList[0]);
     String[] urlArray = productVO.getImgSrc_detail().split(",");
     ArrayList<RaffleCardVO> raffleCardList = raffleService.getRaffleCardList(id);
+
     ArrayList<RaffleCardVO> endedRaffleRet = new ArrayList<RaffleCardVO>();
     ArrayList<RaffleCardVO> readyRaffleRet = new ArrayList<RaffleCardVO>();
     ArrayList<RaffleCardVO> goingRaffleRet = new ArrayList<RaffleCardVO>();
+
     ArrayList<RaffleCardVO> endedFirstcomeRet = new ArrayList<RaffleCardVO>();
     ArrayList<RaffleCardVO> readyFirstcomeRet = new ArrayList<RaffleCardVO>();
     ArrayList<RaffleCardVO> goingFirstcomeRet = new ArrayList<RaffleCardVO>();
+
+    ArrayList<RaffleCardVO> readyRaffleRet_agent = new ArrayList<RaffleCardVO>();
+    ArrayList<RaffleCardVO> goingRaffleRet_agent = new ArrayList<RaffleCardVO>();
+    ArrayList<RaffleCardVO> readyFirstcomeRet_agent = new ArrayList<RaffleCardVO>();
+    ArrayList<RaffleCardVO> goingFirstcomeRet_agent = new ArrayList<RaffleCardVO>();
+
+    ArrayList<RaffleCardVO> readyRaffleRet_direct = new ArrayList<RaffleCardVO>();
+    ArrayList<RaffleCardVO> goingRaffleRet_direct = new ArrayList<RaffleCardVO>();
+    ArrayList<RaffleCardVO> readyFirstcomeRet_direct = new ArrayList<RaffleCardVO>();
+    ArrayList<RaffleCardVO> goingFirstcomeRet_direct = new ArrayList<RaffleCardVO>();
 
     for (RaffleCardVO raffleCardVO : raffleCardList) {
       String startDate = raffleCardVO.getStartDate();
@@ -129,21 +149,43 @@ public class ProductController {
       raffleCardVO.setEndTime(endTime.substring(0, 5));
       raffleCardVO.setStatus(status);
 
+      String delivery = raffleCardVO.getDelivery();
       if (raffleCardVO.getRaffleType().equals("응모")) {
-        if (status.equals("종료")) {
+        if (status.equals(ProductConst.STATUS_ENDED)) {
           endedRaffleRet.add(raffleCardVO);
-        } else if (status.equals("시작전")) {
-          readyRaffleRet.add(raffleCardVO);
+        } else if (status.equals(ProductConst.STATUS_READY)) {
+          if (delivery.equals("직배"))
+            readyRaffleRet_direct.add(raffleCardVO);
+          else if (delivery.equals("배대지"))
+            readyRaffleRet_agent.add(raffleCardVO);
+          else
+            readyRaffleRet.add(raffleCardVO);
         } else {
-          goingRaffleRet.add(raffleCardVO);
+          if (raffleCardVO.getDelivery().equals("직배"))
+            goingRaffleRet_direct.add(raffleCardVO);
+          else if (delivery.equals("배대지"))
+            goingRaffleRet_agent.add(raffleCardVO);
+          else
+            goingRaffleRet.add(raffleCardVO);
         }
       } else {
-        if (status.equals("종료")) {
+        if (status.equals(ProductConst.STATUS_ENDED)) {
           endedFirstcomeRet.add(raffleCardVO);
-        } else if (status.equals("시작전")) {
-          readyFirstcomeRet.add(raffleCardVO);
+        } else if (status.equals(ProductConst.STATUS_READY)) {
+          if (delivery.equals("직배"))
+            readyFirstcomeRet_direct.add(raffleCardVO);
+          else if (delivery.equals("배대지"))
+            readyFirstcomeRet_agent.add(raffleCardVO);
+          else
+            readyFirstcomeRet.add(raffleCardVO);
         } else {
-          goingFirstcomeRet.add(raffleCardVO);
+          if (delivery.equals("직배"))
+            goingFirstcomeRet_direct.add(raffleCardVO);
+          else if (delivery.equals("배대지"))
+            goingFirstcomeRet_agent.add(raffleCardVO);
+          else
+            goingFirstcomeRet.add(raffleCardVO);
+
         }
       }
     }
@@ -186,6 +228,25 @@ public class ProductController {
     model.addAttribute("readyFirstcomeNum", readyFirstcomeRet.size());
     model.addAttribute("endedFirstcomeNum", endedFirstcomeRet.size());
 
+
+    model.addAttribute("goingRaffleList_direct", goingRaffleRet_direct);
+    model.addAttribute("goingRaffleList_agent", goingRaffleRet_agent);
+    model.addAttribute("readyRaffleList_direct", readyRaffleRet_direct);
+    model.addAttribute("readyRaffleList_agent", readyRaffleRet_agent);
+    model.addAttribute("goingFirstcomeList_direct", goingFirstcomeRet_direct);
+    model.addAttribute("goingFirstcomeList_agent", goingFirstcomeRet_agent);
+    model.addAttribute("readyFirstcomeList_direct", readyFirstcomeRet_direct);
+    model.addAttribute("readyFirstcomeList_agent", readyFirstcomeRet_agent);
+
+    model.addAttribute("goingRaffleNum_direct", goingRaffleRet_direct.size());
+    model.addAttribute("goingRaffleNum_agent", goingRaffleRet_agent.size());
+    model.addAttribute("readyRaffleNum_direct", readyRaffleRet_direct.size());
+    model.addAttribute("readyRaffleNum_agent", readyRaffleRet_agent.size());
+    model.addAttribute("goingFirstcomeNum_direct", goingFirstcomeRet_direct.size());
+    model.addAttribute("goingFirstcomeNum_agent", goingFirstcomeRet_agent.size());
+    model.addAttribute("readyFirstcomeNum_direct", readyFirstcomeRet_direct.size());
+    model.addAttribute("readyFirstcomeNum_agent", readyFirstcomeRet_agent.size());
+
     model.addAttribute("drawStartDateTime", drawStartDateTime);
     model.addAttribute("drawEndDateTime", drawEndDateTime);
     return "views/product-detail";
@@ -221,7 +282,6 @@ public class ProductController {
         drawEndDateTime = endDateTime;
       }
     }
-
     if (drawEndDateTime.equals("")) {
       drawEndDateTime = "RELEASING SOON";
     }
@@ -231,73 +291,34 @@ public class ProductController {
   public String getRaffleStatus(String startDate, String startTime, String endDate, String endTime)
       throws ParseException {
     String status = "";
-    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+    SimpleDateFormat sdf = new SimpleDateFormat(ProductConst.DATE_FORMAT.replaceAll("/", "-"));
     Date nowDateTime = new Date();
     Date startDateTime = sdf.parse(startDate + " " + startTime);
     Date endDateTime = sdf.parse(endDate + " " + endTime);
 
     int res = nowDateTime.compareTo(endDateTime);
     if (res > 0) {
-      status = "종료";
+      status = ProductConst.STATUS_ENDED;
     } else if (res <= 0) {
       if (nowDateTime.compareTo(startDateTime) < 0) {
-        status = "시작전";
+        status = ProductConst.STATUS_READY;
       } else {
-        status = "진행중";
+        status = ProductConst.STATUS_GOING;
       }
     }
     return status;
   }
 
-  public boolean isEndedProductCard(String endDate) throws ParseException {
-    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-    Date nowDateTime = new Date();
-    Date endDateTime = sdf.parse(endDate);
-
-    int res = nowDateTime.compareTo(endDateTime);
-    if (res >= 0) {
-      return true;
-    }
-    return false;
-  }
-
   public String getWeek(String date, String dateType) throws Exception {
-
-    String day = "";
+    String[] day = {"일", "월", "화", "수", "목", "금", "토"};
 
     SimpleDateFormat dateFormat = new SimpleDateFormat(dateType);
-    Date nDate = dateFormat.parse(date);
-
+    Date inputDate = dateFormat.parse(date);
     Calendar cal = Calendar.getInstance();
-    cal.setTime(nDate);
+    cal.setTime(inputDate);
 
-    int dayNum = cal.get(Calendar.DAY_OF_WEEK);
-
-    switch (dayNum) {
-      case 1:
-        day = "일";
-        break;
-      case 2:
-        day = "월";
-        break;
-      case 3:
-        day = "화";
-        break;
-      case 4:
-        day = "수";
-        break;
-      case 5:
-        day = "목";
-        break;
-      case 6:
-        day = "금";
-        break;
-      case 7:
-        day = "토";
-        break;
-    }
-
-    return day;
+    int dayNum = cal.get(Calendar.DAY_OF_WEEK) - 1;
+    return day[dayNum];
   }
 
   public class DrawAscending implements Comparator<RaffleCardVO> {
