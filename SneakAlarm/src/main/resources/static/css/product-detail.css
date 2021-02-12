@@ -1,5 +1,47 @@
 @charset "UTF-8";
 
+#raffle-container {
+	width: 100%;
+}
+.raffleCardDetail {
+	margin-bottom: 10px;
+}
+.raffle-inner-container {
+	width: 350px;
+}
+.firstcome-list-container {
+	width:350px;
+}
+.raffle-list-container {
+	width:350px;
+}
+
+.draw-storeName {
+	font-size:18px;
+	font-weight: bold;
+}
+.sneakBtn {
+	border: none;
+	cursor: pointer;
+}
+.raffleDateTime {
+	font-weight:bold;
+}
+.detail-raffle {
+ 
+}
+hr {
+	border: solid 2px #b8b8b8;
+}
+
+#endedFirstcomeCardsDiv {
+ cursor: pointer;
+ font-size: 18px;
+}
+#endedRaffleCardsDiv {
+	cursor: pointer;
+	font-size: 18px;
+}
 #information-container {
 	width: 700px;
 	margin-top:40px;
@@ -67,6 +109,7 @@
 	color:#5e5e5e;
 }
 .SAstyleWhite {
+	text-align: center;
 	background-color: black;
 	color: #ffffff;
 	font-style: italic;
@@ -78,9 +121,81 @@
 	font-style: italic;
 	font-weight: bold;
 }
+.raffleCards-head {
+	 margin-bottom: 20px;
+	 background-color:black;
+	 font-size: 26px;
+}
+
+#goingFirstcomeDiv {
+	margin-top: 20px;
+}
+#goingFirstcomeDiv-direct {
+	margin-top: 20px;
+}
+#goingFirstcomeDiv-agent {
+	margin-top: 20px;
+}
+
+#goingFirstcomeName {
+	color:white;
+}
+#goingFirstcomeNum{
+	color:#fe0100;
+}
+#goingFirstcomeName-direct {
+	color:white;
+}
+#goingFirstcomeNum-direct {
+	color:#fe0100;
+}
+#goingFirstcomeName-agent {
+	color:white;
+}
+#goingFirstcomeNum-agent {
+	color:#fe0100;
+}
+#endedFirstcomeCardsDiv {
+	margin-top:25px;
+	margin-bottom:25px;
+}
+
+#goingRaffleDiv {
+	margin-top: 20px;
+}
+#goingRaffleDiv-direct {
+	margin-top: 20px;
+}
+#goingRaffleDiv-agent {
+	margin-top: 20px;
+}
+#goingRaffleName {
+	color:white;
+}
+#goingRaffleNum{
+	color:#fe0100;
+}
+#goingRaffleName-direct {
+	color:white;
+}
+#goingRaffleNum-direct {
+	color:#fe0100;
+}
+#goingRaffleName-agent {
+	color:white;
+}
+#goingRaffleNum-agent {
+	color:#fe0100;
+}
+#endedRaffleCardsDiv {
+	margin-top:25px;
+	margin-bottom:25px;
+}
+
 #averageSalePriceValue {
 	color:#fe0100;
 }
+
 @media ( min-width : 768px) {
 	#model_kr {
 		font-size: 24px;
@@ -100,4 +215,24 @@
 		text-align: left;
 		font-size:16px;
 	}
+	#raffle-container {
+		width: 768px;
+	}
+}
+@media ( min-width : 1000px) {
+#raffle-container {
+	width: 1000px;
+}
+.raffle-inner-container {
+	width: 450px;
+}
+.firstcome-list-container {
+	width: 450px;
+}
+.raffle-list-container {
+ width: 450px;
+}
+.raffleCardDetail {
+	width: 450px;
+}
 }
