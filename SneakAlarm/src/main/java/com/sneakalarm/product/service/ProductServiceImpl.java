@@ -99,7 +99,6 @@ public class ProductServiceImpl implements ProductService {
           status = ProductConst.STATUS_GOING;
         }
       }
-      System.out.println(status);
       p.setStatus(status);
 
       ret.add(p);
