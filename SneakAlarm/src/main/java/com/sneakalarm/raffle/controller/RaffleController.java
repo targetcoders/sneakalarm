@@ -32,7 +32,6 @@ public class RaffleController {
 
   @GetMapping("/raffle-modify")
   public String modifyProduct(@Param("id") Integer id, Model model) {
-    System.out.println(id);
     ArrayList<RaffleVO> list = (ArrayList<RaffleVO>) raffleService.getRaffleList(id);
     RaffleVO raffleVO = list.get(0);
     model.addAttribute("raffleVO", raffleVO);
