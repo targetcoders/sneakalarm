@@ -56,15 +56,18 @@ var photouploadLength = 0;
 var photoupload_detailLength = 0;
 
 $('document').ready(function(){
-
+	
+	$('#premiumPrice').change(function(){
+		isChanged = 'true';
+	});
 	$('#photoupload').change(function(){
 		photouploadLength = document.getElementById('photoupload').files.length;
 	});
 	$('#photoupload_detail').change(function(){
 		photoupload_detailLength = document.getElementById('photoupload_detail').files.length;
 	});
+	
 	$('#modifyBtn').click(function(){
-		submitContents();
 		if ((photouploadLength > 0 && photoupload_detailLength == 0)|| (photouploadLength == 0 && photoupload_detailLength > 0)) {
 			return alert('이미지를 변경하시려면 홈 이미지와 상세 이미지를 모두 선택해주세요.');
 		}
@@ -74,8 +77,10 @@ $('document').ready(function(){
 		
 		var formData = new FormData(document.getElementById('modifyform'));
 		var albumName = $('#code').val();
+		
 		formData.set('id',id);
 		formData.set('isChanged',isChanged);
+		
 		if (photouploadLength > 0 && photoupload_detailLength > 0) {
 			$.ajax({
 				url: '/product-modify',
@@ -271,23 +276,6 @@ $('document').ready(function(){
 	</form>
 </div>
 </div>
-<script>
-		var oEditors = [];
-		nhn.husky.EZCreator.createInIFrame({
- 			oAppRef: oEditors,
- 			elPlaceHolder: "content",
- 			sSkinURI: "se2/SmartEditor2Skin.html",
- 			fCreator: "createSEditor2"
-		});
-		
-		// ‘저장’ 버튼을 누르는 등 저장을 위한 액션을 했을 때 submitContents가 호출된다고 가정한다.
-	function submitContents() {
-		 // 에디터의 내용이 textarea에 적용된다.
-		 oEditors.getById["content"].exec("UPDATE_CONTENTS_FIELD", []);
-		 // 에디터의 내용에 대한 값 검증은 이곳에서
-		 // document.getElementById("content").value를 이용해서 처리한다.
-	}
-	</script>
 </div>
 
 </html>
