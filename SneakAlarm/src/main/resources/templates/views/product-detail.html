@@ -198,6 +198,7 @@ function move(id){
 				</div>
 			</div>
 		</div>
+
 		<div sec:authorize="hasRole('ADMIN')" class="d-grid gap-3 d-md-flex justify-content-md-center" style="margin-bottom:20px">
 		<a sec:authorize="hasRole('ADMIN')" class="btn btn-dark itemalign-center" th:onclick="javascript:move([[${productVO.id}]])">
 			MODIFY		 
@@ -210,7 +211,18 @@ function move(id){
 			RAFFLE-INSERT					 
 		</a>
 		</div>
+		
+		
 </div>
+
+<div sec:authorize="!hasRole('ADMIN')" class="container-fluid d-flex justify-content-center" style="margin-top:50px; max-width:320px;">
+<ins class="kakao_ad_area" style="display:none;" 
+ data-ad-unit    = "DAN-aQzc86eReIEXTJh9" 
+ data-ad-width   = "320" 
+ data-ad-height  = "50"></ins> 
+</div>
+
+
 
 <div id="raffle-container" class="container-fluid d-flex flex-wrap justify-content-center align-items-start">
 <div class="raffle-inner-container">
@@ -639,15 +651,12 @@ function move(id){
 	</div>
 </div>
 </div>
-
-</div>
-<div class="container-fluid d-flex justify-content-center">
+<div sec:authorize="!hasRole('ADMIN')" class="container-fluid d-flex justify-content-center" style="margin-top:50px; max-width:320px;">
 <ins class="kakao_ad_area" style="display:none;" 
- data-ad-unit    = "DAN-ol8yF9ZHGjm30hq3" 
- data-ad-width   = "728" 
- data-ad-height  = "90"></ins> 
+ data-ad-unit    = "DAN-aQzc86eReIEXTJh9" 
+ data-ad-width   = "320" 
+ data-ad-height  = "50"></ins> 
 <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
 </div>
 </div>
-
 </html>
