@@ -6,23 +6,7 @@
 			layout:decorator="layout/default">
 
 <th:block layout:fragment="css">
-<style>
-	#home-product-model_kr {
-		font-size: 15px;
-		font-weight: bold;
-		color: #5e5e5e;
-	}
-	.home-product-status-going {
-		font-size: 12px;
-		font-weight: bold;
-		color: #fe0100;
-	}
-	.home-product-status-ready {
-		font-size: 12px;
-		font-weight: bold;
-		color: #5e5e5e;
-	}
-</style>
+<link rel="stylesheet" th:href="@{/css/home.css}" type="text/css">
 </th:block>
 <th:block layout:fragment="script">
 <script sec:authorize="hasRole('ADMIN')">
