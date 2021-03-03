@@ -9,4 +9,8 @@ public class HomeController {
   public String home() {
     return "views/comingsoon";
   }
+  @GetMapping("/ads.txt")
+  public String adsTxt() {
+	  return "google.com, pub-2682527241610745, DIRECT, f08c47fec0942fa0";
+  }
 }
