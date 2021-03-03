@@ -80,7 +80,6 @@ public class ProductServiceImpl implements ProductService {
         ret.add(p);
         continue;
       }
-      // TODO: DB 테이블 변경-ReleaseStartDate, ReleaseStartTime 으로 나누기
       SimpleDateFormat sdf = new SimpleDateFormat(ProductConst.DATE_FORMAT);
       Date nowDate = new Date();
       Date startDate = sdf.parse(
@@ -140,6 +139,8 @@ public class ProductServiceImpl implements ProductService {
     productVO.setCountry("모두/해외/국내");
     productVO.setDraw("선착/응모");
     productVO.setIsDeleted(0);
+    productVO.setGoingRaffleNum(0);
+    productVO.setGoingFirstcomeNum(0);
     productMapper.insertProduct(productVO);
     return true;
   }

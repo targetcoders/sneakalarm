@@ -13,6 +13,23 @@
 <script type="text/javascript" th:src="@{js/util.js}" charset="utf-8"></script>
 <script>
 $('document').ready(function(){
+	$('.drawCard').on("click", function(event){
+		const url = $(this).attr('url');
+		window.open(url);
+	});
+	
+	$('.sneakBtn').on("click", function(event){
+		event.stopPropagation();
+		var raffleId = $(this).attr('is');
+		if($('#raffleCardDetail-content'+raffleId).css('display') == 'none'){
+			$('#raffleCardDetail-content'+raffleId).show();
+		}
+		else{
+			$('#raffleCardDetail-content'+raffleId).hide();	
+		}
+	});
+	
+	
 	if($('#goingFirstcomeNum').text() == '0')
 		$('#goingFirstcomeDiv').hide();
 	if($('#goingFirstcomeNum-direct').text() == '0')
@@ -31,7 +48,7 @@ $('document').ready(function(){
 	if($('#endedRaffleCardsNum').text() == '0')
 		$('#endedRaffleCardsDiv').hide();
 	
-	$('.sneakBtn').click(function(){
+/* 	$('.sneakBtn').click(function(){
 		var raffleId = $(this).attr('is');
 		if($('#raffleCardDetail-content'+raffleId).css('display') == 'none'){
 			$('#raffleCardDetail-content'+raffleId).show();
@@ -39,7 +56,7 @@ $('document').ready(function(){
 		else{
 			$('#raffleCardDetail-content'+raffleId).hide();	
 		}
-	});
+	}); */
 	
 	$('#endedFirstcomeCardsDiv').click(function(){
 		if($(this).attr('is') == '0'){
@@ -232,7 +249,7 @@ function move(id){
 		<div class="d-flex flex-column align-items-center" th:id="|card-${list.id}|">
 		<div class="container d-flex flex-column raffleCardDetail">
 	
-		<div class="d-flex">
+		<div class="d-flex drawCard" th:attr="url=${list.url}">
 			<div class="d-flex flex-column justify-content-center align-items-center" style="margin-right:20px">
 				<img th:src="${list.imgSrc}" style="height:70px; width:70px;"/>
 			</div>
@@ -242,7 +259,7 @@ function move(id){
 				<span class="raffleDateTime" th:text="|시작: ${list.startDate}|"></span>&nbsp;<span class="raffleDateTime" th:text="${list.startTime}"></span><br/> 
 				<span th:text="${list.country}"></span>&nbsp;<span th:text="${list.delivery}"></span>
 				<span th:if="${list.payType != ''}" th:text="|(${list.payType})|"></span>
-				<span th:if="${list.content != ''}"><button type="button" class="sneakBtn" th:is="${list.id}"><img th:src="@{image/raffle/button/SNEAK.png}"/></button></span>
+				<span th:if="${list.content != ''}"><span class="sneakBtn" th:is="${list.id}"><img th:src="@{image/raffle/button/SNEAK_60x15.png}"/></span></span>
 			</div>
 		</div>
 		
@@ -259,7 +276,7 @@ function move(id){
 		<div class="d-flex flex-column align-items-center" th:id="|card-${list.id}|">
 		<div class="container d-flex flex-column raffleCardDetail">
 	
-		<div class="d-flex">
+		<div class="d-flex drawCard" th:attr="url=${list.url}">
 			<div class="d-flex flex-column justify-content-center align-items-center" style="margin-right:20px">
 				<img th:src="${list.imgSrc}" style="height:70px; width:70px;"/>
 			</div>
@@ -290,7 +307,7 @@ function move(id){
 		<div class="d-flex flex-column align-items-center" th:id="|card-${list.id}|">
 		<div class="container d-flex flex-column raffleCardDetail">
 	
-		<div class="d-flex">
+		<div class="d-flex drawCard" th:attr="url=${list.url}">
 			<div class="d-flex flex-column justify-content-center align-items-center" style="margin-right:20px">
 				<img th:src="${list.imgSrc}" style="height:70px; width:70px;"/>
 			</div>
@@ -317,7 +334,7 @@ function move(id){
 		<div class="d-flex flex-column align-items-center" th:id="|card-${list.id}|">
 		<div class="container d-flex flex-column raffleCardDetail">
 	
-		<div class="d-flex">
+		<div class="d-flex drawCard" th:attr="url=${list.url}">
 			<div class="d-flex flex-column justify-content-center align-items-center" style="margin-right:20px">
 				<img th:src="${list.imgSrc}" style="height:70px; width:70px;"/>
 			</div>
@@ -348,7 +365,7 @@ function move(id){
 	<div class="d-flex flex-column align-items-center" th:id="|card-${list.id}|">
 		<div class="container-fluid d-flex flex-column raffleCardDetail">
 			
-		<div class="d-flex">
+		<div class="d-flex drawCard" th:attr="url=${list.url}">
 			<div class="d-flex flex-column justify-content-center align-items-center" style="margin-right:20px">
 				<img th:src="${list.imgSrc}" style="height:70px; width:70px;"/>
 			</div>
@@ -375,7 +392,7 @@ function move(id){
 	<div class="d-flex flex-column align-items-center" th:id="|card-${list.id}|">
 		<div class="container-fluid d-flex flex-column raffleCardDetail">
 		
-		<div class="d-flex">
+		<div class="d-flex drawCard" th:attr="url=${list.url}">
 			<div class="d-flex flex-column justify-content-center align-items-center" style="margin-right:20px">
 				<img th:src="${list.imgSrc}" style="height:70px; width:70px;"/>
 			</div>
@@ -408,7 +425,7 @@ function move(id){
 	<div class="d-flex flex-column align-items-center" th:id="|card-${list.id}|">
 		<div class="container-fluid d-flex flex-column endedFirstcomeCard" >
 		
-		<div class="d-flex" style="opacity:0.25;">
+		<div class="d-flex drawCard" th:attr="url=${list.url}" style="opacity:0.25;">
 			<div class="d-flex flex-column justify-content-center align-items-center endedFirstcomeCard" style="margin-right:20px">
 				<img class="endedFirstcomeCard" th:src="${list.imgSrc}" style="height:70px; width:70px; display:none;"/>
 			</div>
@@ -442,7 +459,7 @@ function move(id){
 	<div class="d-flex flex-column align-items-center" th:id="|card-${list.id}|">
 		<div class="container-fluid d-flex flex-column raffleCardDetail">
 			
-		<div class="d-flex">
+		<div class="d-flex drawCard" th:attr="url=${list.url}">
 			<div class="d-flex flex-column justify-content-center align-items-center" style="margin-right:20px">
 				<img th:src="${list.imgSrc}" style="height:70px; width:70px;"/>
 			</div>
@@ -469,7 +486,7 @@ function move(id){
 	<div class="d-flex flex-column align-items-center" th:id="|card-${list.id}|">
 		<div class="container-fluid d-flex flex-column raffleCardDetail">
 		
-		<div class="d-flex"  style="opacity:0.25;" >
+		<div class="d-flex drawCard" th:attr="url=${list.url}"  style="opacity:0.25;" >
 			<div class="d-flex flex-column justify-content-center align-items-center" style="margin-right:20px">
 				<img th:src="${list.imgSrc}" style="height:70px; width:70px;"/>
 			</div>
@@ -503,7 +520,7 @@ function move(id){
 	<div class="d-flex flex-column align-items-center" th:id="|card-${list.id}|">
 		<div class="container-fluid d-flex flex-column raffleCardDetail">
 			
-		<div class="d-flex">
+		<div class="d-flex drawCard" th:attr="url=${list.url}">
 			<div class="d-flex flex-column justify-content-center align-items-center" style="margin-right:20px">
 				<img th:src="${list.imgSrc}" style="height:70px; width:70px;"/>
 			</div>
@@ -530,7 +547,7 @@ function move(id){
 	<div class="d-flex flex-column align-items-center" th:id="|card-${list.id}|">
 		<div class="container-fluid d-flex flex-column raffleCardDetail">
 		
-		<div class="d-flex"  style="opacity:0.25;">
+		<div class="d-flex drawCard" th:attr="url=${list.url}"  style="opacity:0.25;">
 			<div class="d-flex flex-column justify-content-center align-items-center" style="margin-right:20px">
 				<img th:src="${list.imgSrc}" style="height:70px; width:70px;"/>
 			</div>
@@ -564,7 +581,7 @@ function move(id){
 	<div class="d-flex flex-column align-items-center" th:id="|card-${list.id}|">
 		<div class="container-fluid d-flex flex-column raffleCardDetail">
 			
-		<div class="d-flex">
+		<div class="d-flex drawCard" th:attr="url=${list.url}">
 			<div class="d-flex flex-column justify-content-center align-items-center" style="margin-right:20px">
 				<img th:src="${list.imgSrc}" style="height:70px; width:70px;"/>
 			</div>
@@ -591,7 +608,7 @@ function move(id){
 	<div class="d-flex flex-column align-items-center" th:id="|card-${list.id}|">
 		<div class="container-fluid d-flex flex-column raffleCardDetail">
 		
-		<div class="d-flex"  style="opacity:0.25;">
+		<div class="d-flex drawCard" th:attr="url=${list.url}"  style="opacity:0.25;">
 			<div class="d-flex flex-column justify-content-center align-items-center" style="margin-right:20px">
 				<img th:src="${list.imgSrc}" style="height:70px; width:70px;"/>
 			</div>
@@ -626,7 +643,8 @@ function move(id){
 	<div class="detail-raffle w-100" th:each="list : ${endedRaffleList}">
 	<div class="d-flex flex-column align-items-center" th:id="|card-${list.id}|">
 		<div class="container-fluid d-flex flex-column endedRaffleCard" >
-		<div class="d-flex" style="opacity:0.25;">
+		
+		<div class="d-flex drawCard" th:attr="url=${list.url}" style="opacity:0.25;">
 		<div class="d-flex flex-column justify-content-center align-items-center endedRaffleCard" style="margin-right:20px;">
 			<img class="endedRaffleCard" th:src="${list.imgSrc}" style="height:70px; width:70px; display:none;"/>
 		</div>
@@ -649,6 +667,7 @@ function move(id){
 		</div>
 	</div>
 	</div>
+</div>
 </div>
 </div>
 

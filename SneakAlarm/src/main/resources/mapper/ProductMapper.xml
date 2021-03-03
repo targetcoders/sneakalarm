@@ -34,7 +34,7 @@
 	 	WHERE 	id=#{id}
 	 </update>
 	 
-	 	<update id="updateStartDateTime" parameterType="com.sneakalarm.product.dto.ProductUpdateStartDateTimeVO">
+	<update id="updateStartDateTime" parameterType="com.sneakalarm.product.dto.ProductUpdateStartDateTimeVO">
 		UPDATE	product
 		SET			releaseStartDate=#{startDateTime}
 		WHERE		id=#{productId}
@@ -44,5 +44,18 @@
 		UPDATE	product
 		SET			releaseEndDate=#{endDateTime}
 		WHERE		id=#{productId}
+	</update>
+	
+	<update id="updateDrawNum" parameterType="com.sneakalarm.product.dto.InsertDrawVO">
+		UPDATE 	product
+		<choose>
+		<when test='drawType.equals("응모")'>
+			SET		goingRaffleNum = goingRaffleNum + 1
+		</when>
+		<otherwise>
+			SET		goingFirstcomeNum = goingFirstcomeNum + 1
+		</otherwise>
+		</choose>
+		WHERE	id=#{productId}
 	</update>
 </mapper>

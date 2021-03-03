@@ -2,6 +2,8 @@ package com.sneakalarm.raffle.dao;
 
 import java.util.ArrayList;
 import org.apache.ibatis.annotations.Mapper;
+
+import com.sneakalarm.product.dto.InsertDrawVO;
 import com.sneakalarm.raffle.dto.RaffleVO;
 
 @Mapper

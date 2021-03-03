@@ -27,6 +27,8 @@ public class ProductVO {
   private String lowestSoldPrice;
   private String highestSoldPrice;
   private int isDeleted;
+  private int goingRaffleNum;
+  private int goingFirstcomeNum;
 
   public ProductVO() {}
 

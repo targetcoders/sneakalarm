@@ -126,7 +126,9 @@ hr {
 	 background-color:black;
 	 font-size: 26px;
 }
-
+.drawCard{
+	cursor: pointer;	
+}
 #goingFirstcomeDiv {
 	margin-top: 20px;
 }
