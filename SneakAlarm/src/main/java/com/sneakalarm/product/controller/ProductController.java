@@ -61,7 +61,9 @@ public class ProductController {
     Collections.sort(readyCardList, new ProductAscending());
     Collections.sort(goingCardList, new ProductAscending());
     Collections.sort(endedCardList, new ProductAscending());
-
+    
+    model.addAttribute("goingCardListNum", goingCardList.size());
+    model.addAttribute("readyCardListNum", readyCardList.size());
     model.addAttribute("readyCardList", readyCardList);
     model.addAttribute("goingCardList", goingCardList);
     model.addAttribute("endedCardList", endedCardList);
@@ -210,6 +212,7 @@ public class ProductController {
     Collections.sort(goingFirstcomeRet, new DrawAscending());
     Collections.sort(readyFirstcomeRet, new DrawAscending());
     Collections.sort(endedFirstcomeRet, new DrawAscending());
+    
 
     model.addAttribute("productVO", productVO);
     model.addAttribute("urlList_detail", urlArray);

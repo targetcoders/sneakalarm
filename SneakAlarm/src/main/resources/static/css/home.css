@@ -26,6 +26,40 @@
 	font-weight: bold;
 	color: #5e5e5e;
 }
+.home-goingDrawNum {
+	margin-top: 25px;
+	margin-bottom: 25px;
+	font-size: 24px;
+	font-weight: bold;
+	background-color: black;
+}
+.home-readyDrawNum {
+	margin-top: 75px;
+	margin-bottom: 25px;
+	font-size: 24px;
+	font-weight: bold;
+	background-color: black;
+}
+.whiteBoldText {
+	font-weight: bold;
+	color: #ffffff;
+}
+.home-drawNum {
+	font-size: 18px;
+	background-color: black;
+	display:none;
+}
+.redBoldText {
+	font-weight: bold;
+	color:#fe0100;
+}
+#endedDrawProductCardsDiv{
+	margin-top: 75px;
+	cursor: pointer;
+	font-size: 18px;
+	font-weight: bold;
+	color: #5e5e5e;
+}
 
 @media ( min-width : 768px) {
 	.home-product {

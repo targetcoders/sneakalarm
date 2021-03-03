@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+
+import com.sneakalarm.product.dao.ProductMapper;
+import com.sneakalarm.product.dto.InsertDrawVO;
 import com.sneakalarm.raffle.dao.RaffleMapper;
 import com.sneakalarm.raffle.dto.RaffleCardVO;
 import com.sneakalarm.raffle.dto.RaffleInsertVO;
@@ -29,6 +32,8 @@ public class RaffleServiceImpl implements RaffleService {
   private StringUtil stringUtil;
 
   @Autowired
+  ProductMapper productMapper;
+  @Autowired
   RaffleMapper raffleMapper;
 
   @Override
@@ -40,6 +45,8 @@ public class RaffleServiceImpl implements RaffleService {
     String imgSrc = stringUtil.getDrawImgURL(bucketVO, productId, fileName);
     raffleVO.setImgSrc(imgSrc);
     raffleMapper.raffleInsert(raffleVO);
+    InsertDrawVO insertDrawVO = new InsertDrawVO(raffleInsertVO.getRaffleType(), productId);
+    productMapper.updateDrawNum(insertDrawVO);
   }
 
 
