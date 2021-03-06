@@ -95,7 +95,6 @@ $('document').ready(function(){
 				<div class="d-flex flex-column align-items-center" th:id="|card-${list.id}|">
 					<a th:href="@{/product-detail(id=${list.id})}" style="opacity:0.4;"><img th:src="${list.imgSrc_home}" class="home-product-img"></a>
 					<span th:text="${list.model_kr}" id="home-product-model_kr"></span>
-					<span class="home-product-status-ready">[시작 전]</span>
 					<div sec:authorize="hasRole('ADMIN')" class="d-flex">
 						<a class="btn btn-warning home-product-modify flex-grow-1" th:is="${list.id}">Modify</a>
 						<a class="btn btn-danger home-product-delete flex-grow-1" th:is="${list.id}">Delete</a>
