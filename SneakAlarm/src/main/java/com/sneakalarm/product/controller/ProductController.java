@@ -145,11 +145,8 @@ public class ProductController {
       String startWeek = getWeek(startDate, "yyyy-MM-dd");
       String endWeek = getWeek(endDate, "yyyy-MM-dd");
 
-      startDate = startDate.replaceAll("-", "/") + " " + startWeek;
-      endDate = endDate.replaceAll("-", "/") + " " + endWeek;
-      
-      raffleCardVO.setStartDate(startDate.substring(5));
-      raffleCardVO.setEndDate(endDate.substring(5));
+      raffleCardVO.setStartDate(startDate.replaceAll("-", "/") + " " + startWeek);
+      raffleCardVO.setEndDate(endDate.replaceAll("-", "/") + " " + endWeek);
       raffleCardVO.setStartTime(startTime.substring(0, 5));
       raffleCardVO.setEndTime(endTime.substring(0, 5));
       raffleCardVO.setStatus(status);
