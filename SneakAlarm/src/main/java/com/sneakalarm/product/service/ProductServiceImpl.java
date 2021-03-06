@@ -83,9 +83,9 @@ public class ProductServiceImpl implements ProductService {
       SimpleDateFormat sdf = new SimpleDateFormat(ProductConst.DATE_FORMAT);
       Date nowDate = new Date();
       Date startDate = sdf.parse(
-          p.getReleaseStartDate().substring(0, 11) + p.getReleaseStartDate().substring(13, 18));
+          p.getReleaseStartDate().substring(0, 6) + p.getReleaseStartDate().substring(8, 13));
       Date endDate = sdf
-          .parse(p.getReleaseEndDate().substring(0, 11) + p.getReleaseEndDate().substring(13, 18));
+          .parse(p.getReleaseEndDate().substring(0, 6) + p.getReleaseEndDate().substring(8, 13));
 
       String status = "";
       int res = nowDate.compareTo(endDate);
