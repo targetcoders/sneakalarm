@@ -254,7 +254,7 @@ function move(id){
 				<img th:src="${list.imgSrc}" style="height:70px; width:70px;"/>
 			</div>
 			<div>
-				<a target="_branc" th:href="${list.url}" style="text-decoration:none"><span class="draw-storeName" th:text="${list.storeName}"></span></a><br/> 
+				<span class="draw-storeName" th:text="${list.storeName}"></span><br/> 
 				<span th:if="${list.specialCase != ''}" th:text="|[${list.specialCase}]|" style="color:#fe0100; font-weight:bold;"></span><span th:if="${list.specialCase != ''}"><br/></span>
 				<span class="raffleDateTime" th:text="|시작: ${list.startDate}|"></span>&nbsp;<span class="raffleDateTime" th:text="${list.startTime}"></span><br/> 
 				<span th:text="${list.country}"></span>&nbsp;<span th:text="${list.delivery}"></span>
@@ -281,7 +281,7 @@ function move(id){
 				<img th:src="${list.imgSrc}" style="height:70px; width:70px;"/>
 			</div>
 			<div>
-				<a target="_branc" th:href="${list.url}" style="text-decoration:none"><span class="draw-storeName" th:text="${list.storeName}"></span></a><br/> 
+				<span class="draw-storeName" th:text="${list.storeName}"></span><br/> 
 				<span th:if="${list.specialCase != ''}" th:text="|[${list.specialCase}]|" style="color:#fe0100; font-weight:bold;"></span><span th:if="${list.specialCase != ''}"><br/></span>
 				<span class="raffleDateTime" th:text="|시작: ${list.startDate}|"></span>&nbsp;<span class="raffleDateTime" th:text="${list.startTime}"></span><br/> 
 				<span th:text="${list.country}"></span>&nbsp;<span th:text="${list.delivery}"></span>
@@ -312,7 +312,7 @@ function move(id){
 				<img th:src="${list.imgSrc}" style="height:70px; width:70px;"/>
 			</div>
 			<div>
-				<a target="_branc" th:href="${list.url}" style="text-decoration:none"><span class="draw-storeName" th:text="${list.storeName}"></span></a><br/> 
+				<span class="draw-storeName" th:text="${list.storeName}"></span><br/> 
 				<span th:if="${list.specialCase != ''}" th:text="|[${list.specialCase}]|" style="color:#fe0100; font-weight:bold;"></span><span th:if="${list.specialCase != ''}"><br/></span>
 				<span class="raffleDateTime" th:text="|시작: ${list.startDate}|"></span>&nbsp;<span class="raffleDateTime" th:text="${list.startTime}"></span><br/> 
 				<span th:text="${list.country}"></span>&nbsp;<span th:text="${list.delivery}"></span>
@@ -339,7 +339,7 @@ function move(id){
 				<img th:src="${list.imgSrc}" style="height:70px; width:70px;"/>
 			</div>
 			<div>
-				<a target="_branc" th:href="${list.url}" style="text-decoration:none"><span class="draw-storeName" th:text="${list.storeName}"></span></a><br/> 
+				<span class="draw-storeName" th:text="${list.storeName}"></span><br/> 
 				<span th:if="${list.specialCase != ''}" th:text="|[${list.specialCase}]|" style="color:#fe0100; font-weight:bold;"></span><span th:if="${list.specialCase != ''}"><br/></span>
 				<span class="raffleDateTime" th:text="|시작: ${list.startDate}|"></span>&nbsp;<span class="raffleDateTime" th:text="${list.startTime}"></span><br/> 
 				<span th:text="${list.country}"></span>&nbsp;<span th:text="${list.delivery}"></span>
@@ -370,7 +370,7 @@ function move(id){
 				<img th:src="${list.imgSrc}" style="height:70px; width:70px;"/>
 			</div>
 			<div>
-				<a target="_branc" th:href="${list.url}" style="text-decoration:none"><span class="draw-storeName" th:text="${list.storeName}"></span></a><br/>
+				<span class="draw-storeName" th:text="${list.storeName}"></span><br/>
 				<span th:if="${list.specialCase != ''}" th:text="|[${list.specialCase}]|" style="color:#fe0100; font-weight:bold;"></span><span th:if="${list.specialCase != ''}"><br/></span>
 				<span class="raffleDateTime" th:text="|시작: ${list.startDate}|"></span>&nbsp;<span class="raffleDateTime" th:text="${list.startTime}"></span><br/>
 				<span th:text="${list.country}"></span>&nbsp;<span th:text="${list.delivery}"></span>
@@ -397,7 +397,7 @@ function move(id){
 				<img th:src="${list.imgSrc}" style="height:70px; width:70px;"/>
 			</div>
 			<div>
-				<a target="_branc" th:href="${list.url}" style="text-decoration:none"><span class="draw-storeName" th:text="${list.storeName}"></span></a><br/>
+				<span class="draw-storeName" th:text="${list.storeName}"></span><br/>
 				<span th:if="${list.specialCase != ''}" th:text="|[${list.specialCase}]|" style="color:#fe0100; font-weight:bold;"></span><span th:if="${list.specialCase != ''}"><br/></span>
 				<span class="raffleDateTime" th:text="|시작: ${list.startDate}|"></span>&nbsp;<span class="raffleDateTime" th:text="${list.startTime}"></span><br/>
 				<span th:text="${list.country}"></span>&nbsp;<span th:text="${list.delivery}"></span>
@@ -430,7 +430,7 @@ function move(id){
 				<img class="endedFirstcomeCard" th:src="${list.imgSrc}" style="height:70px; width:70px; display:none;"/>
 			</div>
 			<div class="endedFirstcomeCard" style="display:none;">
-				<a target="_branc" class="endedCardURL" th:href="${list.url}" style="text-decoration:none;"><span class="draw-storeName" th:text="${list.storeName}"></span></a><br/>
+				<span class="draw-storeName" th:text="${list.storeName}"></span><br/>
 				<span th:if="${list.specialCase != ''}" th:text="|[${list.specialCase}]|" style="color:#fe0100; font-weight:bold;"></span><span th:if="${list.specialCase != ''}"><br/></span>
 				<span class="raffleDateTime" th:text="|시작: ${list.startDate}|"></span>&nbsp;<span class="raffleDateTime" th:text="${list.startTime}"></span><br/> 
 				<span th:text="${list.country}"></span>&nbsp;<span th:text="${list.delivery}"></span>
@@ -464,7 +464,7 @@ function move(id){
 				<img th:src="${list.imgSrc}" style="height:70px; width:70px;"/>
 			</div>
 			<div>
-				<a target="_branc" th:href="${list.url}" style="text-decoration:none"><span class="draw-storeName" th:text="${list.storeName}"></span></a><br/>
+				<span class="draw-storeName" th:text="${list.storeName}"></span><br/>
 				<span th:if="${list.specialCase != ''}" th:text="|[${list.specialCase}]|" style="color:#fe0100; font-weight:bold;"></span><span th:if="${list.specialCase != ''}"><br/></span>
 				<span class="raffleDateTime" th:text="|종료: ${list.endDate}|"></span>&nbsp;<span class="raffleDateTime" th:text="${list.endTime}"></span><br/>
 				<span th:text="${list.country}"></span>&nbsp;<span th:text="${list.delivery}"></span>
@@ -491,7 +491,7 @@ function move(id){
 				<img th:src="${list.imgSrc}" style="height:70px; width:70px;"/>
 			</div>
 			<div>
-				<a target="_branc" th:href="${list.url}" style="text-decoration:none"><span class="draw-storeName" th:text="${list.storeName}"></span></a><br/>
+				<span class="draw-storeName" th:text="${list.storeName}"></span><br/>
 				<span th:if="${list.specialCase != ''}" th:text="|[${list.specialCase}]|" style="color:#fe0100; font-weight:bold;"></span><span th:if="${list.specialCase != ''}"><br/></span>
 				<span class="raffleDateTime" th:text="|시작: ${list.startDate}|"></span>&nbsp;<span class="raffleDateTime" th:text="${list.startTime}"></span><br/>
 				<span class="raffleDateTime" th:text="|종료: ${list.endDate}|"></span>&nbsp;<span class="raffleDateTime" th:text="${list.endTime}"></span><br/>
@@ -525,7 +525,7 @@ function move(id){
 				<img th:src="${list.imgSrc}" style="height:70px; width:70px;"/>
 			</div>
 			<div>
-				<a target="_branc" th:href="${list.url}" style="text-decoration:none"><span class="draw-storeName" th:text="${list.storeName}"></span></a><br/>
+				<span class="draw-storeName" th:text="${list.storeName}"></span><br/>
 				<span th:if="${list.specialCase != ''}" th:text="|[${list.specialCase}]|" style="color:#fe0100; font-weight:bold;"></span><span th:if="${list.specialCase != ''}"><br/></span>
 				<span class="raffleDateTime" th:text="|종료: ${list.endDate}|"></span>&nbsp;<span class="raffleDateTime" th:text="${list.endTime}"></span><br/>
 				<span th:text="${list.country}"></span>&nbsp;<span th:text="${list.delivery}"></span>
@@ -552,7 +552,7 @@ function move(id){
 				<img th:src="${list.imgSrc}" style="height:70px; width:70px;"/>
 			</div>
 			<div>
-				<a target="_branc" th:href="${list.url}" style="text-decoration:none"><span class="draw-storeName" th:text="${list.storeName}"></span></a><br/>
+				<span class="draw-storeName" th:text="${list.storeName}"></span><br/>
 				<span th:if="${list.specialCase != ''}" th:text="|[${list.specialCase}]|" style="color:#fe0100; font-weight:bold;"></span><span th:if="${list.specialCase != ''}"><br/></span>
 				<span class="raffleDateTime" th:text="|시작: ${list.startDate}|"></span>&nbsp;<span class="raffleDateTime" th:text="${list.startTime}"></span><br/>
 				<span class="raffleDateTime" th:text="|종료: ${list.endDate}|"></span>&nbsp;<span class="raffleDateTime" th:text="${list.endTime}"></span><br/>
@@ -586,7 +586,7 @@ function move(id){
 				<img th:src="${list.imgSrc}" style="height:70px; width:70px;"/>
 			</div>
 			<div>
-				<a target="_branc" th:href="${list.url}" style="text-decoration:none"><span class="draw-storeName" th:text="${list.storeName}"></span></a><br/>
+				<span class="draw-storeName" th:text="${list.storeName}"></span><br/>
 				<span th:if="${list.specialCase != ''}" th:text="|[${list.specialCase}]|" style="color:#fe0100; font-weight:bold;"></span><span th:if="${list.specialCase != ''}"><br/></span>
 				<span class="raffleDateTime" th:text="|종료: ${list.endDate}|"></span>&nbsp;<span class="raffleDateTime" th:text="${list.endTime}"></span><br/>
 				<span th:text="${list.country}"></span>&nbsp;<span th:text="${list.delivery}"></span>
@@ -613,7 +613,7 @@ function move(id){
 				<img th:src="${list.imgSrc}" style="height:70px; width:70px;"/>
 			</div>
 			<div>
-				<a target="_branc" th:href="${list.url}" style="text-decoration:none"><span class="draw-storeName" th:text="${list.storeName}"></span></a><br/>
+				<span class="draw-storeName" th:text="${list.storeName}"></span><br/>
 				<span th:if="${list.specialCase != ''}" th:text="|[${list.specialCase}]|" style="color:#fe0100; font-weight:bold;"></span><span th:if="${list.specialCase != ''}"><br/></span>
 				<span class="raffleDateTime" th:text="|시작: ${list.startDate}|"></span>&nbsp;<span class="raffleDateTime" th:text="${list.startTime}"></span><br/>
 				<span class="raffleDateTime" th:text="|종료: ${list.endDate}|"></span>&nbsp;<span class="raffleDateTime" th:text="${list.endTime}"></span><br/>
@@ -649,7 +649,7 @@ function move(id){
 			<img class="endedRaffleCard" th:src="${list.imgSrc}" style="height:70px; width:70px; display:none;"/>
 		</div>
 		<div class="endedRaffleCard" style="display:none;">
-			<a target="_branc" class="endedCardURL" th:href="${list.url}" style="text-decoration:none;"><span class="draw-storeName" th:text="${list.storeName}"></span></a><br/>
+			<span class="draw-storeName" th:text="${list.storeName}"></span><br/>
 			<span th:if="${list.specialCase != ''}" th:text="|[${list.specialCase}]|" style="color:#fe0100; font-weight:bold;"></span><span th:if="${list.specialCase != ''}"><br/></span>
 			<span class="raffleDateTime" th:text="|시작: ${list.startDate}|"></span>&nbsp;<span class="raffleDateTime" th:text="${list.startTime}"></span><br/>
 			<span class="raffleDateTime" th:text="|종료: ${list.endDate}|"></span>&nbsp;<span class="raffleDateTime" th:text="${list.endTime}"></span><br/> 
