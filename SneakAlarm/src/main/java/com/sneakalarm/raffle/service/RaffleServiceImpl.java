@@ -45,7 +45,6 @@ public class RaffleServiceImpl implements RaffleService {
     String imgSrc = stringUtil.getDrawImgURL(bucketVO, productId, fileName);
     raffleVO.setImgSrc(imgSrc);
     raffleMapper.raffleInsert(raffleVO);
-    InsertDrawVO insertDrawVO = new InsertDrawVO(raffleInsertVO.getRaffleType(), productId);
   }
 
 
