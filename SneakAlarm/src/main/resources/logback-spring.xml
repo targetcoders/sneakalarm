@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="true" scan="true">
+    <include resource="org/springframework/boot/logging/logback/defaults.xml" />
+    <include resource="org/springframework/boot/logging/logback/console-appender.xml" />
+    
+    <property name="SERVER_NAME" value="sneakalarm"/>
+    <property name="LOG_PATH_NAME" value="/${SERVER_NAME}" />
+    <property name="FILE_NAME" value="sneakalarmServer" /> 
+ 
+    <!-- FILE Appender -->
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- <file>${LOG_PATH_NAME}/${FILE_NAME}.log</file> -->
+        <file>logs/${LOG_PATH_NAME}/${FILE_NAME}.log</file>
+        <!-- 일자별 로그파일 저장 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_PATH_NAME}/${FILE_NAME}_%d{yyyyMMdd}.log</fileNamePattern>            
+            <!-- 일자별 로그파일 저장 기간 설정 -->
+            <maxHistory>30</maxHistory> 
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%-5p] [%F]%M\(%L\) : %m%n</pattern>
+        </encoder>
+    </appender>
+    
+    <!-- FILE Appender -->
+    <appender name="FILE_DEBUG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+     	<filter class="ch.qos.logback.classic.filter.LevelFilter">
+    		<level>debug</level>
+   			<onMatch>ACCEPT</onMatch>
+    		<onMismatch>DENY</onMismatch>
+ 		</filter>
+        <!-- <file>${LOG_PATH_NAME}/${FILE_NAME}.log</file> -->
+        <file>logs/${LOG_PATH_NAME}/${FILE_NAME}_DEBUG.log</file>
+        <!-- 일자별 로그파일 저장 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_PATH_NAME}/${FILE_NAME}_DEBUG_%d{yyyyMMdd}.log</fileNamePattern>            
+            <!-- 일자별 로그파일 저장 기간 설정 -->
+            <maxHistory>30</maxHistory> 
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%-5p] [%F]%M\(%L\) : %m%n</pattern>
+        </encoder>
+    </appender>
+     
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <!-- [2018-08-17] [15:24:21.355] [log level] [logName]      [class.java line]       [message] -->
+            <!--     날짜           시간       로그레벨    로거이름   로그인클래스.java 몇번째줄    로그메세지 -->
+            <pattern>[%d{yyyy-MM-dd}] [%d{HH:mm:ss.SSS}] [%p] [%c{1}] [%F:%L [%m]%n</pattern>
+        </layout>
+    </appender>
+    
+    <root level="DEBUG">
+        <appender-ref ref="FILE"/>
+        <appender-ref ref="STDOUT"/>
+    	<appender-ref ref="FILE_DEBUG"/>
+    </root>
+</configuration>

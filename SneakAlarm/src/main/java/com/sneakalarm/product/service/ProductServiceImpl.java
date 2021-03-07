@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
+
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -21,9 +23,16 @@ import com.sneakalarm.product.dto.ProductVO;
 import com.sneakalarm.util.StringUtil;
 import com.sneakalarm.util.dto.BucketVO;
 
+import ch.qos.logback.classic.Logger;
+import groovy.util.logging.Slf4j;
+import lombok.extern.java.Log;
+
+@Slf4j
 @Service
 public class ProductServiceImpl implements ProductService {
 
+	
+	
   @Autowired
   private StringUtil stringUtil;
 
@@ -46,10 +55,13 @@ public class ProductServiceImpl implements ProductService {
 
   @Value("${s3.folder-name.product}")
   private String productFolderName;
-
+  
+  private final Logger logger = (Logger) LoggerFactory.getLogger(this.getClass());
+  
   @Override
   public ArrayList<ProductCardVO> getProductCardList() {
-
+	logger.info("Enter >> getProductCardList");
+	logger.debug("Enter >> getProductCardList");
     ArrayList<ProductCardVO> cardList =
         (ArrayList<ProductCardVO>) productCardMapper.getProductCardList();
     ArrayList<ProductCardVO> ret = new ArrayList<ProductCardVO>();
