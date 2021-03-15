@@ -15,10 +15,7 @@
 <script type="text/javascript">
 
 function validCheck(){
-	return $('#highestSoldPrice').val()=='' || $('#lowestSoldPrice').val()=='' || 
-	$('#size').val()=='' || 
-	$('#averageSalePrice').val()=='' || $('#premiumPrice').val()=='' || 
-	$('#brand').val()=='' || $('#code').val()=='' || 
+	return 	$('#brand').val()=='' || $('#code').val()=='' || 
 	$('#model_kr').val()=='' || $('#model_en').val()=='' || $('#retailPrice').val()=='';
 }		
 
@@ -198,21 +195,21 @@ $('document').ready(function(){
 		</div>
 		<hr>
 		<div class="mb-3 row">
-			<label for="averageSalePrice" class="col-sm-2 col-form-label text-center">* 평균거래가격<br>(321,000 (200.9%))</label>
+			<label for="averageSalePrice" class="col-sm-2 col-form-label text-center">평균거래가격<br>(321,000 (200.9%))</label>
 			<div class="col-sm-10">
 				<input type="text" class="form-control" id="averageSalePrice" name="averageSalePrice" th:value="${productVO.averageSalePrice}" required="required"/>
 			</div>
 		</div>
 		<hr>
 		<div class="mb-3 row">
-			<label for="premiumPrice" class="col-sm-2 col-form-label text-center">* 평균프리미엄<br>(123,000)</label>
+			<label for="premiumPrice" class="col-sm-2 col-form-label text-center">평균프리미엄<br>(123,000)</label>
 			<div class="col-sm-10">
 				<input type="text" class="form-control" id="premiumPrice" name="premiumPrice" th:value="${productVO.premiumPrice}" required="required"/>
 			</div>
 		</div>
 				<hr>
 		<div class="mb-3 row">
-			<label for="lowestSoldPrice" class="col-sm-2 col-form-label text-center">* 거래가격범위<br>(lowest ~ highest)</label>
+			<label for="lowestSoldPrice" class="col-sm-2 col-form-label text-center">거래가격범위<br>(lowest ~ highest)</label>
 			<div class="col-sm-4">
 				<input type="text" class="form-control" id="lowestSoldPrice" name="lowestSoldPrice" th:value="${productVO.lowestSoldPrice}" required="required"/>
 			</div>

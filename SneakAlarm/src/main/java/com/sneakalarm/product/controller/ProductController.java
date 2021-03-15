@@ -60,7 +60,6 @@ public class ProductController {
     }
     Collections.sort(readyCardList, new ProductAscending());
     Collections.sort(goingCardList, new ProductAscending());
-    Collections.sort(endedCardList, new ProductAscending());
     
     model.addAttribute("goingCardListNum", goingCardList.size());
     model.addAttribute("readyCardListNum", readyCardList.size());
