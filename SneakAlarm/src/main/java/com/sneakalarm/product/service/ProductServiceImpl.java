@@ -187,42 +187,58 @@ public class ProductServiceImpl implements ProductService {
   public void updateProduct(ProductInsertVO productInsertVO) {
     ArrayList<ProductVO> list =
         (ArrayList<ProductVO>) productMapper.getProductList(productInsertVO.getId());
-    ProductVO product = list.get(0);
+    ProductVO productVO = list.get(0);
 
-    product.setModel_kr(productInsertVO.getModel_kr());
-    product.setModel_en(productInsertVO.getModel_en());
-    product.setRetailPrice(productInsertVO.getRetailPrice());
-    product.setBrand(productInsertVO.getBrand());
-    product.setContent(productInsertVO.getContent());
-    product.setReleaseStartDate(productInsertVO.getReleaseStartDate());
-    product.setReleaseEndDate(productInsertVO.getReleaseEndDate());
-    product.setPremiumPrice(productInsertVO.getPremiumPrice());
-    product.setAverageSalePrice(productInsertVO.getAverageSalePrice());
-    product.setLowestSoldPrice(productInsertVO.getLowestSoldPrice());
-    product.setHighestSoldPrice(productInsertVO.getHighestSoldPrice());
-    product.setSize(productInsertVO.getSize());
-    product.setCode(productInsertVO.getCode());
+    productVO.setModel_kr(productInsertVO.getModel_kr());
+    productVO.setModel_en(productInsertVO.getModel_en());
+    productVO.setRetailPrice(productInsertVO.getRetailPrice());
+    productVO.setBrand(productInsertVO.getBrand());
+    productVO.setContent(productInsertVO.getContent());
+    productVO.setReleaseStartDate(productInsertVO.getReleaseStartDate());
+    productVO.setReleaseEndDate(productInsertVO.getReleaseEndDate());
+    productVO.setPremiumPrice(productInsertVO.getPremiumPrice());
+    productVO.setAverageSalePrice(productInsertVO.getAverageSalePrice());
+    productVO.setLowestSoldPrice(productInsertVO.getLowestSoldPrice());
+    productVO.setHighestSoldPrice(productInsertVO.getHighestSoldPrice());
+    productVO.setSize(productInsertVO.getSize());
+    productVO.setCode(productInsertVO.getCode());
     if (productInsertVO.getIsChanged().equals("true")) {
-      product.setLastUpdateDate(getNowDate());
+      productVO.setLastUpdateDate(getNowDate());
     }
 
     ArrayList<MultipartFile> fileList_home =
         (ArrayList<MultipartFile>) productInsertVO.getFileList_home();
     ArrayList<MultipartFile> fileList_detail =
         (ArrayList<MultipartFile>) productInsertVO.getFileList_detail();
-
-    if (fileList_home != null && fileList_detail != null) {
-      String code = productInsertVO.getCode();
-      BucketVO bucketVO = new BucketVO(region, bucket, productFolderName);
-      ArrayList<String> urlList_home =
-          stringUtil.getInputFileNameList(bucketVO, code, fileList_home);
-      ArrayList<String> urlList_detail =
-          stringUtil.getInputFileNameList(bucketVO, code, fileList_detail);
-
-      product.setImgSrc_home(String.join(",", urlList_home));
-      product.setImgSrc_detail(String.join(",", urlList_detail));
+    
+    if(fileList_home!=null && fileList_home.get(0).getOriginalFilename().equals("")) {
+    	fileList_home = null;
     }
-    productMapper.updateProduct(product);
+    if(fileList_detail!=null && fileList_detail.get(0).getOriginalFilename().equals("")) {
+    	fileList_detail = null;
+    }
+    
+    String code = productInsertVO.getCode();
+    BucketVO bucketVO = new BucketVO(region, bucket, productFolderName);
+    ArrayList<String> urlList_home;
+    ArrayList<String> urlList_detail;
+    
+    if (fileList_home != null && fileList_detail != null) {
+        urlList_home = stringUtil.getInputFileNameList(bucketVO, code, fileList_home);
+        urlList_detail = stringUtil.getInputFileNameList(bucketVO, code, fileList_detail);
+
+        productVO.setImgSrc_home(String.join(",", urlList_home));
+        productVO.setImgSrc_detail(String.join(",", urlList_detail));
+    }
+    else if (fileList_home != null && fileList_detail == null) {
+        urlList_home = stringUtil.getInputFileNameList(bucketVO, code, fileList_home);
+        productVO.setImgSrc_home(String.join(",", urlList_home));
+    } else if (fileList_home == null && fileList_detail != null) {
+        urlList_detail = stringUtil.getInputFileNameList(bucketVO, code, fileList_detail);
+        productVO.setImgSrc_detail(String.join(",", urlList_detail));
+    }
+    
+    productMapper.updateProduct(productVO);
   }
 
   public class Assending implements Comparator<ProductCardVO> {
