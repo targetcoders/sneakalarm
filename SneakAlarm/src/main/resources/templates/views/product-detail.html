@@ -13,16 +13,16 @@
 <script type="text/javascript" th:src="@{js/util.js}" charset="utf-8"></script>
 <script>
 $('document').ready(function(){
-	if($('#avgSalePriceRow-value').text() == '₩'){
+	if(isEmptyValue($('#avgSalePriceRow-value').text())){
 		$('#avgSalePriceRow').hide();
 	}
-	if($('#premiumPriceRow-value').text() == '₩'){
+	if(isEmptyValue($('#premiumPriceRow-value').text())){
 		$('#premiumPriceRow').hide();
 	}
-	if($('#salePriceRangeRow-value-lowest').text() == '₩'){
+	if(isEmptyValue($('#salePriceRangeRow-value-lowest').text())){
 		$('#salePriceRangeRow').hide();
 	}
-	if($('#col-size-value').text() == ''){
+	if(isEmptyValue($('#col-size-value').text())){
 		$('.col-size').hide();
 	}
 	
@@ -153,6 +153,9 @@ $('document').ready(function(){
 
 function move(id){
 	location.replace("/product-modify?id="+id);
+}
+function isEmptyValue(value){
+	return value == '' || value == '₩'; 
 }
 </script>
 </th:block>
