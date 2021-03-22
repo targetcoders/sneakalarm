@@ -205,13 +205,22 @@ public class ProductController {
     productServiceImpl.updateStartDateTime(productUpdateStartDateTimeVO);
     productServiceImpl.updateEndDateTime(productUpdateEndDateTimeVO);
 
-    Collections.sort(goingRaffleRet, new DrawAscending());
-    Collections.sort(readyRaffleRet, new DrawAscending());
-    Collections.sort(endedRaffleRet, new DrawAscending());
-    Collections.sort(goingFirstcomeRet, new DrawAscending());
-    Collections.sort(readyFirstcomeRet, new DrawAscending());
-    Collections.sort(endedFirstcomeRet, new DrawAscending());
-    
+    RaffleAscending raffleAscending = new RaffleAscending();
+    FirstcomeAscending firstcomeAscending = new FirstcomeAscending();
+    Collections.sort(goingRaffleRet, raffleAscending);
+    Collections.sort(goingFirstcomeRet_agent, raffleAscending);
+    Collections.sort(goingFirstcomeRet_direct, raffleAscending);
+    Collections.sort(readyRaffleRet, raffleAscending);
+    Collections.sort(readyRaffleRet_agent, raffleAscending);
+    Collections.sort(readyRaffleRet_direct, raffleAscending);
+    Collections.sort(endedRaffleRet, raffleAscending);
+    Collections.sort(goingFirstcomeRet, firstcomeAscending);
+    Collections.sort(goingFirstcomeRet_agent, firstcomeAscending);
+    Collections.sort(goingFirstcomeRet_direct, firstcomeAscending);
+    Collections.sort(readyFirstcomeRet, firstcomeAscending);
+    Collections.sort(readyFirstcomeRet_agent, firstcomeAscending);
+    Collections.sort(readyFirstcomeRet_direct, firstcomeAscending);
+    Collections.sort(endedFirstcomeRet, firstcomeAscending);
 
     model.addAttribute("productVO", productVO);
     model.addAttribute("urlList_detail", urlArray);
@@ -323,7 +332,7 @@ public class ProductController {
     return day[dayNum];
   }
 
-  public class DrawAscending implements Comparator<RaffleCardVO> {
+  public class RaffleAscending implements Comparator<RaffleCardVO> {
     @Override
     public int compare(RaffleCardVO o1, RaffleCardVO o2) {
       String endDateTime1 = o1.getEndDate() + o1.getEndTime();
@@ -331,6 +340,15 @@ public class ProductController {
       return endDateTime1.compareTo(endDateTime2);
     }
   }
+  
+	public class FirstcomeAscending implements Comparator<RaffleCardVO> {
+		@Override
+		public int compare(RaffleCardVO o1, RaffleCardVO o2) {
+			String startDateTime1 = o1.getStartDate() + o1.getStartTime();
+			String startDateTime2 = o2.getStartDate() + o2.getStartTime();
+			return startDateTime1.compareTo(startDateTime2);
+		}
+	}
 
   public class ProductAscending implements Comparator<ProductCardVO> {
     @Override
