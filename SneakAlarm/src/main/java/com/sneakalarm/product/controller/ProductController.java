@@ -208,8 +208,8 @@ public class ProductController {
     RaffleAscending raffleAscending = new RaffleAscending();
     FirstcomeAscending firstcomeAscending = new FirstcomeAscending();
     Collections.sort(goingRaffleRet, raffleAscending);
-    Collections.sort(goingFirstcomeRet_agent, raffleAscending);
-    Collections.sort(goingFirstcomeRet_direct, raffleAscending);
+    Collections.sort(goingRaffleRet_agent, raffleAscending);
+    Collections.sort(goingRaffleRet_direct, raffleAscending);
     Collections.sort(readyRaffleRet, raffleAscending);
     Collections.sort(readyRaffleRet_agent, raffleAscending);
     Collections.sort(readyRaffleRet_direct, raffleAscending);
