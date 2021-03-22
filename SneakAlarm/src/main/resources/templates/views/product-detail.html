@@ -13,6 +13,20 @@
 <script type="text/javascript" th:src="@{js/util.js}" charset="utf-8"></script>
 <script>
 $('document').ready(function(){
+	if($('#avgSalePriceRow-value').text() == '₩'){
+		$('#avgSalePriceRow').hide();
+	}
+	if($('#premiumPriceRow-value').text() == '₩'){
+		$('#premiumPriceRow').hide();
+	}
+	if($('#salePriceRangeRow-value-lowest').text() == '₩'){
+		$('#salePriceRangeRow').hide();
+	}
+	if($('#col-size-value').text() == ''){
+		$('.col-size').hide();
+	}
+	
+	
 	$('.drawCard').on("click", function(event){
 		const url = $(this).attr('url');
 		window.open(url);
@@ -177,17 +191,17 @@ function move(id){
 				<div class="information-body">
 				<table class="table table-bordered" id="infoTable" >
 				<tbody>
-				<tr style="background-color:black">
+				<tr id="avgSalePriceRow" style="background-color:black">
 					<td class="SAstyleWhite">평균 거래 가격</td>
-					<td colspan="2" ><span class="SAstyleRed" th:utext="${productVO.averageSalePrice}"></span></td>
+					<td colspan="2" ><span id="avgSalePriceRow-value" class="SAstyleRed" th:utext="${productVO.averageSalePrice}"></span></td>
 				</tr>
-				<tr id="premiumPrice">
+				<tr id="premiumPriceRow">
 					<td class="tableRowName"><span id="premiumPriceName">평균 프리미엄</span></td>
-					<td colspan="2" class="tableRowValue"><span id="premiumPriceValue" th:utext="${productVO.premiumPrice}"></span></td>
+					<td colspan="2" class="tableRowValue"><span id="premiumPriceRow-value" th:utext="${productVO.premiumPrice}"></span></td>
 				</tr>
-				<tr>
+				<tr id="salePriceRangeRow">
 					<td class="tableRowName">거래 가격 범위</td>
-					<td colspan="2" class="tableRowValue"><span th:utext="${productVO.lowestSoldPrice}"></span> ~ <span th:utext="${productVO.highestSoldPrice}"></span></td>
+					<td colspan="2" class="tableRowValue"><span id="salePriceRangeRow-value-lowest" th:utext="${productVO.lowestSoldPrice}"></span> ~ <span id="salePriceRangeRow-value-highest" th:utext="${productVO.highestSoldPrice}"></span></td>
 				</tr>
 				<tr>
 					<td class="tableRowName">발매 가격</td>
@@ -195,12 +209,12 @@ function move(id){
 				</tr>
 					<tr style="border-top: 2px solid">
 						<td style="border-left: none; border-right: none;" class="table2RowName">브랜드</td>
-						<td style="border-left: none; border-right: none;" class="table2RowName">사이즈</td>
+						<td style="border-left: none; border-right: none;" class="table2RowName col-size">사이즈</td>
 						<td style="border-left: none; border-right: none;" class="table2RowName">코드</td> 
 					</tr>
 					<tr style="border-bottom: none;">
 						<td style="border-left: none; border-right: none;" class="table2RowValue"><span th:utext="${productVO.brand}"></span></td>
-						<td style="border-left: none; border-right: none;" class="table2RowValue"><span th:utext="${productVO.size}"></span></td>
+						<td style="border-left: none; border-right: none;" class="table2RowValue col-size"><span id="col-size-value" th:utext="${productVO.size}"></span></td>
 						<td style="border-left: none; border-right: none;" class="table2RowValue"><span th:utext="${productVO.code}"></span></td>
 					</tr>
 				</tbody>
