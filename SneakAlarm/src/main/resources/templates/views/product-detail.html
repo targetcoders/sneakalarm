@@ -97,6 +97,10 @@ $('document').ready(function(){
 		}
 	});
 });
+
+function isEmptyValue(value){
+	return value == '' || value == '₩'; 
+}
 </script>
 <script sec:authorize="hasRole('ADMIN')">
 $('document').ready(function(){
@@ -153,9 +157,6 @@ $('document').ready(function(){
 
 function move(id){
 	location.replace("/product-modify?id="+id);
-}
-function isEmptyValue(value){
-	return value == '' || value == '₩'; 
 }
 </script>
 </th:block>
