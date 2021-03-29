@@ -32,14 +32,10 @@ function validCheck(){
 
 $('document').ready(function(){
 	var raffleTypeDefaultValue = $('#raffleTypeDefaultValue').val();
-	if(raffleTypeDefaultValue == '오프라인 선착순'){
+	if(raffleTypeDefaultValue == '선착순'){
 		$('#raffleType0').attr('checked','checked');
-	} else if(raffleTypeDefaultValue == '오프라인 응모'){
-		$('#raffleType1').attr('checked','checked');
-	} else if(raffleTypeDefaultValue == '선착순'){
-		$('#raffleType2').attr('checked','checked');
 	} else {
-		$('#raffleType3').attr('checked','checked');
+		$('#raffleType1').attr('checked','checked');
 	}
 	
 	var deliveryDefaultValue = $('#deliveryDefaultValue').val();
@@ -180,8 +176,6 @@ $('document').ready(function(){
 	<div class="col-sm-2 text-center">* 드로우 방식</div>
 	<div class="col-sm-10">
 	<input type="hidden" id="raffleTypeDefaultValue" th:attr="value = ${raffleVO.raffleType}" readonly>
-	<!-- <input type="radio" name="raffleType" id="raffleType2" value="오프라인 선착순"> 오프라인 선착순&nbsp;&nbsp;&nbsp;&nbsp;
-	<input type="radio" name="raffleType" id="raffleType3" value="오프라인 응모"> 오프라인 응모&nbsp;&nbsp;&nbsp;&nbsp; -->
 	<input type="radio" name="raffleType" id="raffleType0" value="선착순"> 선착순&nbsp;&nbsp;&nbsp;&nbsp;
 	<input type="radio" name="raffleType" id="raffleType1" value="응모"> 응모
 	</div>
