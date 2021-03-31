@@ -19,7 +19,7 @@ $('document').ready(function(){
 	}); 
  	
 	window.onscroll = function(e) {
-	    if (getFlag==1 && ($('#endedDrawProductCardsDiv').attr('is')=='1') && !(getScrollTop() < getDocumentHeight() - window.innerHeight)) {
+	    if (getFlag==1 && ($('#endedDrawProductCardsDiv').attr('is')=='1') && !(getScrollTop() < getDocumentHeight() - window.innerHeight-50)) {
 	      $.ajax({
 		  		url:'/getEndedProductCardList',
 		    	type:'get',
