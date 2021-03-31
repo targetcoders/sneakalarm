@@ -35,7 +35,7 @@ $('document').ready(function() {
 						}
 						if (resultList.length < 9)
 							getFlag = 0;
-						passFlag = 0;
+						passFlag = 1;
 					}, 200);
 				},
 				error: function() {
