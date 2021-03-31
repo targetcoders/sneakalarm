@@ -30,7 +30,7 @@ $('document').ready(function(){
 		    		for(var i in resultList){
 		    			$("#endedDrawProductCards").append("<div class=\"home-product\"><div class=\"d-flex flex-column align-items-center endedDrawProductCard\" id=\"card-"+resultList[i].id+"\"><a class=\"endedDrawProductCard\" href=\"/product-detail?id="+resultList[i].id+"\" style=\"opacity:0.4;\"><img src=\""+resultList[i].imgSrc_home+"\" class=\"home-product-img\"></a><span class=\"endedDrawProductCard\" id=\"home-product-model_kr\">"+resultList[i].model_kr+"</span></div></div>");
 		    		}
-		    		if(resultList.length == 0)
+		    		if(resultList.length < 9)
 		    			getFlag = 0;
 		   		},
 		    	error: function(){
