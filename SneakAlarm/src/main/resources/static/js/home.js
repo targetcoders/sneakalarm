@@ -19,7 +19,7 @@ $('document').ready(function(){
 	}); 
  	
 	window.onscroll = function(e) {
-	    if (getFlag==1 && ($('#endedDrawProductCardsDiv').attr('is')=='1') && ((window.innerHeight + window.scrollY) >= document.body.offsetHeight*2)) {
+	    if (getFlag==1 && ($('#endedDrawProductCardsDiv').attr('is')=='1') && !(getScrollTop() < getDocumentHeight() - window.innerHeight)) {
 	      $.ajax({
 		  		url:'/getEndedProductCardList',
 		    	type:'get',
@@ -51,4 +51,20 @@ $('document').ready(function(){
 			$('.endedDrawProductCard').hide();
 		}
 	});
+	
+	
 });
+  // 현재 스크롤한 높이를 구하는 함수 
+  function getScrollTop() {
+      return (window.pageYOffset !== undefined) ? window.pageYOffset : (document.documentElement || document.body.parentNode || document.body).scrollTop;
+  }
+  // 문서의 높이를 구하는 함수
+  function getDocumentHeight() {
+      const body = document.body;
+      const html = document.documentElement;
+	  
+      return Math.max(
+          body.scrollHeight, body.offsetHeight,
+          html.clientHeight, html.scrollHeight, html.offsetHeight
+      );
+  }
