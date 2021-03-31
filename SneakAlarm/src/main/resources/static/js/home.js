@@ -18,8 +18,8 @@ $('document').ready(function(){
     	}
 	}); 
  	
-	window.onscroll = function(e) {
-	    if (getFlag==1 && ($('#endedDrawProductCardsDiv').attr('is')=='1') && !(getScrollTop() < getDocumentHeight() - window.innerHeight-50)) {
+	window.addEventListener('scroll', () => {
+	    if (getFlag==1 && ($('#endedDrawProductCardsDiv').attr('is')=='1') && !(getScrollTop() < getDocumentHeight() - window.innerHeight-10)) {
 	      $.ajax({
 		  		url:'/getEndedProductCardList',
 		    	type:'get',
@@ -39,7 +39,7 @@ $('document').ready(function(){
 	   	  });
 	      page++;
 	    }
-	};
+	});
 	
 	$('#endedDrawProductCardsDiv').click(function(){
 	 	if($(this).attr('is') == '0'){
