@@ -1,70 +1,75 @@
-$('document').ready(function(){	
+$('document').ready(function() {
 	var getFlag = 1;
+	var passFlag = 1;
 	var page = 0;
- 	$.ajax({
-  		url:'/getEndedProductCardList',
-    	type:'get',
-    	data:{
-     		page: page
-    	},
-    	success: function(resultList) {
-    		for(var i in resultList){
-    			$("#endedDrawProductCards").append("<div class=\"home-product\"><div class=\"d-flex flex-column align-items-center endedDrawProductCard\" id=\"card-"+resultList[i].id+"\" style=\"display:none;\"><a class=\"endedDrawProductCard\" href=\"/product-detail?id="+resultList[i].id+"\" style=\"opacity:0.4; display:none;\"><img src=\""+resultList[i].imgSrc_home+"\" class=\"home-product-img\"></a><span class=\"endedDrawProductCard\" id=\"home-product-model_kr\" style=\"display:none;\">"+resultList[i].model_kr+"</span></div></div>");
-    		}
-    		page++;
-   		},
-    	error: function(){
-    		alert('error! : getEndedProductCardList');
-    	}
-	}); 
- 	
-	window.addEventListener('scroll', () => {
-	    if (getFlag==1 && ($('#endedDrawProductCardsDiv').attr('is')=='1') && !(getScrollTop() < getDocumentHeight() - window.innerHeight-0.9)) {
-	      $.ajax({
-		  		url:'/getEndedProductCardList',
-		    	type:'get',
-		    	data:{
-		     		page: page
-		    	},
-		    	success: function(resultList) {
-		    		for(var i in resultList){
-		    			$("#endedDrawProductCards").append("<div class=\"home-product\"><div class=\"d-flex flex-column align-items-center endedDrawProductCard\" id=\"card-"+resultList[i].id+"\"><a class=\"endedDrawProductCard\" href=\"/product-detail?id="+resultList[i].id+"\" style=\"opacity:0.4;\"><img src=\""+resultList[i].imgSrc_home+"\" class=\"home-product-img\"></a><span class=\"endedDrawProductCard\" id=\"home-product-model_kr\">"+resultList[i].model_kr+"</span></div></div>");
-		    		}
-		    		if(resultList.length < 9)
-		    			getFlag = 0;
-		   		},
-		    	error: function(){
-		    		alert('error! : getEndedProductCardList');
-		    	}
-	   	  });
-	      page++;
-	    }
+	$.ajax({
+		url: '/getEndedProductCardList',
+		type: 'get',
+		data: {
+			page: page
+		},
+		success: function(resultList) {
+			for (var i in resultList) {
+				$("#endedDrawProductCards").append("<div class=\"home-product\"><div class=\"d-flex flex-column align-items-center endedDrawProductCard\" id=\"card-" + resultList[i].id + "\" style=\"display:none;\"><a class=\"endedDrawProductCard\" href=\"/product-detail?id=" + resultList[i].id + "\" style=\"opacity:0.4; display:none;\"><img src=\"" + resultList[i].imgSrc_home + "\" class=\"home-product-img\"></a><span class=\"endedDrawProductCard\" id=\"home-product-model_kr\" style=\"display:none;\">" + resultList[i].model_kr + "</span></div></div>");
+			}
+			page++;
+		},
+		error: function() {
+			alert('error! : getEndedProductCardList');
+		}
 	});
-	
-	$('#endedDrawProductCardsDiv').click(function(){
-	 	if($(this).attr('is') == '0'){
-			$(this).attr('is','1');
+
+	window.addEventListener('scroll', () => {
+		if (passFlag == 1 && getFlag == 1 && ($('#endedDrawProductCardsDiv').attr('is') == '1') && !(getScrollTop() < getDocumentHeight() - window.innerHeight - 10)) {
+			passFlag = 0;
+			$.ajax({
+				url: '/getEndedProductCardList',
+				type: 'get',
+				data: {
+					page: page
+				},
+				success: function(resultList) {
+					setTimeout(function() {
+						for (var i in resultList) {
+							$("#endedDrawProductCards").append("<div class=\"home-product\"><div class=\"d-flex flex-column align-items-center endedDrawProductCard\" id=\"card-" + resultList[i].id + "\"><a class=\"endedDrawProductCard\" href=\"/product-detail?id=" + resultList[i].id + "\" style=\"opacity:0.4;\"><img src=\"" + resultList[i].imgSrc_home + "\" class=\"home-product-img\"></a><span class=\"endedDrawProductCard\" id=\"home-product-model_kr\">" + resultList[i].model_kr + "</span></div></div>");
+						}
+						if (resultList.length < 9)
+							getFlag = 0;
+						passFlag = 0;
+					}, 200);
+				},
+				error: function() {
+					alert('error! : getEndedProductCardList');
+				}
+			});
+			page++;
+		}
+	});
+
+	$('#endedDrawProductCardsDiv').click(function() {
+		if ($(this).attr('is') == '0') {
+			$(this).attr('is', '1');
 			$('.endedDrawProductCard').show();
 		}
 		else {
-			$(this).attr('is','0');
+			$(this).attr('is', '0');
 			$('.endedDrawProductCard').hide();
 		}
 	});
-	
-	
+
+
 });
-  // 현재 스크롤한 높이를 구하는 함수 
-  function getScrollTop() {
-      return (window.pageYOffset !== undefined) ? window.pageYOffset : (document.documentElement || document.body.parentNode || document.body).scrollTop;
-  }
-  // 문서의 높이를 구하는 함수
-  function getDocumentHeight() {
-      const body = document.body;
-      const html = document.documentElement;
-	  
-      return Math.max(
-          body.scrollHeight, body.offsetHeight,
-          html.clientHeight, html.scrollHeight, html.offsetHeight
-      );
-  }
+// 현재 스크롤한 높이를 구하는 함수 
+function getScrollTop() {
+	return (window.pageYOffset !== undefined) ? window.pageYOffset : (document.documentElement || document.body.parentNode || document.body).scrollTop;
+}
+// 문서의 높이를 구하는 함수
+function getDocumentHeight() {
+	const body = document.body;
+	const html = document.documentElement;
+
+	return Math.max(
+		body.scrollHeight, body.offsetHeight,
+		html.clientHeight, html.scrollHeight, html.offsetHeight
+	);
+}
