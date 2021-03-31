@@ -7,6 +7,8 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -68,6 +70,31 @@ public class ProductController {
     model.addAttribute("endedCardList", endedCardList);
     return "views/home";
   }
+  
+	@GetMapping("/getEndedProductCardList")
+	@ResponseBody
+	public List<ProductCardVO> getProductCardListByPage(@Param("page") Integer page, Model model) {
+		ArrayList<ProductCardVO> list = (ArrayList<ProductCardVO>) productServiceImpl.getProductCardList();
+		ArrayList<ProductCardVO> endedCardList = new ArrayList<ProductCardVO>();
+		for (ProductCardVO card : list) {
+			String status = card.getStatus();
+			if (status.equals(ProductConst.STATUS_ENDED))
+				endedCardList.add(card);
+		}
+		int startIndex = page * 9;
+		if (endedCardList.size() <= startIndex) {
+			return new ArrayList<ProductCardVO>();
+		} else {
+			int endIndex = endedCardList.size();
+			System.out.println(startIndex);
+			System.out.println(endIndex);
+			List<ProductCardVO> subList = endedCardList.subList(startIndex, endIndex);
+			if (endIndex <= 9)
+				return subList;
+			else
+				return subList.subList(0, 9);
+		}
+	}
 
   @GetMapping("/product-modify")
   public String modifyProduct(@Param("id") String id, Model model) {
