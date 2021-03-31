@@ -19,7 +19,7 @@ $('document').ready(function(){
 	}); 
  	
 	window.addEventListener('scroll', () => {
-	    if (getFlag==1 && ($('#endedDrawProductCardsDiv').attr('is')=='1') && !(getScrollTop() < getDocumentHeight() - window.innerHeight-0.1)) {
+	    if (getFlag==1 && ($('#endedDrawProductCardsDiv').attr('is')=='1') && !(getScrollTop() < getDocumentHeight() - window.innerHeight-0.3)) {
 	      $.ajax({
 		  		url:'/getEndedProductCardList',
 		    	type:'get',
