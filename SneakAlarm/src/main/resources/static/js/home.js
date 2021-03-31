@@ -37,7 +37,7 @@ $('document').ready(function() {
 							getFlag = 0;
 						page++;
 						passFlag = 1;
-					}, 500);
+					}, 250);
 				},
 				error: function() {
 					alert('error! : getEndedProductCardList');
