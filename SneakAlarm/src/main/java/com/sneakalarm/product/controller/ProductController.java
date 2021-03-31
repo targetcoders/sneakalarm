@@ -81,13 +81,15 @@ public class ProductController {
 			if (status.equals(ProductConst.STATUS_ENDED))
 				endedCardList.add(card);
 		}
+		
 		int startIndex = page * 9;
-		if (endedCardList.size() <= startIndex) {
+		int endIndex = endedCardList.size();
+		
+		if (endIndex <= startIndex) {
 			return Collections.emptyList();
 		} else {
-			int endIndex = endedCardList.size();
 			List<ProductCardVO> subList = endedCardList.subList(startIndex, endIndex);
-			if (endIndex <= 9)
+			if (endIndex-startIndex <= 9)
 				return subList;
 			else
 				return subList.subList(0, 9);
