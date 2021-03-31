@@ -83,11 +83,9 @@ public class ProductController {
 		}
 		int startIndex = page * 9;
 		if (endedCardList.size() <= startIndex) {
-			return new ArrayList<ProductCardVO>();
+			return Collections.emptyList();
 		} else {
 			int endIndex = endedCardList.size();
-			System.out.println(startIndex);
-			System.out.println(endIndex);
 			List<ProductCardVO> subList = endedCardList.subList(startIndex, endIndex);
 			if (endIndex <= 9)
 				return subList;
