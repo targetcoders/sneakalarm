@@ -35,14 +35,14 @@ $('document').ready(function() {
 						}
 						if (resultList.length < 9)
 							getFlag = 0;
+						page++;
+						passFlag = 1;
 					}, 500);
 				},
 				error: function() {
 					alert('error! : getEndedProductCardList');
 				}
 			});
-			page++;
-			passFlag = 1;
 		}
 	});
 
