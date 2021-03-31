@@ -9,21 +9,7 @@
 <link rel="stylesheet" th:href="@{/css/home.css}" type="text/css">
 </th:block>
 <th:block layout:fragment="script">
-<script>
-$('document').ready(function(){	
-
-	$('#endedDrawProductCardsDiv').click(function(){
-	 	if($(this).attr('is') == '0'){
-			$(this).attr('is','1');
-			$('.endedDrawProductCard').show();
-		}
-		else {
-			$(this).attr('is','0');
-			$('.endedDrawProductCard').hide();
-		}
-	});
-});
-</script>
+<script type="text/javascript" th:src="@{js/home.js}" charset="utf-8"></script>
 
 <script sec:authorize="hasRole('ADMIN')">
 $('document').ready(function(){	
@@ -101,19 +87,11 @@ $('document').ready(function(){
 				</div>
 			</div>
 		</div>
-		<div id="endedDrawProductCardsDiv" is="0">지난 응모 보기</div>
-		<div class="container-fluid d-flex flex-wrap justify-content-center endedCard">
- 			<div class="home-product" th:each="list : ${endedCardList}">
-				<div class="d-flex flex-column align-items-center endedDrawProductCard" th:id="|card-${list.id}|" style="display:none;">
-					<a class="endedDrawProductCard" th:href="@{/product-detail(id=${list.id})}" style="opacity:0.4; display:none;"><img th:src="${list.imgSrc_home}" class="home-product-img"></a>
-					<span class="endedDrawProductCard" th:text="${list.model_kr}" id="home-product-model_kr" style="display:none;"></span>
-					<div class="d-flex endedDrawProductCard" sec:authorize="hasRole('ADMIN')" style="display:none;">
-						<a class="btn btn-warning home-product-modify flex-grow-1 endedDrawProductCard" th:is="${list.id}" style="display:none;">Modify</a>
-						<a class="btn btn-danger home-product-delete flex-grow-1 endedDrawProductCard" th:is="${list.id}" style="display:none;">Delete</a>
-					</div>
-				</div>
-			</div>
+		
+		<div id="endedDrawProductCardsDiv" is="0" style="margin-bottom:50px">지난 응모 보기</div><br><br>
+		<div id="endedDrawProductCards" class="container-fluid d-flex flex-wrap justify-content-center endedCard" >  
 		</div>
+		
 	</div>
 </div>
 
