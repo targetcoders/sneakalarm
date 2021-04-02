@@ -190,6 +190,11 @@ hr {
 	color:#fe0100;
 }
 
+#disqus_container {
+	width:300px; 
+	margin-top:75px;
+}
+
 @media ( min-width : 768px) {
 	#model_kr {
 		font-size: 24px;
@@ -212,6 +217,10 @@ hr {
 	#raffle-container {
 		width: 768px;
 	}
+	#disqus_container {
+	width:700px; 
+	margin-top:75px;
+}
 }
 @media ( min-width : 1000px) {
 #raffle-container {
