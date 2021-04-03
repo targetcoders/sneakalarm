@@ -147,7 +147,6 @@ public class ProductServiceImpl implements ProductService {
     productVO.setLastUpdateDate(now);
     productVO.setPopularity("0");
     productVO.setInsertDate(now);
-    productVO.setReleaseDate(now);
     productVO.setCountry("모두/해외/국내");
     productVO.setDraw("선착/응모");
     productVO.setIsDeleted(0);
@@ -202,6 +201,7 @@ public class ProductServiceImpl implements ProductService {
     productVO.setHighestSoldPrice(productInsertVO.getHighestSoldPrice());
     productVO.setSize(productInsertVO.getSize());
     productVO.setCode(productInsertVO.getCode());
+    productVO.setReleaseDate(productInsertVO.getReleaseDate());
     if (productInsertVO.getIsChanged().equals("true")) {
       productVO.setLastUpdateDate(getNowDate());
     }
