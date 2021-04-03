@@ -30,7 +30,7 @@
 	 					imgsrc_home=#{imgSrc_home}, imgsrc_detail=#{imgSrc_detail}, premiumPrice=#{premiumPrice},
 	 					averageSalePrice=#{averageSalePrice}, lastUpdateDate=#{lastUpdateDate}, size=#{size}, 
 	 					lowestSoldPrice=#{lowestSoldPrice}, highestSoldPrice=#{highestSoldPrice}, content=#{content},
-	 					releaseStartDate=#{releaseStartDate}, releaseEndDate=#{releaseEndDate}, code=#{code}
+	 					releaseStartDate=#{releaseStartDate}, releaseEndDate=#{releaseEndDate}, code=#{code}, releaseDate=#{releaseDate}
 	 	WHERE 	id=#{id}
 	 </update>
 	 

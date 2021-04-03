@@ -234,7 +234,8 @@ $('document').ready(function(){
 					highestSoldPrice: $('#highestSoldPrice').val(),
 					isChanged: isChanged,
 					photoupload: null,
-					photoupload_detail: null
+					photoupload_detail: null,
+					releaseDate: $('#releaseDate').val()
 				},
 				type: 'POST',
 				success: function(){
@@ -297,6 +298,13 @@ $('document').ready(function(){
 		</div>
 		<hr>
 		<div class="mb-3 row">
+			<label for="size" class="col-sm-2 col-form-label text-center">사이즈<br>(220 ~ 290)</label>
+			<div class="col-sm-10">
+				<input type="text" class="form-control" id="size" name="size" th:value="${productVO.size}" required="required"/>
+			</div>
+		</div>
+		<hr>
+		<div class="mb-3 row">
 			<label for="retailPrice" class="col-sm-2 col-form-label text-center">* 발매가격<br>(199,000)</label>
 			<div class="col-sm-10">
 				<input type="text" class="form-control" id="retailPrice" name="retailPrice" th:value="${productVO.retailPrice}" required="required"/>
@@ -307,13 +315,6 @@ $('document').ready(function(){
 			<label for="brand" class="col-sm-2 col-form-label text-center">* 브랜드<br>(Nike)</label>
 			<div class="col-sm-10">
 				<input type="text" class="form-control" id="brand" name="brand" th:value="${productVO.brand}" required="required"/>
-			</div>
-		</div>
-		<hr>
-		<div class="mb-3 row">
-			<label for="size" class="col-sm-2 col-form-label text-center">사이즈<br>(220 ~ 290)</label>
-			<div class="col-sm-10">
-				<input type="text" class="form-control" id="size" name="size" th:value="${productVO.size}" required="required"/>
 			</div>
 		</div>
 		<hr>
@@ -342,6 +343,13 @@ $('document').ready(function(){
  				<div class="col-sm-10">
  					<input class="form-control form-control-lg" type="file" id="photoupload_detail" name="fileList_detail" multiple required="required">
  				</div>
+		</div>
+		<hr>
+		<div class="mb-3 row">
+			<label for="releaseDate" class="col-sm-2 col-form-label text-center">출시일</label>
+			<div class="col-sm-10">
+				<input type="date" class="form-control" id="releaseDate" name="releaseDate" th:attr="value=${productVO.releaseDate}"/>
+			</div>
 		</div>
 		<hr>
 		<div class="mb-3 row">

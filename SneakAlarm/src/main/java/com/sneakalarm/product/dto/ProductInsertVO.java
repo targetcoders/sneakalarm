@@ -22,6 +22,7 @@ public class ProductInsertVO {
   private String highestSoldPrice;
   private List<MultipartFile> fileList_home;
   private List<MultipartFile> fileList_detail;
+  private String releaseDate;
   private String isChanged;
 
   public ProductInsertVO() {}

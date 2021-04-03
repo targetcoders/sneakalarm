@@ -47,6 +47,7 @@ public class ProductVO {
     this.lowestSoldPrice = productInsertVO.getLowestSoldPrice();
     this.highestSoldPrice = productInsertVO.getHighestSoldPrice();
     this.id = productInsertVO.getId();
+    this.releaseDate = productInsertVO.getReleaseDate();
   }
 
 
