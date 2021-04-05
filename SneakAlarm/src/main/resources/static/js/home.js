@@ -64,7 +64,7 @@ $('document').ready(function() {
 		keyFlag = 0;
 		setTimeout(function(){
 			$('#productSearchResult').empty();
-			$('.home-readyDrawNum').remove();
+			$('.home-product').remove();
 			$('#endedDrawProductCardsDiv').remove();
 			
 			var keyword=$('#searchBox').val();
