@@ -358,6 +358,14 @@ public class ProductController {
     int dayNum = cal.get(Calendar.DAY_OF_WEEK) - 1;
     return day[dayNum];
   }
+  
+  @GetMapping("/getProductCardListByKeyword")
+  @ResponseBody
+  public ArrayList<ProductCardVO> searchProduct(@Param("keyword") String keyword, Model model) {
+	  ArrayList<ProductCardVO> productCardVOList =
+		        (ArrayList<ProductCardVO>) productServiceImpl.getProductCardListByKeyword(keyword);
+	  return productCardVOList;
+  }
 
   public class RaffleAscending implements Comparator<RaffleCardVO> {
     @Override

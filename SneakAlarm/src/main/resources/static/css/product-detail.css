@@ -35,6 +35,8 @@ hr {
 #endedFirstcomeCardsDiv {
  cursor: pointer;
  font-size: 18px;
+ margin-top:25px;
+ margin-bottom:25px;
 }
 #endedRaffleCardsDiv {
 	cursor: pointer;
@@ -146,11 +148,6 @@ hr {
 #goingFirstcomeNum-agent {
 	color:#fe0100;
 }
-#endedFirstcomeCardsDiv {
-	margin-top:25px;
-	margin-bottom:25px;
-}
-
 #goingRaffleDiv {
 	margin-top: 20px;
 }

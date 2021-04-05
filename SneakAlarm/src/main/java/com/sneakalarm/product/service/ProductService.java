@@ -14,6 +14,8 @@ public interface ProductService {
 
   List<ProductVO> getProductList(String id);
 
+  List<ProductCardVO> getProductCardListByKeyword(String keyword);
+  
   boolean deleteProduct(String id);
 
   void updateProduct(ProductInsertVO productInsertVO);
@@ -21,5 +23,4 @@ public interface ProductService {
   void updateStartDateTime(ProductUpdateStartDateTimeVO productUpdateStartDateTimeVO);
 
   void updateEndDateTime(ProductUpdateEndDateTimeVO productUpdateEndDateTimeVO);
-
 }
