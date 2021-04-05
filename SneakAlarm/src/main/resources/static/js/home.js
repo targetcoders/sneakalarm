@@ -80,13 +80,12 @@ $('document').ready(function() {
 					keyword: keyword
 				},	
 				success: function(resultList) {
-					console.log(resultList);
 					for (var i in resultList) {
 						$("#productSearchResult").append("<div class=\"home-product\"><div class=\"d-flex flex-column align-items-center endedDrawProductCard\" id=\"card-" + resultList[i].id + "\"><a class=\"endedDrawProductCard\" href=\"/product-detail?id=" + resultList[i].id + "\"><img src=\"" + resultList[i].imgSrc_home + "\" class=\"home-product-img\"></a><span class=\"endedDrawProductCard\" id=\"home-product-model_kr\">" + resultList[i].model_kr + "</span></div></div>");
 					}
 				},
 				error: function() {
-					alert('error! : getEndedProductCardList');
+					alert('error : searchError');
 				}
 			});
 			keyFlag = 1;
