@@ -66,6 +66,7 @@ $('document').ready(function() {
 			$('#productSearchResult').empty();
 			$('.home-product').remove();
 			$('#endedDrawProductCardsDiv').remove();
+			$('#home-readyDrawNum').remove();
 			
 			var keyword=$('#searchBox').val();
 			if(keyword==''){
@@ -85,7 +86,7 @@ $('document').ready(function() {
 					}
 				},
 				error: function() {
-					alert('error : searchError');
+				
 				}
 			});
 			keyFlag = 1;
