@@ -1,6 +1,7 @@
 $('document').ready(function() {
 	var getFlag = 1;
 	var passFlag = 1;
+	var keyFlag = 1;
 	var page = 0;
 	$.ajax({
 		url: '/getEndedProductCardList',
@@ -57,8 +58,42 @@ $('document').ready(function() {
 		}
 	});
 
-
+	$('#searchBox').focus();
+	$('#searchBox').keyup(function(){
+	if(keyFlag == 1){
+		keyFlag = 0;
+		setTimeout(function(){
+			$('#productSearchResult').empty();
+			$('.home-readyDrawNum').remove();
+			$('#endedDrawProductCardsDiv').remove();
+			
+			var keyword=$('#searchBox').val();
+			if(keyword==''){
+				location.reload("/");
+			}
+			console.log(keyword);
+			$.ajax({
+				url: '/getProductCardListByKeyword',
+				type: 'get',
+				data: {
+					keyword: keyword
+				},	
+				success: function(resultList) {
+					console.log(resultList);
+					for (var i in resultList) {
+						$("#productSearchResult").append("<div class=\"home-product\"><div class=\"d-flex flex-column align-items-center endedDrawProductCard\" id=\"card-" + resultList[i].id + "\"><a class=\"endedDrawProductCard\" href=\"/product-detail?id=" + resultList[i].id + "\"><img src=\"" + resultList[i].imgSrc_home + "\" class=\"home-product-img\"></a><span class=\"endedDrawProductCard\" id=\"home-product-model_kr\">" + resultList[i].model_kr + "</span></div></div>");
+					}
+				},
+				error: function() {
+					alert('error! : getEndedProductCardList');
+				}
+			});
+			keyFlag = 1;
+		},100);
+	}
+	});
 });
+
 // 현재 스크롤한 높이를 구하는 함수 
 function getScrollTop() {
 	return (window.pageYOffset !== undefined) ? window.pageYOffset : (document.documentElement || document.body.parentNode || document.body).scrollTop;

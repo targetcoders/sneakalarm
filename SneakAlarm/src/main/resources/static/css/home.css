@@ -14,7 +14,7 @@
 #home-product-model_kr {
 	font-size: 15px;
 	font-weight: bold;
-	color: #5e5e5e;
+	color: #B8B8B8;
 }
 .home-product-status-going {
 	font-size: 12px;
@@ -58,7 +58,13 @@
 	cursor: pointer;
 	font-size: 18px;
 	font-weight: bold;
-	color: #5e5e5e;
+	color: #B8B8B8;
+	
+}
+input::placeholder {
+	font-style: italic;
+	font-weight: bold;
+	color: #B8B8B8;
 }
 
 @media ( min-width : 768px) {
@@ -72,7 +78,7 @@
 	#home-product-model_kr {
 		font-size: 18px;
 		font-weight: bold;
-		color: #5e5e5e;
+		color: #B8B8B8;
 	}
 	.home-product-status-going {
 		font-weight: bold;

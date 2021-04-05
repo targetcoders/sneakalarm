@@ -30,8 +30,6 @@ import lombok.extern.java.Log;
 @Slf4j
 @Service
 public class ProductServiceImpl implements ProductService {
-
-	
 	
   @Autowired
   private StringUtil stringUtil;
@@ -81,6 +79,11 @@ public class ProductServiceImpl implements ProductService {
     }
 
     return ret;
+  }
+  
+  public List<ProductCardVO> getProductCardListByKeyword(String keyword){
+	  List<ProductCardVO>list = productCardMapper.getProductCardListByKeyword(keyword);
+	  return list;
   }
 
   public ArrayList<ProductCardVO> setProductCardStatus(ArrayList<ProductCardVO> productCardList)
