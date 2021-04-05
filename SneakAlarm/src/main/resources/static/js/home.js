@@ -70,6 +70,7 @@ $('document').ready(function() {
 			var keyword=$('#searchBox').val();
 			if(keyword==''){
 				location.reload("/");
+				return;
 			}
 			console.log(keyword);
 			$.ajax({
