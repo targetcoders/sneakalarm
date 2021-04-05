@@ -82,8 +82,15 @@ public class ProductServiceImpl implements ProductService {
   }
   
   public List<ProductCardVO> getProductCardListByKeyword(String keyword){
-	  List<ProductCardVO>list = productCardMapper.getProductCardListByKeyword(keyword);
-	  return list;
+	  ArrayList<ProductCardVO>cardList = productCardMapper.getProductCardListByKeyword(keyword);
+
+	    ArrayList<ProductCardVO> settedCardList = null;
+	    try {
+	      settedCardList = setProductCardStatus(cardList);
+	    } catch (ParseException e) {
+	      e.printStackTrace();
+	    }
+	  return settedCardList;
   }
 
   public ArrayList<ProductCardVO> setProductCardStatus(ArrayList<ProductCardVO> productCardList)
