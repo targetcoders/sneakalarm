@@ -361,7 +361,10 @@ public class ProductController {
   
   @GetMapping("/getProductCardListByKeyword")
   @ResponseBody
-  public ArrayList<ProductCardVO> searchProduct(@Param("keyword") String keyword, Model model) {
+  public List<ProductCardVO> searchProduct(@Param("keyword") String keyword, Model model) {
+	  if(keyword.equals("")) {
+		  return Collections.emptyList();
+	  }
 	  ArrayList<ProductCardVO> productCardVOList =
 		        (ArrayList<ProductCardVO>) productServiceImpl.getProductCardListByKeyword(keyword);
 	  return productCardVOList;
