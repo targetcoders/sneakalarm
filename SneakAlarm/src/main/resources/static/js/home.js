@@ -64,12 +64,16 @@ $('document').ready(function() {
 		keyFlag = 0;
 		setTimeout(function(){
 			$('#productSearchResult').empty();
-			$('.home-product').remove();
-			$('#endedDrawProductCardsDiv').remove();
-			$('#home-readyDrawNum').remove();
+			$('.home-product').hide();
+			$('#endedDrawProductCardsDiv').hide();
+			$('.home-readyDrawNum').hide();
 			
 			var keyword=$('#searchBox').val();
-			
+			if(keyword == ''){
+				$('.home-product').show();
+				$('#endedDrawProductCardsDiv').show();
+				$('.home-readyDrawNum').show();
+			}
 			$.ajax({
 				url: '/getProductCardListByKeyword',
 				type: 'get',
