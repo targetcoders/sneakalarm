@@ -69,11 +69,7 @@ $('document').ready(function() {
 			$('#home-readyDrawNum').remove();
 			
 			var keyword=$('#searchBox').val();
-			if(keyword==''){
-				location.reload("/");
-				return;
-			}
-			console.log(keyword);
+			
 			$.ajax({
 				url: '/getProductCardListByKeyword',
 				type: 'get',
@@ -86,7 +82,7 @@ $('document').ready(function() {
 					}
 				},
 				error: function() {
-				
+					alert('error: searchError!');
 				}
 			});
 			keyFlag = 1;
