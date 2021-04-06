@@ -58,8 +58,12 @@ $('document').ready(function() {
 		}
 	});
 
-	$('#searchBox').keyup(function(){
+	$('#searchBox').keyup(function(key){
 	if(keyFlag == 1){
+		if(key.keyCode != 13){
+			return;
+		}
+		
 		keyFlag = 0;
 		setTimeout(function(){
 			$('#productSearchResult').empty();
@@ -82,9 +86,9 @@ $('document').ready(function() {
 				success: function(resultList) {
 					for (var i in resultList) {
 						if(resultList[i].status=='going'){
-							$("#productSearchResult").append("<div class=\"home-product\"><div class=\"d-flex flex-column align-items-center endedDrawProductCard\" id=\"card-" + resultList[i].id + "\"><a class=\"endedDrawProductCard\" href=\"/product-detail?id=" + resultList[i].id + "\"><img src=\"" + resultList[i].imgSrc_home + "\" class=\"home-product-img\"></a><span class=\"endedDrawProductCard\" id=\"home-product-model_kr\">" + resultList[i].model_kr + "</span></div></div>");
+							$("#productSearchResult").append("<div class=\"home-product\" style=\"display:block\"><div class=\"d-flex flex-column align-items-center endedDrawProductCard\" id=\"card-" + resultList[i].id + "\"><a class=\"endedDrawProductCard\" href=\"/product-detail?id=" + resultList[i].id + "\"><img src=\"" + resultList[i].imgSrc_home + "\" class=\"home-product-img\"></a><span class=\"endedDrawProductCard\" id=\"home-product-model_kr\">" + resultList[i].model_kr + "</span></div></div>");
 						} else {
-							$("#productSearchResult").append("<div class=\"home-product\"><div class=\"d-flex flex-column align-items-center endedDrawProductCard\" id=\"card-" + resultList[i].id + "\"><a class=\"endedDrawProductCard\" href=\"/product-detail?id=" + resultList[i].id + "\" style=\"opacity: 0.5\"><img src=\"" + resultList[i].imgSrc_home + "\" class=\"home-product-img\"></a><span class=\"endedDrawProductCard\" id=\"home-product-model_kr\">" + resultList[i].model_kr + "</span></div></div>");
+							$("#productSearchResult").append("<div class=\"home-product\" style=\"display:block\"><div class=\"d-flex flex-column align-items-center endedDrawProductCard\" id=\"card-" + resultList[i].id + "\"><a class=\"endedDrawProductCard\" href=\"/product-detail?id=" + resultList[i].id + "\" style=\"opacity: 0.5\"><img src=\"" + resultList[i].imgSrc_home + "\" class=\"home-product-img\"></a><span class=\"endedDrawProductCard\" id=\"home-product-model_kr\">" + resultList[i].model_kr + "</span></div></div>");
 						}
 					}
 				},
