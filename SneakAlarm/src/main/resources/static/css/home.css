@@ -5,16 +5,19 @@
 	margin-right: 5px;
 	margin-bottom: 5px;
 	flex-grow:1;
+	width:145px;
+	height:185px;
 }
 .home-product-img {
-	width:300px;
-	height:300px;
+	width:145px;
+	height:145px;
 }
 
 #home-product-model_kr {
-	font-size: 15px;
+	font-size: 12px;
 	font-weight: bold;
-	color: #B8B8B8;
+	color: #000000;
+	text-align:center;
 }
 .home-product-status-going {
 	font-size: 12px;
@@ -70,6 +73,8 @@ input::placeholder {
 @media ( min-width : 768px) {
 	.home-product {
 		flex-grow:1;
+		width:500px;
+		height:515px;
 	}
 	.home-product-img {
 		width:500px;

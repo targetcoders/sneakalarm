@@ -68,14 +68,6 @@ $('document').ready(function(){
 					<a th:href="@{/product-detail(id=${list.id})}"><img th:src="${list.imgSrc_home}" class="home-product-img"></a>
 					<span th:text="${list.model_kr}" id="home-product-model_kr"></span>
 					<!-- <span class="home-product-status-going">[진행 중!]</span> -->
-					<div>
-					<span class="home-drawNum">
-						<span class="whiteBoldText">&nbsp;응모:&nbsp;<span th:text="${list.goingRaffleNum}"></span></span>
-					</span>&nbsp;
-					<span class="home-drawNum">
-						<span class="redBoldText">&nbsp;선착순:&nbsp;<span th:text="${list.goingFirstcomeNum}"></span>&nbsp;</span>
-					</span>
-					</div>
 					<div sec:authorize="hasRole('ADMIN')" class="d-flex">
 						<a class="btn btn-warning home-product-modify flex-grow-1" th:is="${list.id}">Modify</a>
 						<a class="btn btn-danger home-product-delete flex-grow-1" th:is="${list.id}">Delete</a>
