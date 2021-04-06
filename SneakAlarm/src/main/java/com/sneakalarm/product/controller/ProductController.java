@@ -11,6 +11,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,6 +36,12 @@ public class ProductController {
 
   @Autowired
   ProductConst productConst;
+  @Autowired
+  ProductAscending productAscendingInstance;
+  @Autowired
+  FirstcomeAscending firstcomeAscendingInstance;
+  @Autowired
+  RaffleAscending raffleAscendingInstance;
 
   @GetMapping("/")
   public String getProductCardList(Model model) throws ParseException {
@@ -60,8 +67,8 @@ public class ProductController {
           break;
       }
     }
-    Collections.sort(readyCardList, new ProductAscending());
-    Collections.sort(goingCardList, new ProductAscending());
+    Collections.sort(readyCardList, productAscendingInstance);
+    Collections.sort(goingCardList, productAscendingInstance);
     
     model.addAttribute("goingCardListNum", goingCardList.size());
     model.addAttribute("readyCardListNum", readyCardList.size());
@@ -232,22 +239,20 @@ public class ProductController {
     productServiceImpl.updateStartDateTime(productUpdateStartDateTimeVO);
     productServiceImpl.updateEndDateTime(productUpdateEndDateTimeVO);
 
-    RaffleAscending raffleAscending = new RaffleAscending();
-    FirstcomeAscending firstcomeAscending = new FirstcomeAscending();
-    Collections.sort(goingRaffleRet, raffleAscending);
-    Collections.sort(goingRaffleRet_agent, raffleAscending);
-    Collections.sort(goingRaffleRet_direct, raffleAscending);
-    Collections.sort(readyRaffleRet, raffleAscending);
-    Collections.sort(readyRaffleRet_agent, raffleAscending);
-    Collections.sort(readyRaffleRet_direct, raffleAscending);
-    Collections.sort(endedRaffleRet, raffleAscending);
-    Collections.sort(goingFirstcomeRet, firstcomeAscending);
-    Collections.sort(goingFirstcomeRet_agent, firstcomeAscending);
-    Collections.sort(goingFirstcomeRet_direct, firstcomeAscending);
-    Collections.sort(readyFirstcomeRet, firstcomeAscending);
-    Collections.sort(readyFirstcomeRet_agent, firstcomeAscending);
-    Collections.sort(readyFirstcomeRet_direct, firstcomeAscending);
-    Collections.sort(endedFirstcomeRet, firstcomeAscending);
+    Collections.sort(goingRaffleRet, raffleAscendingInstance);
+    Collections.sort(goingRaffleRet_agent, raffleAscendingInstance);
+    Collections.sort(goingRaffleRet_direct, raffleAscendingInstance);
+    Collections.sort(readyRaffleRet, raffleAscendingInstance);
+    Collections.sort(readyRaffleRet_agent, raffleAscendingInstance);
+    Collections.sort(readyRaffleRet_direct, raffleAscendingInstance);
+    Collections.sort(endedRaffleRet, raffleAscendingInstance);
+    Collections.sort(goingFirstcomeRet, firstcomeAscendingInstance);
+    Collections.sort(goingFirstcomeRet_agent, firstcomeAscendingInstance);
+    Collections.sort(goingFirstcomeRet_direct, firstcomeAscendingInstance);
+    Collections.sort(readyFirstcomeRet, firstcomeAscendingInstance);
+    Collections.sort(readyFirstcomeRet_agent, firstcomeAscendingInstance);
+    Collections.sort(readyFirstcomeRet_direct, firstcomeAscendingInstance);
+    Collections.sort(endedFirstcomeRet, firstcomeAscendingInstance);
 
     model.addAttribute("productVO", productVO);
     model.addAttribute("urlList_detail", urlArray);
@@ -367,9 +372,11 @@ public class ProductController {
 	  }
 	  ArrayList<ProductCardVO> productCardVOList =
 		        (ArrayList<ProductCardVO>) productServiceImpl.getProductCardListByKeyword(keyword);
+	  productCardVOList.sort(productAscendingInstance);
 	  return productCardVOList;
   }
 
+  @Component
   public class RaffleAscending implements Comparator<RaffleCardVO> {
     @Override
     public int compare(RaffleCardVO o1, RaffleCardVO o2) {
@@ -378,16 +385,16 @@ public class ProductController {
       return endDateTime1.compareTo(endDateTime2);
     }
   }
-  
-	public class FirstcomeAscending implements Comparator<RaffleCardVO> {
-		@Override
-		public int compare(RaffleCardVO o1, RaffleCardVO o2) {
-			String startDateTime1 = o1.getStartDate() + o1.getStartTime();
-			String startDateTime2 = o2.getStartDate() + o2.getStartTime();
-			return startDateTime1.compareTo(startDateTime2);
-		}
+  @Component
+  public class FirstcomeAscending implements Comparator<RaffleCardVO> {
+	@Override
+	public int compare(RaffleCardVO o1, RaffleCardVO o2) {
+		String startDateTime1 = o1.getStartDate() + o1.getStartTime();
+		String startDateTime2 = o2.getStartDate() + o2.getStartTime();
+		return startDateTime1.compareTo(startDateTime2);
 	}
-
+  }
+  @Component
   public class ProductAscending implements Comparator<ProductCardVO> {
     @Override
     public int compare(ProductCardVO o1, ProductCardVO o2) {

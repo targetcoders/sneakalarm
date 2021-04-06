@@ -58,7 +58,6 @@ $('document').ready(function() {
 		}
 	});
 
-	$('#searchBox').focus();
 	$('#searchBox').keyup(function(){
 	if(keyFlag == 1){
 		keyFlag = 0;
