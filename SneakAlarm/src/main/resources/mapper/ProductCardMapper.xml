@@ -14,7 +14,9 @@
 	resultType="com.sneakalarm.product.dto.ProductCardVO">
 		SELECT	id, model_kr, code, retailPrice, releaseStartDate, releaseEndDate, imgSrc_home, goingRaffleNum, goingFirstcomeNum
 		FROM 	product
-		WHERE model_kr LIKE CONCAT('%', #{keyword}, '%')
+		WHERE model_kr LIKE CONCAT('%', #{keyword}, '%') OR
+			  model_en LIKE CONCAT('%', #{keyword}, '%') OR
+			  code LIKE CONCAT('%', #{keyword}, '%')
 		ORDER BY insertdate DESC
 	</select>
 	 
