@@ -16,7 +16,6 @@
 		FROM 	product
 		WHERE model_kr LIKE CONCAT('%', #{keyword}, '%')
 		ORDER BY insertdate DESC
-		LIMIT 25
 	</select>
 	 
 </mapper>
