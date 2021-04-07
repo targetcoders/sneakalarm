@@ -16,6 +16,7 @@ public class ProductCardVO {
   private String releaseEndMonthAndDay;
   private String status;
   private String draw;
+  private String releaseDate;
   private int goingRaffleNum;
   private int goingFirstcomeNum;
 

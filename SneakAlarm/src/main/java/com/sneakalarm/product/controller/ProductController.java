@@ -1,5 +1,6 @@
 package com.sneakalarm.product.controller;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -42,6 +43,8 @@ public class ProductController {
   FirstcomeAscending firstcomeAscendingInstance;
   @Autowired
   RaffleAscending raffleAscendingInstance;
+  @Autowired
+  ReleaseDateDescending releaseDateDescendingInstance;
 
   @GetMapping("/")
   public String getProductCardList(Model model) throws ParseException {
@@ -82,11 +85,15 @@ public class ProductController {
 	@ResponseBody
 	public List<ProductCardVO> getProductCardListByPage(@Param("page") Integer page, Model model) {
 		ArrayList<ProductCardVO> list = (ArrayList<ProductCardVO>) productServiceImpl.getProductCardList();
+		list.sort(releaseDateDescendingInstance);
 		ArrayList<ProductCardVO> endedCardList = new ArrayList<ProductCardVO>();
 		for (ProductCardVO card : list) {
 			String status = card.getStatus();
-			if (status.equals(ProductConst.STATUS_ENDED))
+			if (status.equals(ProductConst.STATUS_ENDED)) {
+				String releaseDate = card.getReleaseDate();
+				card.setReleaseDate(releaseDate.replace('-', '/'));
 				endedCardList.add(card);
+			}
 		}
 		
 		int startIndex = page * 9;
@@ -372,7 +379,7 @@ public class ProductController {
 	  }
 	  ArrayList<ProductCardVO> productCardVOList =
 		        (ArrayList<ProductCardVO>) productServiceImpl.getProductCardListByKeyword(keyword);
-	  productCardVOList.sort(productAscendingInstance);
+	  productCardVOList.sort(releaseDateDescendingInstance);
 	  return productCardVOList;
   }
 
@@ -398,9 +405,25 @@ public class ProductController {
   public class ProductAscending implements Comparator<ProductCardVO> {
     @Override
     public int compare(ProductCardVO o1, ProductCardVO o2) {
-      String endDateTime1 = o1.getReleaseEndDate() + o1.getReleaseEndDate();
-      String endDateTime2 = o2.getReleaseEndDate() + o2.getReleaseEndDate();
-      return endDateTime1.compareTo(endDateTime2);
+      String endDate1 = o1.getReleaseEndDate();
+      String endDate2 = o2.getReleaseEndDate();
+      return endDate1.compareTo(endDate2);
     }
+  }
+  
+  @Component
+  public class ReleaseDateDescending implements Comparator<ProductCardVO> {
+	  DateFormat sdf = new SimpleDateFormat("yy-MM-dd");
+	  @Override
+	  public int compare(ProductCardVO o1, ProductCardVO o2) {
+		  String releaseDate1 = o1.getReleaseDate();
+		  String releaseDate2 = o2.getReleaseDate();
+		  try {
+			return sdf.parse(releaseDate2).compareTo(sdf.parse(releaseDate1));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return 0;
+	  }
   }
 }

@@ -6,7 +6,7 @@
 	margin-bottom: 5px;
 	flex-grow:1;
 	width:145px;
-	height:185px;
+	height:auto;
 }
 .home-product-img {
 	width:145px;
@@ -64,6 +64,10 @@
 	color: #B8B8B8;
 	
 }
+#home-product-releaseDate {
+	font-size: 12px;
+	color: #b8b8b8;
+}
 input::placeholder {
 	font-style: italic;
 	font-weight: bold;
@@ -74,7 +78,7 @@ input::placeholder {
 	.home-product {
 		flex-grow:1;
 		width:500px;
-		height:540px;
+		height:auto;
 	}
 	.home-product-img {
 		width:500px;
@@ -92,5 +96,9 @@ input::placeholder {
 	.home-product-status-ready {
 		font-weight: bold;
 		color: #5e5e5e;
+	}
+	#home-product-releaseDate {
+		font-size: 18px;
+		color: #b8b8b8;
 	}
 }
