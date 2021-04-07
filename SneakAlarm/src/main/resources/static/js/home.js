@@ -11,7 +11,7 @@ $('document').ready(function() {
 		},
 		success: function(resultList) {
 			for (var i in resultList) {
-				$("#endedDrawProductCards").append("<div class=\"home-product endedDrawProductCard\" style=\"display:none;\"><div class=\"d-flex flex-column align-items-center endedDrawProductCard\" id=\"card-" + resultList[i].id + "\" style=\"display:none;\"><a class=\"endedDrawProductCard\" href=\"/product-detail?id=" + resultList[i].id + "\" style=\"opacity:0.4; display:none;\"><img src=\"" + resultList[i].imgSrc_home + "\" class=\"home-product-img\"></a><span class=\"endedDrawProductCard\" id=\"home-product-model_kr\" style=\"display:none;\">" + resultList[i].model_kr + "</span></div></div>");
+				$("#endedDrawProductCards").append("<div class=\"home-product endedDrawProductCard\" style=\"display:none;\"><div class=\"d-flex flex-column align-items-center endedDrawProductCard\" id=\"card-" + resultList[i].id + "\" style=\"display:none;\"><a class=\"endedDrawProductCard\" href=\"/product-detail?id=" + resultList[i].id + "\" style=\"opacity:0.4; display:none;\"><img src=\"" + resultList[i].imgSrc_home + "\" class=\"home-product-img\"></a><span class=\"endedDrawProductCard\" id=\"home-product-model_kr\" style=\"display:none;\">" + resultList[i].model_kr + "</span><span class=\"endedDrawProductCard\" id=\"home-product-releaseDate\" style=\"display:none;\">" + resultList[i].releaseDate + " 출시</span></div></div>");
 			}
 			page++;
 		},
@@ -32,7 +32,7 @@ $('document').ready(function() {
 				success: function(resultList) {
 					setTimeout(function() {
 						for (var i in resultList) {
-							$("#endedDrawProductCards").append("<div class=\"home-product endedDrawProductCard\"><div class=\"d-flex flex-column align-items-center endedDrawProductCard\" id=\"card-" + resultList[i].id + "\"><a class=\"endedDrawProductCard\" href=\"/product-detail?id=" + resultList[i].id + "\" style=\"opacity:0.4;\"><img src=\"" + resultList[i].imgSrc_home + "\" class=\"home-product-img\"></a><span class=\"endedDrawProductCard\" id=\"home-product-model_kr\">" + resultList[i].model_kr + "</span></div></div>");
+							$("#endedDrawProductCards").append("<div class=\"home-product endedDrawProductCard\"><div class=\"d-flex flex-column align-items-center endedDrawProductCard\" id=\"card-" + resultList[i].id + "\"><a class=\"endedDrawProductCard\" href=\"/product-detail?id=" + resultList[i].id + "\" style=\"opacity:0.4;\"><img src=\"" + resultList[i].imgSrc_home + "\" class=\"home-product-img\"></a><span class=\"endedDrawProductCard\" id=\"home-product-model_kr\">" + resultList[i].model_kr + "</span><span class=\"endedDrawProductCard\" id=\"home-product-releaseDate\">" + resultList[i].releaseDate + " 출시</span></div></div>");
 						}
 						if (resultList.length < 9)
 							getFlag = 0;

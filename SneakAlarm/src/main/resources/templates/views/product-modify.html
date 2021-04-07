@@ -15,7 +15,7 @@
 <script type="text/javascript">
 
 function validCheck(){
-	return 	$('#brand').val()=='' || $('#code').val()=='' || 
+	return 	$('#brand').val()=='' || $('#code').val()=='' || $('#releaseDate').val()=='' ||
 	$('#model_kr').val()=='' || $('#model_en').val()=='' || $('#retailPrice').val()=='';
 }		
 
@@ -346,7 +346,7 @@ $('document').ready(function(){
 		</div>
 		<hr>
 		<div class="mb-3 row">
-			<label for="releaseDate" class="col-sm-2 col-form-label text-center">출시일</label>
+			<label for="releaseDate" class="col-sm-2 col-form-label text-center">* 출시일</label>
 			<div class="col-sm-10">
 				<input type="date" class="form-control" id="releaseDate" name="releaseDate" th:attr="value=${productVO.releaseDate}"/>
 			</div>
