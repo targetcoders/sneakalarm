@@ -45,6 +45,8 @@ public class ProductController {
   RaffleAscending raffleAscendingInstance;
   @Autowired
   ReleaseDateDescending releaseDateDescendingInstance;
+  
+  private DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
   @GetMapping("/")
   public String getProductCardList(Model model) throws ParseException {
@@ -379,7 +381,7 @@ public class ProductController {
 	  }
 	  ArrayList<ProductCardVO> productCardVOList =
 		        (ArrayList<ProductCardVO>) productServiceImpl.getProductCardListByKeyword(keyword);
-	  productCardVOList.sort(releaseDateDescendingInstance);
+	  	productCardVOList.sort(productAscendingInstance);
 	  return productCardVOList;
   }
 
@@ -406,14 +408,23 @@ public class ProductController {
     @Override
     public int compare(ProductCardVO o1, ProductCardVO o2) {
       String endDate1 = o1.getReleaseEndDate();
+      if(endDate1.equals("RELEASING SOON"))
+    	  endDate1 = "9999-99-99";
       String endDate2 = o2.getReleaseEndDate();
-      return endDate1.compareTo(endDate2);
+      if(endDate2.equals("RELEASING SOON"))
+    	  endDate2 = "9999-99-99";
+      
+      try {
+		return sdf.parse(endDate1).compareTo(sdf.parse(endDate2));
+	} catch (ParseException e) {
+		e.printStackTrace();
+	}
+	return 0;
     }
   }
   
   @Component
   public class ReleaseDateDescending implements Comparator<ProductCardVO> {
-	  DateFormat sdf = new SimpleDateFormat("yy-MM-dd");
 	  @Override
 	  public int compare(ProductCardVO o1, ProductCardVO o2) {
 		  String releaseDate1 = o1.getReleaseDate();
