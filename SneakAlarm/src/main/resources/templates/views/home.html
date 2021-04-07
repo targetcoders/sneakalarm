@@ -6,43 +6,10 @@
 			layout:decorator="layout/default">
 
 <th:block layout:fragment="css">
-<link rel="stylesheet" th:href="@{/css/home.css}" type="text/css">
+	<link rel="stylesheet" th:href="@{/css/home.css}" type="text/css">
 </th:block>
 <th:block layout:fragment="script">
-<script type="text/javascript" th:src="@{js/home.js}" charset="utf-8"></script>
-
-<script sec:authorize="hasRole('ADMIN')">
-$('document').ready(function(){	
-	
-	$('.home-product-modify').click(function(){
-		var id = $(this).attr("is");
-		location.href="/product-modify?id="+id;
-	});
-	
- 	$('.home-product-delete').click(function(){
-		var id = $(this).attr("is");
- 		var res = confirm('id: '+id+'\n정말 삭제하시겠습니까?');
- 		if(res){
-   		$.ajax({
-	  		url:'/product-delete',
-	    	type:'get',
-	    	data:{
-	     		id: id
-	    	},
-	    	success: function(data) {
-	    		$("#card-"+id).remove();
-	   		},
-	    	error: function(){
-	    		alert('error!');
-	    	}
-   		});
- 		}
-  });
-});
-
-</script>
-
-
+	<script type="text/javascript" th:src="@{js/home.js}" charset="utf-8"></script>
 </th:block>
 
 <div layout:fragment="content">
@@ -67,24 +34,15 @@ $('document').ready(function(){
 				<div class="d-flex flex-column align-items-center" th:id="|card-${list.id}|">
 					<a th:href="@{/product-detail(id=${list.id})}"><img th:src="${list.imgSrc_home}" class="home-product-img"></a>
 					<span th:text="${list.model_kr}" id="home-product-model_kr"></span>
-					<!-- <span class="home-product-status-going">[진행 중!]</span> -->
-					<div sec:authorize="hasRole('ADMIN')" class="d-flex">
-						<a class="btn btn-warning home-product-modify flex-grow-1" th:is="${list.id}">Modify</a>
-						<a class="btn btn-danger home-product-delete flex-grow-1" th:is="${list.id}">Delete</a>
-					</div>
 				</div>
 			</div>
 		</div>
-		<div class="home-readyDrawNum"><span class="whiteBoldText">&nbsp;시작전: </span><span class="redBoldText" th:text="${readyCardListNum}"></span>&nbsp;</div>
+		<div class="home-readyDrawNum"><span class="whiteBoldText">&nbsp;시작전: </span><span id="readyDrawProductCount" class="redBoldText" th:text="${readyCardListNum}"></span>&nbsp;</div>
 		<div id="readyDrawProductCards" class="container-fluid d-flex flex-wrap justify-content-center">
 			<div class="home-product" th:each="list : ${readyCardList}">
 				<div class="d-flex flex-column align-items-center" th:id="|card-${list.id}|">
 					<a th:href="@{/product-detail(id=${list.id})}" style="opacity:0.5;"><img th:src="${list.imgSrc_home}" class="home-product-img"></a>
 					<span th:text="${list.model_kr}" id="home-product-model_kr"></span>
-					<div sec:authorize="hasRole('ADMIN')" class="d-flex">
-						<a class="btn btn-warning home-product-modify flex-grow-1" th:is="${list.id}">Modify</a>
-						<a class="btn btn-danger home-product-delete flex-grow-1" th:is="${list.id}">Delete</a>
-					</div>
 				</div>
 			</div>
 		</div>

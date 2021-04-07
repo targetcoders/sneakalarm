@@ -103,6 +103,10 @@ $('document').ready(function() {
 		},100);
 	}
 	});
+	
+	if($('#readyDrawProductCount').text() == '0'){
+		$('.home-readyDrawNum').hide();
+	}
 });
 
 // 현재 스크롤한 높이를 구하는 함수 
