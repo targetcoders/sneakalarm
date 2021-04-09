@@ -12,7 +12,7 @@
 	
 	<select id="getProductCardListByKeyword" parameterType="String" 
 	resultType="com.sneakalarm.product.dto.ProductCardVO">
-		SELECT	id, model_kr, code, retailPrice, releaseStartDate, releaseEndDate, imgSrc_home, goingRaffleNum, goingFirstcomeNum
+		SELECT	id, model_kr, code, retailPrice, releaseStartDate, releaseEndDate, imgSrc_home, goingRaffleNum, goingFirstcomeNum, releaseDate
 		FROM 	product
 		WHERE model_kr LIKE CONCAT('%', #{keyword}, '%') OR
 			  model_en LIKE CONCAT('%', #{keyword}, '%') OR
