@@ -8,4 +8,5 @@ public class ProductConst {
   public static final String STATUS_READY = "ready";
   public static final String STATUS_GOING = "going";
   public static final String STATUS_ENDED = "ended";
+  public static final String STATUS_ACTIVE = "active";
 }

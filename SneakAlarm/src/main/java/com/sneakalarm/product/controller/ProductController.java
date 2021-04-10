@@ -27,6 +27,7 @@ import com.sneakalarm.product.dto.ProductVO;
 import com.sneakalarm.product.service.ProductService;
 import com.sneakalarm.raffle.dto.RaffleCardVO;
 import com.sneakalarm.raffle.service.RaffleService;
+import com.sneakalarm.util.DateUtil;
 
 @Controller
 public class ProductController {
@@ -34,6 +35,8 @@ public class ProductController {
   ProductService productServiceImpl;
   @Autowired
   RaffleService raffleService;
+  @Autowired
+  DateUtil dateUtil;
 
   @Autowired
   ProductConst productConst;
@@ -183,9 +186,9 @@ public class ProductController {
       String endDate = raffleCardVO.getEndDate();
       String startTime = raffleCardVO.getStartTime();
       String endTime = raffleCardVO.getEndTime();
-      String status = getRaffleStatus(startDate, startTime, endDate, endTime);
-      String startWeek = getWeek(startDate, "yyyy-MM-dd");
-      String endWeek = getWeek(endDate, "yyyy-MM-dd");
+      String status = raffleService.getRaffleStatus(startDate, startTime, endDate, endTime);
+      String startWeek = dateUtil.getWeek(startDate, "yyyy-MM-dd");
+      String endWeek = dateUtil.getWeek(endDate, "yyyy-MM-dd");
 
       raffleCardVO.setStartDate(startDate.replaceAll("-", "/") + " " + startWeek);
       raffleCardVO.setEndDate(endDate.replaceAll("-", "/") + " " + endWeek);
@@ -338,39 +341,6 @@ public class ProductController {
       drawEndDateTime = "RELEASING SOON";
     }
     return drawEndDateTime;
-  }
-
-  public String getRaffleStatus(String startDate, String startTime, String endDate, String endTime)
-      throws ParseException {
-    String status = "";
-    SimpleDateFormat sdf = new SimpleDateFormat(ProductConst.DATE_FORMAT.replaceAll("/", "-"));
-    Date nowDateTime = new Date();
-    Date startDateTime = sdf.parse(startDate + " " + startTime);
-    Date endDateTime = sdf.parse(endDate + " " + endTime);
-    
-    int res = nowDateTime.compareTo(endDateTime);
-    if (res > 0) {
-      status = ProductConst.STATUS_ENDED;
-    } else if (res <= 0) {
-      if (nowDateTime.compareTo(startDateTime) < 0) {
-        status = ProductConst.STATUS_READY;
-      } else {
-        status = ProductConst.STATUS_GOING;
-      }
-    }
-    return status;
-  }
-
-  public String getWeek(String date, String dateType) throws Exception {
-    String[] day = {"일", "월", "화", "수", "목", "금", "토"};
-
-    SimpleDateFormat dateFormat = new SimpleDateFormat(dateType);
-    Date inputDate = dateFormat.parse(date);
-    Calendar cal = Calendar.getInstance();
-    cal.setTime(inputDate);
-
-    int dayNum = cal.get(Calendar.DAY_OF_WEEK) - 1;
-    return day[dayNum];
   }
   
   @GetMapping("/getProductCardListByKeyword")

@@ -19,6 +19,17 @@
 		WHERE	id=#{id}
 	</select>
 	
+	<select id="getProductIdListAll" resultType="Integer">
+		SELECT	id
+		FROM 	product
+	</select>
+	
+	<select id="getProductIdListByStatus" resultType="String">
+		SELECT	id
+		FROM 	product
+		WHERE	status=#{status}
+	</select>
+	
 	<delete id="deleteProduct" parameterType="String">
 		DELETE FROM product
 		WHERE id=#{id}
@@ -32,6 +43,12 @@
 	 					lowestSoldPrice=#{lowestSoldPrice}, highestSoldPrice=#{highestSoldPrice}, content=#{content},
 	 					releaseStartDate=#{releaseStartDate}, releaseEndDate=#{releaseEndDate}, code=#{code}, releaseDate=#{releaseDate}
 	 	WHERE 	id=#{id}
+	 </update>
+	 
+	 <update id="updateProductStatus" parameterType="com.sneakalarm.product.dto.ProductUpdateStatusVO">
+	 	UPDATE 	product
+	 	SET 	status=#{status}
+	 	WHERE 	id=#{productId}
 	 </update>
 	 
 	<update id="updateStartDateTime" parameterType="com.sneakalarm.product.dto.ProductUpdateStartDateTimeVO">
@@ -48,14 +65,7 @@
 	
 	<update id="updateDrawNum" parameterType="com.sneakalarm.product.dto.InsertDrawVO">
 		UPDATE 	product
-		<choose>
-		<when test='drawType.equals("응모")'>
-			SET		goingRaffleNum = goingRaffleNum + 1
-		</when>
-		<otherwise>
-			SET		goingFirstcomeNum = goingFirstcomeNum + 1
-		</otherwise>
-		</choose>
+			SET		drawNumKorea = #{drawNumKorea}, drawNumOverseas = #{drawNumOverseas}
 		WHERE	id=#{productId}
 	</update>
 </mapper>

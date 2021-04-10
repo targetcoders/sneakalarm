@@ -4,11 +4,13 @@ import lombok.Data;
 
 @Data
 public class InsertDrawVO {
-	String drawType;
+	Integer drawNumKorea;
+	Integer drawNumOverseas;
 	Integer productId;
 	
-	public InsertDrawVO(String drawType, Integer productId){
-		this.drawType = drawType;
+	public InsertDrawVO(Integer drawNumKorea, Integer drawNumOverseas, Integer productId){
+		this.drawNumKorea = drawNumKorea;
+		this.drawNumOverseas = drawNumOverseas;
 		this.productId = productId;
 	}
 	

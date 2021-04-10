@@ -5,14 +5,14 @@
 
 	<select id="getProductCardList" 
 	resultType="com.sneakalarm.product.dto.ProductCardVO">
-		SELECT	id, model_kr, code, retailPrice, releaseStartDate, releaseEndDate, imgSrc_home, goingRaffleNum, goingFirstcomeNum, releaseDate
+		SELECT	id, model_kr, code, retailPrice, releaseStartDate, releaseEndDate, imgSrc_home, releaseDate, DrawNumKorea, DrawNumOverseas
 		FROM 	product
 		ORDER BY insertdate DESC
 	</select>
 	
 	<select id="getProductCardListByKeyword" parameterType="String" 
 	resultType="com.sneakalarm.product.dto.ProductCardVO">
-		SELECT	id, model_kr, code, retailPrice, releaseStartDate, releaseEndDate, imgSrc_home, goingRaffleNum, goingFirstcomeNum, releaseDate
+		SELECT	id, model_kr, code, retailPrice, releaseStartDate, releaseEndDate, imgSrc_home, releaseDate, DrawNumKorea, DrawNumOverseas
 		FROM 	product
 		WHERE model_kr LIKE CONCAT('%', #{keyword}, '%') OR
 			  model_en LIKE CONCAT('%', #{keyword}, '%') OR
