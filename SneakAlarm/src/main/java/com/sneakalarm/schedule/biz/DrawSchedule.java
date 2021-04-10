@@ -29,11 +29,12 @@ public class DrawSchedule {
   public void DrawStatusNumSynchronize() throws ParseException, Exception {
     log.debug("updateDrawNum");
     ArrayList<Integer> idListAll = (ArrayList<Integer>) productService.getProductIdListAll();
-    InsertDrawVO insertDrawVO = new InsertDrawVO(0,0,0);
+    InsertDrawVO insertDrawVO = new InsertDrawVO(0,0,0,0);
     
     for(Integer productId : idListAll) {
       insertDrawVO.setDrawNumKorea(0);
       insertDrawVO.setDrawNumOverseas(0);
+      insertDrawVO.setDrawNumFirstcome(0);
       ArrayList<RaffleCardVO> raffleCardList = raffleService.getRaffleCardList(productId.toString());
       
       for(RaffleCardVO raffleCardVO : raffleCardList) {
@@ -42,14 +43,13 @@ public class DrawSchedule {
         String startTime = raffleCardVO.getStartTime();
         String endTime = raffleCardVO.getEndTime();
         String status = raffleService.getRaffleStatus(startDate, startTime, endDate, endTime);
-        
         String country = raffleCardVO.getCountry();
-        if(!status.equals(ProductConst.STATUS_ENDED)) {
-          if(country.equals("한국"))
-            insertDrawVO.setDrawNumKorea(insertDrawVO.getDrawNumKorea()+1);
-          else
-            insertDrawVO.setDrawNumOverseas(insertDrawVO.getDrawNumOverseas()+1);
-        }
+        String raffleType = raffleCardVO.getRaffleType();
+        
+        if(!status.equals(ProductConst.STATUS_ENDED) && raffleType.equals("선착순"))
+          insertDrawVO.setDrawNumFirstcome(insertDrawVO.getDrawNumFirstcome()+1);
+        else if(status.equals(ProductConst.STATUS_GOING) && raffleType.equals("응모")) 
+            insertDrawVO = setGoingDrawNum(insertDrawVO, country);
       }
       insertDrawVO.setProductId(productId);
       productService.updateDrawNum(insertDrawVO);
@@ -61,5 +61,13 @@ public class DrawSchedule {
     
     log.debug("updateDrawNum - end");
     return;
+  }
+  
+  private InsertDrawVO setGoingDrawNum(InsertDrawVO insertDrawVO, String country) {
+    if(country.equals("한국"))
+      insertDrawVO.setDrawNumKorea(insertDrawVO.getDrawNumKorea()+1);
+    else
+      insertDrawVO.setDrawNumOverseas(insertDrawVO.getDrawNumOverseas()+1);
+    return insertDrawVO;
   }
 }

@@ -17,8 +17,9 @@ public class ProductCardVO {
   private String status;
   private String draw;
   private String releaseDate;
-  private Integer DrawNumKorea;
-  private Integer DrawNumOverseas;
+  private Integer drawNumKorea;
+  private Integer drawNumOverseas;
+  private Integer drawNumFirstcome;
 
   public ProductCardVO() {}
 }
