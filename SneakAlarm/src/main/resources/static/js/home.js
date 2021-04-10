@@ -107,6 +107,16 @@ $('document').ready(function() {
 	if($('#readyDrawProductCount').text() == '0'){
 		$('.home-readyDrawNum').hide();
 	}
+	
+	if($('#home-product-drawNumKorea').text()=='0'){
+		$('#home-product-drawNumKoreaSet').hide();
+	}
+	if($('#home-product-drawNumOverseas').text()=='0'){
+		$('#home-product-drawNumOverseasSet').hide();
+	}
+	if($('#home-product-drawNumFirstcome').text()=='0'){
+		$('#home-product-drawNumFirstcomeSet').hide();
+	}
 });
 
 // 현재 스크롤한 높이를 구하는 함수 

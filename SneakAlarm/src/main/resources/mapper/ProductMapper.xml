@@ -65,7 +65,7 @@
 	
 	<update id="updateDrawNum" parameterType="com.sneakalarm.product.dto.InsertDrawVO">
 		UPDATE 	product
-			SET		drawNumKorea = #{drawNumKorea}, drawNumOverseas = #{drawNumOverseas}
+			SET		drawNumKorea = #{drawNumKorea}, drawNumOverseas = #{drawNumOverseas}, drawNumFirstcome = #{drawNumFirstcome}
 		WHERE	id=#{productId}
 	</update>
 </mapper>
