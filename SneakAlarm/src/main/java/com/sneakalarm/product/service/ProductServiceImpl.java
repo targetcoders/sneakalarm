@@ -3,6 +3,7 @@ package com.sneakalarm.product.service;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
@@ -15,11 +16,16 @@ import org.springframework.web.multipart.MultipartFile;
 import com.sneakalarm.product.ProductConst;
 import com.sneakalarm.product.dao.ProductCardMapper;
 import com.sneakalarm.product.dao.ProductMapper;
+import com.sneakalarm.product.dto.InsertDrawVO;
 import com.sneakalarm.product.dto.ProductCardVO;
 import com.sneakalarm.product.dto.ProductInsertVO;
 import com.sneakalarm.product.dto.ProductUpdateEndDateTimeVO;
 import com.sneakalarm.product.dto.ProductUpdateStartDateTimeVO;
+import com.sneakalarm.product.dto.ProductUpdateStatusVO;
 import com.sneakalarm.product.dto.ProductVO;
+import com.sneakalarm.raffle.dto.RaffleCardVO;
+import com.sneakalarm.raffle.service.RaffleService;
+import com.sneakalarm.util.DateUtil;
 import com.sneakalarm.util.StringUtil;
 import com.sneakalarm.util.dto.BucketVO;
 
@@ -30,7 +36,7 @@ import lombok.extern.java.Log;
 @Slf4j
 @Service
 public class ProductServiceImpl implements ProductService {
-	
+
   @Autowired
   private StringUtil stringUtil;
 
@@ -38,6 +44,10 @@ public class ProductServiceImpl implements ProductService {
   private ProductCardMapper productCardMapper;
   @Autowired
   private ProductMapper productMapper;
+  @Autowired
+  private RaffleService reffleService;
+  @Autowired
+  private DateUtil dateUtil;
 
   @Value("${cloud.aws.credentials.accessKey}")
   private String accessKey;
@@ -53,13 +63,13 @@ public class ProductServiceImpl implements ProductService {
 
   @Value("${s3.folder-name.product}")
   private String productFolderName;
-  
+
   private final Logger logger = (Logger) LoggerFactory.getLogger(this.getClass());
-  
+
   @Override
   public ArrayList<ProductCardVO> getProductCardList() {
-	logger.info("Enter >> getProductCardList");
-	logger.debug("Enter >> getProductCardList");
+    logger.info("Enter >> getProductCardList");
+    logger.debug("Enter >> getProductCardList");
     ArrayList<ProductCardVO> cardList =
         (ArrayList<ProductCardVO>) productCardMapper.getProductCardList();
     ArrayList<ProductCardVO> ret = new ArrayList<ProductCardVO>();
@@ -80,17 +90,17 @@ public class ProductServiceImpl implements ProductService {
 
     return ret;
   }
-  
-  public List<ProductCardVO> getProductCardListByKeyword(String keyword){
-	  ArrayList<ProductCardVO>cardList = productCardMapper.getProductCardListByKeyword(keyword);
 
-	    ArrayList<ProductCardVO> settedCardList = null;
-	    try {
-	      settedCardList = setProductCardStatus(cardList);
-	    } catch (ParseException e) {
-	      e.printStackTrace();
-	    }
-	  return settedCardList;
+  public List<ProductCardVO> getProductCardListByKeyword(String keyword) {
+    ArrayList<ProductCardVO> cardList = productCardMapper.getProductCardListByKeyword(keyword);
+
+    ArrayList<ProductCardVO> settedCardList = null;
+    try {
+      settedCardList = setProductCardStatus(cardList);
+    } catch (ParseException e) {
+      e.printStackTrace();
+    }
+    return settedCardList;
   }
 
   public ArrayList<ProductCardVO> setProductCardStatus(ArrayList<ProductCardVO> productCardList)
@@ -220,35 +230,38 @@ public class ProductServiceImpl implements ProductService {
         (ArrayList<MultipartFile>) productInsertVO.getFileList_home();
     ArrayList<MultipartFile> fileList_detail =
         (ArrayList<MultipartFile>) productInsertVO.getFileList_detail();
-    
-    if(fileList_home!=null && fileList_home.get(0).getOriginalFilename().equals("")) {
-    	fileList_home = null;
+
+    if (fileList_home != null && fileList_home.get(0).getOriginalFilename().equals("")) {
+      fileList_home = null;
     }
-    if(fileList_detail!=null && fileList_detail.get(0).getOriginalFilename().equals("")) {
-    	fileList_detail = null;
+    if (fileList_detail != null && fileList_detail.get(0).getOriginalFilename().equals("")) {
+      fileList_detail = null;
     }
-    
+
     String code = productInsertVO.getCode();
     BucketVO bucketVO = new BucketVO(region, bucket, productFolderName);
     ArrayList<String> urlList_home;
     ArrayList<String> urlList_detail;
-    
-    if (fileList_home != null && fileList_detail != null) {
-        urlList_home = stringUtil.getInputFileNameList(bucketVO, code, fileList_home);
-        urlList_detail = stringUtil.getInputFileNameList(bucketVO, code, fileList_detail);
 
-        productVO.setImgSrc_home(String.join(",", urlList_home));
-        productVO.setImgSrc_detail(String.join(",", urlList_detail));
-    }
-    else if (fileList_home != null && fileList_detail == null) {
-        urlList_home = stringUtil.getInputFileNameList(bucketVO, code, fileList_home);
-        productVO.setImgSrc_home(String.join(",", urlList_home));
+    if (fileList_home != null && fileList_detail != null) {
+      urlList_home = stringUtil.getInputFileNameList(bucketVO, code, fileList_home);
+      urlList_detail = stringUtil.getInputFileNameList(bucketVO, code, fileList_detail);
+
+      productVO.setImgSrc_home(String.join(",", urlList_home));
+      productVO.setImgSrc_detail(String.join(",", urlList_detail));
+    } else if (fileList_home != null && fileList_detail == null) {
+      urlList_home = stringUtil.getInputFileNameList(bucketVO, code, fileList_home);
+      productVO.setImgSrc_home(String.join(",", urlList_home));
     } else if (fileList_home == null && fileList_detail != null) {
-        urlList_detail = stringUtil.getInputFileNameList(bucketVO, code, fileList_detail);
-        productVO.setImgSrc_detail(String.join(",", urlList_detail));
+      urlList_detail = stringUtil.getInputFileNameList(bucketVO, code, fileList_detail);
+      productVO.setImgSrc_detail(String.join(",", urlList_detail));
     }
-    
+
     productMapper.updateProduct(productVO);
+  }
+  
+  public void updateDrawNum(InsertDrawVO insertDrawVO) {
+    productMapper.updateDrawNum(insertDrawVO);
   }
 
   public class Assending implements Comparator<ProductCardVO> {
@@ -274,4 +287,16 @@ public class ProductServiceImpl implements ProductService {
     productMapper.updateEndDateTime(productUpdateEndDateTimeVO);
   }
 
+  public List<Integer> getProductIdListAll() throws Exception {
+    List<Integer> IdListAll = productMapper.getProductIdListAll();
+    return IdListAll;
+  }
+
+  public void updateProductStatus(ProductUpdateStatusVO productUpdateStatusVO) {
+    productMapper.updateProductStatus(productUpdateStatusVO);
+  }
+
+  public List<Integer> getProductIdListByStatus(String status) {
+    return productMapper.getProductIdListByStatus(status);
+  }
 }

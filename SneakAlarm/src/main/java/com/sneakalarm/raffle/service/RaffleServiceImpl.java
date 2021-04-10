@@ -1,10 +1,13 @@
 package com.sneakalarm.raffle.service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-
+import com.sneakalarm.product.ProductConst;
 import com.sneakalarm.product.dao.ProductMapper;
 import com.sneakalarm.product.dto.InsertDrawVO;
 import com.sneakalarm.raffle.dao.RaffleMapper;
@@ -95,6 +98,29 @@ public class RaffleServiceImpl implements RaffleService {
   @Override
   public void deleteRaffle(Integer id) {
     raffleMapper.deleteRaffle(id);
+  }
+
+
+  @Override
+  public String getRaffleStatus(String startDate, String startTime, String endDate, String endTime)
+      throws ParseException {
+    String status = "";
+    SimpleDateFormat sdf = new SimpleDateFormat(ProductConst.DATE_FORMAT.replaceAll("/", "-"));
+    Date nowDateTime = new Date();
+    Date startDateTime = sdf.parse(startDate + " " + startTime);
+    Date endDateTime = sdf.parse(endDate + " " + endTime);
+    
+    int res = nowDateTime.compareTo(endDateTime);
+    if (res > 0) {
+      status = ProductConst.STATUS_ENDED;
+    } else if (res <= 0) {
+      if (nowDateTime.compareTo(startDateTime) < 0) {
+        status = ProductConst.STATUS_READY;
+      } else {
+        status = ProductConst.STATUS_GOING;
+      }
+    }
+    return status;
   }
 
 }
