@@ -34,7 +34,7 @@
 				<div class="d-flex flex-column align-items-center" th:id="|card-${list.id}|">
 					<a th:href="@{/product-detail(id=${list.id})}"><img th:src="${list.imgSrc_home}" class="home-product-img"></a>
 					<span th:text="${list.model_kr}" id="home-product-model_kr"></span>
-					<div id="home-product-drawNums"><span id="home-product-drawNumKoreaSet">국내: <span th:text="|${list.drawNumKorea}&nbsp;&nbsp;&nbsp;|" id="home-product-drawNumKorea"></span></span><span id="home-product-drawNumOverseasSet">해외: <span th:text="${list.drawNumOverseas}" id="home-product-drawNumOverseas"></span></span><span id="home-product-drawNumFirstcomeSet">&nbsp;&nbsp;&nbsp;선착: <span th:text="${list.drawNumFirstcome}" id="home-product-drawNumFirstcome"></span></span></div>
+					<div class="container-fluid d-flex flex-wrap justify-content-evenly" id="home-product-drawNums"><span class="activeDrawNum" id="home-product-drawNumKoreaSet">국내: <span th:text="${list.drawNumKorea}" id="home-product-drawNumKorea"></span></span><span class="activeDrawNum" id="home-product-drawNumOverseasSet">해외: <span th:text="${list.drawNumOverseas}" id="home-product-drawNumOverseas"></span></span><span class="activeDrawNum" id="home-product-drawNumFirstcomeSet">선착: <span th:text="${list.drawNumFirstcome}" id="home-product-drawNumFirstcome"></span></span></div>
 				</div>
 			</div>
 		</div>
