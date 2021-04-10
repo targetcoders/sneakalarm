@@ -32,6 +32,8 @@ public class DrawSchedule {
     InsertDrawVO insertDrawVO = new InsertDrawVO(0,0,0);
     
     for(Integer productId : idListAll) {
+      insertDrawVO.setDrawNumKorea(0);
+      insertDrawVO.setDrawNumOverseas(0);
       ArrayList<RaffleCardVO> raffleCardList = raffleService.getRaffleCardList(productId.toString());
       
       for(RaffleCardVO raffleCardVO : raffleCardList) {
