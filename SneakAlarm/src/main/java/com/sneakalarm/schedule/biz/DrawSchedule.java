@@ -24,7 +24,7 @@ public class DrawSchedule {
   @Autowired
   DateUtil dateUtil;
   
-  @Scheduled(fixedDelay = 100000)
+  @Scheduled(fixedDelay = 60000)
   public void DrawStatusNumSynchronize() throws ParseException, Exception {
     ArrayList<Integer> idListAll = (ArrayList<Integer>) productService.getProductIdListAll();
     InsertDrawVO insertDrawVO = new InsertDrawVO(0,0,0,0);
