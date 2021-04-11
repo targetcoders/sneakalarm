@@ -28,7 +28,10 @@ import com.sneakalarm.product.service.ProductService;
 import com.sneakalarm.raffle.dto.RaffleCardVO;
 import com.sneakalarm.raffle.service.RaffleService;
 import com.sneakalarm.util.DateUtil;
+import com.sun.tools.sjavac.Log;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Controller
 public class ProductController {
   @Autowired
@@ -50,7 +53,7 @@ public class ProductController {
   ReleaseDateDescending releaseDateDescendingInstance;
   
   private DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-
+  
   @GetMapping("/")
   public String getProductCardList(Model model) throws ParseException {
     ArrayList<ProductCardVO> list =
@@ -354,7 +357,7 @@ public class ProductController {
 	  	productCardVOList.sort(productAscendingInstance);
 	  return productCardVOList;
   }
-
+  
   @Component
   public class RaffleAscending implements Comparator<RaffleCardVO> {
     @Override

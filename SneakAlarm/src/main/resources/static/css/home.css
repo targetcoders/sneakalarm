@@ -68,15 +68,12 @@
 	font-size: 12px;
 	color: #b8b8b8;
 }
-#home-product-drawNums {
+.home-product-drawNums {
 	font-size:12px;
 	color: #b8b8b8;
 	font-weight: bold;	
 	width: 145px;
 }
-.activeDrawNum {
-}
-
 
 input::placeholder {
 	font-style: italic;
@@ -111,7 +108,7 @@ input::placeholder {
 		font-size: 18px;
 		color: #b8b8b8;
 	}
-	#home-product-drawNums {
+	.home-product-drawNums {
 		font-size:18px;
 		color: #b8b8b8;
 		font-weight: bold;

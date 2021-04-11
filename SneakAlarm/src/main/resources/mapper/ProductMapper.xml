@@ -24,7 +24,7 @@
 		FROM 	product
 	</select>
 	
-	<select id="getProductIdListByStatus" resultType="String">
+	<select id="getProductIdListByStatus" parameterType="String" resultType="Integer">
 		SELECT	id
 		FROM 	product
 		WHERE	status=#{status}

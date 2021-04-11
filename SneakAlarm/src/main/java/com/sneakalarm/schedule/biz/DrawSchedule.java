@@ -15,7 +15,6 @@ import com.sneakalarm.util.DateUtil;
 import lombok.extern.slf4j.Slf4j;
 
 @Component
-@Slf4j
 public class DrawSchedule {
   
   @Autowired
@@ -25,9 +24,8 @@ public class DrawSchedule {
   @Autowired
   DateUtil dateUtil;
   
-  @Scheduled(fixedDelay = 20000)
+  @Scheduled(fixedDelay = 100000)
   public void DrawStatusNumSynchronize() throws ParseException, Exception {
-    log.debug("updateDrawNum");
     ArrayList<Integer> idListAll = (ArrayList<Integer>) productService.getProductIdListAll();
     InsertDrawVO insertDrawVO = new InsertDrawVO(0,0,0,0);
     
@@ -58,9 +56,6 @@ public class DrawSchedule {
       else 
         productService.updateProductStatus(new ProductUpdateStatusVO(productId,ProductConst.STATUS_ACTIVE));
     }
-    
-    log.debug("updateDrawNum - end");
-    return;
   }
   
   private InsertDrawVO setGoingDrawNum(InsertDrawVO insertDrawVO, String country) {

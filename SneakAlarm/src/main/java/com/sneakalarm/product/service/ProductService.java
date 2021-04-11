@@ -21,7 +21,7 @@ public interface ProductService {
   
   List<ProductCardVO> getProductCardListByKeyword(String keyword);
   
-  List<Integer> getProductIdListByStatus(String status);
+  List<Integer> getProductIdListByStatus(String stat);
   
   boolean deleteProduct(String id);
 
