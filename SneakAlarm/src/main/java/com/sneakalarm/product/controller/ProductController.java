@@ -4,10 +4,8 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Date;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
@@ -28,10 +26,7 @@ import com.sneakalarm.product.service.ProductService;
 import com.sneakalarm.raffle.dto.RaffleCardVO;
 import com.sneakalarm.raffle.service.RaffleService;
 import com.sneakalarm.util.DateUtil;
-import com.sun.tools.sjavac.Log;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 @Controller
 public class ProductController {
   @Autowired
