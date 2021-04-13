@@ -1,8 +1,8 @@
 @charset "EUC-KR";
 
 .home-product {
-	margin-left: 5px;
-	margin-right: 5px;
+	margin-left: 1px;
+	margin-right: 1px;
 	margin-bottom: 5px;
 	flex-grow:1;
 	width:145px;
