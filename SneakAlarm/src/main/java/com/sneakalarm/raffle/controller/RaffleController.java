@@ -51,4 +51,10 @@ public class RaffleController {
     raffleService.deleteRaffle(id);
     return true;
   }
+
+  @GetMapping("/today")
+  public String today(){
+    return "/views/today";
+  }
+
 }
