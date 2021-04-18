@@ -18,29 +18,7 @@
 		<div id="clock" style="font-style:italic; font-weight:bold"></div>
 		</div>
 		
-		<div id="goingDrawProductCards" class="container-fluid d-flex flex-wrap justify-content-center">
-			<div class="home-product" th:each="list : ${goingCardList}">
-				<div class="d-flex flex-column align-items-center" th:id="|card-${list.id}|">
-					<a th:href="@{/product-detail(id=${list.id})}"><img th:src="${list.imgSrc_home}" class="home-product-img"></a>
-					<span th:text="${list.model_kr}" id="home-product-model_kr"></span>
-					<div class="container-fluid d-flex flex-wrap justify-content-evenly home-product-drawNums"><span th:if="${list.drawNumKorea != 0}" class="activeDrawNum" th:id="|home-product-drawNumKoreaSet-${list.id}|">국내: <span th:text="${list.drawNumKorea}" th:id="|home-product-drawNumKorea-${list.id}|"></span></span><span th:if="${list.drawNumOverseas != 0}" class="activeDrawNum" th:id="|home-product-drawNumOverseasSet-${list.id}|">해외: <span th:text="${list.drawNumOverseas}" th:id="|home-product-drawNumOverseas-${list.id}|"></span></span><span th:if="${list.drawNumFirstcome != 0}" class="activeDrawNum" th:id="|home-product-drawNumFirstcomeSet-${list.id}|">선착: <span th:text="${list.drawNumFirstcome}" th:id="|home-product-drawNumFirstcome-${list.id}|"></span></span></div>
-				</div>
-			</div>
-		</div>
-		<div th:if="${readyCardListNum != 0}" class="home-readyDrawNum"><span class="whiteBoldText">&nbsp;시작전: </span><span id="readyDrawProductCount" class="redBoldText" th:text="${readyCardListNum}"></span>&nbsp;</div>
-		<div id="readyDrawProductCards" class="container-fluid d-flex flex-wrap justify-content-center">
-			<div class="home-product" th:each="list : ${readyCardList}">
-				<div class="d-flex flex-column align-items-center" th:id="|card-${list.id}|">
-					<a th:href="@{/product-detail(id=${list.id})}" style="opacity:0.5;"><img th:src="${list.imgSrc_home}" class="home-product-img"></a>
-					<span th:text="${list.model_kr}" id="home-product-model_kr"></span>
-					<div class="container-fluid d-flex flex-wrap justify-content-evenly home-product-drawNums"><span th:if="${list.drawNumKorea != 0}" class="activeDrawNum" th:id="|home-product-drawNumKoreaSet-${list.id}|">국내: <span th:text="${list.drawNumKorea}" th:id="|home-product-drawNumKorea-${list.id}|"></span></span><span th:if="${list.drawNumOverseas != 0}" class="activeDrawNum" th:id="|home-product-drawNumOverseasSet-${list.id}|">해외: <span th:text="${list.drawNumOverseas}" th:id="|home-product-drawNumOverseas-${list.id}|"></span></span><span th:if="${list.drawNumFirstcome != 0}" class="activeDrawNum" th:id="|home-product-drawNumFirstcomeSet-${list.id}|">선착: <span th:text="${list.drawNumFirstcome}" th:id="|home-product-drawNumFirstcome-${list.id}|"></span></span></div>
-				</div>
-			</div>
-		</div>
-		
-		<div id="endedDrawProductCardsDiv" is="0" style="margin-bottom:50px">지난 응모 보기</div><br><br>
-		<div id="endedDrawProductCards" class="container-fluid d-flex flex-wrap justify-content-center endedCard" >  
-		</div>
+		<div id="goingDrawProductCards" class="container-fluid d-flex flex-wrap justify-content-center"></div>
 		
 	</div>
 </div>
