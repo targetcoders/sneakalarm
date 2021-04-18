@@ -1,6 +1,8 @@
 package com.sneakalarm.raffle.dao;
 
 import java.util.ArrayList;
+
+import com.sneakalarm.raffle.dto.DrawStatusUpdateVO;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.sneakalarm.product.dto.InsertDrawVO;
@@ -12,9 +14,13 @@ public interface RaffleMapper {
 
   public ArrayList<RaffleVO> getRaffleList(String productId);
 
+  public ArrayList<RaffleVO> getRaffleListAll();
+
   public ArrayList<RaffleVO> getRaffle(Integer raffleId);
 
   public void updateRaffle(RaffleVO raffleVO);
 
   public void deleteRaffle(Integer id);
+
+  void updateDrawStatus(DrawStatusUpdateVO drawStatusUpdateVO);
 }
