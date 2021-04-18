@@ -2,6 +2,8 @@ package com.sneakalarm.schedule.biz;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+
+import com.sneakalarm.raffle.dto.RaffleVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -21,14 +23,14 @@ public class DrawSchedule {
   ProductService productService;
   @Autowired
   RaffleService raffleService;
-  @Autowired
-  DateUtil dateUtil;
   
   @Scheduled(fixedDelay = 60000)
   public void DrawStatusNumSynchronize() throws ParseException, Exception {
     ArrayList<Integer> idListAll = (ArrayList<Integer>) productService.getProductIdListAll();
     InsertDrawVO insertDrawVO = new InsertDrawVO(0,0,0,0);
-    
+
+    updateDrawStatus();
+
     for(Integer productId : idListAll) {
       insertDrawVO.setDrawNumKorea(0);
       insertDrawVO.setDrawNumOverseas(0);
@@ -64,5 +66,17 @@ public class DrawSchedule {
     else
       insertDrawVO.setDrawNumOverseas(insertDrawVO.getDrawNumOverseas()+1);
     return insertDrawVO;
+  }
+
+  public void updateDrawStatus() throws ParseException {
+    ArrayList<RaffleVO> list = raffleService.getRaffleListAll();
+    for(RaffleVO raffleVO : list){
+      String startDate = raffleVO.getStartDate();
+      String endDate = raffleVO.getEndDate();
+      String startTime = raffleVO.getStartTime();
+      String endTime = raffleVO.getEndTime();
+      String status = raffleService.getRaffleStatus(startDate, startTime, endDate, endTime);
+      raffleService.updateDrawStatus(raffleVO.getId(),status);
+    }
   }
 }
