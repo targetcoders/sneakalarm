@@ -4,12 +4,13 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+
+import com.sneakalarm.raffle.dto.DrawStatusUpdateVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import com.sneakalarm.product.ProductConst;
 import com.sneakalarm.product.dao.ProductMapper;
-import com.sneakalarm.product.dto.InsertDrawVO;
 import com.sneakalarm.raffle.dao.RaffleMapper;
 import com.sneakalarm.raffle.dto.RaffleCardVO;
 import com.sneakalarm.raffle.dto.RaffleInsertVO;
@@ -50,11 +51,10 @@ public class RaffleServiceImpl implements RaffleService {
     raffleMapper.raffleInsert(raffleVO);
   }
 
-
   @Override
   public ArrayList<RaffleCardVO> getRaffleCardList(String productId) {
     ArrayList<RaffleVO> raffleList = raffleMapper.getRaffleList(productId);
-    ArrayList<RaffleCardVO> ret = new ArrayList<RaffleCardVO>();
+    ArrayList<RaffleCardVO> ret = new ArrayList<>();
     for (RaffleVO raffleVO : raffleList) {
       RaffleCardVO rafflaCardVO = new RaffleCardVO(raffleVO);
       ret.add(rafflaCardVO);
@@ -63,9 +63,13 @@ public class RaffleServiceImpl implements RaffleService {
     return ret;
   }
 
+  @Override
+  public ArrayList<RaffleVO> getRaffleListAll() {
+    return raffleMapper.getRaffleListAll();
+  }
+
   public ArrayList<RaffleVO> getRaffleList(Integer raffleId) {
-    ArrayList<RaffleVO> raffleList = raffleMapper.getRaffle(raffleId);
-    return raffleList;
+    return raffleMapper.getRaffle(raffleId);
   }
 
   @Override
@@ -121,6 +125,11 @@ public class RaffleServiceImpl implements RaffleService {
       }
     }
     return status;
+  }
+
+  @Override
+  public void updateDrawStatus(String id, String status) {
+    raffleMapper.updateDrawStatus(new DrawStatusUpdateVO(id,status));
   }
 
 }
