@@ -41,11 +41,11 @@ $('document').ready(function(){
 	var deliveryDefaultValue = $('#deliveryDefaultValue').val();
 	if(deliveryDefaultValue == ''){
 		$('#delivery0').attr('checked','checked');
-	} else if(deliveryDefaultValue == '직배'){
+	} else if(deliveryDefaultValue == 'direct'){
 		$('#delivery1').attr('checked','checked');
-	} else if(deliveryDefaultValue == '배대지'){
+	} else if(deliveryDefaultValue == 'agent'){
 		$('#delivery2').attr('checked','checked');
-	} else if(deliveryDefaultValue == '택배배송'){
+	} else if(deliveryDefaultValue == 'package'){
 		$('#delivery3').attr('checked','checked');
 	} else {
 		$('#delivery4').attr('checked','checked');

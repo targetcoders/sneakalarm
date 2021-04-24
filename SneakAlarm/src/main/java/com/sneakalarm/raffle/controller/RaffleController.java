@@ -31,7 +31,7 @@ public class RaffleController {
   }
 
   @GetMapping("/raffle-modify")
-  public String modifyProduct(@Param("id") Integer id, Model model) {
+  public String modifyProduct(@Param("id") String id, Model model) {
     ArrayList<RaffleVO> list = (ArrayList<RaffleVO>) raffleService.getRaffleList(id);
     RaffleVO raffleVO = list.get(0);
     model.addAttribute("raffleVO", raffleVO);
@@ -47,7 +47,7 @@ public class RaffleController {
 
   @GetMapping("/raffle-delete")
   @ResponseBody
-  public boolean deleteRaffle(@Param("id") Integer id) {
+  public boolean deleteRaffle(@Param("id") String id) {
     raffleService.deleteRaffle(id);
     return true;
   }

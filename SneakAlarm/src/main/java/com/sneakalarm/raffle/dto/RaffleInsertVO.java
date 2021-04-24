@@ -5,8 +5,8 @@ import lombok.Data;
 
 @Data
 public class RaffleInsertVO {
-  private Integer id;
-  private Integer productId;
+  private String id;
+  private String productId;
   private String url;
   private String raffleType;
   private String releasePrice;
