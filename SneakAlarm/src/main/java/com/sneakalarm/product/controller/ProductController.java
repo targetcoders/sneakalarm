@@ -184,7 +184,7 @@ public class ProductController {
       String endDate = raffleCardVO.getEndDate();
       String startTime = raffleCardVO.getStartTime();
       String endTime = raffleCardVO.getEndTime();
-      String status = raffleService.getRaffleStatus(startDate, startTime, endDate, endTime);
+      String status = raffleService.calcRaffleStatus(startDate, startTime, endDate, endTime);
       String startWeek = dateUtil.getWeek(startDate, "yyyy-MM-dd");
       String endWeek = dateUtil.getWeek(endDate, "yyyy-MM-dd");
 

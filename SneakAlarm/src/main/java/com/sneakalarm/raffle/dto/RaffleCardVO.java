@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class RaffleCardVO {
   private String id;
-  private Integer productId;
+  private String productId;
   private String url;
   private String raffleType;
   private String releasePrice;

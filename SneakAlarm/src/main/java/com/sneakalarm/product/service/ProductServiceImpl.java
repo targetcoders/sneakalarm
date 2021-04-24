@@ -1,9 +1,11 @@
 package com.sneakalarm.product.service;
 
+import com.sneakalarm.product.dto.UpdateDeliveryTypesVO;
+import com.sneakalarm.product.dto.UpdateDrawCountriesVO;
+import com.sneakalarm.product.vo.ProductStatus;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
@@ -16,14 +18,13 @@ import org.springframework.web.multipart.MultipartFile;
 import com.sneakalarm.product.ProductConst;
 import com.sneakalarm.product.dao.ProductCardMapper;
 import com.sneakalarm.product.dao.ProductMapper;
-import com.sneakalarm.product.dto.InsertDrawVO;
+import com.sneakalarm.product.dto.ProductUpdateDrawNumVO;
 import com.sneakalarm.product.dto.ProductCardVO;
 import com.sneakalarm.product.dto.ProductInsertVO;
 import com.sneakalarm.product.dto.ProductUpdateEndDateTimeVO;
 import com.sneakalarm.product.dto.ProductUpdateStartDateTimeVO;
 import com.sneakalarm.product.dto.ProductUpdateStatusVO;
 import com.sneakalarm.product.dto.ProductVO;
-import com.sneakalarm.raffle.dto.RaffleCardVO;
 import com.sneakalarm.raffle.service.RaffleService;
 import com.sneakalarm.util.DateUtil;
 import com.sneakalarm.util.StringUtil;
@@ -31,7 +32,6 @@ import com.sneakalarm.util.dto.BucketVO;
 
 import ch.qos.logback.classic.Logger;
 import groovy.util.logging.Slf4j;
-import lombok.extern.java.Log;
 
 @Slf4j
 @Service
@@ -167,11 +167,8 @@ public class ProductServiceImpl implements ProductService {
     productVO.setLastUpdateDate(now);
     productVO.setPopularity("0");
     productVO.setInsertDate(now);
-    productVO.setCountry("모두/해외/국내");
-    productVO.setDraw("선착/응모");
+    productVO.setStatus(new ProductStatus("해외/국내", "선착/응모", 0, 0));
     productVO.setIsDeleted(0);
-    productVO.setGoingRaffleNum(0);
-    productVO.setGoingFirstcomeNum(0);
     productMapper.insertProduct(productVO);
     return true;
   }
@@ -260,8 +257,8 @@ public class ProductServiceImpl implements ProductService {
     productMapper.updateProduct(productVO);
   }
   
-  public void updateDrawNum(InsertDrawVO insertDrawVO) {
-    productMapper.updateDrawNum(insertDrawVO);
+  public void updateDrawNum(ProductUpdateDrawNumVO productUpdateDrawNumVO) {
+    productMapper.updateDrawNum(productUpdateDrawNumVO);
   }
 
   public class Assending implements Comparator<ProductCardVO> {
@@ -287,16 +284,29 @@ public class ProductServiceImpl implements ProductService {
     productMapper.updateEndDateTime(productUpdateEndDateTimeVO);
   }
 
+  @Override
   public List<Integer> getProductIdListAll() throws Exception {
     List<Integer> IdListAll = productMapper.getProductIdListAll();
     return IdListAll;
   }
 
+  @Override
   public void updateProductStatus(ProductUpdateStatusVO productUpdateStatusVO) {
     productMapper.updateProductStatus(productUpdateStatusVO);
   }
 
-  public List<Integer> getProductIdListByStatus(String status) {
+  @Override
+  public void updateDrawCountries(UpdateDrawCountriesVO updateDrawCountriesVO) {
+    productMapper.updateDrawCountries(updateDrawCountriesVO);
+  }
+
+  @Override
+  public void updateDeliveryTypes(UpdateDeliveryTypesVO updateDeliveryTypesVO) {
+    productMapper.updateDeliveryTypes(updateDeliveryTypesVO);
+  }
+
+  @Override
+  public List<String> getProductIdListByStatus(String status) {
     return productMapper.getProductIdListByStatus(status);
   }
 }

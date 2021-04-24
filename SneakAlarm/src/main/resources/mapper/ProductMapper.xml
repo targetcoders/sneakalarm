@@ -24,7 +24,7 @@
 		FROM 	product
 	</select>
 	
-	<select id="getProductIdListByStatus" parameterType="String" resultType="Integer">
+	<select id="getProductIdListByStatus" parameterType="String" resultType="String">
 		SELECT	id
 		FROM 	product
 		WHERE	status=#{status}
@@ -63,9 +63,21 @@
 		WHERE		id=#{productId}
 	</update>
 	
-	<update id="updateDrawNum" parameterType="com.sneakalarm.product.dto.InsertDrawVO">
+	<update id="updateDrawNum" parameterType="com.sneakalarm.product.dto.ProductUpdateDrawNumVO">
 		UPDATE 	product
 			SET		drawNumKorea = #{drawNumKorea}, drawNumOverseas = #{drawNumOverseas}, drawNumFirstcome = #{drawNumFirstcome}
+		WHERE	id=#{productId}
+	</update>
+
+	<update id="updateDrawCountries" parameterType="com.sneakalarm.product.dto.UpdateDrawCountriesVO">
+		UPDATE 	product
+		SET		country = #{countries}
+		WHERE	id=#{productId}
+	</update>
+
+	<update id="updateDeliveryTypes" parameterType="com.sneakalarm.product.dto.UpdateDeliveryTypesVO">
+		UPDATE 	product
+		SET		deliveryTypes = #{deliveryTypes}
 		WHERE	id=#{productId}
 	</update>
 </mapper>
