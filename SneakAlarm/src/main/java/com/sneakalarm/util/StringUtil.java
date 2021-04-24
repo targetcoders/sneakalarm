@@ -25,7 +25,7 @@ public class StringUtil {
         + "/" + fileName;
   }
 
-  public String getDrawImgURL(BucketVO bucketVO, Integer productId, String fileName) {
+  public String getDrawImgURL(BucketVO bucketVO, String productId, String fileName) {
     String region = bucketVO.getRegion();
     String bucket = bucketVO.getBucket();
     String folderName = bucketVO.getFolderName();

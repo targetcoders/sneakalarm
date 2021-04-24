@@ -16,12 +16,25 @@
 		WHERE productId = #{productID}
 	</select>
 
+	<select id="getRaffleListByStatus" parameterType="com.sneakalarm.raffle.dto.RaffleListByStatusVO"
+		resultType="com.sneakalarm.raffle.dto.RaffleVO">
+		SELECT *
+		FROM raffle
+		WHERE productId=#{productId} AND status = #{status}
+	</select>
+
 	<select id="getRaffleListAll" resultType="com.sneakalarm.raffle.dto.RaffleVO">
 		SELECT *
 		FROM raffle
 	</select>
+
+	<select id="getDrawStatus" parameterType="String" resultType="String">
+		SELECT status
+		FROM raffle
+		WHERE id = #{id}
+	</select>
 	
-	<select id="getRaffle" parameterType="Integer" 
+	<select id="getRaffle" parameterType="String"
 	resultType="com.sneakalarm.raffle.dto.RaffleVO">
 		SELECT *
 		FROM raffle
@@ -38,13 +51,13 @@
 		WHERE		id=#{id}
 	</update>
 
-	<update id="updateDrawStatus" parameterType="com.sneakalarm.raffle.dto.DrawStatusUpdateVO">
+	<update id="updateDrawStatus" parameterType="com.sneakalarm.raffle.dto.RaffleUpdateStatusVO">
 		UPDATE 	raffle
 		SET		status=#{status}
 		WHERE	id=#{id}
 	</update>
 	
-	<delete id="deleteRaffle" parameterType="Integer">
+	<delete id="deleteRaffle" parameterType="String">
 		DELETE FROM raffle
 		WHERE id=#{id}
 	</delete>
