@@ -1,8 +1,10 @@
 package com.sneakalarm.product.service;
 
+import com.sneakalarm.product.dto.UpdateDeliveryTypesVO;
+import com.sneakalarm.product.dto.UpdateDrawCountriesVO;
 import java.text.ParseException;
 import java.util.List;
-import com.sneakalarm.product.dto.InsertDrawVO;
+import com.sneakalarm.product.dto.ProductUpdateDrawNumVO;
 import com.sneakalarm.product.dto.ProductCardVO;
 import com.sneakalarm.product.dto.ProductInsertVO;
 import com.sneakalarm.product.dto.ProductUpdateEndDateTimeVO;
@@ -21,7 +23,7 @@ public interface ProductService {
   
   List<ProductCardVO> getProductCardListByKeyword(String keyword);
   
-  List<Integer> getProductIdListByStatus(String stat);
+  List<String> getProductIdListByStatus(String stat);
   
   boolean deleteProduct(String id);
 
@@ -31,7 +33,11 @@ public interface ProductService {
 
   void updateEndDateTime(ProductUpdateEndDateTimeVO productUpdateEndDateTimeVO);
   
-  void updateDrawNum(InsertDrawVO insertDrawVO);
+  void updateDrawNum(ProductUpdateDrawNumVO productUpdateDrawNumVO);
   
   void updateProductStatus(ProductUpdateStatusVO productUpdateStatusVO);
+
+  void updateDrawCountries(UpdateDrawCountriesVO updateDrawCountriesVO);
+
+  void updateDeliveryTypes(UpdateDeliveryTypesVO updateDeliveryTypesVO);
 }

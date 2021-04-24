@@ -1,9 +1,11 @@
 package com.sneakalarm.product.dao;
 
+import com.sneakalarm.product.dto.UpdateDeliveryTypesVO;
+import com.sneakalarm.product.dto.UpdateDrawCountriesVO;
 import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
-import com.sneakalarm.product.dto.InsertDrawVO;
+import com.sneakalarm.product.dto.ProductUpdateDrawNumVO;
 import com.sneakalarm.product.dto.ProductUpdateEndDateTimeVO;
 import com.sneakalarm.product.dto.ProductUpdateStartDateTimeVO;
 import com.sneakalarm.product.dto.ProductUpdateStatusVO;
@@ -17,7 +19,7 @@ public interface ProductMapper {
   
   public List<Integer> getProductIdListAll();
   
-  public List<Integer> getProductIdListByStatus(String status);
+  public List<String> getProductIdListByStatus(String status);
 
   public void deleteProduct(String id);
 
@@ -29,5 +31,9 @@ public interface ProductMapper {
 
   public void updateEndDateTime(ProductUpdateEndDateTimeVO productUpdateEndDateTimeVO);
   
-  public void updateDrawNum(InsertDrawVO insertDrawVO);
+  public void updateDrawNum(ProductUpdateDrawNumVO productUpdateDrawNumVO);
+
+  void updateDrawCountries(UpdateDrawCountriesVO countries);
+
+  void updateDeliveryTypes(UpdateDeliveryTypesVO updateDeliveryTypesVO);
 }

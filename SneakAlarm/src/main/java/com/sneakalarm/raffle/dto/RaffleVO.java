@@ -1,11 +1,12 @@
 package com.sneakalarm.raffle.dto;
 
+import com.sneakalarm.raffle.RaffleConst;
 import lombok.Data;
 
 @Data
 public class RaffleVO {
   private String id;
-  private Integer productId;
+  private String productId;
   private String url;
   private String raffleType;
   private String releasePrice;
@@ -41,4 +42,5 @@ public class RaffleVO {
   public RaffleVO() {
 
   }
+
 }

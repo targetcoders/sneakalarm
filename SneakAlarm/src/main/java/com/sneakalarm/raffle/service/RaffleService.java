@@ -1,5 +1,6 @@
 package com.sneakalarm.raffle.service;
 
+import com.sneakalarm.raffle.dto.RaffleListByStatusVO;
 import java.text.ParseException;
 import java.util.ArrayList;
 import com.sneakalarm.raffle.dto.RaffleCardVO;
@@ -9,7 +10,7 @@ import com.sneakalarm.raffle.dto.RaffleVO;
 public interface RaffleService {
   void raffleInsert(RaffleInsertVO raffleInsertVO);
 
-  ArrayList<RaffleVO> getRaffleList(Integer raffleId);
+  ArrayList<RaffleVO> getRaffleList(String raffleId);
 
   ArrayList<RaffleCardVO> getRaffleCardList(String productId);
 
@@ -17,9 +18,13 @@ public interface RaffleService {
 
   void updateRaffle(RaffleInsertVO raffleInsertVO);
 
-  void deleteRaffle(Integer id);
+  void deleteRaffle(String id);
 
-  public String getRaffleStatus(String startDate, String startTime, String endDate, String endTime) throws ParseException;
+  public String calcRaffleStatus(String startDate, String startTime, String endDate, String endTime) throws ParseException;
 
   public void updateDrawStatus(String id, String status);
+
+  String getDrawStatus(String id);
+
+  ArrayList<RaffleVO> getRaffleListByStatus(RaffleListByStatusVO raffleListByStatusVO);
 }

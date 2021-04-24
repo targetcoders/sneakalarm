@@ -1,9 +1,11 @@
 package com.sneakalarm.product.dto;
 
+import com.sneakalarm.product.vo.ProductStatus;
 import lombok.Data;
 
 @Data
 public class ProductVO {
+  private ProductStatus status;
   private String id;
   private String model_kr;
   private String model_en;
@@ -22,13 +24,9 @@ public class ProductVO {
   private String averageSalePrice;
   private String lastUpdateDate;
   private String size;
-  private String country;
-  private String draw;
   private String lowestSoldPrice;
   private String highestSoldPrice;
   private int isDeleted;
-  private int goingRaffleNum;
-  private int goingFirstcomeNum;
 
   public ProductVO() {}
 

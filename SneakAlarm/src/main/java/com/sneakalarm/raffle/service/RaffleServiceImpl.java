@@ -1,11 +1,14 @@
 package com.sneakalarm.raffle.service;
 
+import com.sneakalarm.raffle.RaffleConst;
+import com.sneakalarm.raffle.dao.RaffleCardMapper;
+import com.sneakalarm.raffle.dto.RaffleListByStatusVO;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-import com.sneakalarm.raffle.dto.DrawStatusUpdateVO;
+import com.sneakalarm.raffle.dto.RaffleUpdateStatusVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -40,11 +43,14 @@ public class RaffleServiceImpl implements RaffleService {
   @Autowired
   RaffleMapper raffleMapper;
 
+  @Autowired
+  RaffleCardMapper raffleCardMapper;
+
   @Override
   public void raffleInsert(RaffleInsertVO raffleInsertVO) {
     RaffleVO raffleVO = new RaffleVO(raffleInsertVO);
     String fileName = raffleInsertVO.getFile().getOriginalFilename();
-    Integer productId = raffleInsertVO.getProductId();
+    String productId = raffleInsertVO.getProductId();
     BucketVO bucketVO = new BucketVO(region, bucket, folderName);
     String imgSrc = stringUtil.getDrawImgURL(bucketVO, productId, fileName);
     raffleVO.setImgSrc(imgSrc);
@@ -53,14 +59,7 @@ public class RaffleServiceImpl implements RaffleService {
 
   @Override
   public ArrayList<RaffleCardVO> getRaffleCardList(String productId) {
-    ArrayList<RaffleVO> raffleList = raffleMapper.getRaffleList(productId);
-    ArrayList<RaffleCardVO> ret = new ArrayList<>();
-    for (RaffleVO raffleVO : raffleList) {
-      RaffleCardVO rafflaCardVO = new RaffleCardVO(raffleVO);
-      ret.add(rafflaCardVO);
-    }
-
-    return ret;
+    return raffleCardMapper.getRaffleCardList(productId);
   }
 
   @Override
@@ -68,7 +67,7 @@ public class RaffleServiceImpl implements RaffleService {
     return raffleMapper.getRaffleListAll();
   }
 
-  public ArrayList<RaffleVO> getRaffleList(Integer raffleId) {
+  public ArrayList<RaffleVO> getRaffleList(String raffleId) {
     return raffleMapper.getRaffle(raffleId);
   }
 
@@ -79,7 +78,7 @@ public class RaffleServiceImpl implements RaffleService {
 
     raffleVO.setContent(raffleInsertVO.getContent());
     raffleVO.setCountry(raffleInsertVO.getCountry());
-    raffleVO.setDelivery(raffleInsertVO.getDelivery());
+    raffleVO.setDelivery(getEngDelivery(raffleInsertVO.getDelivery()));
     raffleVO.setEndDate(raffleInsertVO.getEndDate());
     raffleVO.setEndTime(raffleInsertVO.getEndTime());
     raffleVO.setPayType(raffleInsertVO.getPayType());
@@ -93,20 +92,20 @@ public class RaffleServiceImpl implements RaffleService {
     String fileName = raffleInsertVO.getFile().getOriginalFilename();
     if (!fileName.equals("")) {
       BucketVO bucketVO = new BucketVO(region, bucket, folderName);
-      Integer productId = raffleInsertVO.getProductId();
+      String productId = raffleInsertVO.getProductId();
       raffleVO.setImgSrc(stringUtil.getDrawImgURL(bucketVO, productId, fileName));
     }
     raffleMapper.updateRaffle(raffleVO);
   }
 
   @Override
-  public void deleteRaffle(Integer id) {
+  public void deleteRaffle(String id) {
     raffleMapper.deleteRaffle(id);
   }
 
 
   @Override
-  public String getRaffleStatus(String startDate, String startTime, String endDate, String endTime)
+  public String calcRaffleStatus(String startDate, String startTime, String endDate, String endTime)
       throws ParseException {
     String status = "";
     SimpleDateFormat sdf = new SimpleDateFormat(ProductConst.DATE_FORMAT.replaceAll("/", "-"));
@@ -129,7 +128,29 @@ public class RaffleServiceImpl implements RaffleService {
 
   @Override
   public void updateDrawStatus(String id, String status) {
-    raffleMapper.updateDrawStatus(new DrawStatusUpdateVO(id,status));
+    raffleMapper.updateDrawStatus(new RaffleUpdateStatusVO(id,status));
+  }
+
+  @Override
+  public String getDrawStatus(String id) {
+    return raffleMapper.getDrawStatus(id);
+  }
+
+  @Override
+  public ArrayList<RaffleVO> getRaffleListByStatus(RaffleListByStatusVO raffleListByStatusVO) {
+    return raffleMapper.getRaffleListByStatus(raffleListByStatusVO);
+  }
+
+  private String getEngDelivery(String delivery) {
+    if("택배배송".equals(delivery)){
+      return RaffleConst.DELIVERY_PACKAGE;
+    } else if("방문수령".equals(delivery)){
+      return RaffleConst.DELIVERY_VISIT;
+    } else if("직배".equals(delivery)){
+      return RaffleConst.DELIVERY_DIRECT;
+    } else {
+      return RaffleConst.DELIVERY_AGENT;
+    }
   }
 
 }

@@ -1,26 +1,31 @@
 package com.sneakalarm.raffle.dao;
 
+import com.sneakalarm.raffle.dto.RaffleCardVO;
+import com.sneakalarm.raffle.dto.RaffleListByStatusVO;
 import java.util.ArrayList;
 
-import com.sneakalarm.raffle.dto.DrawStatusUpdateVO;
+import com.sneakalarm.raffle.dto.RaffleUpdateStatusVO;
 import org.apache.ibatis.annotations.Mapper;
 
-import com.sneakalarm.product.dto.InsertDrawVO;
 import com.sneakalarm.raffle.dto.RaffleVO;
 
 @Mapper
 public interface RaffleMapper {
-  public void raffleInsert(RaffleVO raffleVO);
+  void raffleInsert(RaffleVO raffleVO);
 
-  public ArrayList<RaffleVO> getRaffleList(String productId);
+  ArrayList<RaffleVO> getRaffleList(String productId);
 
-  public ArrayList<RaffleVO> getRaffleListAll();
+  ArrayList<RaffleVO> getRaffleListAll();
 
-  public ArrayList<RaffleVO> getRaffle(Integer raffleId);
+  ArrayList<RaffleVO> getRaffle(String raffleId);
 
-  public void updateRaffle(RaffleVO raffleVO);
+  void updateRaffle(RaffleVO raffleVO);
 
-  public void deleteRaffle(Integer id);
+  void deleteRaffle(String id);
 
-  void updateDrawStatus(DrawStatusUpdateVO drawStatusUpdateVO);
+  void updateDrawStatus(RaffleUpdateStatusVO updateDrawStatusVO);
+
+  String getDrawStatus(String id);
+
+  ArrayList<RaffleVO> getRaffleListByStatus(RaffleListByStatusVO status);
 }
