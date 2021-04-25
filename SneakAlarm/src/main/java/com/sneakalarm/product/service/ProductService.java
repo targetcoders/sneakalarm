@@ -2,7 +2,9 @@ package com.sneakalarm.product.service;
 
 import com.sneakalarm.product.dto.UpdateDeliveryTypesVO;
 import com.sneakalarm.product.dto.UpdateDrawCountriesVO;
+import com.sneakalarm.today.dto.TodayProductResponseVO;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
 import com.sneakalarm.product.dto.ProductUpdateDrawNumVO;
 import com.sneakalarm.product.dto.ProductCardVO;
@@ -40,4 +42,8 @@ public interface ProductService {
   void updateDrawCountries(UpdateDrawCountriesVO updateDrawCountriesVO);
 
   void updateDeliveryTypes(UpdateDeliveryTypesVO updateDeliveryTypesVO);
+
+  ArrayList<ProductVO> getProductByDeliveryType(String deliveryType);
+
+  ArrayList<TodayProductResponseVO> getTodayProductResponseVO();
 }

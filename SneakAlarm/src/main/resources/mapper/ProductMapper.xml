@@ -29,6 +29,19 @@
 		FROM 	product
 		WHERE	status=#{status}
 	</select>
+
+	<select id="getTodayProductResponseVO" resultType="com.sneakalarm.today.dto.TodayProductResponseVO">
+		SELECT	id, imgSrc_home, deliveryTypes
+		FROM 	product
+		WHERE	status='active'
+	</select>
+
+	<select id="getProductByDeliveryType" parameterType="String"
+		resultType="com.sneakalarm.product.dto.ProductVO">
+		SELECT *
+		FROM product
+		WHERE deliveryTypes LIKE CONCAT('%',#{deliveryType},'%') AND status='active'
+	</select>
 	
 	<delete id="deleteProduct" parameterType="String">
 		DELETE FROM product
