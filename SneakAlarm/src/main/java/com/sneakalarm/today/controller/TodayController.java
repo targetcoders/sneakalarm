@@ -32,7 +32,6 @@ public class TodayController {
     ArrayList<TodayDrawResponseVO> ret = new ArrayList<>();
     String[] paramList = deliveryType.split(",");
     for(String param : paramList){
-      System.out.println(param);
       ArrayList<ProductVO> productList = productService.getProductByDeliveryType(param);
       for (ProductVO productVO : productList) {
         ret.add(getTodayDrawResponseVO(param, productVO));

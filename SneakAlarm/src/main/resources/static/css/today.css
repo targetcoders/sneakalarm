@@ -1,0 +1,17 @@
+@charset "UTF-8";
+#activeDrawsContainer {
+  width: 370px;
+}
+.todayDrawContainer {
+  width: 370px;
+  height: 100%;
+}
+.todayProductImg {
+  width: 150px;
+  height: 150px;
+}
+.todayDrawContent {
+  width: 180px;
+  font-size:14px;
+  text-align:center;
+}
