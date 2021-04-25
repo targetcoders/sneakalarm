@@ -4,6 +4,7 @@ import lombok.Data;
 
 @Data
 public class ProductStatus {
+    private String status;
     private String country;
     private String draw;
     private int goingRaffleNum;

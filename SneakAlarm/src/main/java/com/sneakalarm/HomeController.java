@@ -19,4 +19,9 @@ public class HomeController {
   public String adsTxt() {
        return "google.com, pub-2682527241610745, DIRECT, f08c47fec0942fa0";
   }
+
+  @GetMapping("/today")
+  public String today(){
+    return "/views/today";
+  }
 }

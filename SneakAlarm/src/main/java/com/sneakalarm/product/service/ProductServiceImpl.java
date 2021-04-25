@@ -3,6 +3,7 @@ package com.sneakalarm.product.service;
 import com.sneakalarm.product.dto.UpdateDeliveryTypesVO;
 import com.sneakalarm.product.dto.UpdateDrawCountriesVO;
 import com.sneakalarm.product.vo.ProductStatus;
+import com.sneakalarm.today.dto.TodayProductResponseVO;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -303,6 +304,16 @@ public class ProductServiceImpl implements ProductService {
   @Override
   public void updateDeliveryTypes(UpdateDeliveryTypesVO updateDeliveryTypesVO) {
     productMapper.updateDeliveryTypes(updateDeliveryTypesVO);
+  }
+
+  @Override
+  public ArrayList<ProductVO> getProductByDeliveryType(String deliveryType) {
+    return productMapper.getProductByDeliveryType(deliveryType);
+  }
+
+  @Override
+  public ArrayList<TodayProductResponseVO> getTodayProductResponseVO() {
+    return productMapper.getTodayProductResponseVO();
   }
 
   @Override

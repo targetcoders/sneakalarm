@@ -1,5 +1,6 @@
 package com.sneakalarm.raffle.controller;
 
+import com.sneakalarm.raffle.RaffleConst;
 import java.util.ArrayList;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,10 @@ public class RaffleController {
   @PostMapping("/raffle-insert")
   @ResponseBody
   public void raffleInsert(RaffleInsertVO raffleInsertVO) {
+    if (raffleInsertVO.getDelivery().equals(RaffleConst.DELIVERY_PACKAGE) || raffleInsertVO
+        .getDelivery().equals(RaffleConst.DELIVERY_VISIT)) {
+      raffleInsertVO.setDelivery(RaffleConst.DELIVERY_KOREA);
+    }
     raffleService.raffleInsert(raffleInsertVO);
   }
 
@@ -40,8 +45,12 @@ public class RaffleController {
 
   @PostMapping("/raffle-modify")
   @ResponseBody
-  public boolean modifyRaffle(RaffleInsertVO RaffleInsertVO) {
-    raffleService.updateRaffle(RaffleInsertVO);
+  public boolean modifyRaffle(RaffleInsertVO raffleInsertVO) {
+    if (raffleInsertVO.getDelivery().equals(RaffleConst.DELIVERY_PACKAGE) || raffleInsertVO
+        .getDelivery().equals(RaffleConst.DELIVERY_VISIT)) {
+      raffleInsertVO.setDelivery(RaffleConst.DELIVERY_KOREA);
+    }
+    raffleService.updateRaffle(raffleInsertVO);
     return true;
   }
 
@@ -52,9 +61,6 @@ public class RaffleController {
     return true;
   }
 
-  @GetMapping("/today")
-  public String today(){
-    return "/views/today";
-  }
+
 
 }
