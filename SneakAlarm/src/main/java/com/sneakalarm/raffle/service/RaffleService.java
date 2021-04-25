@@ -1,5 +1,6 @@
 package com.sneakalarm.raffle.service;
 
+import com.sneakalarm.raffle.dto.RaffleListByDeliveryTypeVO;
 import com.sneakalarm.raffle.dto.RaffleListByStatusVO;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -27,4 +28,6 @@ public interface RaffleService {
   String getDrawStatus(String id);
 
   ArrayList<RaffleVO> getRaffleListByStatus(RaffleListByStatusVO raffleListByStatusVO);
+
+  ArrayList<RaffleVO> getRaffleListByDeliveryType(RaffleListByDeliveryTypeVO raffleListByDeliveryTypeVO);
 }

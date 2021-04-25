@@ -2,6 +2,7 @@ package com.sneakalarm.raffle.service;
 
 import com.sneakalarm.raffle.RaffleConst;
 import com.sneakalarm.raffle.dao.RaffleCardMapper;
+import com.sneakalarm.raffle.dto.RaffleListByDeliveryTypeVO;
 import com.sneakalarm.raffle.dto.RaffleListByStatusVO;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -78,7 +79,7 @@ public class RaffleServiceImpl implements RaffleService {
 
     raffleVO.setContent(raffleInsertVO.getContent());
     raffleVO.setCountry(raffleInsertVO.getCountry());
-    raffleVO.setDelivery(getEngDelivery(raffleInsertVO.getDelivery()));
+    raffleVO.setDelivery(raffleInsertVO.getDelivery());
     raffleVO.setEndDate(raffleInsertVO.getEndDate());
     raffleVO.setEndTime(raffleInsertVO.getEndTime());
     raffleVO.setPayType(raffleInsertVO.getPayType());
@@ -141,11 +142,17 @@ public class RaffleServiceImpl implements RaffleService {
     return raffleMapper.getRaffleListByStatus(raffleListByStatusVO);
   }
 
+  @Override
+  public ArrayList<RaffleVO> getRaffleListByDeliveryType(
+      RaffleListByDeliveryTypeVO raffleListByDeliveryTypeVO) {
+    return raffleMapper.getRaffleListByDeliveryType(raffleListByDeliveryTypeVO);
+  }
+
   private String getEngDelivery(String delivery) {
     if("택배배송".equals(delivery)){
-      return RaffleConst.DELIVERY_PACKAGE;
+      return RaffleConst.DELIVERY_KOREA;
     } else if("방문수령".equals(delivery)){
-      return RaffleConst.DELIVERY_VISIT;
+      return RaffleConst.DELIVERY_KOREA;
     } else if("직배".equals(delivery)){
       return RaffleConst.DELIVERY_DIRECT;
     } else {
