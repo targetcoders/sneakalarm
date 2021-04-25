@@ -23,6 +23,14 @@
 		WHERE productId=#{productId} AND status = #{status}
 	</select>
 
+	<select id="getRaffleListByDeliveryType"
+		parameterType="com.sneakalarm.raffle.dto.RaffleListByDeliveryTypeVO"
+		resultType="com.sneakalarm.raffle.dto.RaffleVO">
+		SELECT *
+		FROM raffle
+		WHERE productId=#{productId} AND status='active' AND delivery=#{deliveryType}
+	</select>
+
 	<select id="getRaffleListAll" resultType="com.sneakalarm.raffle.dto.RaffleVO">
 		SELECT *
 		FROM raffle

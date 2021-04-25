@@ -1,6 +1,7 @@
 package com.sneakalarm.raffle.dao;
 
 import com.sneakalarm.raffle.dto.RaffleCardVO;
+import com.sneakalarm.raffle.dto.RaffleListByDeliveryTypeVO;
 import com.sneakalarm.raffle.dto.RaffleListByStatusVO;
 import java.util.ArrayList;
 
@@ -28,4 +29,6 @@ public interface RaffleMapper {
   String getDrawStatus(String id);
 
   ArrayList<RaffleVO> getRaffleListByStatus(RaffleListByStatusVO status);
+
+  ArrayList<RaffleVO> getRaffleListByDeliveryType(RaffleListByDeliveryTypeVO DeliveryTypeVO);
 }
