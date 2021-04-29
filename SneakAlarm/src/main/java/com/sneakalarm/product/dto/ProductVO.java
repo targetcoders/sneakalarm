@@ -26,7 +26,10 @@ public class ProductVO {
   private String size;
   private String lowestSoldPrice;
   private String highestSoldPrice;
+  private String country;
+  private String draw;
   private int isDeleted;
+  private String deliveryType;
 
   public ProductVO() {}
 
@@ -46,7 +49,9 @@ public class ProductVO {
     this.highestSoldPrice = productInsertVO.getHighestSoldPrice();
     this.id = productInsertVO.getId();
     this.releaseDate = productInsertVO.getReleaseDate();
+    this.country = productInsertVO.getCountry();
+    this.draw=productInsertVO.getDraw();
+    this.deliveryType = productInsertVO.getDeliveryType();
   }
-
 
 }
