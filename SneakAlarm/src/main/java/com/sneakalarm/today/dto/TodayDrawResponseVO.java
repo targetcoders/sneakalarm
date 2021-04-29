@@ -20,7 +20,7 @@ public class TodayDrawResponseVO {
   private TodayDrawVO getTodayDraw(RaffleVO raffleVO) {
     return new TodayDrawVO(raffleVO.getUrl(), raffleVO.getStoreName(), raffleVO.getRaffleType(),
         raffleVO.getStartDate(),
-        raffleVO.getStartTime(), raffleVO.getEndDate(), raffleVO.getEndTime());
+        raffleVO.getStartTime(), raffleVO.getEndDate(), raffleVO.getEndTime(), raffleVO.getDelivery());
   }
 
   public TodayDrawResponseVO() {

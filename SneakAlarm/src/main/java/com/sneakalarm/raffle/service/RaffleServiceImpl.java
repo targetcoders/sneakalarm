@@ -117,12 +117,10 @@ public class RaffleServiceImpl implements RaffleService {
     int res = nowDateTime.compareTo(endDateTime);
     if (res > 0) {
       status = ProductConst.STATUS_ENDED;
-    } else if (res <= 0) {
-      if (nowDateTime.compareTo(startDateTime) < 0) {
-        status = ProductConst.STATUS_READY;
-      } else {
-        status = ProductConst.STATUS_GOING;
-      }
+    } else if (nowDateTime.compareTo(startDateTime) < 0) {
+      status = ProductConst.STATUS_READY;
+    } else {
+      status = ProductConst.STATUS_GOING;
     }
     return status;
   }
