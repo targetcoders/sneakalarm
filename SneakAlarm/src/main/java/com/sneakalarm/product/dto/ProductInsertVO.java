@@ -24,6 +24,9 @@ public class ProductInsertVO {
   private List<MultipartFile> fileList_detail;
   private String releaseDate;
   private String isChanged;
+  private String country;
+  private String draw;
+  private String deliveryType;
 
   public ProductInsertVO() {}
 }
