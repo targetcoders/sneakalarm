@@ -11,8 +11,9 @@ public class TodayDrawVO {
   private String startTime;
   private String endDate;
   private String endTime;
+  private String delivery;
 
-  public TodayDrawVO(String url, String storeName, String raffleType, String startDate, String startTime, String endDate, String endTime) {
+  public TodayDrawVO(String url, String storeName, String raffleType, String startDate, String startTime, String endDate, String endTime, String delivery) {
     if(raffleType.equals("선착순"))
       raffleType = "선착";
     this.url = url;
@@ -22,5 +23,6 @@ public class TodayDrawVO {
     this.startTime = startTime;
     this.endDate = endDate.replaceAll("-","/").substring(5);
     this.endTime = endTime;
+    this.delivery = delivery;
   }
 }
