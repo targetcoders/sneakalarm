@@ -31,7 +31,7 @@
 	</select>
 
 	<select id="getTodayProductResponseVO" resultType="com.sneakalarm.today.dto.TodayProductResponseVO">
-		SELECT	id, imgSrc_home, deliveryTypes
+		SELECT	id, model_kr, imgSrc_home, deliveryTypes
 		FROM 	product
 		WHERE	status='active'
 	</select>
