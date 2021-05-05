@@ -40,20 +40,24 @@
 }
 
 .draw-raffle-type-firstcome {
+  font-weight: bold;
   color: #FE0100;
+}
+.draw-raffle-type-raffle {
+  font-weight: bold;
 }
 
 .today-draws-hr {
-  margin-top: 52px;
-  margin-bottom: 52px;
+  margin-top: 26px;
+  margin-bottom: 26px;
   height: 10px;
   opacity: 1;
   border: solid 1px #b8b8b8;
   width:100%;
 }
-.todayDirectDraw-model_kr {
+.todayDraw-model_kr {
   font-weight: bold;
   text-align: center;
-  font-size: 12px;
+  font-size: 14px;
   color: #000000;
 }
