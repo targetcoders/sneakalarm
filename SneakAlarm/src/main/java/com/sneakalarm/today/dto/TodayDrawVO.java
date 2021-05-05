@@ -22,9 +22,9 @@ public class TodayDrawVO {
     this.storeName = storeName;
     this.raffleType = raffleType;
     this.startDate = startDate.replaceAll("-","/").substring(5);
-    this.startTime = startTime;
+    this.startTime = startTime.substring(0,5);
     this.endDate = endDate.replaceAll("-","/").substring(5);
-    this.endTime = endTime;
+    this.endTime = endTime.substring(0,5);
     this.delivery = delivery;
   }
 }
