@@ -16,14 +16,11 @@ function getActiveProductList(){
             resolve(data);
           })
           .then(function(data){
-            console.log(data);
-
             let splitedType = data.splitedType;
             let id = data.id;
             let imgSrc_home = data.imgSrc_home;
             let model_kr = data.model_kr;
             for(let i in splitedType) {
-                console.log(i+': '+splitedType[i]);
                 if (splitedType[i] == '직배') {
                   if($('#todayDirectDraw-'+id).length > 0) continue;
                   $('#activeDraws-direct')
@@ -39,7 +36,6 @@ function getActiveProductList(){
                   .append('<div class="todayDrawContentAgent-'+id+' todayDrawContentBox d-flex flex-wrap justify-content-center"></div>');
                   getDrawsByDeliveryType(splitedType[i]);
                 } else if (splitedType[i] == '방문수령' || splitedType[i] == '택배배송') {
-                  console.log($('#todayKoreaDraw-'+id).length);
                   if($('#todayKoreaDraw-'+id).length > 0)  continue;
                   $('#activeDraws-korea')
                   .append('<div id="todayKoreaDraw-'+id+'" class="todayDrawContainer d-flex flex-column justify-content-center align-items-center"><img id="todayProductImg-'+id+'" class="todayProductImg" src='+imgSrc_home+'></div>')
@@ -47,7 +43,6 @@ function getActiveProductList(){
                   .append('<div class="todayDrawContentKorea-'+id+' todayDrawContentBox d-flex flex-wrap justify-content-center"></div>');
                   getDrawsByDeliveryType(splitedType[i]);
                 }
-
             }
           });
         }
@@ -75,7 +70,6 @@ function getDrawsByDeliveryType(deliveryType){
           let startDate = resultList[i].todayDraws[j].startDate;
           let startTime = resultList[i].todayDraws[j].startTime;
 
-          console.log('delivery/raffleType: '+delivery+'/'+raffleType)
           if($('#drawCard-'+id).length > 0) continue;
 
           if(delivery == '택배배송' || delivery == '방문수령'){
