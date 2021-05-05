@@ -31,7 +31,7 @@ public class TodayController {
       @RequestParam("deliveryType") String deliveryType) {
     ArrayList<TodayDrawResponseVO> ret = new ArrayList<>();
     String[] paramList = deliveryType.split(",");
-    for(String param : paramList){
+    for(String param : paramList) {
       ArrayList<ProductVO> productList = productService.getProductByDeliveryType(param);
       for (ProductVO productVO : productList) {
         ret.add(getTodayDrawResponseVO(param, productVO));
@@ -43,7 +43,7 @@ public class TodayController {
   private TodayDrawResponseVO getTodayDrawResponseVO(String deliveryType, ProductVO productVO) {
     TodayDrawResponseVO todayDrawResponseVO = new TodayDrawResponseVO();
     todayDrawResponseVO.setProductId(productVO.getId());
-
+    todayDrawResponseVO.sortTodayDraws();
     ArrayList<RaffleVO> raffleList = raffleService.getRaffleListByDeliveryType(
         new RaffleListByDeliveryTypeVO(productVO.getId(), deliveryType));
     todayDrawResponseVO.setTodayDraws(raffleList);

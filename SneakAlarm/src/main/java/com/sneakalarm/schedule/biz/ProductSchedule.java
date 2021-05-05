@@ -65,11 +65,17 @@ public class ProductSchedule {
     return productUpdateDrawNumVO;
   }
 
-  private void updateProductStatus(ProductUpdateDrawNumVO productUpdateDrawNumVO, Integer productId) {
-    if(productUpdateDrawNumVO.getDrawNumKorea() == 0 && productUpdateDrawNumVO.getDrawNumOverseas() == 0)
-      productService.updateProductStatus(new ProductUpdateStatusVO(productId, ProductConst.STATUS_ENDED));
-    else
-      productService.updateProductStatus(new ProductUpdateStatusVO(productId,ProductConst.STATUS_ACTIVE));
+  private void updateProductStatus(ProductUpdateDrawNumVO productUpdateDrawNumVO,
+      Integer productId) {
+    if (productUpdateDrawNumVO.getDrawNumKorea() == 0
+        && productUpdateDrawNumVO.getDrawNumOverseas() == 0
+        && productUpdateDrawNumVO.getDrawNumFirstcome() == 0) {
+      productService
+          .updateProductStatus(new ProductUpdateStatusVO(productId, ProductConst.STATUS_ENDED));
+    } else {
+      productService
+          .updateProductStatus(new ProductUpdateStatusVO(productId, ProductConst.STATUS_ACTIVE));
+    }
   }
 
 

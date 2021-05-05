@@ -1,4 +1,3 @@
-
 function getActiveProductList(){
   return new Promise(function(resolve){
     $.ajax({
@@ -12,7 +11,6 @@ function getActiveProductList(){
             let imgSrc_home = activeProductList[i].imgSrc_home;
             let deliveryTypes = activeProductList[i].deliveryTypes;
             let model_kr = activeProductList[i].model_kr;
-            console.log('deliveryTypes: '+deliveryTypes);
             let splitedType = deliveryTypes.split(',');
             let data = {id, splitedType, imgSrc_home, model_kr};
             resolve(data);
@@ -23,31 +21,28 @@ function getActiveProductList(){
             let imgSrc_home = data.imgSrc_home;
             let model_kr = data.model_kr;
             for(let i in splitedType) {
-              new Promise(function(resolve){
-                console.log('splitedType: '+splitedType[i]);
                 if (splitedType[i] == '직배') {
-                  if($('#todayDirectDraw-'+id).length > 0) return;
+                  if($('#todayDirectDraw-'+id).length > 0) continue;
                   $('#activeDraws-direct')
                   .append('<div id="todayDirectDraw-'+id+'" class="todayDrawContainer d-flex flex-column justify-content-center align-items-center"><img id="todayProductImg-'+id+'" class="todayProductImg" src='+imgSrc_home+'></div>')
                   .append('<div class="todayDirectDraw-model_kr">'+model_kr+'</div>')
                   .append('<div class="todayDrawContentDirect-'+id+' todayDrawContentBox d-flex flex-wrap justify-content-center"></div>');
+                  getDrawsByDeliveryType(splitedType[i]);
                 } else if (splitedType[i] == '배대지') {
-                  if($('#todayAgentDraw-'+id).length > 0) return;
+                  if($('#todayAgentDraw-'+id).length > 0) continue;
                   $('#activeDraws-agent')
                   .append('<div id="todayAgentDraw-'+id+'" class="todayDrawContainer d-flex flex-column justify-content-center align-items-center"><img id="todayProductImg-'+id+'" class="todayProductImg" src='+imgSrc_home+'></div>')
                   .append('<div class="todayDirectDraw-model_kr">'+model_kr+'</div>')
                   .append('<div class="todayDrawContentAgent-'+id+' todayDrawContentBox d-flex flex-wrap justify-content-center"></div>');
+                  getDrawsByDeliveryType(splitedType[i]);
                 } else if (splitedType[i] == '방문수령' || splitedType[i] == '택배배송') {
-                  console.log($('#todayKoreaDraw-'+id).length);
-                  if($('#todayKoreaDraw-'+id).length > 0)  return;
-
+                  if($('#todayKoreaDraw-'+id).length > 0)  continue;
                   $('#activeDraws-korea')
                   .append('<div id="todayKoreaDraw-'+id+'" class="todayDrawContainer d-flex flex-column justify-content-center align-items-center"><img id="todayProductImg-'+id+'" class="todayProductImg" src='+imgSrc_home+'></div>')
                   .append('<div class="todayDirectDraw-model_kr">'+model_kr+'</div>')
                   .append('<div class="todayDrawContentKorea-'+id+' todayDrawContentBox d-flex flex-wrap justify-content-center"></div>');
+                  getDrawsByDeliveryType(splitedType[i]);
                 }
-                resolve(splitedType[i]);
-              }).then(getDrawsByDeliveryType)
             }
           });
         }
@@ -64,8 +59,8 @@ function getDrawsByDeliveryType(deliveryType){
     },
     success: function(resultList) {
       for(let i in resultList){
-        console.log(resultList[i]);
         for(let j in resultList[i].todayDraws){
+          let id = resultList[i].todayDraws[j].id;
           let delivery = resultList[i].todayDraws[j].delivery;
           let drawUrl = resultList[i].todayDraws[j].url;
           let raffleType = resultList[i].todayDraws[j].raffleType;
@@ -74,33 +69,34 @@ function getDrawsByDeliveryType(deliveryType){
           let endTime = resultList[i].todayDraws[j].endTime;
           let startDate = resultList[i].todayDraws[j].startDate;
           let startTime = resultList[i].todayDraws[j].startTime;
-          console.log('getDrawsByDeliveryType-delivery['+j+'] = '+delivery);
+
+          if($('#drawCard-'+id).length > 0) continue;
 
           if(delivery == '택배배송' || delivery == '방문수령'){
             if(raffleType == '응모'){
               $('.todayDrawContentKorea-'+resultList[i].productId)
-                .append('<a href="'+drawUrl+'" style="text-decoration: none;"><div class="todayDrawContent"><div>'+raffleType+'&nbsp;-&nbsp;'+storeName+'</div><div class="draw-end-datetime">종료: '+endDate+'&nbsp;&nbsp;'+endTime+'</div></div></a>');
+                .append('<a id="drawCard-'+id+'" href="'+drawUrl+'" style="text-decoration: none;"><div class="todayDrawContent"><div>'+raffleType+'&nbsp;-&nbsp;'+storeName+'</div><div class="draw-end-datetime">종료: '+endDate+'&nbsp;&nbsp;'+endTime+'</div></div></a>');
               } else {
                 $('.todayDrawContentKorea-'+resultList[i].productId)
-                .append('<a href="'+drawUrl+'" style="text-decoration: none;"><div class="todayDrawContent"><div><span class="draw-raffle-type-firstcome">'+raffleType+'</span>&nbsp;-&nbsp;'+storeName+'</div><div class="draw-start-datetime">시작: '+startDate+'&nbsp;&nbsp;'+startTime+'</div></div></a>');
+                .append('<a id="drawCard-'+id+'" href="'+drawUrl+'" style="text-decoration: none;"><div class="todayDrawContent"><div><span class="draw-raffle-type-firstcome">'+raffleType+'</span>&nbsp;-&nbsp;'+storeName+'</div><div class="draw-start-datetime">시작: '+startDate+'&nbsp;&nbsp;'+startTime+'</div></div></a>');
               }
           }
           else if(delivery == '직배'){
             if(raffleType == '응모'){
                $('.todayDrawContentDirect-'+resultList[i].productId)
-               .append('<a href="'+drawUrl+'" style="text-decoration: none;"><div class="todayDrawContent"><div >'+raffleType+'&nbsp;-&nbsp;'+storeName+'</div><div class="draw-end-datetime">종료: '+endDate+'&nbsp;&nbsp;'+endTime+'</div></div></a>');
+               .append('<a id="drawCard-'+id+'" href="'+drawUrl+'" style="text-decoration: none;"><div class="todayDrawContent"><div >'+raffleType+'&nbsp;-&nbsp;'+storeName+'</div><div class="draw-end-datetime">종료: '+endDate+'&nbsp;&nbsp;'+endTime+'</div></div></a>');
               } else {
                $('.todayDrawContentDirect-'+resultList[i].productId)
-               .append('<a href="'+drawUrl+'" style="text-decoration: none;"><div class="todayDrawContent"><div><span class="draw-raffle-type-firstcome">'+raffleType+'</span>&nbsp;-&nbsp;'+storeName+'</div><div class="draw-start-datetime">시작: '+startDate+'&nbsp;&nbsp;'+startTime+'</div></div></a>');
+               .append('<a id="drawCard-'+id+'" href="'+drawUrl+'" style="text-decoration: none;"><div class="todayDrawContent"><div><span class="draw-raffle-type-firstcome">'+raffleType+'</span>&nbsp;-&nbsp;'+storeName+'</div><div class="draw-start-datetime">시작: '+startDate+'&nbsp;&nbsp;'+startTime+'</div></div></a>');
               }
           }
           else {
             if(raffleType == '응모'){
                 $('.todayDrawContentAgent-'+resultList[i].productId)
-                .append('<a href="'+drawUrl+'" style="text-decoration: none;"><div class="todayDrawContent"><div>'+raffleType+'&nbsp;-&nbsp;'+storeName+'</div><div>종료: '+endDate+'&nbsp;&nbsp;'+endTime+'</div></div></a>');
+                .append('<a id="drawCard-'+id+'" href="'+drawUrl+'" style="text-decoration: none;"><div class="todayDrawContent"><div>'+raffleType+'&nbsp;-&nbsp;'+storeName+'</div><div>종료: '+endDate+'&nbsp;&nbsp;'+endTime+'</div></div></a>');
               } else {
                 $('.todayDrawContentAgent-'+resultList[i].productId)
-                .append('<a href="'+drawUrl+'" style="text-decoration: none;"><div class="todayDrawContent"><div><span class="draw-raffle-type-firstcome">'+raffleType+'</span>&nbsp;-&nbsp;'+storeName+'</div><div>시작: '+startDate+'&nbsp;&nbsp;'+startTime+'</div></div></a>');
+                .append('<a id="drawCard-'+id+'" href="'+drawUrl+'" style="text-decoration: none;"><div class="todayDrawContent"><div><span class="draw-raffle-type-firstcome">'+raffleType+'</span>&nbsp;-&nbsp;'+storeName+'</div><div>시작: '+startDate+'&nbsp;&nbsp;'+startTime+'</div></div></a>');
               }
           }
         }
