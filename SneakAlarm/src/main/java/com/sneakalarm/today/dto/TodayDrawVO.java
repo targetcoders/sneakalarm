@@ -4,6 +4,7 @@ import lombok.Data;
 
 @Data
 public class TodayDrawVO {
+  private String id;
   private String url;
   private String storeName;
   private String raffleType;
@@ -13,9 +14,10 @@ public class TodayDrawVO {
   private String endTime;
   private String delivery;
 
-  public TodayDrawVO(String url, String storeName, String raffleType, String startDate, String startTime, String endDate, String endTime, String delivery) {
+  public TodayDrawVO(String id, String url, String storeName, String raffleType, String startDate, String startTime, String endDate, String endTime, String delivery) {
     if(raffleType.equals("선착순"))
       raffleType = "선착";
+    this.id = id;
     this.url = url;
     this.storeName = storeName;
     this.raffleType = raffleType;
