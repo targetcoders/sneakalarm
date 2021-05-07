@@ -386,8 +386,8 @@ public class ProductController {
         endDate2 = "9999-99-99";
       }
 
-      endDate1 = endDate1.substring(0,10);
-      endDate2 = endDate2.substring(0,10);
+      endDate1 = endDate1.substring(0,10).replaceAll("/","-");
+      endDate2 = endDate2.substring(0,10).replaceAll("/","-");
 
       try {
 
