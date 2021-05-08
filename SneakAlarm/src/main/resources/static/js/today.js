@@ -71,7 +71,6 @@ function getDrawsByDeliveryType(deliveryType){
           let startTime = resultList[i].todayDraws[j].startTime;
           let status = resultList[i].todayDraws[j].status;
 
-          console.log('status: '+status);
           if($('#drawCard-'+id).length > 0) continue;
 
           if(status == 'active') {
