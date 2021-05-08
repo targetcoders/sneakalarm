@@ -2,6 +2,7 @@ package com.sneakalarm.product.dao;
 
 import com.sneakalarm.product.dto.UpdateDeliveryTypesVO;
 import com.sneakalarm.product.dto.UpdateDrawCountriesVO;
+import com.sneakalarm.today.dto.TodayGetProductByDeliveryTypeVO;
 import com.sneakalarm.today.dto.TodayProductResponseVO;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +40,7 @@ public interface ProductMapper {
 
   void updateDeliveryTypes(UpdateDeliveryTypesVO updateDeliveryTypesVO);
 
-  ArrayList<ProductVO> getProductByDeliveryType(String deliveryType);
+  ArrayList<ProductVO> getProductByDeliveryType(String delivery);
 
   ArrayList<TodayProductResponseVO> getTodayProductResponseVO();
 }

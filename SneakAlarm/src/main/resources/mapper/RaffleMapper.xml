@@ -28,7 +28,7 @@
 		resultType="com.sneakalarm.raffle.dto.RaffleVO">
 		SELECT *
 		FROM raffle
-		WHERE productId=#{productId} AND status='active' AND delivery=#{deliveryType}
+		WHERE productId=#{productId} AND (status='active' OR status='ready') AND delivery=#{deliveryType}
 	</select>
 
 	<select id="getRaffleListAll" resultType="com.sneakalarm.raffle.dto.RaffleVO">

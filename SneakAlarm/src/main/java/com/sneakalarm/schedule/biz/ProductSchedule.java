@@ -26,7 +26,7 @@ public class ProductSchedule {
   RaffleService raffleService;
 
   public void DrawStatusNumSynchronize() throws Exception {
-    ProductUpdateDrawNumVO productUpdateDrawNumVO = new ProductUpdateDrawNumVO(0,0,0,0);
+    ProductUpdateDrawNumVO productUpdateDrawNumVO = new ProductUpdateDrawNumVO(0,0,0,0,0);
     ArrayList<Integer> idListAll = (ArrayList<Integer>) productService.getProductIdListAll();
 
     for (Integer productId : idListAll) {
@@ -38,7 +38,7 @@ public class ProductSchedule {
 
   private ProductUpdateDrawNumVO getProductUpdateDrawNumVO(
       ProductUpdateDrawNumVO productUpdateDrawNumVO, Integer productId) {
-    productUpdateDrawNumVO.initProductUpdateDrawNumVO(0, 0, 0, productId);
+    productUpdateDrawNumVO.initProductUpdateDrawNumVO(0, 0, 0, 0, productId);
     ArrayList<RaffleCardVO> raffleCardList = raffleService
         .getRaffleCardList(productId.toString());
 
@@ -52,6 +52,8 @@ public class ProductSchedule {
             .setDrawNumFirstcome(productUpdateDrawNumVO.getDrawNumFirstcome() + 1);
       } else if (status.equals(ProductConst.STATUS_ACTIVE) && raffleType.equals("응모")) {
         productUpdateDrawNumVO = setGoingDrawNum(productUpdateDrawNumVO, country);
+      } else if (status.equals(ProductConst.STATUS_READY)) {
+        productUpdateDrawNumVO.setDrawNumReady(productUpdateDrawNumVO.getDrawNumReady()+1);
       }
     }
     return productUpdateDrawNumVO;
@@ -69,7 +71,8 @@ public class ProductSchedule {
       Integer productId) {
     if (productUpdateDrawNumVO.getDrawNumKorea() == 0
         && productUpdateDrawNumVO.getDrawNumOverseas() == 0
-        && productUpdateDrawNumVO.getDrawNumFirstcome() == 0) {
+        && productUpdateDrawNumVO.getDrawNumFirstcome() == 0
+        && productUpdateDrawNumVO.getDrawNumReady() == 0 ) {
       productService
           .updateProductStatus(new ProductUpdateStatusVO(productId, ProductConst.STATUS_ENDED));
     } else {
@@ -83,22 +86,27 @@ public class ProductSchedule {
     List<String> activeProductIdList = productService
         .getProductIdListByStatus(ProductConst.STATUS_ACTIVE);
 
-    for(String activeProductId : activeProductIdList){
-      ArrayList<RaffleVO> activeRaffleList = raffleService
-          .getRaffleListByStatus(new RaffleListByStatusVO(activeProductId, ProductConst.STATUS_ACTIVE));
-      Set<String> deliveryTypeSet = getDeliveryTypeSet(activeRaffleList);
-      String deliveryTypes = String.join(",",deliveryTypeSet);
-      productService.updateDeliveryTypes(new UpdateDeliveryTypesVO(activeProductId,deliveryTypes));
+    for (String activeProductId : activeProductIdList) {
+      ArrayList<ArrayList<RaffleVO>> lists = new ArrayList<>();
+
+      lists.add(raffleService.getRaffleListByStatus(
+          new RaffleListByStatusVO(activeProductId, ProductConst.STATUS_ACTIVE)));
+      lists.add(raffleService.getRaffleListByStatus(
+          new RaffleListByStatusVO(activeProductId, ProductConst.STATUS_READY)));
+      Set<String> deliveryTypeSet = getDeliveryTypeSet(lists);
+      String deliveryTypes = String.join(",", deliveryTypeSet);
+      productService.updateDeliveryTypes(new UpdateDeliveryTypesVO(activeProductId, deliveryTypes));
     }
   }
 
-  private Set<String> getDeliveryTypeSet(ArrayList<RaffleVO> activeRaffleList) {
+  private Set<String> getDeliveryTypeSet(ArrayList<ArrayList<RaffleVO>> lists) {
     Set<String> deliveryTypeSet = new HashSet<>();
-    for(RaffleVO raffle : activeRaffleList){
-      String deliveryType = getDeliveryType(raffle.getDelivery());
-      deliveryTypeSet.add(deliveryType);
+    for (ArrayList<RaffleVO> raffleList : lists) {
+      for (RaffleVO raffle : raffleList) {
+        String deliveryType = getDeliveryType(raffle.getDelivery());
+        deliveryTypeSet.add(deliveryType);
+      }
     }
-
     return deliveryTypeSet;
   }
 
