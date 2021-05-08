@@ -371,23 +371,31 @@ public class ProductController {
 		return startDateTime1.compareTo(startDateTime2);
 	}
   }
+
   @Component
   public class ProductAscending implements Comparator<ProductCardVO> {
+
     @Override
     public int compare(ProductCardVO o1, ProductCardVO o2) {
       String endDate1 = o1.getReleaseEndDate();
-      if(endDate1.equals("RELEASING SOON"))
-    	  endDate1 = "9999-99-99";
+      if (endDate1.equals("RELEASING SOON")) {
+        endDate1 = "9999-99-99";
+      }
       String endDate2 = o2.getReleaseEndDate();
-      if(endDate2.equals("RELEASING SOON"))
-    	  endDate2 = "9999-99-99";
-      
+      if (endDate2.equals("RELEASING SOON")) {
+        endDate2 = "9999-99-99";
+      }
+
+      endDate1 = endDate1.substring(0,10).replaceAll("/","-");
+      endDate2 = endDate2.substring(0,10).replaceAll("/","-");
+
       try {
-		return sdf.parse(endDate1).compareTo(sdf.parse(endDate2));
-	} catch (ParseException e) {
-		e.printStackTrace();
-	}
-	return 0;
+
+        return sdf.parse(endDate1).compareTo(sdf.parse(endDate2));
+      } catch (ParseException e) {
+        e.printStackTrace();
+      }
+      return 0;
     }
   }
   

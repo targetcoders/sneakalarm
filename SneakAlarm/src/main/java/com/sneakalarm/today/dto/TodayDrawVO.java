@@ -13,8 +13,9 @@ public class TodayDrawVO {
   private String endDate;
   private String endTime;
   private String delivery;
+  private String status;
 
-  public TodayDrawVO(String id, String url, String storeName, String raffleType, String startDate, String startTime, String endDate, String endTime, String delivery) {
+  public TodayDrawVO(String id, String url, String storeName, String raffleType, String startDate, String startTime, String endDate, String endTime, String delivery, String status) {
     if(raffleType.equals("선착순"))
       raffleType = "선착";
     this.id = id;
@@ -22,9 +23,10 @@ public class TodayDrawVO {
     this.storeName = storeName;
     this.raffleType = raffleType;
     this.startDate = startDate.replaceAll("-","/").substring(5);
-    this.startTime = startTime;
+    this.startTime = startTime.substring(0,5);
     this.endDate = endDate.replaceAll("-","/").substring(5);
-    this.endTime = endTime;
+    this.endTime = endTime.substring(0,5);
     this.delivery = delivery;
+    this.status = status;
   }
 }
