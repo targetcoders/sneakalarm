@@ -22,6 +22,6 @@ public class HomeController {
 
   @GetMapping("/today")
   public String today(){
-    return "/views/today";
+    return "views/today";
   }
 }

@@ -307,8 +307,8 @@ public class ProductServiceImpl implements ProductService {
   }
 
   @Override
-  public ArrayList<ProductVO> getProductByDeliveryType(String deliveryType) {
-    return productMapper.getProductByDeliveryType(deliveryType);
+  public ArrayList<ProductVO> getProductByDeliveryType(String delivery) {
+    return productMapper.getProductByDeliveryType(delivery);
   }
 
   @Override

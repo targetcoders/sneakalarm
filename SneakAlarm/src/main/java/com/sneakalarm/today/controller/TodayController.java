@@ -5,6 +5,7 @@ import com.sneakalarm.product.service.ProductService;
 import com.sneakalarm.raffle.dto.RaffleListByDeliveryTypeVO;
 import com.sneakalarm.raffle.dto.RaffleVO;
 import com.sneakalarm.today.dto.TodayDrawResponseVO;
+import com.sneakalarm.today.dto.TodayGetProductByDeliveryTypeVO;
 import com.sneakalarm.today.dto.TodayProductResponseVO;
 import com.sneakalarm.raffle.service.RaffleService;
 import java.util.ArrayList;
@@ -21,8 +22,8 @@ public class TodayController {
   @Autowired
   RaffleService raffleService;
 
-  @GetMapping("/today/activeProductList")
-  public ArrayList<TodayProductResponseVO> getActiveProductList(){
+  @GetMapping("/today/productList")
+  public ArrayList<TodayProductResponseVO> getProductList(){
     return productService.getTodayProductResponseVO();
   }
 
@@ -30,11 +31,11 @@ public class TodayController {
   public ArrayList<TodayDrawResponseVO> getTodayKorea(
       @RequestParam("deliveryType") String deliveryType) {
     ArrayList<TodayDrawResponseVO> ret = new ArrayList<>();
-    String[] paramList = deliveryType.split(",");
-    for(String param : paramList) {
-      ArrayList<ProductVO> productList = productService.getProductByDeliveryType(param);
+    String[] deliveryList = deliveryType.split(",");
+    for (String delivery : deliveryList) {
+      ArrayList<ProductVO> productList = productService.getProductByDeliveryType(delivery);
       for (ProductVO productVO : productList) {
-        ret.add(getTodayDrawResponseVO(param, productVO));
+        ret.add(getTodayDrawResponseVO(delivery, productVO));
       }
     }
     return ret;
@@ -43,10 +44,10 @@ public class TodayController {
   private TodayDrawResponseVO getTodayDrawResponseVO(String deliveryType, ProductVO productVO) {
     TodayDrawResponseVO todayDrawResponseVO = new TodayDrawResponseVO();
     todayDrawResponseVO.setProductId(productVO.getId());
-    todayDrawResponseVO.sortTodayDraws();
     ArrayList<RaffleVO> raffleList = raffleService.getRaffleListByDeliveryType(
         new RaffleListByDeliveryTypeVO(productVO.getId(), deliveryType));
     todayDrawResponseVO.setTodayDraws(raffleList);
+    todayDrawResponseVO.sortTodayDraws();
     return todayDrawResponseVO;
   }
 

@@ -33,14 +33,14 @@
 	<select id="getTodayProductResponseVO" resultType="com.sneakalarm.today.dto.TodayProductResponseVO">
 		SELECT	id, model_kr, imgSrc_home, deliveryTypes
 		FROM 	product
-		WHERE	status='active'
+		WHERE	status='active' OR status='ready'
 	</select>
 
 	<select id="getProductByDeliveryType" parameterType="String"
 		resultType="com.sneakalarm.product.dto.ProductVO">
 		SELECT *
 		FROM product
-		WHERE deliveryTypes LIKE CONCAT('%',#{deliveryType},'%') AND status='active'
+		WHERE deliveryTypes LIKE CONCAT('%',#{deliveryType},'%') AND (status='ready' OR status='active')
 	</select>
 	
 	<delete id="deleteProduct" parameterType="String">
@@ -78,7 +78,7 @@
 	
 	<update id="updateDrawNum" parameterType="com.sneakalarm.product.dto.ProductUpdateDrawNumVO">
 		UPDATE 	product
-			SET		drawNumKorea = #{drawNumKorea}, drawNumOverseas = #{drawNumOverseas}, drawNumFirstcome = #{drawNumFirstcome}
+			SET		drawNumKorea = #{drawNumKorea}, drawNumOverseas = #{drawNumOverseas}, drawNumFirstcome = #{drawNumFirstcome}, drawNumReady = ${drawNumReady}
 		WHERE	id=#{productId}
 	</update>
 

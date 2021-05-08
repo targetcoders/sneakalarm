@@ -43,7 +43,7 @@ public interface ProductService {
 
   void updateDeliveryTypes(UpdateDeliveryTypesVO updateDeliveryTypesVO);
 
-  ArrayList<ProductVO> getProductByDeliveryType(String deliveryType);
-
   ArrayList<TodayProductResponseVO> getTodayProductResponseVO();
+
+  ArrayList<ProductVO> getProductByDeliveryType(String delivery);
 }

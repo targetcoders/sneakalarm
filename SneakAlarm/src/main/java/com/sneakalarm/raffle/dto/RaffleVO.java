@@ -21,6 +21,7 @@ public class RaffleVO {
   private String endTime;
   private String specialCase;
   private String content;
+  private String status;
 
   public RaffleVO(RaffleInsertVO raffleInsertVO) {
     specialCase = raffleInsertVO.getSpecialCase();
