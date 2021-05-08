@@ -7,12 +7,14 @@ public class ProductUpdateDrawNumVO {
 	Integer drawNumKorea;
 	Integer drawNumOverseas;
 	Integer drawNumFirstcome;
+	Integer drawNumReady;
 	Integer productId;
 	
-	public ProductUpdateDrawNumVO(Integer drawNumKorea, Integer drawNumOverseas, Integer drawNumFirstcome, Integer productId){
+	public ProductUpdateDrawNumVO(Integer drawNumKorea, Integer drawNumOverseas, Integer drawNumFirstcome, Integer drawNumReady, Integer productId){
 		this.drawNumKorea = drawNumKorea;
 		this.drawNumOverseas = drawNumOverseas;
 		this.drawNumFirstcome = drawNumFirstcome;
+		this.drawNumReady = drawNumReady;
 		this.productId = productId;
 	}
 	
@@ -20,10 +22,11 @@ public class ProductUpdateDrawNumVO {
 		
 	}
 
-	public void initProductUpdateDrawNumVO(Integer drawNumKorea, Integer drawNumOverseas, Integer drawNumFirstcome, Integer productId){
+	public void initProductUpdateDrawNumVO(Integer drawNumKorea, Integer drawNumOverseas, Integer drawNumFirstcome, Integer drawNumReady, Integer productId){
 		this.drawNumKorea = drawNumKorea;
 		this.drawNumOverseas = drawNumOverseas;
 		this.drawNumFirstcome = drawNumFirstcome;
+		this.drawNumReady = drawNumReady;
 		this.productId = productId;
 	}
 }
