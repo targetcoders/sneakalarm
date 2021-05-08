@@ -32,13 +32,43 @@
   border-radius:8px/8px;
   margin: 5px;
 }
+.todayReadyDrawContent {
+  width: 175px;
+  font-size:14px;
+  text-align:center;
+  color: black;
+  cursor: pointer;
+  background-color:white;
+  opacity:0.9;
+  box-shadow: 0px 0px 10px 1.5px rgba(0,0,0,0.04);
+  border-radius:8px/8px;
+  margin: 5px;
+}
 .draw-end-datetime {
   font-weight: bold;
 }
 .draw-start-datetime {
   font-weight: bold;
 }
-
+.ready-draw-end-datetime{
+  color: #b8b8b8;
+  font-weight: bold;
+}
+.ready-draw-start-datetime{
+  color: #b8b8b8;
+  font-weight: bold;
+}
+.ready-draw-storeName {
+  color: #b8b8b8;
+}
+.ready-draw-raffle-type-raffle {
+  font-weight: bold;
+  color: #b8b8b8;
+}
+.ready-draw-raffle-type-firstcome {
+  font-weight: bold;
+  color: #b8b8b8;
+}
 .draw-raffle-type-firstcome {
   font-weight: bold;
   color: #FE0100;
