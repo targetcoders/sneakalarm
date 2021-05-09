@@ -21,28 +21,28 @@ function getActiveProductList(){
             let imgSrc_home = data.imgSrc_home;
             let model_kr = data.model_kr;
             for(let i in splitedType) {
-                if (splitedType[i] == '직배') {
-                  if($('#todayDirectDraw-'+id).length > 0) continue;
-                  $('#activeDraws-direct')
-                  .append('<div id="todayDirectDraw-'+id+'" class="todayDrawContainer d-flex flex-column justify-content-center align-items-center"><a href=/product-detail?id='+id+'><img id="todayProductImg-'+id+'" class="todayProductImg" src="'+imgSrc_home+'"></a></div>')
-                  .append('<div class="todayDraw-model_kr">'+model_kr+'</div>')
-                  .append('<div class="todayDrawContentDirect-'+id+' todayDrawContentBox d-flex flex-wrap justify-content-center"></div>');
-                  getDrawsByDeliveryType(splitedType[i]);
-                } else if (splitedType[i] == '배대지') {
-                  if($('#todayAgentDraw-'+id).length > 0) continue;
-                  $('#activeDraws-agent')
-                  .append('<div id="todayAgentDraw-'+id+'" class="todayDrawContainer d-flex flex-column justify-content-center align-items-center"><a href=/product-detail?id='+id+'><img id="todayProductImg-'+id+'" class="todayProductImg" src="'+imgSrc_home+'"></a></div>')
-                  .append('<div class="todayDraw-model_kr">'+model_kr+'</div>')
-                  .append('<div class="todayDrawContentAgent-'+id+' todayDrawContentBox d-flex flex-wrap justify-content-center"></div>');
-                  getDrawsByDeliveryType(splitedType[i]);
-                } else if (splitedType[i] == '방문수령' || splitedType[i] == '택배배송') {
-                  if($('#todayKoreaDraw-'+id).length > 0)  continue;
-                  $('#activeDraws-korea')
-                  .append('<div id="todayKoreaDraw-'+id+'" class="todayDrawContainer d-flex flex-column justify-content-center align-items-center"><a href=/product-detail?id='+id+'><img id="todayProductImg-'+id+'" class="todayProductImg" src="'+imgSrc_home+'"></a></div>')
-                  .append('<div class="todayDraw-model_kr">'+model_kr+'</div>')
-                  .append('<div class="todayDrawContentKorea-'+id+' todayDrawContentBox d-flex flex-wrap justify-content-center"></div>');
-                  getDrawsByDeliveryType(splitedType[i]);
-                }
+              if (splitedType[i] == '직배') {
+                if($('#todayDirectDraw-'+id).length > 0) continue;
+                $('#activeDraws-direct')
+                .append('<div id="todayDirectDraw-'+id+'" class="todayDrawContainer d-flex flex-column justify-content-center align-items-center"><a href=/product-detail?id='+id+'><img id="todayProductImg-'+id+'" class="todayProductImg" src="'+imgSrc_home+'"></a></div>')
+                .append('<div class="todayDraw-model_kr">'+model_kr+'</div>')
+                .append('<div class="todayDrawContentDirect-'+id+' todayDrawContentBox d-flex flex-wrap justify-content-center"></div>');
+                getDrawsByDeliveryType(splitedType[i]);
+              } else if (splitedType[i] == '배대지') {
+                if($('#todayAgentDraw-'+id).length > 0) continue;
+                $('#activeDraws-agent')
+                .append('<div id="todayAgentDraw-'+id+'" class="todayDrawContainer d-flex flex-column justify-content-center align-items-center"><a href=/product-detail?id='+id+'><img id="todayProductImg-'+id+'" class="todayProductImg" src="'+imgSrc_home+'"></a></div>')
+                .append('<div class="todayDraw-model_kr">'+model_kr+'</div>')
+                .append('<div class="todayDrawContentAgent-'+id+' todayDrawContentBox d-flex flex-wrap justify-content-center"></div>');
+                getDrawsByDeliveryType(splitedType[i]);
+              } else if (splitedType[i] == '방문수령' || splitedType[i] == '택배배송') {
+                if($('#todayKoreaDraw-'+id).length > 0)  continue;
+                $('#activeDraws-korea')
+                .append('<div id="todayKoreaDraw-'+id+'" class="todayDrawContainer d-flex flex-column justify-content-center align-items-center"><a href=/product-detail?id='+id+'><img id="todayProductImg-'+id+'" class="todayProductImg" src="'+imgSrc_home+'"></a></div>')
+                .append('<div class="todayDraw-model_kr">'+model_kr+'</div>')
+                .append('<div class="todayDrawContentKorea-'+id+' todayDrawContentBox d-flex flex-wrap justify-content-center"></div>');
+                getDrawsByDeliveryType(splitedType[i]);
+              }
             }
           });
         }
@@ -82,17 +82,15 @@ function getDrawsByDeliveryType(deliveryType){
                   $('.todayDrawContentKorea-'+resultList[i].productId)
                   .append('<a id="drawCard-'+id+'" href="'+drawUrl+'" style="text-decoration: none;"><div class="todayDrawContent"><div><span class="draw-raffle-type-firstcome">'+raffleType+'</span>&nbsp;-&nbsp;'+storeName+'</div><div class="draw-start-datetime">시작: '+startDate+'&nbsp;&nbsp;'+startTime+'</div></div></a>');
                 }
-            }
-            else if(delivery == '직배'){
+            } else if (delivery == '직배') {
               if(raffleType == '응모'){
-                 $('.todayDrawContentDirect-'+resultList[i].productId)
-                 .append('<a id="drawCard-'+id+'" href="'+drawUrl+'" style="text-decoration: none;"><div class="todayDrawContent"><div><span class="draw-raffle-type-raffle">'+raffleType+'</span>&nbsp;-&nbsp;'+storeName+'</div><div class="draw-end-datetime">종료: '+endDate+'&nbsp;&nbsp;'+endTime+'</div></div></a>');
-                } else {
-                 $('.todayDrawContentDirect-'+resultList[i].productId)
-                 .append('<a id="drawCard-'+id+'" href="'+drawUrl+'" style="text-decoration: none;"><div class="todayDrawContent"><div><span class="draw-raffle-type-firstcome">'+raffleType+'</span>&nbsp;-&nbsp;'+storeName+'</div><div class="draw-start-datetime">시작: '+startDate+'&nbsp;&nbsp;'+startTime+'</div></div></a>');
-                }
-            }
-            else {
+                $('.todayDrawContentDirect-'+resultList[i].productId)
+                .append('<a id="drawCard-'+id+'" href="'+drawUrl+'" style="text-decoration: none;"><div class="todayDrawContent"><div><span class="draw-raffle-type-raffle">'+raffleType+'</span>&nbsp;-&nbsp;'+storeName+'</div><div class="draw-end-datetime">종료: '+endDate+'&nbsp;&nbsp;'+endTime+'</div></div></a>');
+              } else {
+                $('.todayDrawContentDirect-'+resultList[i].productId)
+                .append('<a id="drawCard-'+id+'" href="'+drawUrl+'" style="text-decoration: none;"><div class="todayDrawContent"><div><span class="draw-raffle-type-firstcome">'+raffleType+'</span>&nbsp;-&nbsp;'+storeName+'</div><div class="draw-start-datetime">시작: '+startDate+'&nbsp;&nbsp;'+startTime+'</div></div></a>');
+              }
+            } else {
               if(raffleType == '응모'){
                 $('.todayDrawContentAgent-'+resultList[i].productId)
                 .append('<a id="drawCard-'+id+'" href="'+drawUrl+'" style="text-decoration: none;"><div class="todayDrawContent"><div><span class="draw-raffle-type-raffle">'+raffleType+'</span>&nbsp;-&nbsp;'+storeName+'</div><div class="draw-end-datetime">종료: '+endDate+'&nbsp;&nbsp;'+endTime+'</div></div></a>');
@@ -102,7 +100,7 @@ function getDrawsByDeliveryType(deliveryType){
               }
             }
           } else {
-              if(delivery == '택배배송' || delivery == '방문수령'){
+            if(delivery == '택배배송' || delivery == '방문수령'){
               if(raffleType == '응모'){
                 $('.todayDrawContentKorea-'+resultList[i].productId)
                 .append('<a id="drawCard-'+id+'" href="'+drawUrl+'" style="text-decoration: none;"><div class="todayReadyDrawContent"><div><span class="ready-draw-raffle-type-raffle">'+raffleType+'</span>&nbsp;<span class="ready-draw-storeName">-&nbsp;'+storeName+'</span></div><div class="ready-draw-start-datetime">시작: '+startDate+'&nbsp;&nbsp;'+startTime+'</div><div class="ready-draw-end-datetime">종료: '+endDate+'&nbsp;&nbsp;'+endTime+'</div></div></a>');
@@ -110,13 +108,12 @@ function getDrawsByDeliveryType(deliveryType){
                 $('.todayDrawContentKorea-'+resultList[i].productId)
                 .append('<a id="drawCard-'+id+'" href="'+drawUrl+'" style="text-decoration: none;"><div class="todayReadyDrawContent"><div><span class="ready-draw-raffle-type-firstcome">'+raffleType+'</span>&nbsp;<span class="ready-draw-storeName">-&nbsp;'+storeName+'</span></div><div class="draw-start-datetime">시작: '+startDate+'&nbsp;&nbsp;'+startTime+'</div></div></a>');
               }
-            }
-            else if(delivery == '직배'){
+            } else if(delivery == '직배'){
               if(raffleType == '응모'){
                 $('.todayDrawContentDirect-'+resultList[i].productId)
                 .append('<a id="drawCard-'+id+'" href="'+drawUrl+'" style="text-decoration: none;"><div class="todayReadyDrawContent"><div><span class="ready-draw-raffle-type-raffle">'+raffleType+'</span>&nbsp;<span class="ready-draw-storeName">-&nbsp;'+storeName+'</span></div><div class="ready-draw-start-datetime">시작: '+startDate+'&nbsp;&nbsp;'+startTime+'</div><div class="ready-draw-end-datetime">종료: '+endDate+'&nbsp;&nbsp;'+endTime+'</div></div></a>');
               } else {
-               $('.todayDrawContentDirect-'+resultList[i].productId)
+                $('.todayDrawContentDirect-'+resultList[i].productId)
                 .append('<a id="drawCard-'+id+'" href="'+drawUrl+'" style="text-decoration: none;"><div class="todayReadyDrawContent"><div><span class="ready-draw-raffle-type-firstcome">'+raffleType+'</span>&nbsp;<span class="ready-draw-storeName">-&nbsp;'+storeName+'</span></div><div class="draw-end-datetime">시작: '+startDate+'&nbsp;&nbsp;'+startTime+'</div></div></a>');
               }
             } else {

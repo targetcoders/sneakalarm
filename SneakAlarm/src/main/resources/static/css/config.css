@@ -21,9 +21,14 @@ body, html {
 .container .information {
 	width: 390px;
 }
-.nav-bogo{
-	width:290px;
-	height:60px;
+.nav-bogo {
+	width:192px;
+	height:40px;
+}
+.nav-search-icon {
+  width: 25px;
+  height: 25px;
+  margin-right: 25px;
 }
 #product-detail-container {
 	width: 400px;
@@ -33,6 +38,15 @@ body, html {
 	.container .information {
 		width: 750px;
 	}
+	.nav-bogo {
+  	width:290px;
+  	height:60px;
+  }
+  .nav-search-icon {
+    width: 35px;
+    height: 35px;
+    margin-right: 35px;
+  }
 	.navbar-btn img {
 		height: 45px;
 		width: 135px;
