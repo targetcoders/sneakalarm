@@ -94,11 +94,6 @@ input::placeholder {
   text-align:center;
   font-size: 14px;
 }
-#clock {
-  font-style: italic;
-  font-weight: bold;
-  font-size: 14px;
-}
 
 @media ( min-width : 768px) {
 	.home-product {
@@ -143,10 +138,5 @@ input::placeholder {
     display:none;
     border: 3px solid #FE0100;
     text-align:center;
-  }
-	#clock {
-    font-style: italic;
-    font-weight: bold;
-    font-size: 18px;
   }
 }

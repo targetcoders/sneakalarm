@@ -213,11 +213,6 @@ hr {
 	  width:700px;
 	  margin-top:75px;
   }
-  #clock {
-    font-style: italic;
-    font-weight: bold;
-    font-size: 18px;
-  }
 }
 @media ( min-width : 1000px) {
 #raffle-container {
