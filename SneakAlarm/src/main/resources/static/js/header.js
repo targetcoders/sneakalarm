@@ -14,3 +14,13 @@ function showNavBar(){
     }
 }
 
+function toggleSearchBar(flag) {
+  if(flag == true){
+    $('#searchBar').show();
+    $('#searchBar').focus();
+  }
+  else{
+    $('#searchBar').hide();
+    $('#searchBar').blur();
+  }
+}
