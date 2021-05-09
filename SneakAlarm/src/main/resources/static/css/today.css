@@ -1,4 +1,8 @@
 @charset "UTF-8";
+
+#today-main-container {
+  margin-top: 40px;
+}
 #activeDraws-korea {
 }
 #activeDraws-direct {
@@ -9,7 +13,11 @@
   width: 375px;
   margin-bottom: 52px;
 }
-
+#clock {
+  font-style: italic;
+  font-weight: bold;
+  font-size: 14px;
+}
 
 .todayDrawContainer {
   width: 375px;

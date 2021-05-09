@@ -1,0 +1,17 @@
+@charset "EUC-KR";
+
+#navbar__search-icon {
+  cursor: pointer;
+  width: 25px;
+  height: 25px;
+  margin-right: 25px;
+}
+
+@media ( min-width : 768px) {
+  #navbar__search-icon {
+    cursor: pointer;
+    width: 35px;
+    height: 35px;
+    margin-right: 35px;
+  }
+}

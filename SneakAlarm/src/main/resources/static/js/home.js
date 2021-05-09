@@ -3,7 +3,16 @@ $('document').ready(function() {
 	var getFlag = 1;
 	var passFlag = 1;
 	var keyFlag = 1;
+	var searchBarShowingFlag = false;
 	var page = 0;
+
+	$('#navbar__search-icon').click(
+    function(){
+      searchBarShowingFlag = (searchBarShowingFlag) ? false : true;
+	    toggleSearchBar(searchBarShowingFlag);
+    }
+	);
+
 	$.ajax({
 		url: '/getEndedProductCardList',
 		type: 'get',
@@ -59,7 +68,7 @@ $('document').ready(function() {
 		}
 	});
 	
-	$('#searchBox').keyup(function(key){
+	$('#searchBar').keyup(function(key){
 	if(keyFlag == 1){
 		if(key.keyCode != 13){
 			getFlag=0;
@@ -73,7 +82,7 @@ $('document').ready(function() {
 			$('#endedDrawProductCardsDiv').hide();
 			$('.home-readyDrawNum').hide();
 			
-			var keyword=$('#searchBox').val();
+			var keyword=$('#searchBar').val();
 			if(keyword == ''){
 				getFlag=1;
 				$('.home-product').show();

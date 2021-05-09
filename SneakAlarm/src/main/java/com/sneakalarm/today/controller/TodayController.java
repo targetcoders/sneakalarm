@@ -5,7 +5,6 @@ import com.sneakalarm.product.service.ProductService;
 import com.sneakalarm.raffle.dto.RaffleListByDeliveryTypeVO;
 import com.sneakalarm.raffle.dto.RaffleVO;
 import com.sneakalarm.today.dto.TodayDrawResponseVO;
-import com.sneakalarm.today.dto.TodayGetProductByDeliveryTypeVO;
 import com.sneakalarm.today.dto.TodayProductResponseVO;
 import com.sneakalarm.raffle.service.RaffleService;
 import java.util.ArrayList;
