@@ -16,8 +16,11 @@ public class TodayDrawVO {
   private String status;
   private String startWeek;
   private String endWeek;
+  private String specialCase;
 
-  public TodayDrawVO(String id, String url, String storeName, String raffleType, String startDate, String startTime, String endDate, String endTime, String delivery, String status, String startWeek, String endWeek) {
+  public TodayDrawVO(String id, String url, String storeName, String raffleType, String startDate,
+      String startTime, String endDate, String endTime, String delivery, String status,
+      String startWeek, String endWeek, String specialCase) {
     if(raffleType.equals("선착순"))
       raffleType = "선착";
     this.id = id;
@@ -32,5 +35,6 @@ public class TodayDrawVO {
     this.status = status;
     this.startWeek = startWeek;
     this.endWeek = endWeek;
+    this.specialCase = specialCase;
   }
 }
