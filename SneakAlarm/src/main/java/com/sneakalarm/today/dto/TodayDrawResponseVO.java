@@ -1,6 +1,8 @@
 package com.sneakalarm.today.dto;
 
 import com.sneakalarm.raffle.dto.RaffleVO;
+import com.sneakalarm.util.DateUtil;
+import com.sneakalarm.util.StringUtil;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
@@ -16,7 +18,7 @@ public class TodayDrawResponseVO {
   private ArrayList<TodayDrawVO> todayDraws;
   private SortingTodayDraws sortingTodayDRaws = new SortingTodayDraws();
 
-  public void setTodayDraws(ArrayList<RaffleVO> raffleList) {
+  public void setTodayDraws(ArrayList<RaffleVO> raffleList) throws Exception {
     for (RaffleVO raffleVO : raffleList) {
       TodayDrawVO todayDraw = getTodayDraw(raffleVO);
       todayDraws.add(todayDraw);
@@ -40,10 +42,12 @@ public class TodayDrawResponseVO {
     }
   }
 
-  private TodayDrawVO getTodayDraw(RaffleVO raffleVO) {
-    return new TodayDrawVO(raffleVO.getId(), raffleVO.getUrl(), raffleVO.getStoreName(), raffleVO.getRaffleType(),
-        raffleVO.getStartDate(),
-        raffleVO.getStartTime(), raffleVO.getEndDate(), raffleVO.getEndTime(), raffleVO.getDelivery(), raffleVO.getStatus());
+  private TodayDrawVO getTodayDraw(RaffleVO raffleVO) throws Exception {
+    String startWeek = DateUtil.getWeek(raffleVO.getStartDate(), "yyyy-MM-dd");
+    String endWeek = DateUtil.getWeek(raffleVO.getEndDate(), "yyyy-MM-dd");
+    return new TodayDrawVO(raffleVO.getId(), raffleVO.getUrl(), raffleVO.getStoreName(),
+        raffleVO.getRaffleType(), raffleVO.getStartDate(), raffleVO.getStartTime(),
+        raffleVO.getEndDate(), raffleVO.getEndTime(), raffleVO.getDelivery(), raffleVO.getStatus(),startWeek,endWeek);
   }
 
   public TodayDrawResponseVO() {
