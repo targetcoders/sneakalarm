@@ -1,6 +1,5 @@
 package com.sneakalarm.raffle.dto;
 
-import com.sneakalarm.raffle.RaffleConst;
 import lombok.Data;
 
 @Data
