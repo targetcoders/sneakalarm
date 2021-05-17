@@ -440,7 +440,7 @@ function move(id){
 </div>
 <div class="container-fluid d-flex flex-wrap justify-content-center align-items-center firstcome-list-container">
   <div class="container-fluid d-flex justify-content-center">
-		<div id="endedFirstcomeCardsDiv" is="0"><span id="endedFirstcomeCardsName">지난 선착순 보기: </span><span id="endedFirstcomeCardsNum" th:text="|${endedFirstcomeNum}|"></span></div>
+		<div id="endedFirstcomeCardsDiv" is="0"><span id="endedFirstcomeCardsName">지난 선착순 보기:&nbsp;</span><span id="endedFirstcomeCardsNum" th:text="|${endedFirstcomeNum}|"></span></div>
 	</div>
 	<div class="detail-raffle w-100" th:each="list : ${endedFirstcomeList}">
 	<div class="d-flex flex-column align-items-center" th:id="|card-${list.id}|">
@@ -658,7 +658,7 @@ function move(id){
 
 <div class="container-fluid d-flex flex-wrap justify-content-center align-items-center raffle-list-container">
 	<div class="container-fluid d-flex justify-content-center">
-		<div id="endedRaffleCardsDiv" is="0"><span id="endedRaffleCards">지난 응모 보기: </span><span id="endedRaffleCardsNum" th:text="|${endedRaffleNum}|"></span></div>
+		<div id="endedRaffleCardsDiv" is="0"><span id="endedRaffleCards">지난 응모 보기:&nbsp;</span><span id="endedRaffleCardsNum" th:text="|${endedRaffleNum}|"></span></div>
 	</div>
 	
 	<div class="detail-raffle w-100" th:each="list : ${endedRaffleList}">
