@@ -39,7 +39,10 @@
 				</div>
 			</div>
 		</div>
-		<div th:if="${readyCardListNum != 0}" class="home-readyDrawNum"><span class="whiteBoldText">&nbsp;시작전: </span><span id="readyDrawProductCount" class="redBoldText" th:text="${readyCardListNum}"></span>&nbsp;</div>
+
+		<hr class="home__hr" th:if="${readyCardListNum != 0}">
+		<div class="ready-draws-num" th:if="${readyCardListNum != 0}"><h2 style="text-align: center; font-weight:bold;"><span>시작전: </span><span id="readyDrawProductCount" th:text="${readyCardListNum}"></span></h2></div>
+
 		<div id="readyDrawProductCards" class="container-fluid d-flex flex-wrap justify-content-center">
 			<div class="home-product" th:each="list : ${readyCardList}">
 				<div class="d-flex flex-column align-items-center" th:id="|card-${list.id}|">
