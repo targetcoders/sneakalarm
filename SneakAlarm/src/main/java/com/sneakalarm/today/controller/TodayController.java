@@ -28,7 +28,7 @@ public class TodayController {
 
   @GetMapping("/today/drawList")
   public ArrayList<TodayDrawResponseVO> getTodayKorea(
-      @RequestParam("deliveryType") String deliveryType) {
+      @RequestParam("deliveryType") String deliveryType) throws Exception {
     ArrayList<TodayDrawResponseVO> ret = new ArrayList<>();
     String[] deliveryList = deliveryType.split(",");
     for (String delivery : deliveryList) {
@@ -40,7 +40,8 @@ public class TodayController {
     return ret;
   }
 
-  private TodayDrawResponseVO getTodayDrawResponseVO(String deliveryType, ProductVO productVO) {
+  private TodayDrawResponseVO getTodayDrawResponseVO(String deliveryType, ProductVO productVO)
+      throws Exception {
     TodayDrawResponseVO todayDrawResponseVO = new TodayDrawResponseVO();
     todayDrawResponseVO.setProductId(productVO.getId());
     ArrayList<RaffleVO> raffleList = raffleService.getRaffleListByDeliveryType(
