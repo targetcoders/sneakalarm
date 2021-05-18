@@ -219,6 +219,7 @@ public class ProductServiceImpl implements ProductService {
     productVO.setHighestSoldPrice(productInsertVO.getHighestSoldPrice());
     productVO.setSize(productInsertVO.getSize());
     productVO.setCode(productInsertVO.getCode());
+    productVO.setSignatureColor(productInsertVO.getSignatureColor());
     productVO.setReleaseDate(productInsertVO.getReleaseDate());
     if (productInsertVO.getIsChanged().equals("true")) {
       productVO.setLastUpdateDate(getNowDate());
