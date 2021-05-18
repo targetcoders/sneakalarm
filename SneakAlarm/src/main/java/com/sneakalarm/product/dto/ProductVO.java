@@ -10,6 +10,7 @@ public class ProductVO {
   private String model_kr;
   private String model_en;
   private String code;
+  private String signatureColor;
   private String retailPrice;
   private String brand;
   private String content;
@@ -37,6 +38,7 @@ public class ProductVO {
     this.model_kr = productInsertVO.getModel_kr();
     this.model_en = productInsertVO.getModel_en();
     this.code = productInsertVO.getCode();
+    this.signatureColor = productInsertVO.getSignatureColor();
     this.retailPrice = productInsertVO.getRetailPrice();
     this.brand = productInsertVO.getBrand();
     this.content = productInsertVO.getContent();
