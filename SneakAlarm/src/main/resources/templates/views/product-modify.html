@@ -222,6 +222,7 @@ $('document').ready(function(){
 					model_kr: $('#model_kr').val(),
 					model_en: $('#model_en').val(),
 					code: $('#code').val(),
+					signatureColor: $('#signatureColor').val(),
 					retailPrice: $('#retailPrice').val(),
 					brand: $('#brand').val(),
 					content: $('#content').val(),
@@ -322,6 +323,13 @@ $('document').ready(function(){
 			<label for="code" class="col-sm-2 col-form-label text-center">* 코드</label>
 			<div class="col-sm-10">
 				<input type="text" class="form-control" id="code" name="code" th:value="${productVO.code}" required="required"/>
+			</div>
+		</div>
+		<hr>
+		<div class="mb-3 row">
+			<label for="signatureColor" class="col-sm-2 col-form-label text-center">대표 색상</label>
+			<div class="col-sm-10">
+				<input type="text" class="form-control" id="signatureColor" name="signatureColor" th:value="${productVO.signatureColor}"/>
 			</div>
 		</div>
 		<hr>
