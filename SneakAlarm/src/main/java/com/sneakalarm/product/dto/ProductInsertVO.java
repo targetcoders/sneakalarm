@@ -10,6 +10,7 @@ public class ProductInsertVO {
   private String model_kr;
   private String model_en;
   private String code;
+  private String signatureColor;
   private String retailPrice;
   private String brand;
   private String content;
@@ -27,6 +28,7 @@ public class ProductInsertVO {
   private String country;
   private String draw;
   private String deliveryType;
+
 
   public ProductInsertVO() {}
 }
