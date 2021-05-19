@@ -8,7 +8,7 @@
 </th:block>
 
 <header th:fragment="headerFragment">
-<nav class="navbar fixed-top navbar-expand-lg navbar-light d-flex flex-column align-items-center" style="background-color: rgba( 255, 255, 255, 0 ); margin:0; padding-top:0px;">
+<nav id="top-navbar" class="navbar fixed-top navbar-expand-lg navbar-light d-flex flex-column align-items-center" style="background-color: rgba( 255, 255, 255, 0 ); margin:0; padding-top:0px;">
 	<hr class="top-line--blue" sec:authorize="hasRole('ADMIN')" style="border: solid 2px blue; opacity:100; margin-top:0px; margin-bottom:0px; width:100%;">
 	<hr class="top-line--red" sec:authorize="!hasRole('ADMIN')" style="border: solid 2px #fe0100; opacity:100; margin-top:0px; margin-bottom:0px; width:100%;">
 	<div class="d-flex flex-column justify-content-center align-items-center" style="position: relative; width:100%">
