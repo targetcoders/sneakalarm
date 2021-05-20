@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html xmlns="http://www.w3.org/1999/xhtml"  
     xmlns:th="http://www.thymeleaf.org"
     xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
@@ -8,23 +9,49 @@
 </th:block>
 
 <header th:fragment="headerFragment">
-<nav id="top-navbar" class="navbar fixed-top navbar-expand-lg navbar-light d-flex flex-column align-items-center" style="background-color: rgba( 255, 255, 255, 0 ); margin:0; padding-top:0px;">
-	<hr class="top-line--blue" sec:authorize="hasRole('ADMIN')" style="border: solid 2px blue; opacity:100; margin-top:0px; margin-bottom:0px; width:100%;">
-	<hr class="top-line--red" sec:authorize="!hasRole('ADMIN')" style="border: solid 2px #fe0100; opacity:100; margin-top:0px; margin-bottom:0px; width:100%;">
-	<div class="d-flex flex-column justify-content-center align-items-center" style="position: relative; width:100%">
-  	<a href="/">
-			<img th:src="@{image/pc/SneakAlarm_white_870x180.png}" class="nav-bogo" alt="Bogo">
-		</a>
-		<div class="align-self-end" style="position: absolute;">
-			<img th:src="@{image/icon/search_icon.png}" id="navbar__search-icon" alt="search-icon">
+<nav class="navbar-top--container navbar-top-pc navbar fixed-top navbar-expand-lg navbar-light d-flex flex-column align-items-center" style="background-color: rgba( 255, 255, 255, 255 ); margin:0; padding-top:0px;">
+	<hr class="navbar-top-pc top-line--blue" sec:authorize="hasRole('ADMIN')" style="border: solid 2px blue; opacity:100; margin-top:0px; margin-bottom:0px; width:100%;">
+	<hr class="navbar-top-pc top-line--red" sec:authorize="!hasRole('ADMIN')" style="border: solid 2px #fe0100; opacity:100; margin-top:0px; margin-bottom:0px; width:100%;">
+	<div class="navbar-top-pc d-flex flex-column justify-content-center align-self-end" style="position: relative; width:100%">
+		<div class="navbar-top-pc d-flex justify-content-end">
+			<div class="navbar-top-pc clock"></div>
+			<img th:src="@{image/icon/search_icon.png}" class="navbar-top-pc navbar__search-icon" alt="search-icon">
+		</div>
+
+		<div class="d-flex navbar-top-pc justify-content-begin" style="position: absolute; height:100%;">
+				<a class="navbar-top-pc" href="/">
+					<img th:src="@{image/pc/SneakAlarm_white_870x180.png}" class="navbar-top-pc navbar__bogo" alt="Bogo">
+				</a>
+				<div id="navbar-top__menu--today" class="navbar-top-pc navbar-top__menu align-self-end" style="padding-top: 25px; margin-left:10px; font-size:18px; font-style: italic; font-weight:900; cursor: pointer;" onclick="moveToTodayPage()">TODAY</div>
+				<div id="navbar-top__menu--launch" class="navbar-top-pc navbar-top__menu align-self-end" style="padding-top: 25px; margin-left:20px; font-size:18px; font-style: italic; font-weight:900; cursor: pointer;" onclick="moveToLaunchPage()">LAUNCH</div>
 		</div>
 	</div>
 </nav>
 
-<nav id="nav-bottom-mobile" class="navbar fixed-bottom navbar-expand-lg navbar-light d-flex flex-column align-items-center" style="background-color: rgba( 255, 255, 255, 0 ); padding-top:0px;">
-	<div id="nav-bottom-mobile-div" style="background-color:white; opacity:0.90; box-shadow: 0px 0px 10px 1.5px rgba(0,0,0,0.2); border-radius:8px/8px;">
-		<a id="nav-bottom-mobile-div-btn-today" type="button" class="btn btn-default btn-lg" th:href="@{/today}" style="font-style: italic; font-weight:bold;">TODAY</a>
-		<a id="nav-bottom-mobile-div-btn-raunch" type="button" class="btn btn-default btn-lg" th:href="@{/}" style="font-style: italic; font-weight:bold;">LAUNCH</a>
+
+<nav class="navbar-top--container navbar-top-mobile navbar-top-mobile--container navbar fixed-top navbar-expand-lg navbar-light d-flex flex-column align-items-center" style="background-color: rgba( 255, 255, 255, 0 ); margin:0; padding-top:0px;">
+	<hr class="navbar-top-mobile top-line--blue" sec:authorize="hasRole('ADMIN')" style="border: solid 2px blue; opacity:100; margin-top:0px; margin-bottom:0px; width:100%;">
+	<hr class="navbar-top-mobile top-line--red" sec:authorize="!hasRole('ADMIN')" style="border: solid 2px #fe0100; opacity:100; margin-top:0px; margin-bottom:0px; width:100%;">
+	<div class="navbar-top-mobile d-flex flex-column justify-content-center align-items-center" style="position: relative; width:100%">
+		<div class="navbar-top-mobile">
+			<a type="button" class="navbar-top-mobile" href="/">
+				<img th:src="@{image/pc/SneakAlarm_white_870x180.png}" class="navbar-top-mobile navbar__bogo" alt="Bogo">
+			</a>
+		</div>
+		<span class="navbar-top-mobile align-self-begin clock--mobile"></span>
+		<div class="navbar-top-mobile align-self-end" style="position: absolute; height:100%">
+			<div class="navbar-top-mobile d-flex">
+				<img th:src="@{image/icon/search_icon.png}" class="navbar-top-mobile navbar__search-icon" alt="search-icon">
+			</div>
+		</div>
+	</div>
+</nav>
+
+	<nav id="navbar-bottom" class="navbar-bottom--mobile navbar fixed-bottom navbar-expand-lg navbar-light align-items-center">
+	<div id="navbar-bottom--mobile__container" class="navbar-bottom--mobile justify-content-around align-items-center">
+		<span id="navbar-bottom--mobile__menu--today" th:href="@{/today}" class="navbar-bottom--mobile navbar-bottom--mobile__menu" onclick="moveToTodayPage()">TODAY</span>
+		<span class="navbar-bottom--mobile navbar-bottom--mobile__line"></span>
+		<span id="navbar-bottom--mobile__menu--launch" th:href="@{/}" class="navbar-bottom--mobile navbar-bottom--mobile__menu" onclick="moveToLaunchPage()">LAUNCH</span>
 <!--		<a id="nav-bottom-mobile-div-btn-news" type="button" class="btn btn-default btn-lg" onclick="javascript:alert('준비중인 메뉴입니다.');"style="font-style: italic; font-weight:bold;">NEWS</a>-->
 	</div>
 </nav>

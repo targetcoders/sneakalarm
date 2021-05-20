@@ -1,16 +1,16 @@
 function showNavBar(){
     var windowWidth = $(window).width();
     if(windowWidth < 768){
-        $('#nav-bottom-mobile').show();
-        $('#nav-bottom-mobile-div').show();
-        $('#nav-bottom-mobile-div-btn-today').show();
-        $('#nav-bottom-mobile-div-btn-news').show();
+        $('.navbar-bottom--mobile').show();
+
+        $('.navbar-top-mobile').show();
+        $('.navbar-top-pc').hide();
     }
     else {
-        $('#nav-bottom-mobile').hide();
-        $('#nav-bottom-mobile-div').hide();
-        $('#nav-bottom-mobile-div-btn-today').hide();
-        $('#nav-bottom-mobile-div-btn-news').hide();
+        $('.navbar-bottom--mobile').hide();
+
+        $('.navbar-top-mobile').hide();
+        $('.navbar-top-pc').show();
     }
 }
 
@@ -26,12 +26,16 @@ function toggleSearchBar(flag) {
 }
 
 function setShadowboxNavbar(){
+  let windowWidth = $(window).width();
   if (getScrollTop() > 50) {
-    $('#top-navbar').css({'box-shadow': '0px 0px 10px 1.5px rgba(0,0,0,0.1)'});
+    $('.navbar-top--container').css({'box-shadow': '0px 10px 10px -10px rgba(0,0,0,0.1)'});
+    if(windowWidth < 768)
+      $('.clock--mobile').hide();
   } else {
-    $('#top-navbar').css({'box-shadow': '0px 0px 0px 0px rgba(0,0,0,0)'});
+    $('.navbar-top--container').css({'box-shadow': '0px 0px 0px 0px rgba(0,0,0,0)'});
+    if(windowWidth < 768)
+      $('.clock--mobile').show();
   }
-  console.log(getScrollTop());
 }
 
 // 현재 스크롤한 높이를 구하는 함수
@@ -47,4 +51,14 @@ function getDocumentHeight() {
 		body.scrollHeight, body.offsetHeight,
 		html.clientHeight, html.scrollHeight, html.offsetHeight
 	);
+}
+
+function moveToTodayPage() {
+  location.replace("/today");
+  $('.navbar-top__menu').css("#585858");
+}
+
+function moveToLaunchPage() {
+  location.replace("/");
+  $('.navbar-top__menu').css("#585858");
 }

@@ -65,10 +65,7 @@
   });
   
 function printClock() {
-    
-    var clock = document.getElementById("clock");            // 출력할 장소 선택
-    if(clock == null)
-    	return;
+
     var currentDate = new Date();                                     // 현재시간
     var calendar = (currentDate.getMonth()+1) + "/" + currentDate.getDate() // 현재 날짜
     var day = currentDate.getDay();
@@ -77,8 +74,9 @@ function printClock() {
     var currentMinute = addZeros(currentDate.getMinutes() ,2);
     var currentSeconds =  addZeros(currentDate.getSeconds(),2);
     
-    clock.innerHTML = calendar+" "+week[day]+" <span style=\"color:#fe0100\">"+currentHours+":"+currentMinute+":"+currentSeconds+"</span>";
-    
+    $('.clock').html("<div><span>"+calendar+" "+week[day]+"</span> <span style=\"color:#fe0100\">"+currentHours+":"+currentMinute+":"+currentSeconds+"</span></div>");
+    $('.clock--mobile').html("<div><span>"+calendar+" "+week[day]+"</span> <span style=\"color:#fe0100\">"+currentHours+":"+currentMinute+":"+currentSeconds+"</span></div>");
+
     setTimeout("printClock()",1000);         // 1초마다 printClock() 함수 호출
 }
 
