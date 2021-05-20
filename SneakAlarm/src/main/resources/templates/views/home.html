@@ -7,6 +7,14 @@
 
 <th:block layout:fragment="css">
 	<link rel="stylesheet" th:href="@{/css/home.css}" type="text/css">
+	<style>
+	  #navbar-top__menu--launch {
+	    color: #000000;
+	  }
+	  #navbar-bottom--mobile__menu--launch {
+	    color: #000000;
+	  }
+	</style>
 </th:block>
 <th:block layout:fragment="script">
 	<script type="text/javascript" th:src="@{js/home.js}" charset="utf-8"></script>
@@ -15,7 +23,6 @@
 <div layout:fragment="content">
 	<div class="container-fluid d-flex flex-wrap justify-content-center main-container">
 		<div style="margin-bottom: 10px;">
-			<div id="clock" class="text-center"></div>
 			<div sec:authorize="hasRole('ADMIN')" class="d-flex justify-content-center">
   			<a href="product-insert" style="margin-bottom:15px">
 					INSERT-PRODUCT
