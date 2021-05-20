@@ -78,6 +78,7 @@ input::placeholder {
   border: 3px solid #FE0100;
   text-align:center;
   font-size: 14px;
+  margin-top: 15px;
 }
 .home__hr {
   margin-top: 26px;
