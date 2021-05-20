@@ -6,7 +6,7 @@ $('document').ready(function() {
 	var searchBarShowingFlag = false;
 	var page = 0;
 
-	$('#navbar__search-icon').click(
+	$('.navbar__search-icon').click(
     function(){
       searchBarShowingFlag = (searchBarShowingFlag) ? false : true;
 	    toggleSearchBar(searchBarShowingFlag);
