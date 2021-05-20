@@ -21,30 +21,17 @@ body, html {
 .container .information {
 	width: 390px;
 }
-.nav-bogo {
-	width:192px;
-	height:40px;
-}
 #product-detail-container {
 	width: 400px;
 }
 .main-container {
-  margin-top: 40px;
-}
-#clock {
-  font-style: italic;
-  font-weight: bold;
-  font-size: 14px;
+  margin-top: 50px;
 }
 
 @media ( min-width : 768px) {
 	.container .information {
 		width: 750px;
 	}
-	.nav-bogo {
-  	width:290px;
-  	height:60px;
-  }
 	.navbar-btn img {
 		height: 45px;
 		width: 135px;
@@ -65,9 +52,5 @@ body, html {
 	.main-container {
     margin-top: 65px;
   }
-  #clock {
-    font-style: italic;
-    font-weight: bold;
-    font-size: 18px;
-  }
+
 }

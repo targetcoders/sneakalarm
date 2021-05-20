@@ -6,3 +6,4 @@
 *.log
 *.sql
 *.sqlite
+*.pkcs12
