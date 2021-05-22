@@ -9,7 +9,7 @@
 </th:block>
 
 <header th:fragment="headerFragment">
-<nav class="navbar-top--container navbar-top-pc navbar fixed-top navbar-expand-lg navbar-light d-flex flex-column align-items-center" style="background-color: rgba( 255, 255, 255, 255 ); margin:0; padding-top:0px;">
+<nav class="navbar-top--pc__container navbar-top-pc navbar fixed-top navbar-expand-lg navbar-light d-flex flex-column align-items-center" style="background-color: rgba( 255, 255, 255, 255 ); margin:0; padding-top:0px;">
 	<hr class="navbar-top-pc top-line--blue" sec:authorize="hasRole('ADMIN')" style="border: solid 2px blue; opacity:100; margin-top:0px; margin-bottom:0px; width:100%;">
 	<hr class="navbar-top-pc top-line--red" sec:authorize="!hasRole('ADMIN')" style="border: solid 2px #fe0100; opacity:100; margin-top:0px; margin-bottom:0px; width:100%;">
 	<div class="navbar-top-pc d-flex flex-column justify-content-center align-self-end" style="position: relative; width:100%">
@@ -20,22 +20,22 @@
 
 		<div class="d-flex navbar-top-pc justify-content-begin" style="position: absolute; height:100%;">
 				<a class="navbar-top-pc" href="/">
-					<img th:src="@{image/pc/SneakAlarm_white_870x180.png}" class="navbar-top-pc navbar__bogo" alt="Bogo">
+					<img th:src="@{image/pc/SneakAlarm_white_870x180.png}" class="navbar-top-pc navbar__bogo" alt="SneakAlarm">
 				</a>
-				<div id="navbar-top__menu--today" class="navbar-top-pc navbar-top__menu align-self-end" style="padding-top: 25px; margin-left:10px; font-size:18px; font-style: italic; font-weight:900; cursor: pointer;" onclick="moveToTodayPage()">TODAY</div>
+				<div id="navbar-top__menu--today" class="navbar-top-pc navbar-top__menu align-self-end" style="padding-top: 25px; margin-left:10px; font-size:18px; font-style: italic; font-weight:900; cursor: pointer;" onclick="moveToNowPage()">NOW</div>
 				<div id="navbar-top__menu--launch" class="navbar-top-pc navbar-top__menu align-self-end" style="padding-top: 25px; margin-left:20px; font-size:18px; font-style: italic; font-weight:900; cursor: pointer;" onclick="moveToLaunchPage()">LAUNCH</div>
 		</div>
 	</div>
 </nav>
 
 
-<nav class="navbar-top--container navbar-top-mobile navbar-top-mobile--container navbar fixed-top navbar-expand-lg navbar-light d-flex flex-column align-items-center" style="background-color: rgba( 255, 255, 255, 0 ); margin:0; padding-top:0px;">
+<nav class="navbar-top--mobile__container navbar-top-mobile navbar-top-mobile--container navbar fixed-top navbar-expand-lg navbar-light d-flex flex-column align-items-center" style="background-color: rgba( 255, 255, 255, 0 ); margin:0; padding-top:0px;">
 	<hr class="navbar-top-mobile top-line--blue" sec:authorize="hasRole('ADMIN')" style="border: solid 2px blue; opacity:100; margin-top:0px; margin-bottom:0px; width:100%;">
 	<hr class="navbar-top-mobile top-line--red" sec:authorize="!hasRole('ADMIN')" style="border: solid 2px #fe0100; opacity:100; margin-top:0px; margin-bottom:0px; width:100%;">
 	<div class="navbar-top-mobile d-flex flex-column justify-content-center align-items-center" style="position: relative; width:100%">
 		<div class="navbar-top-mobile">
-			<a type="button" class="navbar-top-mobile" href="/">
-				<img th:src="@{image/pc/SneakAlarm_white_870x180.png}" class="navbar-top-mobile navbar__bogo" alt="Bogo">
+			<a class="navbar-top-mobile" href="/">
+				<img th:src="@{image/pc/SneakAlarm_white_870x180.png}" class="navbar-top-mobile navbar__bogo" alt="SneakAlarm">
 			</a>
 		</div>
 		<span class="navbar-top-mobile align-self-begin clock--mobile"></span>
@@ -49,8 +49,8 @@
 
 	<nav id="navbar-bottom" class="navbar-bottom--mobile navbar fixed-bottom navbar-expand-lg navbar-light align-items-center">
 	<div id="navbar-bottom--mobile__container" class="navbar-bottom--mobile justify-content-around align-items-center">
-		<span id="navbar-bottom--mobile__menu--today" th:href="@{/today}" class="navbar-bottom--mobile navbar-bottom--mobile__menu" onclick="moveToTodayPage()">TODAY</span>
-		<span class="navbar-bottom--mobile navbar-bottom--mobile__line"></span>
+		<span id="navbar-bottom--mobile__menu--today" th:href="@{/now}" class="navbar-bottom--mobile navbar-bottom--mobile__menu" onclick="moveToNowPage()">NOW</span>
+
 		<span id="navbar-bottom--mobile__menu--launch" th:href="@{/}" class="navbar-bottom--mobile navbar-bottom--mobile__menu" onclick="moveToLaunchPage()">LAUNCH</span>
 <!--		<a id="nav-bottom-mobile-div-btn-news" type="button" class="btn btn-default btn-lg" onclick="javascript:alert('준비중인 메뉴입니다.');"style="font-style: italic; font-weight:bold;">NEWS</a>-->
 	</div>
