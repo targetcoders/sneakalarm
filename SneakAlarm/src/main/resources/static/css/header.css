@@ -14,6 +14,7 @@
 }
 .clock--mobile {
   font-style: italic;
+  font-weight: bold;
   font-size: 12px;
   color: #585858;
 }
@@ -64,6 +65,7 @@
     margin-right: 25px;
     font-style: italic;
     font-size: 12px;
+    font-weight: bold;
     color: #585858;
     padding-top: 30px;
   }
