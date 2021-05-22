@@ -21,12 +21,12 @@ public class TodayController {
   @Autowired
   RaffleService raffleService;
 
-  @GetMapping("/today/productList")
+  @GetMapping("/now/productList")
   public ArrayList<TodayProductResponseVO> getProductList(){
     return productService.getTodayProductResponseVO();
   }
 
-  @GetMapping("/today/drawList")
+  @GetMapping("/now/drawList")
   public ArrayList<TodayDrawResponseVO> getTodayKorea(
       @RequestParam("deliveryType") String deliveryType) throws Exception {
     ArrayList<TodayDrawResponseVO> ret = new ArrayList<>();
