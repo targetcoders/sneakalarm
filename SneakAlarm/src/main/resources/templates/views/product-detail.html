@@ -273,13 +273,13 @@ function move(id){
 <div id="raffle-container" class="container-fluid d-flex flex-wrap justify-content-center align-items-start">
 <div class="raffle-inner-container">
 <div class="container-fluid d-flex flex-wrap justify-content-center align-items-center firstcome-list-container">	
-	<div id="goingFirstcomeDiv" class="raffleCards-head"><span id="goingFirstcomeName">&nbsp;국내 선착순: </span><span id="goingFirstcomeNum" th:text="|${goingFirstcomeNum+readyFirstcomeNum}|"></span>&nbsp;</div>
+	<div id="goingFirstcomeDiv" class="draws-numbers"><span id="goingFirstcomeName">&nbsp;국내 선착순: </span><span id="goingFirstcomeNum" th:text="|${goingFirstcomeNum+readyFirstcomeNum}|"></span>&nbsp;</div>
 	<div class="detail-raffle w-100  goingFirstcome" th:each="list : ${goingFirstcomeList}">
 		<div class="d-flex flex-column align-items-center" th:id="|card-${list.id}|">
 		<div class="container d-flex flex-column raffleCardDetail">
 	
 		<div class="d-flex drawCard" th:attr="url=${list.url}">
-			<div class="d-flex flex-column justify-content-center align-items-center" style="margin-right:20px">
+			<div class="d-flex flex-column justify-content-center align-items-center" style="margin-right:10px">
 				<img th:src="${list.imgSrc}" style="height:70px; width:70px;"/>
 			</div>
 			<div>
@@ -306,7 +306,7 @@ function move(id){
 		<div class="container d-flex flex-column raffleCardDetail">
 	
 		<div class="d-flex drawCard" th:attr="url=${list.url}">
-			<div class="d-flex flex-column justify-content-center align-items-center" style="margin-right:20px">
+			<div class="d-flex flex-column justify-content-center align-items-center" style="margin-right:10px">
 				<img th:src="${list.imgSrc}" style="height:70px; width:70px;"/>
 			</div>
 			<div>
@@ -330,14 +330,14 @@ function move(id){
 	</div>
 </div>
 <div id="container-goingFirstcome-direct" class="container-fluid d-flex flex-wrap justify-content-center align-items-center firstcome-list-container">
-	<div id="goingFirstcomeDiv-direct" class="raffleCards-head"><span id="goingFirstcomeName-direct">&nbsp;직배 선착순: </span><span id="goingFirstcomeNum-direct" th:text="|${goingFirstcomeNum_direct+readyFirstcomeNum_direct}|"></span>&nbsp;</div>
+	<div id="goingFirstcomeDiv-direct" class="draws-numbers"><span id="goingFirstcomeName-direct">&nbsp;직배 선착순: </span><span id="goingFirstcomeNum-direct" th:text="|${goingFirstcomeNum_direct+readyFirstcomeNum_direct}|"></span>&nbsp;</div>
 	
 	<div class="detail-raffle w-100" th:each="list : ${goingFirstcomeList_direct}">
 		<div class="d-flex flex-column align-items-center" th:id="|card-${list.id}|">
 		<div class="container d-flex flex-column raffleCardDetail">
 	
 		<div class="d-flex drawCard" th:attr="url=${list.url}">
-			<div class="d-flex flex-column justify-content-center align-items-center" style="margin-right:20px">
+			<div class="d-flex flex-column justify-content-center align-items-center" style="margin-right:10px">
 				<img th:src="${list.imgSrc}" style="height:70px; width:70px;"/>
 			</div>
 			<div>
@@ -364,7 +364,7 @@ function move(id){
 		<div class="container d-flex flex-column raffleCardDetail">
 	
 		<div class="d-flex drawCard" th:attr="url=${list.url}">
-			<div class="d-flex flex-column justify-content-center align-items-center" style="margin-right:20px">
+			<div class="d-flex flex-column justify-content-center align-items-center" style="margin-right:10px">
 				<img th:src="${list.imgSrc}" style="height:70px; width:70px;"/>
 			</div>
 			<div>
@@ -388,14 +388,14 @@ function move(id){
 	</div>
 </div>
 <div class="container-fluid d-flex flex-wrap justify-content-center align-items-center firstcome-list-container">
-	<div id="goingFirstcomeDiv-agent" class="raffleCards-head"><span id="goingFirstcomeName-agent">&nbsp;배대지 선착순: </span><span id="goingFirstcomeNum-agent" th:text="|${goingFirstcomeNum_agent+readyFirstcomeNum_agent}|"></span>&nbsp;</div>
+	<div id="goingFirstcomeDiv-agent" class="draws-numbers"><span id="goingFirstcomeName-agent">&nbsp;배대지 선착순: </span><span id="goingFirstcomeNum-agent" th:text="|${goingFirstcomeNum_agent+readyFirstcomeNum_agent}|"></span>&nbsp;</div>
 	
 	<div class="detail-raffle w-100" th:each="list : ${goingFirstcomeList_agent}">
 	<div class="d-flex flex-column align-items-center" th:id="|card-${list.id}|">
 		<div class="container-fluid d-flex flex-column raffleCardDetail">
 			
 		<div class="d-flex drawCard" th:attr="url=${list.url}">
-			<div class="d-flex flex-column justify-content-center align-items-center" style="margin-right:20px">
+			<div class="d-flex flex-column justify-content-center align-items-center" style="margin-right:10px">
 				<img th:src="${list.imgSrc}" style="height:70px; width:70px;"/>
 			</div>
 			<div>
@@ -422,7 +422,7 @@ function move(id){
 		<div class="container-fluid d-flex flex-column raffleCardDetail">
 		
 		<div class="d-flex drawCard" th:attr="url=${list.url}">
-			<div class="d-flex flex-column justify-content-center align-items-center" style="margin-right:20px">
+			<div class="d-flex flex-column justify-content-center align-items-center" style="margin-right:10px">
 				<img th:src="${list.imgSrc}" style="height:70px; width:70px;"/>
 			</div>
 			<div>
@@ -448,14 +448,14 @@ function move(id){
 </div>
 <div class="container-fluid d-flex flex-wrap justify-content-center align-items-center firstcome-list-container">
   <div class="container-fluid d-flex justify-content-center">
-		<div id="endedFirstcomeCardsDiv" is="0"><span id="endedFirstcomeCardsName">지난 선착순 보기:&nbsp;</span><span id="endedFirstcomeCardsNum" th:text="|${endedFirstcomeNum}|"></span></div>
+		<div id="endedFirstcomeCardsDiv" class="draws-numbers" is="0"><span id="endedFirstcomeCardsName">지난 선착순 보기:&nbsp;</span><span id="endedFirstcomeCardsNum" th:text="|${endedFirstcomeNum}|"></span></div>
 	</div>
-	<div class="detail-raffle w-100" th:each="list : ${endedFirstcomeList}">
-	<div class="d-flex flex-column align-items-center" th:id="|card-${list.id}|">
-		<div class="container-fluid d-flex flex-column endedFirstcomeCard" >
+	<div class="detail-raffle w-100 endedFirstcomeCard"  th:each="list : ${endedFirstcomeList}">
+	<div class="d-flex flex-column align-items-center endedFirstcomeCard" th:id="|card-${list.id}|">
+		<div class="container-fluid d-flex flex-column endedFirstcomeCard" style="display:none;" >
 		
-		<div class="d-flex drawCard" th:attr="url=${list.url}" style="opacity:0.25;">
-			<div class="d-flex flex-column justify-content-center align-items-center endedFirstcomeCard" style="margin-right:20px">
+		<div class="d-flex drawCard endedFirstcomeCard" th:attr="url=${list.url}" style="opacity:0.25; display:none;">
+			<div class="d-flex flex-column justify-content-center align-items-center endedFirstcomeCard" style="margin-right:10px">
 				<img class="endedFirstcomeCard" th:src="${list.imgSrc}" style="height:70px; width:70px; display:none;"/>
 			</div>
 			<div class="endedFirstcomeCard" style="display:none;">
@@ -482,14 +482,14 @@ function move(id){
 
 <div class="raffle-inner-container">
 <div class="container-fluid d-flex flex-wrap justify-content-center align-items-center raffle-list-container">
-	<div id="goingRaffleDiv" class="raffleCards-head"><span id="goingRaffleName">&nbsp;국내 응모: </span><span id="goingRaffleNum" th:text="|${goingRaffleNum+readyRaffleNum}|"></span>&nbsp;</div>
+	<div id="goingRaffleDiv" class="draws-numbers"><span id="goingRaffleName">&nbsp;국내 응모: </span><span id="goingRaffleNum" th:text="|${goingRaffleNum+readyRaffleNum}|"></span>&nbsp;</div>
 	
 	<div class="detail-raffle w-100" th:each="list : ${goingRaffleList}">
 	<div class="d-flex flex-column align-items-center" th:id="|card-${list.id}|">
 		<div class="container-fluid d-flex flex-column raffleCardDetail">
 			
 		<div class="d-flex drawCard" th:attr="url=${list.url}">
-			<div class="d-flex flex-column justify-content-center align-items-center" style="margin-right:20px">
+			<div class="d-flex flex-column justify-content-center align-items-center" style="margin-right:10px">
 				<img th:src="${list.imgSrc}" style="height:70px; width:70px;"/>
 			</div>
 			<div>
@@ -516,7 +516,7 @@ function move(id){
 		<div class="container-fluid d-flex flex-column raffleCardDetail">
 		
 		<div class="d-flex drawCard" th:attr="url=${list.url}"  style="opacity:0.25;" >
-			<div class="d-flex flex-column justify-content-center align-items-center" style="margin-right:20px">
+			<div class="d-flex flex-column justify-content-center align-items-center" style="margin-right:10px">
 				<img th:src="${list.imgSrc}" style="height:70px; width:70px;"/>
 			</div>
 			<div>
@@ -543,14 +543,14 @@ function move(id){
 </div>
 
 <div class="container-fluid d-flex flex-wrap justify-content-center align-items-center raffle-list-container">
-	<div id="goingRaffleDiv-direct" class="raffleCards-head"><span id="goingRaffleName-direct">&nbsp;직배 응모: </span><span id="goingRaffleNum-direct" th:text="|${goingRaffleNum_direct+readyRaffleNum_direct}|"></span>&nbsp;</div>
+	<div id="goingRaffleDiv-direct" class="draws-numbers"><span id="goingRaffleName-direct">&nbsp;직배 응모: </span><span id="goingRaffleNum-direct" th:text="|${goingRaffleNum_direct+readyRaffleNum_direct}|"></span>&nbsp;</div>
 	
 	<div class="detail-raffle w-100" th:each="list : ${goingRaffleList_direct}">
 	<div class="d-flex flex-column align-items-center" th:id="|card-${list.id}|">
 		<div class="container-fluid d-flex flex-column raffleCardDetail">
 			
 		<div class="d-flex drawCard" th:attr="url=${list.url}">
-			<div class="d-flex flex-column justify-content-center align-items-center" style="margin-right:20px">
+			<div class="d-flex flex-column justify-content-center align-items-center" style="margin-right:10px">
 				<img th:src="${list.imgSrc}" style="height:70px; width:70px;"/>
 			</div>
 			<div>
@@ -577,7 +577,7 @@ function move(id){
 		<div class="container-fluid d-flex flex-column raffleCardDetail">
 		
 		<div class="d-flex drawCard" th:attr="url=${list.url}"  style="opacity:0.25;">
-			<div class="d-flex flex-column justify-content-center align-items-center" style="margin-right:20px">
+			<div class="d-flex flex-column justify-content-center align-items-center" style="margin-right:10px">
 				<img th:src="${list.imgSrc}" style="height:70px; width:70px;"/>
 			</div>
 			<div>
@@ -604,14 +604,14 @@ function move(id){
 </div>
 
 <div class="container-fluid d-flex flex-wrap justify-content-center align-items-center raffle-list-container">
-	<div id="goingRaffleDiv-agent" class="raffleCards-head"><span id="goingRaffleName-agent">&nbsp;배대지 응모: </span><span id="goingRaffleNum-agent" th:text="|${goingRaffleNum_agent+readyRaffleNum_agent}|"></span>&nbsp;</div>
+	<div id="goingRaffleDiv-agent" class="draws-numbers"><span id="goingRaffleName-agent">&nbsp;배대지 응모: </span><span id="goingRaffleNum-agent" th:text="|${goingRaffleNum_agent+readyRaffleNum_agent}|"></span>&nbsp;</div>
 	
 	<div class="detail-raffle w-100" th:each="list : ${goingRaffleList_agent}">
 	<div class="d-flex flex-column align-items-center" th:id="|card-${list.id}|">
 		<div class="container-fluid d-flex flex-column raffleCardDetail">
 			
 		<div class="d-flex drawCard" th:attr="url=${list.url}">
-			<div class="d-flex flex-column justify-content-center align-items-center" style="margin-right:20px">
+			<div class="d-flex flex-column justify-content-center align-items-center" style="margin-right:10px">
 				<img th:src="${list.imgSrc}" style="height:70px; width:70px;"/>
 			</div>
 			<div>
@@ -638,7 +638,7 @@ function move(id){
 		<div class="container-fluid d-flex flex-column raffleCardDetail">
 		
 		<div class="d-flex drawCard" th:attr="url=${list.url}"  style="opacity:0.25;">
-			<div class="d-flex flex-column justify-content-center align-items-center" style="margin-right:20px">
+			<div class="d-flex flex-column justify-content-center align-items-center" style="margin-right:10px">
 				<img th:src="${list.imgSrc}" style="height:70px; width:70px;"/>
 			</div>
 			<div>
@@ -666,15 +666,15 @@ function move(id){
 
 <div class="container-fluid d-flex flex-wrap justify-content-center align-items-center raffle-list-container">
 	<div class="container-fluid d-flex justify-content-center">
-		<div id="endedRaffleCardsDiv" is="0"><span id="endedRaffleCards">지난 응모 보기:&nbsp;</span><span id="endedRaffleCardsNum" th:text="|${endedRaffleNum}|"></span></div>
+		<div id="endedRaffleCardsDiv" class="draws-numbers" is="0"><span id="endedRaffleCards">지난 응모 보기:&nbsp;</span><span id="endedRaffleCardsNum" th:text="|${endedRaffleNum}|"></span></div>
 	</div>
 	
-	<div class="detail-raffle w-100" th:each="list : ${endedRaffleList}">
-	<div class="d-flex flex-column align-items-center" th:id="|card-${list.id}|">
+	<div class="detail-raffle w-100 endedRaffleCard" th:each="list : ${endedRaffleList}">
+	<div class="d-flex flex-column align-items-center endedRaffleCard" th:id="|card-${list.id}|">
 		<div class="container-fluid d-flex flex-column endedRaffleCard" >
 		
-		<div class="d-flex drawCard" th:attr="url=${list.url}" style="opacity:0.25;">
-		<div class="d-flex flex-column justify-content-center align-items-center endedRaffleCard" style="margin-right:20px;">
+		<div class="d-flex drawCard endedRaffleCard" th:attr="url=${list.url}" style="opacity:0.25;">
+		<div class="d-flex flex-column justify-content-center align-items-center endedRaffleCard" style="margin-right:10px;">
 			<img class="endedRaffleCard" th:src="${list.imgSrc}" style="height:70px; width:70px; display:none;"/>
 		</div>
 		<div class="endedRaffleCard" style="display:none;">
