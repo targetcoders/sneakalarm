@@ -1,7 +1,7 @@
 function getActiveProductList(){
   return new Promise(function(resolve){
     $.ajax({
-      url: '/today/productList',
+      url: '/now/productList',
       type: 'get',
       data: {},
       success: function(activeProductList){
@@ -52,7 +52,7 @@ function getActiveProductList(){
 }
 function getDrawsByDeliveryType(deliveryType){
   $.ajax({
-    url: '/today/drawList',
+    url: '/now/drawList',
     type: 'get',
     data: {
       deliveryType: deliveryType

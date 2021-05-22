@@ -20,8 +20,8 @@ public class HomeController {
        return "google.com, pub-2682527241610745, DIRECT, f08c47fec0942fa0";
   }
 
-  @GetMapping("/today")
-  public String today(){
+  @GetMapping("/now")
+  public String now(){
     return "views/today";
   }
 }

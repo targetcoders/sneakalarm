@@ -28,11 +28,11 @@ function toggleSearchBar(flag) {
 function setShadowboxNavbar(){
   let windowWidth = $(window).width();
   if (getScrollTop() > 50) {
-    $('.navbar-top--container').css({'box-shadow': '0px 10px 10px -10px rgba(0,0,0,0.1)'});
+    $('.navbar-top--pc__container').css({'box-shadow': '0px 10px 10px -10px rgba(0,0,0,0.1)'});
     if(windowWidth < 768)
       $('.clock--mobile').hide();
   } else {
-    $('.navbar-top--container').css({'box-shadow': '0px 0px 0px 0px rgba(0,0,0,0)'});
+    $('.navbar-top--pc__container').css({'box-shadow': '0px 0px 0px 0px rgba(0,0,0,0)'});
     if(windowWidth < 768)
       $('.clock--mobile').show();
   }
@@ -53,8 +53,8 @@ function getDocumentHeight() {
 	);
 }
 
-function moveToTodayPage() {
-  location.replace("/today");
+function moveToNowPage() {
+  location.replace("/now");
   $('.navbar-top__menu').css("#585858");
 }
 
