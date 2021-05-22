@@ -9,7 +9,7 @@
 </th:block>
 
 <header th:fragment="headerFragment">
-<nav class="navbar-top--pc__container navbar-top-pc navbar fixed-top navbar-expand-lg navbar-light d-flex flex-column align-items-center" style="background-color: rgba( 255, 255, 255, 255 ); margin:0; padding-top:0px;">
+<nav class="navbar-top--pc__container navbar-top-pc navbar fixed-top navbar-expand-lg navbar-light d-flex flex-column align-items-center" style="background-color: rgba( 255, 255, 255, 0.9 ); margin:0; padding-top:0px;">
 	<hr class="navbar-top-pc top-line--blue" sec:authorize="hasRole('ADMIN')" style="border: solid 2px blue; opacity:100; margin-top:0px; margin-bottom:0px; width:100%;">
 	<hr class="navbar-top-pc top-line--red" sec:authorize="!hasRole('ADMIN')" style="border: solid 2px #fe0100; opacity:100; margin-top:0px; margin-bottom:0px; width:100%;">
 	<div class="navbar-top-pc d-flex flex-column justify-content-center align-self-end" style="position: relative; width:100%">
