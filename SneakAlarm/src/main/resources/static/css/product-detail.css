@@ -5,6 +5,7 @@
 }
 .raffleCardDetail {
 	margin-bottom: 10px;
+	width: 350px;
 }
 .raffle-inner-container {
 	width: 350px;
@@ -46,6 +47,12 @@ hr {
  display: flex;
  justify-content: center;
  align-items: center;
+}
+.endedFirstcomeCard {
+  display: none;
+}
+.endedRaffleCard {
+  display: none;
 }
 #endedRaffleCardsDiv {
   cursor: pointer;
@@ -130,13 +137,17 @@ hr {
 	font-style: italic;
 	font-weight: bold;
 }
-.raffleCards-head {
+.draws-numbers {
 	 margin-bottom: 20px;
-	 background-color:black;
+	 font-weight: bold;
 	 font-size: 26px;
 }
 .drawCard{
-	cursor: pointer;	
+	cursor: pointer;
+	box-shadow: 0px 0px 10px 1.5px rgba(0,0,0,0.1);
+  border-radius:20px/20px;
+  padding:5px;
+  justify-content: center;
 }
 #goingFirstcomeDiv {
 	margin-top: 20px;
@@ -149,22 +160,16 @@ hr {
 }
 
 #goingFirstcomeName {
-	color:white;
 }
 #goingFirstcomeNum{
-	color:#fe0100;
 }
 #goingFirstcomeName-direct {
-	color:white;
 }
 #goingFirstcomeNum-direct {
-	color:#fe0100;
 }
 #goingFirstcomeName-agent {
-	color:white;
 }
 #goingFirstcomeNum-agent {
-	color:#fe0100;
 }
 #goingRaffleDiv {
 	margin-top: 20px;
@@ -176,22 +181,16 @@ hr {
 	margin-top: 20px;
 }
 #goingRaffleName {
-	color:white;
 }
 #goingRaffleNum{
-	color:#fe0100;
 }
 #goingRaffleName-direct {
-	color:white;
 }
 #goingRaffleNum-direct {
-	color:#fe0100;
 }
 #goingRaffleName-agent {
-	color:white;
 }
 #goingRaffleNum-agent {
-	color:#fe0100;
 }
 #endedRaffleCardsDiv {
 	margin-top:25px;
@@ -246,8 +245,5 @@ hr {
 }
 .raffle-list-container {
  width: 450px;
-}
-.raffleCardDetail {
-	width: 450px;
 }
 }
