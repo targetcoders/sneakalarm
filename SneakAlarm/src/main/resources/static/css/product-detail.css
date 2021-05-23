@@ -1,5 +1,7 @@
 @charset "UTF-8";
-
+.container, .container-fluid {
+  padding:0px;
+}
 #raffle-container {
 	width: 100%;
 }
