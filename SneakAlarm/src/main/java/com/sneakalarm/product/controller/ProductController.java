@@ -99,17 +99,17 @@ public class ProductController {
 			}
 		}
 		
-		int startIndex = page * 9;
+		int startIndex = page * 8;
 		int endIndex = endedCardList.size();
 		
 		if (endIndex <= startIndex) {
 			return Collections.emptyList();
 		} else {
 			List<ProductCardVO> subList = endedCardList.subList(startIndex, endIndex);
-			if (endIndex-startIndex <= 9)
+			if (endIndex-startIndex <= 8)
 				return subList;
 			else
-				return subList.subList(0, 9);
+				return subList.subList(0, 8);
 		}
 	}
 
