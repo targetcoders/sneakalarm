@@ -5,6 +5,7 @@
 }
 .raffleCardDetail {
 	margin-bottom: 10px;
+	width: 350px;
 }
 .raffle-inner-container {
 	width: 350px;
@@ -244,8 +245,5 @@ hr {
 }
 .raffle-list-container {
  width: 450px;
-}
-.raffleCardDetail {
-	width: 350px;
 }
 }
