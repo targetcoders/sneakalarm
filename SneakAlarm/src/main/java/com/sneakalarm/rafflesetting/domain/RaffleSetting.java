@@ -13,6 +13,7 @@ public class RaffleSetting {
 
   private String id;
   private String raffleSettingName;
+  private String raffleType;
   private String storeName;
   private String country;
   private String delivery;
@@ -27,10 +28,11 @@ public class RaffleSetting {
   }
 
   @Builder
-  public RaffleSetting(String id, String raffleSettingName, String storeName, String country,
+  public RaffleSetting(String id, String raffleSettingName, String raffleType, String storeName, String country,
       String delivery, String payType, String specialCase, String productPrice, String imgSrc) {
     this.id = id;
     this.raffleSettingName = raffleSettingName;
+    this.raffleType = raffleType;
     this.storeName = storeName;
     this.country = country;
     this.delivery = delivery;
