@@ -2,11 +2,22 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
 <mapper namespace="com.sneakalarm.rafflesetting.dao.RaffleSettingMapper">
-  <insert id="createRaffleSetting"
+  <insert id="createRaffleSetting" useGeneratedKeys="true" keyProperty="id"
     parameterType="com.sneakalarm.rafflesetting.domain.RaffleSetting">
-    INSERT INTO rafflesetting (raffleSettingName, storeName, country, delivery, payType,
-    specialCase, productPrice, imgSrc, startDateTime, endDateTime)
-    VALUES (#{raffleSettingName}, #{storeName}, #{country}, #{delivery}, #{payType}, #{specialCase},
-    #{productPrice}, #{imgSrc}, #{startDateTime}, #{endDateTime})
+    INSERT INTO raffle_setting (raffleSettingName, raffleType, storeName, country, delivery, payType,
+    specialCase, productPrice, imgSrc, startDateTime, endDateTime, insertDateTime)
+    VALUES (#{raffleSettingName}, #{raffleType}, #{storeName}, #{country}, #{delivery}, #{payType}, #{specialCase},
+    #{productPrice}, #{imgSrc}, #{startDateTime}, #{endDateTime}, now())
   </insert>
+
+  <select id="getRaffleSetting" parameterType="Long"
+    resultType="com.sneakalarm.rafflesetting.domain.RaffleSetting">
+    SELECT *
+    FROM raffle_setting
+    WHERE id = #{id}
+  </select>
+  <select id="getRaffleSettingAll" resultType="com.sneakalarm.rafflesetting.domain.RaffleSetting">
+    SELECT *
+    FROM raffle_setting
+  </select>
 </mapper>

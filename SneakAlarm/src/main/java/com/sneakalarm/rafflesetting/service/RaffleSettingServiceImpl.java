@@ -2,8 +2,11 @@ package com.sneakalarm.rafflesetting.service;
 
 import com.sneakalarm.rafflesetting.dao.RaffleSettingMapper;
 import com.sneakalarm.rafflesetting.domain.RaffleSetting;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class RaffleSettingServiceImpl implements RaffleSettingService {
 
   @Autowired
@@ -12,5 +15,15 @@ public class RaffleSettingServiceImpl implements RaffleSettingService {
   @Override
   public void createRaffleSetting(RaffleSetting raffleSetting) {
     raffleSettingMapper.createRaffleSetting(raffleSetting);
+  }
+
+  @Override
+  public RaffleSetting getRaffleSetting(Long id) {
+    return raffleSettingMapper.getRaffleSetting(id);
+  }
+
+  @Override
+  public List<RaffleSetting> getRaffleSettingAll() {
+    return raffleSettingMapper.getRaffleSettingAll();
   }
 }
