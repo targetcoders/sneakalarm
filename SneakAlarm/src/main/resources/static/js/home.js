@@ -31,7 +31,7 @@ $('document').ready(function() {
 	});
 
 	window.addEventListener('scroll', () => {
-		if (passFlag == 1 && getFlag == 1 && ($('#endedDrawProductCardsDiv').attr('is') == '1') && !(getScrollTop() < getDocumentHeight() - window.innerHeight - 100)) {
+		if (passFlag == 1 && getFlag == 1 && ($('#endedDrawProductCardsDiv').attr('is') == '1') && !(getScrollTop() < getDocumentHeight() - window.innerHeight - 150)) {
 			passFlag = 0;
 			$.ajax({
 				url: '/getEndedProductCardList',
