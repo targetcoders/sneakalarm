@@ -26,4 +26,14 @@ public class RaffleSettingServiceImpl implements RaffleSettingService {
   public List<RaffleSetting> getRaffleSettingAll() {
     return raffleSettingMapper.getRaffleSettingAll();
   }
+
+  @Override
+  public void updateRaffleSetting(RaffleSetting raffleSetting) {
+    raffleSettingMapper.updateRaffleSetting(raffleSetting);
+  }
+
+  @Override
+  public void deleteRaffleSetting(Long id) {
+    raffleSettingMapper.deleteRaffleSetting(id);
+  }
 }

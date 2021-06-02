@@ -5,9 +5,10 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.format.annotation.DateTimeFormat;
 
-@Setter
 @Getter
+@Setter
 @ToString
 public class RaffleSetting {
 
@@ -21,7 +22,9 @@ public class RaffleSetting {
   private String specialCase;
   private String productPrice;
   private String imgSrc;
+  @DateTimeFormat(pattern = "yyyy/MM/dd'T'HH:mm:ss")
   private LocalDateTime startDateTime;
+  @DateTimeFormat(pattern = "yyyy/MM/dd'T'HH:mm:ss")
   private LocalDateTime endDateTime;
 
   public RaffleSetting() {
@@ -29,7 +32,7 @@ public class RaffleSetting {
 
   @Builder
   public RaffleSetting(String id, String raffleSettingName, String raffleType, String storeName, String country,
-      String delivery, String payType, String specialCase, String productPrice, String imgSrc) {
+      String delivery, String payType, String specialCase, String productPrice, String imgSrc, LocalDateTime startDateTime, LocalDateTime endDateTime) {
     this.id = id;
     this.raffleSettingName = raffleSettingName;
     this.raffleType = raffleType;
@@ -40,6 +43,8 @@ public class RaffleSetting {
     this.specialCase = specialCase;
     this.productPrice = productPrice;
     this.imgSrc = imgSrc;
+    this.startDateTime = startDateTime;
+    this.endDateTime = endDateTime;
   }
 
 }
