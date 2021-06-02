@@ -1,5 +1,6 @@
 package com.sneakalarm.rafflesetting.controller;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -33,7 +34,7 @@ public class RaffleSettingControllerTest {
 
   @Test
   public void createRaffleSetting() throws Exception {
-    mockMvc.perform(put("/raffle-setting"))
+    mockMvc.perform(post("/raffle-setting"))
         .andDo(print())
         .andExpect(status().isOk())
         .andExpect(content().string("success"));

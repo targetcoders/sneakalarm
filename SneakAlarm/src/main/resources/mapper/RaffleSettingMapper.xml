@@ -20,4 +20,20 @@
     SELECT *
     FROM raffle_setting
   </select>
+
+  <update id="updateRaffleSetting" parameterType="com.sneakalarm.rafflesetting.domain.RaffleSetting">
+    UPDATE raffle_setting
+    SET raffleSettingName=#{raffleSettingName},
+        raffleType=#{raffleType}, storeName=#{storeName},
+        country=#{country}, delivery=#{delivery},
+        payType=#{payType}, specialCase=#{specialCase},
+        productPrice=#{productPrice}, imgSrc=#{imgSrc},
+        startDateTime=#{startDateTime}, endDateTime=#{endDateTime}
+    WHERE	id = #{id}
+  </update>
+
+  <delete id="deleteRaffleSetting" parameterType="Long">
+    DELETE FROM raffle_setting
+    WHERE id=#{id}
+  </delete>
 </mapper>

@@ -12,4 +12,8 @@ public interface RaffleSettingMapper {
   RaffleSetting getRaffleSetting(Long id);
 
   List<RaffleSetting> getRaffleSettingAll();
+
+  void updateRaffleSetting(RaffleSetting raffleSetting);
+
+  void deleteRaffleSetting(Long id);
 }
