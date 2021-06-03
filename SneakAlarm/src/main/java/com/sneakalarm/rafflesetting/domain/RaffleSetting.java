@@ -26,13 +26,15 @@ public class RaffleSetting {
   private LocalDateTime startDateTime;
   @DateTimeFormat(pattern = "yyyy/MM/dd'T'HH:mm:ss")
   private LocalDateTime endDateTime;
+  @DateTimeFormat(pattern = "yyyy/MM/dd'T'HH:mm:ss")
+  private LocalDateTime insertDateTime;
 
   public RaffleSetting() {
   }
 
   @Builder
   public RaffleSetting(String id, String raffleSettingName, String raffleType, String storeName, String country,
-      String delivery, String payType, String specialCase, String productPrice, String imgSrc, LocalDateTime startDateTime, LocalDateTime endDateTime) {
+      String delivery, String payType, String specialCase, String productPrice, String imgSrc, LocalDateTime startDateTime, LocalDateTime endDateTime, LocalDateTime insertDateTime) {
     this.id = id;
     this.raffleSettingName = raffleSettingName;
     this.raffleType = raffleType;
@@ -45,6 +47,7 @@ public class RaffleSetting {
     this.imgSrc = imgSrc;
     this.startDateTime = startDateTime;
     this.endDateTime = endDateTime;
+    this.insertDateTime = insertDateTime;
   }
 
 }

@@ -20,21 +20,21 @@ import org.springframework.test.web.servlet.MockMvc;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-public class RaffleSettingControllerTest {
+public class RaffleSettingRestControllerTest {
 
   @MockBean
   RaffleSettingService raffleSettingService;
 
   @InjectMocks
   @Autowired
-  RaffleSettingController raffleSettingController;
+  RaffleSettingRestController raffleSettingController;
 
   @Autowired
   MockMvc mockMvc;
 
   @Test
   public void createRaffleSetting() throws Exception {
-    mockMvc.perform(post("/raffle-setting"))
+    mockMvc.perform(post("/raffle-settings"))
         .andDo(print())
         .andExpect(status().isOk())
         .andExpect(content().string("success"));
