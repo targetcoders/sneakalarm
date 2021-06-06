@@ -5,7 +5,7 @@
     xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 
 <th:block layout:fragment="css">
-	<link rel="stylesheet" th:href="@{/css/header.css}" type="text/css">
+	<link rel="stylesheet" href="/css/header.css" type="text/css">
 </th:block>
 
 <header th:fragment="headerFragment">
@@ -15,12 +15,12 @@
 	<div class="navbar-top-pc d-flex flex-column justify-content-center align-self-end" style="position: relative; width:100%">
 		<div class="navbar-top-pc d-flex justify-content-end">
 			<div class="navbar-top-pc clock"></div>
-			<img th:src="@{image/icon/search_icon.png}" class="navbar-top-pc navbar__search-icon" alt="search-icon">
+			<img src="/image/icon/search_icon.png" class="navbar-top-pc navbar__search-icon" alt="search-icon">
 		</div>
 
 		<div class="d-flex navbar-top-pc justify-content-begin" style="position: absolute; height:100%;">
 				<a class="navbar-top-pc" href="/">
-					<img th:src="@{image/pc/SneakAlarm_white_870x180.png}" class="navbar-top-pc navbar__bogo" alt="SneakAlarm">
+					<img src="/image/pc/SneakAlarm_white_870x180.png" class="navbar-top-pc navbar__bogo" alt="SneakAlarm">
 				</a>
 				<div id="navbar-top__menu--today" class="navbar-top-pc navbar-top__menu align-self-end" style="padding-top: 25px; margin-left:10px; font-size:18px; font-style: italic; font-weight:900; cursor: pointer;" onclick="moveToNowPage()">NOW</div>
 				<div id="navbar-top__menu--launch" class="navbar-top-pc navbar-top__menu align-self-end" style="padding-top: 25px; margin-left:20px; font-size:18px; font-style: italic; font-weight:900; cursor: pointer;" onclick="moveToLaunchPage()">LAUNCH</div>
@@ -35,13 +35,13 @@
 	<div class="navbar-top-mobile d-flex flex-column justify-content-center align-items-center" style="position: relative; width:100%">
 		<div class="navbar-top-mobile">
 			<a class="navbar-top-mobile" href="/">
-				<img th:src="@{image/pc/SneakAlarm_white_870x180.png}" class="navbar-top-mobile navbar__bogo" alt="SneakAlarm">
+				<img src="/image/pc/SneakAlarm_white_870x180.png" class="navbar-top-mobile navbar__bogo" alt="SneakAlarm">
 			</a>
 		</div>
 		<span class="navbar-top-mobile align-self-begin clock--mobile"></span>
 		<div class="navbar-top-mobile align-self-end" style="position: absolute; height:100%">
 			<div class="navbar-top-mobile d-flex">
-				<img th:src="@{image/icon/search_icon.png}" class="navbar-top-mobile navbar__search-icon" alt="search-icon">
+				<img src="/image/icon/search_icon.png" class="navbar-top-mobile navbar__search-icon" alt="search-icon">
 			</div>
 		</div>
 	</div>
@@ -49,9 +49,9 @@
 
 	<nav id="navbar-bottom" class="navbar-bottom--mobile navbar fixed-bottom navbar-expand-lg navbar-light align-items-center">
 	<div id="navbar-bottom--mobile__container" class="navbar-bottom--mobile justify-content-around align-items-center">
-		<span id="navbar-bottom--mobile__menu--today" th:href="@{/now}" class="navbar-bottom--mobile navbar-bottom--mobile__menu" onclick="moveToNowPage()">NOW</span>
+		<span id="navbar-bottom--mobile__menu--today" href="/now" class="navbar-bottom--mobile navbar-bottom--mobile__menu" onclick="moveToNowPage()">NOW</span>
 
-		<span id="navbar-bottom--mobile__menu--launch" th:href="@{/}" class="navbar-bottom--mobile navbar-bottom--mobile__menu" onclick="moveToLaunchPage()">LAUNCH</span>
+		<span id="navbar-bottom--mobile__menu--launch" href="/" class="navbar-bottom--mobile navbar-bottom--mobile__menu" onclick="moveToLaunchPage()">LAUNCH</span>
 <!--		<a id="nav-bottom-mobile-div-btn-news" type="button" class="btn btn-default btn-lg" onclick="javascript:alert('준비중인 메뉴입니다.');"style="font-style: italic; font-weight:bold;">NEWS</a>-->
 	</div>
 </nav>
