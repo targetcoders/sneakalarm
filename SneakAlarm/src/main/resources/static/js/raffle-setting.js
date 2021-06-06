@@ -33,73 +33,74 @@ class RaffleSettingTableRow {
 
 class RaffleSetting {
 
-  constructor(id, raffleSettingName, storeName, country, delivery, payType, specialCase, productPrice, imgSrc, startDateTime, endDateTime, insertDateTime){
+  constructor(id, raffleSettingName, storeName, country, raffleType, delivery, payType, specialCase, content, releasePrice, imgSrc, insertDateTime){
     this.id = id;
     this.raffleSettingName = raffleSettingName;
     this.storeName = storeName;
     this.country = country;
+    this.raffleType = raffleType;
     this.delivery = delivery;
     this.payType = payType;
     this.specialCase = specialCase;
-    this.productPrice = productPrice;
+    this.content = content;
+    this.releasePrice = releasePrice;
     this.imgSrc = imgSrc;
-    this.startDateTime = startDateTime;
-    this.endDateTime = endDateTime;
     this.insertDateTime = insertDateTime;
   }
 
   getRaffleSettingDetail(){
     let divTag = $('<div class="raffle-setting-detail"></div>');
-    divTag.append(this.getDivId());
-    divTag.append(this.getDivRaffleSettingName());
-    divTag.append(this.getDivStoreName());
-    divTag.append(this.getDivCountry());
-    divTag.append(this.getDivDelivery());
-    divTag.append(this.getDivPayType());
-    divTag.append(this.getDivSpecialCase());
-    divTag.append(this.getDivProductPrice());
-    divTag.append(this.getDivImgSrc());
-    divTag.append(this.getDivStartDateTime());
-    divTag.append(this.getDivEndDateTime());
-    divTag.append(this.getDivInsertDateTime());
-
+    let tableTag = $('<table class="table setting-detail__table"></table>');
+    tableTag.append('<tr>'+this.getDivId()+'</tr>');
+    tableTag.append('<tr>'+this.getDivRaffleSettingName()+'</tr>');
+    tableTag.append('<tr>'+this.getDivStoreName()+'</tr>');
+    tableTag.append('<tr>'+this.getDivCountry()+'</tr>');
+    tableTag.append('<tr>'+this.getDivRaffleType()+'</tr>');
+    tableTag.append('<tr>'+this.getDivDelivery()+'</tr>');
+    tableTag.append('<tr>'+this.getDivPayType()+'</tr>');
+    tableTag.append('<tr>'+this.getDivSpecialCase()+'</tr>');
+    tableTag.append('<tr>'+this.getDivContent()+'</tr>');
+    tableTag.append('<tr>'+this.getDivReleasePrice()+'</tr>');
+    tableTag.append('<tr>'+this.getDivImgSrc()+'</tr>');
+    tableTag.append('<tr>'+this.getDivInsertDateTime()+'</tr>');
+    divTag.append(tableTag);
     return divTag;
   }
 
   getDivId(){
-    return '<div>id: '+this.id+'</div>';
+    return '<td><b>id</b></td><td>'+this.id+'</td>';
   }
   getDivRaffleSettingName(){
-      return '<div>raffleSettingName: '+this.raffleSettingName+'</div>';
+      return '<td><b>raffleSettingName</b></td><td>'+this.raffleSettingName+'</td>';
   }
   getDivStoreName(){
-      return '<div>storeName: '+this.storeName+'</div>';
+      return '<td><b>storeName</b></td><td>'+this.storeName+'</td>';
   }
   getDivCountry(){
-        return '<div>country: '+this.country+'</div>';
+        return '<td><b>country</b></td><td>'+this.country+'</td>';
+  }
+  getDivRaffleType(){
+        return '<td><b>raffleType</b></td><td>'+this.raffleType+'</td>';
   }
   getDivDelivery(){
-        return '<div>delivery: '+this.delivery+'</div>';
+        return '<td><b>delivery</b></td><td>'+this.delivery+'</td>';
   }
   getDivPayType(){
-        return '<div>payType: '+this.payType+'</div>';
+        return '<td><b>payType</b></td><td>'+this.payType+'</td>';
   }
   getDivSpecialCase(){
-        return '<div>specialCase: '+this.specialCase+'</div>';
+        return '<td><b>specialCase</b></td><td>'+this.specialCase+'</td>';
   }
-  getDivProductPrice(){
-        return '<div>productPrice: '+this.productPrice+'</div>';
+  getDivContent(){
+    return '<td><b>content</b></td><td><pre>'+this.content+'</pre></td>';
+  }
+  getDivReleasePrice(){
+        return '<td><b>releasePrice</b></td><td>'+this.releasePrice+'</td>';
   }
   getDivImgSrc(){
-        return '<div>imgSrc: '+this.imgSrc+'</div>';
-  }
-  getDivStartDateTime(){
-        return '<div>startDateTime: '+this.startDateTime+'</div>';
-  }
-  getDivEndDateTime(){
-        return '<div>endDateTime: '+this.endDateTime+'</div>';
+        return '<td><b>imgSrc</b></td><td><img src="'+this.imgSrc+'" style="width=70px;height:70px;"/></td>';
   }
   getDivInsertDateTime(){
-        return '<div>insertDateTime: '+this.insertDateTime+'</div>';
+        return '<td><b>insertDateTime</b></td><td>'+this.insertDateTime+'</td>';
   }
 }
