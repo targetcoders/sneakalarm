@@ -29,8 +29,8 @@ public class RaffleSettingRestController {
   @GetMapping("/raffle-settings/{id}")
   public ResponseEntity<String> getRaffleSetting(@PathVariable("id") Long id) {
     RaffleSetting raffleSetting = raffleSettingService.getRaffleSetting(id);
-    String raffleSettingJson = new Gson().toJson(raffleSetting);
-    return new ResponseEntity<>(raffleSettingJson,HttpStatus.OK);
+    String jsonString = raffleSetting.getJsonString();
+    return new ResponseEntity<>(jsonString,HttpStatus.OK);
   }
 
   @GetMapping("/raffle-settings")

@@ -5,9 +5,9 @@
   <insert id="createRaffleSetting" useGeneratedKeys="true" keyProperty="id"
     parameterType="com.sneakalarm.rafflesetting.domain.RaffleSetting">
     INSERT INTO raffle_setting (raffleSettingName, raffleType, storeName, country, delivery, payType,
-    specialCase, productPrice, imgSrc, startDateTime, endDateTime, insertDateTime)
-    VALUES (#{raffleSettingName}, #{raffleType}, #{storeName}, #{country}, #{delivery}, #{payType}, #{specialCase},
-    #{productPrice}, #{imgSrc}, #{startDateTime}, #{endDateTime}, now())
+    specialCase, content, releasePrice, imgSrc, insertDateTime)
+    VALUES (#{raffleSettingName}, #{raffleType}, #{storeName}, #{country}, #{delivery}, #{payType}, #{specialCase}, #{content},
+    #{releasePrice}, #{imgSrc}, now())
   </insert>
 
   <select id="getRaffleSetting" parameterType="Long"
@@ -26,9 +26,12 @@
     SET raffleSettingName=#{raffleSettingName},
         raffleType=#{raffleType}, storeName=#{storeName},
         country=#{country}, delivery=#{delivery},
-        payType=#{payType}, specialCase=#{specialCase},
-        productPrice=#{productPrice}, imgSrc=#{imgSrc},
-        startDateTime=#{startDateTime}, endDateTime=#{endDateTime}
+        payType=#{payType}, specialCase=#{specialCase}, content=#{content},
+        releasePrice=#{releasePrice},
+        <if test="imgSrc != null">
+          imgSrc=#{imgSrc},
+        </if>
+        insertDateTime=now()
     WHERE	id = #{id}
   </update>
 

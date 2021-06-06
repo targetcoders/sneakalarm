@@ -1,5 +1,6 @@
 package com.sneakalarm.rafflesetting.domain;
 
+import com.google.gson.Gson;
 import java.time.LocalDateTime;
 import lombok.Builder;
 import lombok.Getter;
@@ -20,12 +21,9 @@ public class RaffleSetting {
   private String delivery;
   private String payType;
   private String specialCase;
-  private String productPrice;
+  private String content;
+  private String releasePrice;
   private String imgSrc;
-  @DateTimeFormat(pattern = "yyyy/MM/dd'T'HH:mm:ss")
-  private LocalDateTime startDateTime;
-  @DateTimeFormat(pattern = "yyyy/MM/dd'T'HH:mm:ss")
-  private LocalDateTime endDateTime;
   @DateTimeFormat(pattern = "yyyy/MM/dd'T'HH:mm:ss")
   private LocalDateTime insertDateTime;
 
@@ -34,7 +32,7 @@ public class RaffleSetting {
 
   @Builder
   public RaffleSetting(String id, String raffleSettingName, String raffleType, String storeName, String country,
-      String delivery, String payType, String specialCase, String productPrice, String imgSrc, LocalDateTime startDateTime, LocalDateTime endDateTime, LocalDateTime insertDateTime) {
+      String delivery, String payType, String specialCase, String content, String releasePrice, String imgSrc, LocalDateTime insertDateTime) {
     this.id = id;
     this.raffleSettingName = raffleSettingName;
     this.raffleType = raffleType;
@@ -43,11 +41,14 @@ public class RaffleSetting {
     this.delivery = delivery;
     this.payType = payType;
     this.specialCase = specialCase;
-    this.productPrice = productPrice;
+    this.content = content;
+    this.releasePrice = releasePrice;
     this.imgSrc = imgSrc;
-    this.startDateTime = startDateTime;
-    this.endDateTime = endDateTime;
     this.insertDateTime = insertDateTime;
+  }
+
+  public String getJsonString() {
+    return new Gson().toJson(this);
   }
 
 }
