@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/default">
+
+<th:block layout:fragment="css">
+</th:block>
+
+<th:block layout:fragment="script">
+	<script type="text/javascript" src="/js/raffle-setting.js" charset="utf-8"></script>
+	<script type="text/javascript" src="/js/raffle-setting-detail.js" charset="utf-8"></script>
+	<script type="text/javascript" src="/js/util.js" charset="utf-8"></script>
+<script>
+</script>
+</th:block>
+
+<div layout:fragment="content">
+	<div class="container-fluid d-flex flex-column justify-content-center align-items-center main-container" style="margin-top:80px">
+		<h1 class="text-center">RAFFLE SETTING DETAIL</h1>
+		<div class="raffle-setting-detail-contents">
+		</div>
+		<div>
+			<a class="btn btn-warning" th:href="@{/raffle-setting/modification/{id}(id=${id})}">수정</a>
+			<a class="btn btn-danger delete-raffle-setting">삭제</a>
+		</div>
+	</div>
+</div>
+</html>

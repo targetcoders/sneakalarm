@@ -10,3 +10,17 @@ var getParam = function(key){
 
     return _parammap[key];
 };
+
+function getDateTimeString(date, time) {
+  let year = date.year;
+  let month = date.month;
+  let day = date.day;
+  let hour = time.hour;
+  let minute = time.minute;
+
+  month = (month<10) ? '0'+month:month;
+  day = (day<10) ? '0'+day:day;
+  hour = (hour<10) ? '0'+hour:hour;
+  minute = (minute<10) ? '0'+minute:minute;
+  return year+'/'+month+'/'+day+' '+hour+':'+minute;
+}
