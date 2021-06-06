@@ -34,7 +34,7 @@
 		SELECT	id, model_kr, imgSrc_home, deliveryTypes
 		FROM 	product
 		WHERE	status='active' OR status='ready'
-		ORDER BY delivery releaseEndDate;
+		ORDER BY releaseEndDate;
 	</select>
 
 	<select id="getProductByDeliveryType" parameterType="String"
