@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/default">
+
+<th:block layout:fragment="css">
+</th:block>
+
+<th:block layout:fragment="script">
+<script src="https://sdk.amazonaws.com/js/aws-sdk-2.283.1.min.js"></script>
+<script type="text/javascript" src="/js/util.js" charset="utf-8"></script>
+	<script type="text/javascript" src="/js/raffle-setting.js" charset="utf-8"></script>
+	<script type="text/javascript" src="/js/raffle/addition-list.js" charset="utf-8"></script>
+<script>
+
+$('document').ready(function(){
+  let splitPath = document.location.href.split('=');
+  let productId = splitPath[splitPath.length-1];
+
+  $.ajax({
+  	url: '/products/'+productId,
+  	type: 'GET',
+  	success: function(responseData){
+  		console.log(responseData)
+			$('#target-product').append(responseData.model_kr);
+  	}
+  });
+
+	$.ajax({
+    url: '/raffle-settings',
+    method: 'GET',
+    success: function(responseData) {
+      let jsonData = JSON.parse(responseData)
+      for(let i in jsonData){
+        console.log(jsonData[i]);
+        let dateTime = getDateTimeString(jsonData[i].insertDateTime.date, jsonData[i].insertDateTime.time);
+        let raffleSettingTableRow = new RaffleSettingTableRow(i, jsonData[i].id, jsonData[i].raffleSettingName, dateTime);
+        $('.raffle-setting-rows').append(raffleSettingTableRow.getTableRowForRaffleInsert(productId));
+      }
+    },
+    error: function() {
+
+    }
+  });
+});
+
+</script>
+</th:block>
+
+<div layout:fragment="content">
+  <div class="container-fluid d-flex justify-content-center main-container" style="margin-top:77.5px">
+	  <div style="width:50%;">
+	  	<div class="container-fluid d-flex justify-content-center main-container" style="margin-top:80px">
+	  		<div class="raffle-setting">
+	  			<h1 class="text-center">RAFFLE SETTING SEARCH</h1>
+					<div style="display:flex; justify-content:center; margin-bottom:45px;"><span id="target-product" style="font-size:25px;font-weight:bold;"></span></div>
+					<div style="display:flex; justify-content:center; flex-direction:column;">
+						<a class="btn btn-danger" href="/raffle-setting">Go to raffle-setting-page</a>
+						<input type="text" id="raffle-settings__search-box" placeholder="SEARCH" style="margin-top:30px; margin-bottom:20px; height:40px">
+					</div>
+	  			<table class="table table-hover">
+	  				<thead>
+	  				<tr>
+	  					<td scope="col">#</td>
+	  					<td scope="col">이름</td>
+	  					<td scope="col">생성일시</td>
+	  				</tr>
+	  				</thead>
+	  				<tbody class="raffle-setting-rows">
+	  				</tbody>
+	  			</table>
+	  		</div>
+	  	</div>
+	  </div>
+	</div>
+</div>
+</html>
