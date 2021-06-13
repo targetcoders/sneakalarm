@@ -7,7 +7,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class RaffleSettingController {
@@ -36,5 +38,18 @@ public class RaffleSettingController {
     RaffleSetting raffleSetting = raffleSettingService.getRaffleSetting(id);
     model.addAttribute("raffleSetting",raffleSetting);
     return "views/raffle-setting/modification";
+  }
+
+  @GetMapping("/raffle/addition/list")
+  public String raffleAdditionListPage(){
+    return "views/raffle/addition-list";
+  }
+
+  @GetMapping("/raffles/addition/{id}")
+  public String raffleAdditionPage(@PathVariable("id") Long id,
+      @RequestParam("productId") String productId, Model model) {
+    RaffleSetting raffleSetting = raffleSettingService.getRaffleSetting(id);
+    model.addAttribute("raffleSetting", raffleSetting);
+    return "views/raffle/addition";
   }
 }
