@@ -1,22 +1,3 @@
-$('document').ready(function() {
-  $.ajax({
-    url: '/raffle-settings',
-    method: 'GET',
-    success: function(responseData) {
-      let jsonData = JSON.parse(responseData)
-      for(let i in jsonData){
-        console.log(jsonData[i]);
-        let dateTime = getDateTimeString(jsonData[i].insertDateTime.date, jsonData[i].insertDateTime.time);
-        let raffleSettingTableRow = new RaffleSettingTableRow(i, jsonData[i].id, jsonData[i].raffleSettingName, dateTime);
-        $('.raffle-setting-rows').append(raffleSettingTableRow.getTableRow());
-      }
-    },
-    error: function() {
-
-    }
-  });
-});
-
 class RaffleSettingTableRow {
 
   constructor(seq, id, name, insertDateTime){
@@ -29,6 +10,12 @@ class RaffleSettingTableRow {
   getTableRow() {
     return '<tr><td scope="row">'+this.seq+'</td><td scope="row"><a href="/raffle-setting/detail/'+this.id+'">'+this.name+'</a></td><td scope="row">'+this.insertDateTime+'</td></tr>';
   }
+
+  getTableRowForRaffleInsert(productId) {
+    return '<tr><td scope="row">'+this.seq+'</td><td scope="row"><a href="/raffles/addition/'+this.id+'?productId='+productId+'">'+this.name+'</a></td><td scope="row">'+this.insertDateTime+'</td></tr>';
+  }
+
+
 }
 
 class RaffleSetting {

@@ -9,6 +9,11 @@
     VALUES (#{raffleSettingName}, #{raffleType}, #{storeName}, #{country}, #{delivery}, #{payType}, #{specialCase}, #{content},
     #{releasePrice}, #{imgSrc}, now())
   </insert>
+  <insert id="insertRaffle" useGeneratedKeys="true" keyProperty="id"
+    parameterType="com.sneakalarm.raffle.dto.RaffleVO">
+    INSERT	INTO raffle(specialCase, url, productId, raffleType, releasePrice, imgSrc, storeName, country, delivery, payType, startDate, startTime, endDate, endTime, content)
+    VALUES 	(#{specialCase}, #{url}, #{productId}, #{raffleType}, #{releasePrice}, #{imgSrc}, #{storeName}, #{country}, #{delivery}, #{payType}, #{startDate}, #{startTime}, #{endDate}, #{endTime}, #{content})
+  </insert>
 
   <select id="getRaffleSetting" parameterType="Long"
     resultType="com.sneakalarm.rafflesetting.domain.RaffleSetting">
@@ -19,6 +24,13 @@
   <select id="getRaffleSettingAll" resultType="com.sneakalarm.rafflesetting.domain.RaffleSetting">
     SELECT *
     FROM raffle_setting
+  </select>
+  <select id="getRaffleSettingByKeyword" parameterType="String" resultType="com.sneakalarm.rafflesetting.domain.RaffleSetting" >
+    SELECT *
+    FROM raffle_setting
+    WHERE raffleSettingName LIKE CONCAT('%',#{keyword},'%') OR
+          storeName LIKE CONCAT('%',#{keyword},'%')
+    ORDER BY insertDateTime DESC
   </select>
 
   <update id="updateRaffleSetting" parameterType="com.sneakalarm.rafflesetting.domain.RaffleSetting">

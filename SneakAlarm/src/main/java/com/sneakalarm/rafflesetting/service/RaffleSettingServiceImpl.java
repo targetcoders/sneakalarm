@@ -1,5 +1,6 @@
 package com.sneakalarm.rafflesetting.service;
 
+import com.sneakalarm.raffle.RaffleConst;
 import com.sneakalarm.raffle.dto.RaffleVO;
 import com.sneakalarm.rafflesetting.dao.RaffleSettingMapper;
 import com.sneakalarm.rafflesetting.domain.RaffleSetting;
@@ -45,6 +46,20 @@ public class RaffleSettingServiceImpl implements RaffleSettingService {
   }
 
   @Override
+  public List<RaffleSetting> getRaffleSettingByKeyword(String keyword) {
+    return raffleSettingMapper.getRaffleSettingByKeyword(keyword);
+  }
+
+  @Override
+  public void insertRaffle(RaffleVO raffleVO) {
+    if (raffleVO.getDelivery().equals(RaffleConst.DELIVERY_PACKAGE) || raffleVO
+        .getDelivery().equals(RaffleConst.DELIVERY_VISIT)) {
+      raffleVO.setDelivery(RaffleConst.DELIVERY_KOREA);
+    }
+    raffleSettingMapper.insertRaffle(raffleVO);
+  }
+
+  @Override
   public void updateRaffleSetting(RaffleSetting raffleSetting) {
     String[] splitUrl = raffleSetting.getImgSrc().split("/");
     String fileName = splitUrl[splitUrl.length-1];
@@ -58,5 +73,4 @@ public class RaffleSettingServiceImpl implements RaffleSettingService {
   public void deleteRaffleSetting(Long id) {
     raffleSettingMapper.deleteRaffleSetting(id);
   }
-
 }
