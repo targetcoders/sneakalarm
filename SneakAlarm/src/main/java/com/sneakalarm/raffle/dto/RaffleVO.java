@@ -37,6 +37,7 @@ public class RaffleVO {
     endDate = raffleInsertVO.getEndDate();
     endTime = raffleInsertVO.getEndTime();
     content = raffleInsertVO.getContent();
+    imgSrc = raffleInsertVO.getImgSrc();
   }
 
   public RaffleVO() {

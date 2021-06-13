@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+			xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+			layout:decorator="layout/default">
+
+<th:block layout:fragment="css">
+</th:block>
+
+<th:block layout:fragment="script">
+	<script src="https://sdk.amazonaws.com/js/aws-sdk-2.283.1.min.js"></script>
+	<script type="text/javascript" src="/js/util.js" charset="utf-8"></script>
+	<script>
+	var albumBucketName = 'sneakalarm.media';
+	var bucketRegion = 'ap-northeast-2';
+	var IdentityPoolId = 'ap-northeast-2:e33e44cf-1621-4149-98b8-9dd28c45ecc8';
+
+
+	AWS.config.update({
+	region: bucketRegion,
+	credentials: new AWS.CognitoIdentityCredentials({ IdentityPoolId: IdentityPoolId })
+	});
+	var s3 = new AWS.S3({
+	apiVersion: '2006-03-01',
+	params: {Bucket: albumBucketName}
+	});
+function validCheck(){
+	return 	$('#country').val()=='' || $('#url').val()=='' || $('#storeName').val()=='';
+}
+$('document').ready(function() {
+  let splitPath = window.location.pathname.split('/');
+  let id = splitPath[splitPath.length-1];
+  let splitHref = document.location.href.split('=');
+  let productId = splitHref[splitHref.length-1];
+
+  $.ajax({
+  	url: '/products/'+productId,
+  	type: 'GET',
+  	success: function(responseData){
+  		console.log(responseData)
+			$('#target-product').append(responseData.model_kr);
+  	}
+  });
+
+
+	var raffleTypeDefaultValue = $('#raffleTypeDefaultValue').val();
+	if(raffleTypeDefaultValue == '선착순'){
+		$('#raffleType0').attr('checked','checked');
+	} else {
+		$('#raffleType1').attr('checked','checked');
+	}
+
+	var deliveryDefaultValue = $('#deliveryDefaultValue').val();
+	if(deliveryDefaultValue == ''){
+		$('#delivery0').attr('checked','checked');
+	} else if(deliveryDefaultValue == '직배'){
+		$('#delivery1').attr('checked','checked');
+	} else if(deliveryDefaultValue == '배대지'){
+		$('#delivery2').attr('checked','checked');
+	} else if(deliveryDefaultValue == '택배배송'){
+		$('#delivery3').attr('checked','checked');
+	} else {
+		$('#delivery4').attr('checked','checked');
+	}
+
+	var payTypeDefaultValue = $('#payTypeDefaultValue').val();
+	if(payTypeDefaultValue == ''){
+		$('#payType0').attr('checked','checked');
+	} else if(payTypeDefaultValue == '선결제'){
+		$('#payType1').attr('checked','checked');
+	} else if(payTypeDefaultValue == '당첨 자동 결제'){
+		$('#payType2').attr('checked','checked');
+	} else if(payTypeDefaultValue == '당첨 선착순 결제'){
+		$('#payType3').attr('checked','checked');
+	} else {
+		$('#payType4').attr('checked','checked');
+	}
+
+	$('#submitBtn').click(function(){
+		if($('#content').val() == '<p><br></p>'){
+			$('#content').val('');
+		}
+		if (validCheck()) {
+			return alert('입력하지 않은 값이 있는지 확인해주세요.');
+		}
+		var formData = new FormData(document.getElementById('raffle-setting--addition__form'));
+		$.ajax({
+			url: '/raffles/addition/'+productId,
+			type: 'POST',
+			data:{
+				productId: productId,
+				url: $('#url').val(),
+				raffleType: $('input[name="raffleType"]:checked').val(),
+				releasePrice: $('#releasePrice').val(),
+				imgSrc: $('#logoImg').attr('src'),
+				storeName: $('#storeName').val(),
+				country: $('#country').val(),
+				delivery: $('input[name="delivery"]:checked').val(),
+				payType: $('input[name="payType"]:checked').val(),
+				startDate: $('#startDate').val(),
+				startTime: $('#startTime').val(),
+				endDate: $('#endDate').val(),
+				endTime: $('#endTime').val(),
+				specialCase: $('#specialCase').val(),
+				content: $('#content').val()
+			},
+			success: function(){
+				alert('성공적으로 등록되었습니다.')
+				location.replace("/raffle/addition/list?productId="+productId);
+			}
+		});
+	});
+});
+</script>
+</th:block>
+
+<div layout:fragment="content">
+	<div class="container-fluid d-flex flex-column justify-content-center align-items-center main-container" style="margin-top:80px">
+		<div><img id="logoImg" th:attr="src=${raffleSetting.imgSrc}" style="width:70px;height:70px;"/><span class="text-center" th:text="${raffleSetting.raffleSettingName}" style="font-size:35px;font-weight:bold;"></span></div>
+		<div style="margin-bottom:45px;"><span id="target-product" style="font-size:25px;font-weight:bold;"></span></div>
+		<div class="raffle-setting-addition-contents">
+			<form id="raffle-setting--addition__form">
+				<div class="mb-3 row">
+					<div class="col-sm-2 text-center">* 응모 링크</div>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" id="url" name="url" placeholder="https://sneakalarm.com"/>
+					</div>
+				</div>
+				<div class="mb-3 row">
+					<label for="startDate" class="col-sm-2 col-form-label text-center">시작일</label>
+					<div class="col-sm-5">
+						<input type="date" class="form-control" id="startDate" name="startDate"/>
+						<input type="time" class="form-control" id="startTime" name="startTime"/>
+					</div>
+				</div>
+				<div class="mb-3 row">
+					<label for="endDate" class="col-sm-2 col-form-label text-center">종료일</label>
+					<div class="col-sm-5">
+						<input type="date" class="form-control" id="endDate" name="endDate"/>
+						<input type="time" class="form-control" id="endTime" name="endTime"/>
+					</div>
+				</div>
+				<hr style="margin-top:50px;margin-bottom:50px;">
+				<input type="hidden" id="raffleTypeDefaultValue" th:attr="value=${raffleSetting.raffleType}">
+				<input type="hidden" id="deliveryDefaultValue" th:attr="value=${raffleSetting.delivery}">
+				<input type="hidden" id="payTypeDefaultValue" th:attr="value=${raffleSetting.payType}">
+				<div class="mb-3 row">
+					<label for="storeName" class="col-sm-2 col-form-label text-center">* 매장 이름</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" id="storeName" name="storeName" th:attr="value=${raffleSetting.storeName}" required="required"/>
+					</div>
+				</div>
+				<div class="mb-3 row">
+					<label for="country" class="col-sm-2 col-form-label text-center">* 국가</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" id="country" name="country" th:attr="value=${raffleSetting.country}" required="required"/>
+					</div>
+				</div>
+				<div class="mb-3 row">
+					<div class="col-sm-2 text-center">드로우 방식</div>
+					<div class="col-sm-10">
+						<!-- <input type="radio" name="raffleType" value="오프라인 선착순"> 오프라인 선착순&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="radio" name="raffleType" value="오프라인 응모"> 오프라인 응모&nbsp;&nbsp;&nbsp;&nbsp; -->
+						<input type="radio" name="raffleType" id="raffleType0" value="선착순"> 선착순&nbsp;&nbsp;&nbsp;&nbsp;
+						<input type="radio" name="raffleType" id="raffleType1" value="응모"> 응모
+					</div>
+				</div>
+				<div class="mb-3 row">
+					<div class="col-sm-2 text-center">* 수령 방법</div>
+					<div class="col-sm-10">
+						<input type="radio" name="delivery" id="delivery0" value=""> X&nbsp;&nbsp;&nbsp;&nbsp;
+						<input type="radio" name="delivery" id="delivery1" value="직배"> 직배&nbsp;&nbsp;&nbsp;&nbsp;
+						<input type="radio" name="delivery" id="delivery2" value="배대지"> 배대지&nbsp;&nbsp;&nbsp;&nbsp;
+						<input type="radio" name="delivery" id="delivery3" value="택배배송"> 택배배송&nbsp;&nbsp;&nbsp;&nbsp;
+						<input type="radio" name="delivery" id="delivery4" value="방문수령"> 방문수령
+					</div>
+				</div>
+				<div class="mb-3 row">
+					<div class="col-sm-2 text-center">* 지불 방법</div>
+					<div class="col-sm-10">
+						<input type="radio" name="payType" id="payType0" value=""> X&nbsp;&nbsp;&nbsp;&nbsp;
+						<input type="radio" name="payType" id="payType1" value="선결제"> 선결제&nbsp;&nbsp;&nbsp;&nbsp;
+						<input type="radio" name="payType" id="payType2" value="당첨  자동 결제"> 당첨 자동 결제&nbsp;&nbsp;&nbsp;&nbsp;
+						<input type="radio" name="payType" id="payType3" value="당첨 선착순 결제"> 당첨 선착순 결제&nbsp;&nbsp;&nbsp;&nbsp;
+						<input type="radio" name="payType" id="payType4" value="당첨 직접 결제"> 당첨 직접 결제
+
+					</div>
+				</div>
+				<div class="mb-3 row">
+					<label for="specialCase" class="col-sm-2 col-form-label text-center">특이 사항</label>
+					<div class="col-sm-10">
+						<input class="form-control form-control" id="specialCase" name="specialCase" type="text" placeholder="회원가입 후 응모 / 팔로우 확인 등" th:attr="value=${raffleSetting.specialCase}"/>
+					</div>
+				</div>
+				<div class="mb-3 row">
+					<div class="col-sm-2 text-center">판매 가격</div>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" name="releasePrice" id="releasePrice" placeholder="1,000,000" th:attr="value=${raffleSetting.releasePrice}"/>
+					</div>
+				</div>
+				<div class="mb-3 row">
+					<label for="content" class="col-sm-2 col-form-label text-center">추가 설명</label>
+					<div class="col-sm-10">
+						<textarea class="form-control" id="content" name="content" th:text="${raffleSetting.content}" style="height:150px;width:100%"></textarea>
+					</div>
+				</div>
+				<div class="mb-3 row">
+					<button type="button" id="submitBtn" class="btn btn-dark col-sm-12">등록</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+</html>
