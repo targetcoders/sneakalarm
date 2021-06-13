@@ -1,6 +1,7 @@
 package com.sneakalarm.rafflesetting.controller;
 
 import com.google.gson.Gson;
+import com.sneakalarm.raffle.dto.RaffleVO;
 import com.sneakalarm.rafflesetting.domain.RaffleSetting;
 import com.sneakalarm.rafflesetting.service.RaffleSettingService;
 import java.util.List;
@@ -40,10 +41,17 @@ public class RaffleSettingRestController {
     return new ResponseEntity<>(raffleSettingListJson,HttpStatus.OK);
   }
 
+  @GetMapping("/raffle-settings/keyword/{keyword}")
+  public ResponseEntity<String> getRaffleSettingByKeyword(@PathVariable(value="keyword") String keyword) {
+    System.out.println("keyword : "+keyword);
+    List<RaffleSetting> raffleSettingList = raffleSettingService.getRaffleSettingByKeyword(keyword);
+    String raffleSettingListJson = new Gson().toJson(raffleSettingList);
+    return new ResponseEntity<>(raffleSettingListJson,HttpStatus.OK);
+  }
+
   @PutMapping("/raffle-settings")
   public ResponseEntity<String> updateRaffleSetting(RaffleSetting raffleSetting){
     raffleSettingService.updateRaffleSetting(raffleSetting);
-    //System.out.println(raffleSetting.toString());
     return new ResponseEntity<>("success", HttpStatus.OK);
   }
 
@@ -51,5 +59,12 @@ public class RaffleSettingRestController {
   public ResponseEntity<String> deleteRaffleSetting(@PathVariable("id") Long id) {
     raffleSettingService.deleteRaffleSetting(id);
     return new ResponseEntity<>("success", HttpStatus.OK);
+  }
+
+  @PostMapping("/raffles/addition/{productId}")
+  public ResponseEntity<String> insertRaffle(@PathVariable("productId") String productId, RaffleVO raffleVO) {
+    raffleVO.setProductId(productId);
+    raffleSettingService.insertRaffle(raffleVO);
+    return new ResponseEntity<>("success",HttpStatus.OK);
   }
 }

@@ -20,5 +20,6 @@ public class RaffleInsertVO {
   private String endTime;
   private String content;
   private String specialCase;
+  private String imgSrc;
   private MultipartFile file;
 }
