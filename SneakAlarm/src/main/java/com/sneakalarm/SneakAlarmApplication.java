@@ -16,8 +16,4 @@ public class SneakAlarmApplication {
     SpringApplication.run(SneakAlarmApplication.class, args);
   }
 
-  @PostConstruct
-  public void started() {
-    TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
-  }
 }
