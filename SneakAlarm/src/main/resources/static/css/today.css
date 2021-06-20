@@ -1,11 +1,5 @@
 @charset "UTF-8";
 
-#activeDraws-korea {
-}
-#activeDraws-direct {
-}
-#activeDraws-agent {
-}
 #activeDrawsContainer {
   width: 375px;
   margin-bottom: 52px;
@@ -14,6 +8,10 @@
 .todayDrawContainer {
   width: 375px;
   height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 .todayProductImg {
   width: 150px;
@@ -96,4 +94,42 @@
 }
 .ready-draw-specialcase {
   color: #b8b8b8;
+}
+
+@media (min-width : 1125px){
+  .todayDrawContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  #activeDrawsContainer {
+    width: 1125px;
+    margin-bottom: 52px;
+  }
+  #activeDraws-korea {
+    width: 1125px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  #activeDraws-direct {
+    width: 1125px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  #activeDraws-agent {
+    width: 1125px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .todayProductImg {
+    width: 300px;
+    height: 300px;
+  }
 }
