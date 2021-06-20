@@ -1,10 +1,23 @@
 @charset "UTF-8";
 
+#today-page-width {
+  padding: 0px;
+  width: 375px;
+}
+
+.today-main-container {
+  margin-top: 86px;
+  width: 375px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 #activeDrawsContainer {
   width: 375px;
   margin-bottom: 52px;
 }
-
 .todayDrawContainer {
   width: 375px;
   height: 100%;
@@ -97,6 +110,19 @@
 }
 
 @media (min-width : 1125px){
+  #today-page-width {
+    padding: 0px;
+    width: 1125px;
+  }
+  .today-main-container {
+    margin-top: 86px;
+    width: 1125px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
   .todayDrawContainer {
     display: flex;
     flex-direction: column;
@@ -111,6 +137,7 @@
     width: 1125px;
     height: 100%;
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
   }
@@ -118,6 +145,7 @@
     width: 1125px;
     height: 100%;
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
   }
@@ -125,6 +153,7 @@
     width: 1125px;
     height: 100%;
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
   }
