@@ -115,6 +115,7 @@ function isEmptyValue(value){
 </script>
 <script sec:authorize="hasRole('ADMIN')">
 $('document').ready(function(){
+	document.title = '[ADMIN] ' + $('#model_kr').text();
 
 	$('.detail-raffle-modify').click(function(){
 		var id = $(this).attr('is');
