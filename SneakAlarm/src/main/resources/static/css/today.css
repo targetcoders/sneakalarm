@@ -1,5 +1,9 @@
 @charset "UTF-8";
 
+a:visited {
+  color:purple;
+}
+
 #today-page-width {
   padding: 0px;
   width: 375px;
