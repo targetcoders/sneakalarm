@@ -49,7 +49,7 @@ public class ProductController {
   
   private DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
   
-  @GetMapping("/")
+  @GetMapping("/launch")
   public String getProductCardList(Model model) throws ParseException {
     ArrayList<ProductCardVO> list =
         (ArrayList<ProductCardVO>) productServiceImpl.getProductCardList();

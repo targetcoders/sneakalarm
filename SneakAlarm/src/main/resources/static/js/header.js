@@ -54,11 +54,11 @@ function getDocumentHeight() {
 }
 
 function moveToNowPage() {
-  location.replace("/now");
+  location.replace("/");
   $('.navbar-top__menu').css("#585858");
 }
 
 function moveToLaunchPage() {
-  location.replace("/");
+  location.replace("/launch");
   $('.navbar-top__menu').css("#585858");
 }
