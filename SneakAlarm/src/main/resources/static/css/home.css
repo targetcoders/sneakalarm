@@ -1,5 +1,8 @@
 @charset "EUC-KR";
 
+.firstcomeDrawNum {
+  color: #fe0100;
+}
 .home-product {
 	margin-left: 1px;
 	margin-right: 1px;
