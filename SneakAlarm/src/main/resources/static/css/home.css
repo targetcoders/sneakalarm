@@ -4,9 +4,9 @@
   color: #fe0100;
 }
 .home-product {
-	margin-left: 1px;
-	margin-right: 1px;
-	margin-bottom: 5px;
+  padding-left:5px;
+  padding-right:5px;
+  word-break:break-all;
 	flex-grow:1;
 	width:145px;
 	height:auto;
@@ -94,9 +94,18 @@ input::placeholder {
 .ready-draws-num {
 
 }
+#goingDrawProductCards{
+  padding: 0px;
+}
+#readyDrawProductCards{
+  padding: 0px;
+}
 
 @media ( min-width : 768px) {
 	.home-product {
+	  padding-left:5px;
+    padding-right:5px;
+    word-break:break-all;
 		flex-grow:1;
 		width:400px;
 		height:auto;
