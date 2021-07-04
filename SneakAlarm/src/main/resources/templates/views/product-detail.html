@@ -50,10 +50,9 @@ $('document').ready(function(){
 			$('#raffleCardDetail-content'+raffleId).show();
 		}
 		else{
-			$('#raffleCardDetail-content'+raffleId).hide();	
+			$('#raffleCardDetail-content'+raffleId).hide();
 		}
 	});
-	
 	
 	if($('#goingFirstcomeNum').text() == '0')
 		$('#goingFirstcomeDiv').hide();
@@ -72,16 +71,6 @@ $('document').ready(function(){
 		$('#goingRaffleDiv-agent').hide();
 	if($('#endedRaffleCardsNum').text() == '0')
 		$('#endedRaffleCardsDiv').hide();
-	
-/* 	$('.sneakBtn').click(function(){
-		var raffleId = $(this).attr('is');
-		if($('#raffleCardDetail-content'+raffleId).css('display') == 'none'){
-			$('#raffleCardDetail-content'+raffleId).show();
-		}
-		else{
-			$('#raffleCardDetail-content'+raffleId).hide();	
-		}
-	}); */
 	
 	$('#endedFirstcomeCardsDiv').click(function(){
 		if($(this).attr('is') == '0'){
@@ -265,8 +254,6 @@ function move(id){
 				RAFFLE-INSERT-V2
 			</a>
 		</div>
-		
-		
 </div>
 
 <div sec:authorize="!hasRole('ADMIN')" class="container-fluid d-flex justify-content-center" style="margin-bottom:50px; max-width:320px;">
@@ -275,8 +262,6 @@ function move(id){
  data-ad-width   = "320" 
  data-ad-height  = "50"></ins> 
 </div>
-
-
 
 <div id="raffle-container" class="container-fluid d-flex flex-wrap justify-content-center align-items-start">
 <div class="raffle-inner-container">
@@ -300,7 +285,7 @@ function move(id){
 			</div>
 		</div>
 		
-		<pre th:id="|raffleCardDetail-content${list.id}|" th:utext="${list.content}" style="border:1px solid #B8B8B8; display:none"></pre>
+		<div th:id="|raffleCardDetail-content${list.id}|" class="raffle-card-detail-content" th:utext="${list.content}"></div>
 			<div sec:authorize="hasRole('ADMIN')" class="d-flex">
 				<a class="btn btn-warning detail-raffle-modify flex-grow-1" th:is="${list.id}">Modify</a>
 				<a class="btn btn-danger detail-raffle-delete flex-grow-1" th:is="${list.id}">Delete</a>
@@ -327,13 +312,12 @@ function move(id){
 			</div>
 		</div>
 		
-		<pre th:id="|raffleCardDetail-content${list.id}|" th:utext="${list.content}" style="border:1px solid #B8B8B8; display:none"></pre>
+		<div th:id="|raffleCardDetail-content${list.id}|" class="raffle-card-detail-content" th:utext="${list.content}"></div>
 			<div sec:authorize="hasRole('ADMIN')" class="d-flex">
 				<a class="btn btn-warning detail-raffle-modify flex-grow-1" th:is="${list.id}">Modify</a>
 				<a class="btn btn-danger detail-raffle-delete flex-grow-1" th:is="${list.id}">Delete</a>
 			</div>
 		</div>
-		
 		</div>
 	</div>
 </div>
@@ -358,7 +342,7 @@ function move(id){
 			</div>
 		</div>
 		
-		<pre th:id="|raffleCardDetail-content${list.id}|" th:utext="${list.content}" style="border:1px solid #B8B8B8; display:none"></pre>
+		<div th:id="|raffleCardDetail-content${list.id}|" class="raffle-card-detail-content" th:utext="${list.content}"></div>
 			<div sec:authorize="hasRole('ADMIN')" class="d-flex">
 				<a class="btn btn-warning detail-raffle-modify flex-grow-1" th:is="${list.id}">Modify</a>
 				<a class="btn btn-danger detail-raffle-delete flex-grow-1" th:is="${list.id}">Delete</a>
@@ -385,7 +369,7 @@ function move(id){
 			</div>
 		</div>
 		
-		<pre th:id="|raffleCardDetail-content${list.id}|" th:utext="${list.content}" style="border:1px solid #B8B8B8; display:none"></pre>
+		<div th:id="|raffleCardDetail-content${list.id}|" class="raffle-card-detail-content" th:utext="${list.content}"></div>
 			<div sec:authorize="hasRole('ADMIN')" class="d-flex">
 				<a class="btn btn-warning detail-raffle-modify flex-grow-1" th:is="${list.id}">Modify</a>
 				<a class="btn btn-danger detail-raffle-delete flex-grow-1" th:is="${list.id}">Delete</a>
@@ -416,7 +400,7 @@ function move(id){
 		  </div>
 		</div>
 			  
-		<pre th:id="|raffleCardDetail-content${list.id}|" th:utext="${list.content}" style="border:1px solid #B8B8B8; display:none"></pre>
+		<div th:id="|raffleCardDetail-content${list.id}|" class="raffle-card-detail-content" th:utext="${list.content}"></div>
 		<div sec:authorize="hasRole('ADMIN')" class="d-flex">
 			<a class="btn btn-warning detail-raffle-modify flex-grow-1" th:is="${list.id}">Modify</a>
 			<a class="btn btn-danger detail-raffle-delete flex-grow-1" th:is="${list.id}">Delete</a>
@@ -443,7 +427,7 @@ function move(id){
 		  </div>
 		</div>
 			
-		<pre th:id="|raffleCardDetail-content${list.id}|" th:utext="${list.content}" style="border:1px solid #B8B8B8; display:none"></pre>
+		<div th:id="|raffleCardDetail-content${list.id}|" class="raffle-card-detail-content" th:utext="${list.content}"></div>
 		<div sec:authorize="hasRole('ADMIN')" class="d-flex">
 			<a class="btn btn-warning detail-raffle-modify flex-grow-1" th:is="${list.id}">Modify</a>
 			<a class="btn btn-danger detail-raffle-delete flex-grow-1" th:is="${list.id}">Delete</a>
@@ -475,7 +459,7 @@ function move(id){
 						</div>
 					</div>
 
-					<pre th:id="|raffleCardDetail-content${list.id}|" th:utext="${list.content}" style="border:1px solid #B8B8B8; display:none"></pre>
+					<div th:id="|raffleCardDetail-content${list.id}|" class="raffle-card-detail-content" th:utext="${list.content}"></div>
 					<div sec:authorize="hasRole('ADMIN')" class="d-flex">
 						<a class="endedFirstcomeCard btn btn-warning detail-raffle-modify flex-grow-1" th:is="${list.id}" style="display:none;">Modify</a>
 						<a class="endedFirstcomeCard btn btn-danger detail-raffle-delete flex-grow-1" th:is="${list.id}" style="display:none;">Delete</a>
@@ -510,7 +494,7 @@ function move(id){
 		  </div>
 		</div>
 			  
-		<pre th:id="|raffleCardDetail-content${list.id}|" th:utext="${list.content}" style="border:1px solid #B8B8B8; display:none"></pre>
+		<div th:id="|raffleCardDetail-content${list.id}|" class="raffle-card-detail-content" th:utext="${list.content}"></div>
 		<div sec:authorize="hasRole('ADMIN')" class="d-flex">
 			<a class="btn btn-warning detail-raffle-modify flex-grow-1" th:is="${list.id}">Modify</a>
 			<a class="btn btn-danger detail-raffle-delete flex-grow-1" th:is="${list.id}">Delete</a>
@@ -538,7 +522,7 @@ function move(id){
 		  </div>
 		</div>
 			
-		<pre th:id="|raffleCardDetail-content${list.id}|" th:utext="${list.content}" style="border:1px solid #B8B8B8; display:none"></pre>
+		<div th:id="|raffleCardDetail-content${list.id}|" class="raffle-card-detail-content" th:utext="${list.content}"></div>
 		<div sec:authorize="hasRole('ADMIN')" class="d-flex">
 			<a class="btn btn-warning detail-raffle-modify flex-grow-1" th:is="${list.id}">Modify</a>
 			<a class="btn btn-danger detail-raffle-delete flex-grow-1" th:is="${list.id}">Delete</a>
@@ -547,7 +531,6 @@ function move(id){
 		</div>
 	</div>
 	</div>
-
 </div>
 
 <div class="container-fluid d-flex flex-wrap justify-content-center align-items-center raffle-list-container">
@@ -571,7 +554,7 @@ function move(id){
 		  </div>
 		</div>
 			  
-		<pre th:id="|raffleCardDetail-content${list.id}|" th:utext="${list.content}" style="border:1px solid #B8B8B8; display:none"></pre>
+		<div th:id="|raffleCardDetail-content${list.id}|" class="raffle-card-detail-content" th:utext="${list.content}"></div>
 		<div sec:authorize="hasRole('ADMIN')" class="d-flex">
 			<a class="btn btn-warning detail-raffle-modify flex-grow-1" th:is="${list.id}">Modify</a>
 			<a class="btn btn-danger detail-raffle-delete flex-grow-1" th:is="${list.id}">Delete</a>
@@ -599,7 +582,7 @@ function move(id){
 		  </div>
 		</div>
 			
-		<pre th:id="|raffleCardDetail-content${list.id}|" th:utext="${list.content}" style="border:1px solid #B8B8B8; display:none"></pre>
+		<div th:id="|raffleCardDetail-content${list.id}|" class="raffle-card-detail-content" th:utext="${list.content}"></div>
 		<div sec:authorize="hasRole('ADMIN')" class="d-flex">
 			<a class="btn btn-warning detail-raffle-modify flex-grow-1" th:is="${list.id}">Modify</a>
 			<a class="btn btn-danger detail-raffle-delete flex-grow-1" th:is="${list.id}">Delete</a>
@@ -632,7 +615,7 @@ function move(id){
 		  </div>
 		</div>
 			  
-		<pre th:id="|raffleCardDetail-content${list.id}|" th:utext="${list.content}" style="border:1px solid #B8B8B8; display:none"></pre>
+		<div th:id="|raffleCardDetail-content${list.id}|" class="raffle-card-detail-content" th:utext="${list.content}"></div>
 		<div sec:authorize="hasRole('ADMIN')" class="d-flex">
 			<a class="btn btn-warning detail-raffle-modify flex-grow-1" th:is="${list.id}">Modify</a>
 			<a class="btn btn-danger detail-raffle-delete flex-grow-1" th:is="${list.id}">Delete</a>
@@ -660,7 +643,7 @@ function move(id){
 		  </div>
 		</div>
 			
-		<pre th:id="|raffleCardDetail-content${list.id}|" th:utext="${list.content}" style="border:1px solid #B8B8B8; display:none"></pre>
+		<div th:id="|raffleCardDetail-content${list.id}|" class="raffle-card-detail-content" th:utext="${list.content}"></div>
 		<div sec:authorize="hasRole('ADMIN')" class="d-flex">
 			<a class="btn btn-warning detail-raffle-modify flex-grow-1" th:is="${list.id}">Modify</a>
 			<a class="btn btn-danger detail-raffle-delete flex-grow-1" th:is="${list.id}">Delete</a>
@@ -669,7 +652,6 @@ function move(id){
 		</div>
 	</div>
 	</div>
-	
 </div>
 
 <div class="container-fluid d-flex flex-wrap justify-content-center align-items-center raffle-list-container">
@@ -696,7 +678,7 @@ function move(id){
 		</div>
 		</div>
 		
-		<pre th:id="|raffleCardDetail-content${list.id}|" th:utext="${list.content}" style="border:1px solid #B8B8B8; display:none"></pre>
+		<div th:id="|raffleCardDetail-content${list.id}|" class="raffle-card-detail-content" th:utext="${list.content}"></div>
 		<div sec:authorize="hasRole('ADMIN')" class="d-flex">
 			<a class="endedRaffleCard btn btn-warning detail-raffle-modify flex-grow-1" th:is="${list.id}" style="display:none">Modify</a>
 			<a class="endedRaffleCard btn btn-danger detail-raffle-delete flex-grow-1" th:is="${list.id}" style="display:none">Delete</a>
@@ -704,6 +686,9 @@ function move(id){
 		</div>
 	</div>
 	</div>
+</div>
+</div>
+
 </div>
 </div>
 </html>

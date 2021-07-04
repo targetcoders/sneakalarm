@@ -151,6 +151,13 @@ hr {
   padding:5px;
   justify-content: center;
 }
+.raffle-card-detail-content{
+  word-break: break-all;
+  white-space: pre-line;
+  height:100%;
+  border:1px solid #B8B8B8;
+  display:none;
+}
 #goingFirstcomeDiv {
 	margin-top: 20px;
 }
