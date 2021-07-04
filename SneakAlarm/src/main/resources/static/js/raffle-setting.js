@@ -8,31 +8,37 @@ class RaffleSettingTableRow {
   }
 
   getTableRow() {
-    return '<tr><td scope="row">'+this.seq+'</td><td scope="row"><a href="/raffle-setting/detail/'+this.id+'">'+this.name+'</a></td><td scope="row">'+this.insertDateTime+'</td></tr>';
+    return '<tr>'+
+      '<td scope="row">'+this.seq+'</td>'+
+      '<td scope="row"><a href="/raffle-setting/detail/'+this.id+'">'+this.name+'</a></td>'+
+      '<td scope="row">'+this.insertDateTime+'</td>'+
+    '</tr>';
   }
 
   getTableRowForRaffleInsert(productId) {
-    return '<tr><td scope="row">'+this.seq+'</td><td scope="row"><a href="/raffles/addition/'+this.id+'?productId='+productId+'">'+this.name+'</a></td><td scope="row">'+this.insertDateTime+'</td></tr>';
+    return '<tr>'+
+      '<td scope="row">'+this.seq+'</td>'+
+      '<td scope="row"><a href="/raffles/addition/'+this.id+'?productId='+productId+'">'+this.name+'</a></td>'+
+      '<td scope="row">'+this.insertDateTime+'</td>'+
+    '</tr>';
   }
-
-
 }
 
 class RaffleSetting {
 
-  constructor(id, raffleSettingName, storeName, country, raffleType, delivery, payType, specialCase, content, releasePrice, imgSrc, insertDateTime){
-    this.id = id;
-    this.raffleSettingName = raffleSettingName;
-    this.storeName = storeName;
-    this.country = country;
-    this.raffleType = raffleType;
-    this.delivery = delivery;
-    this.payType = payType;
-    this.specialCase = specialCase;
-    this.content = content;
-    this.releasePrice = releasePrice;
-    this.imgSrc = imgSrc;
-    this.insertDateTime = insertDateTime;
+  constructor(raffleSetting){
+    this.id = raffleSetting.id;
+    this.raffleSettingName = raffleSetting.raffleSettingName;
+    this.storeName = raffleSetting.storeName;
+    this.country = raffleSetting.country;
+    this.raffleType = raffleSetting.raffleType;
+    this.delivery = raffleSetting.delivery;
+    this.payType = raffleSetting.payType;
+    this.specialCase = raffleSetting.specialCase;
+    this.content = raffleSetting.content;
+    this.releasePrice = raffleSetting.releasePrice;
+    this.imgSrc = raffleSetting.imgSrc;
+    this.insertDateTime = raffleSetting.insertDateTime;
   }
 
   getRaffleSettingDetail(){
@@ -58,36 +64,36 @@ class RaffleSetting {
     return '<td><b>id</b></td><td>'+this.id+'</td>';
   }
   getDivRaffleSettingName(){
-      return '<td><b>raffleSettingName</b></td><td>'+this.raffleSettingName+'</td>';
+    return '<td><b>raffleSettingName</b></td><td>'+this.raffleSettingName+'</td>';
   }
   getDivStoreName(){
-      return '<td><b>storeName</b></td><td>'+this.storeName+'</td>';
+    return '<td><b>storeName</b></td><td>'+this.storeName+'</td>';
   }
   getDivCountry(){
-        return '<td><b>country</b></td><td>'+this.country+'</td>';
+    return '<td><b>country</b></td><td>'+this.country+'</td>';
   }
   getDivRaffleType(){
-        return '<td><b>raffleType</b></td><td>'+this.raffleType+'</td>';
+    return '<td><b>raffleType</b></td><td>'+this.raffleType+'</td>';
   }
   getDivDelivery(){
-        return '<td><b>delivery</b></td><td>'+this.delivery+'</td>';
+    return '<td><b>delivery</b></td><td>'+this.delivery+'</td>';
   }
   getDivPayType(){
-        return '<td><b>payType</b></td><td>'+this.payType+'</td>';
+    return '<td><b>payType</b></td><td>'+this.payType+'</td>';
   }
   getDivSpecialCase(){
-        return '<td><b>specialCase</b></td><td>'+this.specialCase+'</td>';
+    return '<td><b>specialCase</b></td><td>'+this.specialCase+'</td>';
   }
   getDivContent(){
-    return '<td><b>content</b></td><td><pre>'+this.content+'</pre></td>';
+   return '<td><b>content</b></td><td><pre>'+this.content+'</pre></td>';
   }
   getDivReleasePrice(){
-        return '<td><b>releasePrice</b></td><td>'+this.releasePrice+'</td>';
+    return '<td><b>releasePrice</b></td><td>'+this.releasePrice+'</td>';
   }
   getDivImgSrc(){
-        return '<td><b>imgSrc</b></td><td><img src="'+this.imgSrc+'" style="width=70px;height:70px;"/></td>';
+    return '<td><b>imgSrc</b></td><td><img src="'+this.imgSrc+'" style="width=70px;height:70px;"/></td>';
   }
   getDivInsertDateTime(){
-        return '<td><b>insertDateTime</b></td><td>'+this.insertDateTime+'</td>';
+    return '<td><b>insertDateTime</b></td><td>'+getDateTimeString(this.insertDateTime.date, this.insertDateTime.time)+'</td>';
   }
 }
