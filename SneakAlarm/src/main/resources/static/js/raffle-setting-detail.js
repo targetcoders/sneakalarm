@@ -21,12 +21,7 @@ $('document').ready(function() {
     success: function(responseData) {
       let jsonData = JSON.parse(responseData);
       let insertDateTime;
-      if(jsonData.insertDateTime != null)
-        insertDateTime = getDateTimeString(jsonData.insertDateTime.date, jsonData.insertDateTime.time);
-
-      let raffleSetting = new RaffleSetting(jsonData.id, jsonData.raffleSettingName, jsonData.storeName, jsonData.country,
-                                jsonData.raffleType, jsonData.delivery, jsonData.payType, jsonData.specialCase, jsonData.content,
-                                jsonData.releasePrice, jsonData.imgSrc, insertDateTime);
+      let raffleSetting = new RaffleSetting(jsonData);
 
       $('.raffle-setting-detail-contents').append(raffleSetting.getRaffleSettingDetail());
     }
