@@ -62,3 +62,8 @@ function moveToLaunchPage() {
   location.replace("/launch");
   $('.navbar-top__menu').css("#585858");
 }
+
+function scrollUp() {
+  let scrollController = new ScrollController();
+  scrollController.scrollTo('endedDrawProductCardsDiv');
+}

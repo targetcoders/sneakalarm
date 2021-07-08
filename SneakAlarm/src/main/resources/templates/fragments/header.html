@@ -8,6 +8,10 @@
 	<link rel="stylesheet" href="/css/header.css" type="text/css">
 </th:block>
 
+<th:block layout:fragment="script">
+
+</th:block>
+
 <header th:fragment="headerFragment">
 <nav class="navbar-top--pc__container navbar-top-pc navbar fixed-top navbar-expand-lg navbar-light d-flex flex-column align-items-center" style="background-color: rgba( 255, 255, 255, 0.9 ); margin:0; padding-top:0px;">
 	<hr class="navbar-top-pc top-line--blue" sec:authorize="hasRole('ADMIN')" style="border: solid 2px blue; opacity:100; margin-top:0px; margin-bottom:0px; width:100%;">
@@ -55,6 +59,8 @@
 <!--		<a id="nav-bottom-mobile-div-btn-news" type="button" class="btn btn-default btn-lg" onclick="javascript:alert('준비중인 메뉴입니다.');"style="font-style: italic; font-weight:bold;">NEWS</a>-->
 	</div>
 </nav>
+	<div style="position:fixed; bottom:200px; right:5px;">
+		<img id="scroll-up-btn" src="/image/icon/scroll_up_24x24.png" onclick="scrollUp()">
+	</div>
 </header>
-
 </html>
