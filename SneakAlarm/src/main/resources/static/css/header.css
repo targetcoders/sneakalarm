@@ -1,5 +1,8 @@
 @charset "EUC-KR";
 
+#scroll-up-btn{
+
+}
 .navbar__search-icon {
   cursor: pointer;
   width: 25px;

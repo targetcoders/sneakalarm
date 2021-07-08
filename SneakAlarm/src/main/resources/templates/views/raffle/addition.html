@@ -35,7 +35,6 @@ $('document').ready(function() {
 	let curr = new Date();
 	kr_curr = new Date(curr.getTime() - (curr.getTimezoneOffset() * 60000)).toISOString().substring(0,10);
 
-	console.log(kr_curr);
 	$('#startDate').attr('value',kr_curr);
 	$('#endDate').attr('value',kr_curr);
 
