@@ -17,7 +17,7 @@
   </style>
 </th:block>
 <th:block layout:fragment="script">
-  <script type="text/javascript" th:src="@{js/today.js}" charset="utf-8"></script>
+  <script type="text/javascript" src="/js/today.js" charset="utf-8"></script>
 </th:block>
 
 <div layout:fragment="content" class="container" id="today-page-width">
@@ -27,15 +27,33 @@
     </div>
 
     <div id="activeDrawsContainer">
+
       <h2 style="text-align: center; font-weight:bold;">국내 응모</h2>
       <div id="activeDraws-korea"></div>
+
       <hr class="today-draws-hr">
+
       <h2 style="text-align: center; font-weight:bold;">직배 응모</h2>
       <div id="activeDraws-direct"></div>
+
       <hr class="today-draws-hr">
+
       <h2 style="text-align: center; font-weight:bold;">배대지 응모</h2>
       <div id="activeDraws-agent"></div>
+
     </div>
+  </div>
+
+  <img id="category-open-btn" src="/image/icon/24x24_category_open.png">
+
+  <div id="category-list-popup" class="popCmmn">
+    <div class="popBg" data-num="1"></div>
+    <div class="popInnerBox">
+      <div id="raffle-category-korea" class="raffle-category">국내 응모</div>
+      <div id="raffle-category-direct" class="raffle-category">직배 응모</div>
+      <div id="raffle-category-agent" class="raffle-category">배대지 응모</div>
+    </div>
+    <img id="category-close-btn" src="/image/icon/24x24_category_close.png">
   </div>
 </div>
 

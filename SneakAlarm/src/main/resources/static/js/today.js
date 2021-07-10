@@ -1,6 +1,36 @@
 $('document').ready(function() {
   addDrawsByActiveProductList();
+  setPopup();
+  setScrollMoving(new ScrollController());
 });
+
+function setPopup(){
+  $('#category-open-btn').on('click',function(){
+    $('#category-list-popup').fadeIn(200);
+    $('.navbar').css('z-index',0);
+  });
+  $('#category-close-btn').on('click',function(){
+    closeCategoryPopUp();
+  });
+}
+function closeCategoryPopUp(){
+  $('#category-list-popup').fadeOut(200);
+  $('.navbar').css('z-index','default');
+}
+function setScrollMoving(scrollController){
+  $('#raffle-category-korea').on('click', function(){
+    scrollController.scrollTo('#activeDraws-korea');
+    closeCategoryPopUp();
+  });
+  $('#raffle-category-direct').on('click', function(){
+    scrollController.scrollTo('#activeDraws-direct');
+    closeCategoryPopUp();
+  });
+  $('#raffle-category-agent').on('click', function(){
+    scrollController.scrollTo('#activeDraws-agent');
+    closeCategoryPopUp();
+  });
+}
 
 function addDrawsByActiveProductList() {
   return new Promise(function(resolve){
