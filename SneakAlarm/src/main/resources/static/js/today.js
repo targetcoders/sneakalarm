@@ -2,7 +2,15 @@ $('document').ready(function() {
   addDrawsByActiveProductList();
   setPopup();
   setScrollMoving(new ScrollController());
+  $(window).resize(setCss);
+  $(window).resize(setAds);
 });
+function setCss(){
+  $('#category-open-btn').css('bottom','70px');
+  $('#category-close-btn').css('bottom','70px');
+  $('.popInnerBox').css('bottom','110px');
+  $('.popCmmn').css('height','100%');
+}
 function setAds(){
   if($(window).width() < 768){
     $('.popAds1').show();
@@ -17,11 +25,12 @@ function setPopup(){
     $('#category-list-popup').fadeIn(200);
     $('.navbar-top--mobile__container').css('background-color','rgba(255,255,255,0)');
     $('.navbar-top--pc__container').css('background-color','rgba(255,255,255,0)');
-    $('.navbar').hide();
+    $('.fixed-bottom').hide();
+    $('.fixed-bottom').css('z-index',1028);
     setAds();
   });
   $('#category-close-btn, .popBg').on('click',function(){
-    $('.navbar').show();
+    $('.fixed-bottom').show();
     $('.navbar-top--mobile__container').css('background-color','rgba(0,0,0,0)');
     $('.navbar-top--pc__container').css('background-color','rgba(255,255,255,0.9)');
     closeCategoryPopUp();
