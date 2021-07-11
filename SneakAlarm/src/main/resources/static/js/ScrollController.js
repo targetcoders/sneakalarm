@@ -3,7 +3,7 @@ class ScrollController {
 
   scrollTo(elementSelector){
     const location = computeLocation(elementSelector);
-    const intMoreUpHeight = heightForNavbar()+30;
+    const intMoreUpHeight = heightForNavbar();
     window.scrollTo({top:location-intMoreUpHeight, behavior:'smooth'})
 
     function computeLocation(elementSelector){
@@ -14,10 +14,10 @@ class ScrollController {
       return (windowWidth < 768) ? heightForMobileNavbar() : heightForPcNavbar();
 
       function heightForMobileNavbar(){
-        return document.querySelector('.navbar-top-mobile').offsetHeight;
+        return document.querySelector('.navbar-top-mobile').offsetHeight+30;
       }
       function heightForPcNavbar(){
-        return document.querySelector('.navbar-top-pc').offsetHeight;
+        return document.querySelector('.navbar-top-pc').offsetHeight+60;
       }
     }
   }
