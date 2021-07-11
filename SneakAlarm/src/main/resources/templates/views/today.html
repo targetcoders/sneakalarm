@@ -2,6 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
       layout:decorator="layout/default">
 
 <th:block layout:fragment="css">
@@ -13,12 +14,20 @@
 	  #navbar-bottom--mobile__menu--today {
 	    color: #000000;
 	  }
-
   </style>
 </th:block>
 <th:block layout:fragment="script">
   <script type="text/javascript" src="/js/today.js" charset="utf-8"></script>
+
+  <script sec:authorize="!hasRole('ADMIN')">
+    document.title = 'now-sneakalarm';
+  </script>
+  <script sec:authorize="hasRole('ADMIN')">
+    document.title = '[ADMIN]now-sneakalarm';
+  </script>
 </th:block>
+
+
 
 <div layout:fragment="content" class="container" id="today-page-width">
   <div class="today-main-container">
