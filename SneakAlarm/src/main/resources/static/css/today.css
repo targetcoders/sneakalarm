@@ -99,6 +99,7 @@ a:active {
 }
 
 .today-main-container {
+  height:100%;
   margin-top: 86px;
   width: 375px;
   height: 100%;
@@ -208,6 +209,7 @@ a:active {
     width: 1125px;
   }
   .today-main-container {
+    height:100%;
     margin-top: 86px;
     width: 1125px;
     height: 100%;
