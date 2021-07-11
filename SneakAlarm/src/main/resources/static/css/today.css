@@ -23,13 +23,13 @@ a:active {
   color:#fe0100;
 }
 #category-open-btn {
-  position:absolute;
+  position:fixed;
   width:36px;
   height:36px;
   bottom:70px;
   right:25px;
   cursor:pointer;
-  z-index:1029;
+  z-index:1028;
 }
 #category-close-btn {
   position: absolute;

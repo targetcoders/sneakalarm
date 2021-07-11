@@ -1,8 +1,17 @@
 $('document').ready(function() {
+  showAddressBarForced();
   addDrawsByActiveProductList();
   setPopup();
   setScrollMoving(new ScrollController());
+  $('.navbar__search-icon').hide();
 });
+
+function showAddressBarForced(){
+  $(window).scroll(function(){
+    document.webkitExitFullscreen();
+    document.exitFullscreen();
+  });
+}
 function setAds(){
   if($(window).width() < 768){
     $('.popAds1').show();
@@ -22,13 +31,13 @@ function setPopup(){
     setAds();
   });
   $('#category-close-btn, .popBg').on('click',function(){
-    $('.fixed-bottom').show();
     $('.navbar-top--mobile__container').css('background-color','rgba(0,0,0,0)');
     $('.navbar-top--pc__container').css('background-color','rgba(255,255,255,0.9)');
     closeCategoryPopUp();
   });
 }
 function closeCategoryPopUp(){
+  $('.fixed-bottom').show();
   $('#category-list-popup').fadeOut(200);
 }
 function setScrollMoving(scrollController){
