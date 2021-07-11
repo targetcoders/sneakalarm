@@ -7,8 +7,8 @@ $('document').ready(function() {
 function setPopup(){
   $('#category-open-btn').on('click',function(){
     $('#category-list-popup').fadeIn(200);
-    $('.navbar-top--mobile__container').css('background-color','rgba(255,255,255,0.1)');
-    $('.navbar-top--pc__container').css('background-color','rgba(255,255,255,0.1)');
+    $('.navbar-top--mobile__container').css('background-color','rgba(255,255,255,0)');
+    $('.navbar-top--pc__container').css('background-color','rgba(255,255,255,0)');
     $('.navbar').hide();
   });
   $('#category-close-btn, .popBg').on('click',function(){
