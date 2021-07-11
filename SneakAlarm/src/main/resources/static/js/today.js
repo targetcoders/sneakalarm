@@ -2,8 +2,8 @@ $('document').ready(function() {
   addDrawsByActiveProductList();
   setPopup();
   setScrollMoving(new ScrollController());
-  $(window).resize(setCss);
-  $(window).resize(setAds);
+  $(window).scroll(setCss);
+  $(window).scroll(setAds);
 });
 function setCss(){
   $('#category-open-btn').css('bottom','70px');
