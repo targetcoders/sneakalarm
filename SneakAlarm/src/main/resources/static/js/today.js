@@ -1,9 +1,12 @@
+
 $('document').ready(function() {
   addDrawsByActiveProductList();
   setPopup();
   setScrollMoving(new ScrollController());
-  $(window).scroll(setCss);
-  $(window).scroll(setAds);
+  $('body').on('touchend',function(){
+    setCss();
+    setAds();
+  });
 });
 function setCss(){
   $('#category-open-btn').css('bottom','70px');
