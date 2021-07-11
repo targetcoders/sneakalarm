@@ -3,7 +3,7 @@ class ScrollController {
 
   scrollTo(elementSelector){
     const location = computeLocation(elementSelector);
-    const intMoreUpHeight = heightForNavbar();
+    const intMoreUpHeight = heightForNavbar()+30;
     window.scrollTo({top:location-intMoreUpHeight, behavior:'smooth'})
 
     function computeLocation(elementSelector){

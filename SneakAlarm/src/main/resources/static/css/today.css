@@ -17,6 +17,7 @@ a:active {
   color:white;
   margin-top:15px;
   margin-bottom:15px;
+  cursor:pointer;
 }
 .raffle-category:hover{
   color:#fe0100;
@@ -27,6 +28,7 @@ a:active {
   height:25px;
   bottom:70px;
   right:25px;
+  cursor:pointer;
 }
 #category-close-btn {
   position: absolute;
@@ -34,6 +36,7 @@ a:active {
   height:25px;
   bottom:70px;
   right:25px;
+  cursor:pointer;
 }
 .popInnerBox {
   display:flex;
