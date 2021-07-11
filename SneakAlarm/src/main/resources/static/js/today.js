@@ -2,21 +2,7 @@ $('document').ready(function() {
   addDrawsByActiveProductList();
   setPopup();
   setScrollMoving(new ScrollController());
-  $('body').on('touchstart',function(){
-      setCss();
-      setAds();
-    });
-  $('body').on('touchend',function(){
-    setCss();
-    setAds();
-  });
 });
-function setCss(){
-  $('#category-open-btn').css('bottom','70px');
-  $('#category-close-btn').css('bottom','70px');
-  $('.popInnerBox').css('bottom','110px');
-  $('.popCmmn').css('height','100%');
-}
 function setAds(){
   if($(window).width() < 768){
     $('.popAds1').show();
