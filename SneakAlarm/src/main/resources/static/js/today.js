@@ -1,17 +1,10 @@
 $('document').ready(function() {
-  showAddressBarForced();
   addDrawsByActiveProductList();
   setPopup();
   setScrollMoving(new ScrollController());
   $('.navbar__search-icon').hide();
 });
 
-function showAddressBarForced(){
-  $(window).scroll(function(){
-    document.webkitExitFullscreen();
-    document.exitFullscreen();
-  });
-}
 function setAds(){
   if($(window).width() < 768){
     $('.popAds1').show();
