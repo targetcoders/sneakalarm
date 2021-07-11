@@ -7,15 +7,19 @@ $('document').ready(function() {
 function setPopup(){
   $('#category-open-btn').on('click',function(){
     $('#category-list-popup').fadeIn(200);
-    $('.navbar').css('z-index',0);
+    $('.navbar-top--mobile__container').css('background-color','rgba(255,255,255,0.1)');
+    $('.navbar-top--pc__container').css('background-color','rgba(255,255,255,0.1)');
+    $('.navbar').hide();
   });
-  $('#category-close-btn').on('click',function(){
+  $('#category-close-btn, .popBg').on('click',function(){
+    $('.navbar').show();
+    $('.navbar-top--mobile__container').css('background-color','rgba(0,0,0,0)');
+    $('.navbar-top--pc__container').css('background-color','rgba(255,255,255,0.9)');
     closeCategoryPopUp();
   });
 }
 function closeCategoryPopUp(){
   $('#category-list-popup').fadeOut(200);
-  $('.navbar').css('z-index','default');
 }
 function setScrollMoving(scrollController){
   $('#raffle-category-korea').on('click', function(){
