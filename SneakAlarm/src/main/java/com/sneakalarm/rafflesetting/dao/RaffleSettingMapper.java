@@ -1,6 +1,5 @@
 package com.sneakalarm.rafflesetting.dao;
 
-import com.sneakalarm.raffle.dto.RaffleInsertVO;
 import com.sneakalarm.raffle.dto.RaffleVO;
 import com.sneakalarm.rafflesetting.domain.RaffleSetting;
 import java.util.List;
@@ -21,5 +20,5 @@ public interface RaffleSettingMapper {
 
   List<RaffleSetting> getRaffleSettingByKeyword(String keyword);
 
-  void insertRaffle(RaffleVO raffleInsertVO);
+  long insertRaffle(RaffleVO raffleInsertVO);
 }

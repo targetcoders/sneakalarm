@@ -18,5 +18,5 @@ public interface RaffleSettingService {
 
   List<RaffleSetting> getRaffleSettingByKeyword(String keyword);
 
-  void insertRaffle(RaffleVO raffleVO);
+  long insertRaffle(RaffleVO raffleVO);
 }
