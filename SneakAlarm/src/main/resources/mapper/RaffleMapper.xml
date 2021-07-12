@@ -45,8 +45,10 @@
 	<select id="getRaffle" parameterType="String"
 	resultType="com.sneakalarm.raffle.dto.RaffleVO">
 		SELECT *
-		FROM raffle
-		WHERE id = #{id}
+		FROM raffle AS r
+			JOIN product AS p
+			ON p.id = r.productId
+		where r.id = #{id};
 	</select>
 	
 	<update id="updateRaffle" parameterType="com.sneakalarm.raffle.dto.RaffleVO">

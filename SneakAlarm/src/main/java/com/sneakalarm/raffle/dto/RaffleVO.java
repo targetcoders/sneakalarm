@@ -1,8 +1,16 @@
 package com.sneakalarm.raffle.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
-@Data
+@Getter
+@Setter
+@ToString
+@AllArgsConstructor @Builder
 public class RaffleVO {
   private String id;
   private String productId;
@@ -21,6 +29,7 @@ public class RaffleVO {
   private String specialCase;
   private String content;
   private String status;
+  private String model_kr;
 
   public RaffleVO(RaffleInsertVO raffleInsertVO) {
     specialCase = raffleInsertVO.getSpecialCase();
@@ -38,6 +47,7 @@ public class RaffleVO {
     endTime = raffleInsertVO.getEndTime();
     content = raffleInsertVO.getContent();
     imgSrc = raffleInsertVO.getImgSrc();
+    model_kr = raffleInsertVO.getModel_kr();
   }
 
   public RaffleVO() {

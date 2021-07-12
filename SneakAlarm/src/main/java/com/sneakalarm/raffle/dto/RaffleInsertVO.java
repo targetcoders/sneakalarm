@@ -22,4 +22,5 @@ public class RaffleInsertVO {
   private String specialCase;
   private String imgSrc;
   private MultipartFile file;
+  private String model_kr;
 }

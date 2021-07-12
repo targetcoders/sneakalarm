@@ -1,13 +1,19 @@
 package com.sneakalarm.rafflesetting.controller;
 
 import com.google.gson.Gson;
+import com.sneakalarm.raffle.dao.RaffleMapper;
+import com.sneakalarm.raffle.domain.DateTimeImpl;
+import com.sneakalarm.raffle.domain.InstaFeed;
 import com.sneakalarm.raffle.dto.RaffleVO;
 import com.sneakalarm.rafflesetting.domain.RaffleSetting;
 import com.sneakalarm.rafflesetting.service.RaffleSettingService;
+import java.text.ParseException;
 import java.util.List;
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,6 +26,8 @@ public class RaffleSettingRestController {
 
   @Autowired
   RaffleSettingService raffleSettingService;
+  @Autowired
+  RaffleMapper raffleMapper;
 
   @PostMapping("/raffle-settings")
   public ResponseEntity<String> createRaffleSetting(RaffleSetting raffleSetting) {
@@ -61,10 +69,14 @@ public class RaffleSettingRestController {
     return new ResponseEntity<>("success", HttpStatus.OK);
   }
 
+
   @PostMapping("/raffles/addition/{productId}")
-  public ResponseEntity<String> insertRaffle(@PathVariable("productId") String productId, RaffleVO raffleVO) {
+  public ResponseEntity<String> insertRaffle(@PathVariable("productId") String productId, RaffleVO raffleVO)
+      throws ParseException {
     raffleVO.setProductId(productId);
     raffleSettingService.insertRaffle(raffleVO);
-    return new ResponseEntity<>("success",HttpStatus.OK);
+    DateTimeImpl dateTime = new DateTimeImpl();
+    InstaFeed instaFeed = new InstaFeed(raffleVO, dateTime);
+    return new ResponseEntity<>(instaFeed.getText(),HttpStatus.OK);
   }
 }

@@ -107,10 +107,20 @@ $('document').ready(function() {
 				endDate: $('#endDate').val(),
 				endTime: $('#endTime').val(),
 				specialCase: $('#specialCase').val(),
-				content: $('#content').val()
+				content: $('#content').val(),
+				model_kr: $('#target-product').val()
 			},
-			success: function(){
-				alert('성공적으로 등록되었습니다.')
+			success: function(instaFeedText){
+				let result = confirm('성공적으로 등록되었습니다. 아래 text를 복사하시겠습니까?\n'+instaFeedText);
+				if(result){
+    			var t = document.createElement("textarea");
+    			document.body.appendChild(t);
+    			t.value = instaFeedText;
+    			t.select();
+    			document.execCommand('copy');
+    			document.body.removeChild(t);
+    			alert('클립보드에 복사되었습니다.');
+				}
 				location.replace("/raffle/addition/list?productId="+productId);
 			}
 		});
@@ -122,7 +132,7 @@ $('document').ready(function() {
 <div layout:fragment="content">
 	<div class="container-fluid d-flex flex-column justify-content-center align-items-center main-container" style="margin-top:80px">
 		<div><img id="logoImg" th:attr="src=${raffleSetting.imgSrc}" style="width:70px;height:70px;"/><span class="text-center" th:text="${raffleSetting.raffleSettingName}" style="font-size:35px;font-weight:bold;"></span></div>
-		<div style="margin-bottom:45px;"><span id="target-product" style="font-size:25px;font-weight:bold;"></span></div>
+		<div style="margin-bottom:45px;"><span id="target-product" style="font-size:25px;font-weight:bold;word-break:break-all;"></span></div>
 		<div class="raffle-setting-addition-contents">
 			<form id="raffle-setting--addition__form">
 				<div class="mb-3 row">
