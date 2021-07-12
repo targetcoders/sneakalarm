@@ -108,7 +108,7 @@ $('document').ready(function() {
 				endTime: $('#endTime').val(),
 				specialCase: $('#specialCase').val(),
 				content: $('#content').val(),
-				model_kr: $('#target-product').val()
+				model_kr: $('#target-product').text()
 			},
 			success: function(instaFeedText){
 				let result = confirm('성공적으로 등록되었습니다. 아래 text를 복사하시겠습니까?\n'+instaFeedText);
@@ -117,6 +117,8 @@ $('document').ready(function() {
     			document.body.appendChild(t);
     			t.value = instaFeedText;
     			t.select();
+    			document.execCommand('copy');
+    			document.execCommand('copy');
     			document.execCommand('copy');
     			document.body.removeChild(t);
     			alert('클립보드에 복사되었습니다.');
