@@ -111,19 +111,9 @@ $('document').ready(function() {
 				model_kr: $('#target-product').text()
 			},
 			success: function(instaFeedText){
-				let result = confirm('성공적으로 등록되었습니다. 아래 text를 복사하시겠습니까?\n'+instaFeedText);
-				if(result){
-    			var t = document.createElement("textarea");
-    			document.body.appendChild(t);
-    			t.value = instaFeedText;
-    			t.select();
-    			document.execCommand('copy');
-    			document.execCommand('copy');
-    			document.execCommand('copy');
-    			document.body.removeChild(t);
-    			alert('클립보드에 복사되었습니다.');
-				}
-				location.replace("/raffle/addition/list?productId="+productId);
+				alert('성공적으로 등록되었습니다.\ninstagram feed 등록을 위한 text가 자동 생성됩니다.');
+				$('.main-container').empty();
+				$('.main-container').append('<textarea style="width:375px; height:600px">'+instaFeedText+'</textarea>');
 			}
 		});
 	});
