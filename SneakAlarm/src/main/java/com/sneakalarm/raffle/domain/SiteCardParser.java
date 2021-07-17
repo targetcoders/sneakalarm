@@ -70,4 +70,13 @@ public class SiteCardParser {
     }
     return delivery;
   }
+
+  public String getRaffleUrl(Element e) {
+    String raffleUrl = e.getElementsByTag("a").get(0).attr("href");
+    if(raffleUrl.contains("utm_source=luck-d")){
+      int startIdx = raffleUrl.indexOf("utm_source=luck-d");
+      raffleUrl = raffleUrl.substring(0,startIdx) + "utm_source=sneakalarm";
+    }
+    return raffleUrl;
+  }
 }
