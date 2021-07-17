@@ -1,0 +1,13 @@
+@charset "UTF-8";
+
+.input-text {
+  width: 300px;
+}
+.raffle-auto-insert-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+#auto-insert-submit {
+  width:100%;
+}

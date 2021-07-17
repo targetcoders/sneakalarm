@@ -239,19 +239,27 @@ function move(id){
 		</div>
 
 		<div sec:authorize="hasRole('ADMIN')" class="d-grid gap-3 d-md-flex justify-content-md-center" style="margin-bottom:20px">
-		<a sec:authorize="hasRole('ADMIN')" class="btn btn-dark itemalign-center" th:onclick="javascript:move([[${productVO.id}]])">
+		<a sec:authorize="hasRole('ADMIN')" class="btn btn-dark align-items-center" th:onclick="javascript:move([[${productVO.id}]])">
 			MODIFY		 
 		</a>
-		<button sec:authorize="hasRole('ADMIN')" class="btn btn-dark itemalign-center" id="detail-product-delete" th:is="${productVO.id}">
+		<button sec:authorize="hasRole('ADMIN')" class="btn btn-dark align-items-center" id="detail-product-delete" th:is="${productVO.id}">
 			DELETE	 
 		</button>
 		<a sec:authorize="hasRole('ADMIN')" th:href="@{/raffle-insert(productId=${productVO.id})}"
-							 class="btn btn-dark itemalign-center" >
+							 class="btn btn-dark align-items-center" >
 			RAFFLE-INSERT					 
 		</a>
 			<a sec:authorize="hasRole('ADMIN')" th:href="@{/raffle/addition/list(productId=${productVO.id})}"
-				 class="btn btn-danger itemalign-center" >
+				 class="btn btn-danger align-items-center" >
 				RAFFLE-INSERT-V2
+			</a>
+			<a sec:authorize="hasRole('ADMIN')" th:href="@{/raffle/addition/list(productId=${productVO.id})}"
+				 class="btn btn-danger align-items-center" >
+				RAFFLE-INSERT-V2
+			</a>
+			<a sec:authorize="hasRole('ADMIN')" th:href="@{/raffle-auto-insert(productName=${productVO.model_kr},productId=${productVO.id})}"
+				 class="btn btn-danger align-items-center" >
+				RAFFLE-AUTO-INSERT
 			</a>
 		</div>
 </div>
