@@ -55,6 +55,19 @@ public class SiteCardParser {
     return jsoup.getDocument(url);
   }
 
+  public String getCountry(Element e){
+    String pText = e.getElementsByTag("p").get(0).text();
+    String[] pTextArray = pText.split("/");
+    return pTextArray[0].trim();
+  }
 
-
+  public String getDelivery(Element e) {
+    String pText = e.getElementsByTag("p").get(0).text();
+    String delivery = null;
+    if(pText.contains("/")){
+      String[] pTextArray = pText.split("/");
+      delivery = pTextArray[1].trim();
+    }
+    return delivery;
+  }
 }

@@ -40,8 +40,14 @@ public class RaffleAutoInsertController {
     SiteCardParser siteCardParser = new SiteCardParser(url, jsoup);
     Elements elements = siteCardParser.getActiveSiteCards(storeName);
     for(Element e : elements){
+      String country = siteCardParser.getCountry(e);
+      String delivery = siteCardParser.getDelivery(e);
 
+      System.out.println("country: "+country);
+      System.out.println("delivery: "+delivery);
 
+      String aText = e.getElementsByTag("a").get(0).attr("href");
+      System.out.println("aText: "+aText);
     }
     System.out.println(siteCardParser.getActiveSiteCards(storeName));
     return new ResponseEntity<>("{\"url\":\""+url+"\"}", HttpStatus.OK);
