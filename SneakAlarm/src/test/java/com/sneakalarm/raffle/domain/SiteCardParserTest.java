@@ -291,4 +291,10 @@ public class SiteCardParserTest {
     result = siteCardParser.getRaffleUrl(new Element("div").append("<a target=\"_blank\" href=\"https://www.converse.co.kr/limited/moncler_teasing.html\" class=\"btn btn-dark btn-raffle\" onclick=\"javascript:additional_info_click(&quot;5772&quot;);\"> 바로가기 </a>"));
     Assert.assertEquals("https://www.converse.co.kr/limited/moncler_teasing.html", result);
   }
+
+  @Test
+  public void testGetRaffleEndDateTime(){
+    String result = siteCardParser.getRaffleEndDateTime(new Element("div").append("<p class=\"release_date_time\">07월 18일 18:00 까지</p>"));
+    Assert.assertEquals("07-18 18:00", result);
+  }
 }
