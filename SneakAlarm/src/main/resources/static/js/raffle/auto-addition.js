@@ -5,16 +5,16 @@ $('document').ready(function(){
     let storeName = $('#target-store-name').val();
     $.ajax({
       type: 'POST',
-      url: '/raffle-auto-insert/'+'productId',
+      url: '/raffle-auto-insert/'+productId,
       data: {
         url: url,
         storeName: storeName
       },
-      success: function(storeName){
+      success: function(){
         alert('['+storeName+'] 응모 카드가 등록되었습니다.');
       },
       error: function(errorMessage){
-        alert('응모 카드 등록에 실패하였습니다.\n'+'errorMessage');
+        alert('응모 카드 등록에 실패하였습니다.\n'+errorMessage);
       }
     });
   });

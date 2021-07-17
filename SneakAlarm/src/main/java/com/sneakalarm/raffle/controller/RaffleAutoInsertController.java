@@ -1,5 +1,8 @@
 package com.sneakalarm.raffle.controller;
 
+import java.io.IOException;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -27,8 +30,9 @@ public class RaffleAutoInsertController {
   @ResponseBody
   @PostMapping("/raffle-auto-insert/{productId}")
   public ResponseEntity<String> autoInsertRaffle(@RequestParam("url") String url,
-      @PathVariable("productId") String productId) {
-
+      @PathVariable("productId") String productId) throws IOException {
+    Document luckyDrawHTML = Jsoup.connect(url).get();
+    System.out.println(luckyDrawHTML);
     return new ResponseEntity<>("{\"url\":\""+url+"\"}", HttpStatus.OK);
   }
 
