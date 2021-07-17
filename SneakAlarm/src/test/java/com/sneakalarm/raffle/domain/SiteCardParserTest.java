@@ -22,8 +22,9 @@ public class SiteCardParserTest {
   private Document testDocument;
 
   @Before
-  public void init(){
+  public void init() throws IOException {
     this.jsoup = Mockito.mock(JsoupImpl.class);
+    siteCardParser = new SiteCardParser("testUrl",jsoup);
     testDocument = new Document("testUrl");
     testDocument.append("<div class=\"site_card_layer\">\n"
         + "                    <h3 class=\"site_info_title\">온라인 선착순</h3>\n"
@@ -224,7 +225,6 @@ public class SiteCardParserTest {
     String url = "testUrl";
     Document expectedDocument = new Document(url);
     Mockito.doReturn(expectedDocument).when(jsoup).getDocument(url);
-    siteCardParser = new SiteCardParser(url,jsoup);
     Document result = siteCardParser.getLuckyDrawDoc();
 
     Assert.assertEquals(result, expectedDocument);
@@ -257,7 +257,6 @@ public class SiteCardParserTest {
   public void testGetActiveSiteCards() throws IOException {
     String url = "testUrl";
     Mockito.doReturn(testDocument).when(jsoup).getDocument(url);
-    siteCardParser = new SiteCardParser(url,jsoup);
     Elements elements = siteCardParser.getActiveSiteCards("컨버스 코리아");
 
     System.out.println(elements);
@@ -268,8 +267,6 @@ public class SiteCardParserTest {
 
   @Test
   public void testGetCountry() throws IOException {
-    siteCardParser = new SiteCardParser("testUrl",jsoup);
-
     String result = siteCardParser.getCountry(new Element("div").append("<p>한국 </p>"));
     Assert.assertEquals("한국",result);
 
@@ -279,12 +276,19 @@ public class SiteCardParserTest {
 
   @Test
   public void testGetDelivery() throws IOException {
-    siteCardParser = new SiteCardParser("testUrl",jsoup);
-
     String result = siteCardParser.getDelivery(new Element("div").append("<p>프랑스 / 배대지 </p>"));
     Assert.assertEquals("배대지",result);
 
     result = siteCardParser.getDelivery(new Element("div").append("<p>프랑스 / 방문 구매 </p>"));
     Assert.assertEquals("방문 구매",result);
+  }
+
+  @Test
+  public void testGetRaffleUrl(){
+    String result = siteCardParser.getRaffleUrl(new Element("div").append("<a target=\"_blank\" href=\"https://www.converse.co.kr/limited/moncler_teasing.html?utm_source=luck-d\" class=\"btn btn-dark btn-raffle\" onclick=\"javascript:additional_info_click(&quot;5772&quot;);\"> 바로가기 </a>"));
+    Assert.assertEquals("https://www.converse.co.kr/limited/moncler_teasing.html?utm_source=sneakalarm", result);
+
+    result = siteCardParser.getRaffleUrl(new Element("div").append("<a target=\"_blank\" href=\"https://www.converse.co.kr/limited/moncler_teasing.html\" class=\"btn btn-dark btn-raffle\" onclick=\"javascript:additional_info_click(&quot;5772&quot;);\"> 바로가기 </a>"));
+    Assert.assertEquals("https://www.converse.co.kr/limited/moncler_teasing.html", result);
   }
 }
