@@ -1,7 +1,9 @@
 package com.sneakalarm.raffle.controller;
 
+import com.sneakalarm.raffle.domain.Jsoup;
+import com.sneakalarm.raffle.domain.JsoupImpl;
+import com.sneakalarm.raffle.domain.SiteCardParser;
 import java.io.IOException;
-import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -33,18 +35,11 @@ public class RaffleAutoInsertController {
   @PostMapping("/raffle-auto-insert/{productId}")
   public ResponseEntity<String> autoInsertRaffle(@RequestParam("url") String url,
       @PathVariable("productId") String productId) throws IOException {
-        Document luckyDrawHTML = Jsoup.connect(url)
-        .userAgent("Mozilla/5.0 (Windows; U; WindowsNT 5.1; en-US; rv1.8.1.6) Gecko/20070725 Firefox/2.0.0.6")
-        .referrer("http://www.google.com")
-        .get();
 
-        Elements siteCardList = luckyDrawHTML.select("div.site_card");
-        for(Element e : siteCardList) {
-          Elements releaseDateTimeList = e.getElementsByClass("release_date_time");
-          if(!releaseDateTimeList.get(0).text().equals("종료")){
-            System.out.println(e);
-          }
-        }
+    Jsoup jsoup = new JsoupImpl();
+    SiteCardParser siteCardParser = new SiteCardParser(url, jsoup);
+
+
 
     //System.out.println(luckyDrawHTML);
     return new ResponseEntity<>("{\"url\":\""+url+"\"}", HttpStatus.OK);
