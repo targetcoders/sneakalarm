@@ -42,12 +42,14 @@ public class RaffleAutoInsertController {
     for(Element e : elements){
       String country = siteCardParser.getCountry(e);
       String delivery = siteCardParser.getDelivery(e);
+      String raffleUrl = siteCardParser.getRaffleUrl(e);
+      String raffleEndDateTime = siteCardParser.getRaffleEndDateTime(e);
 
+      System.out.println("storeName: "+storeName);
       System.out.println("country: "+country);
       System.out.println("delivery: "+delivery);
-
-      String aText = e.getElementsByTag("a").get(0).attr("href");
-      System.out.println("aText: "+aText);
+      System.out.println("raffleUrl: "+raffleUrl);
+      System.out.println("raffleEndDateTime: "+raffleEndDateTime);
     }
     System.out.println(siteCardParser.getActiveSiteCards(storeName));
     return new ResponseEntity<>("{\"url\":\""+url+"\"}", HttpStatus.OK);

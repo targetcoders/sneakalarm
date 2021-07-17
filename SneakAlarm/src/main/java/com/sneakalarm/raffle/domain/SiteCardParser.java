@@ -79,4 +79,11 @@ public class SiteCardParser {
     }
     return raffleUrl;
   }
+
+  public String getRaffleEndDateTime(Element e) {
+    String release_date_time = e.getElementsByClass("release_date_time").get(0).text();
+    String[] splitEndDateTime = release_date_time.split(" ");
+    return splitEndDateTime[0].substring(0, 2) + "-" + splitEndDateTime[1].substring(0, 2)
+        + " " + splitEndDateTime[2];
+  }
 }
