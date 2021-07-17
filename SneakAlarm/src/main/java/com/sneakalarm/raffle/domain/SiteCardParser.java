@@ -18,16 +18,28 @@ public class SiteCardParser {
     this.luckyDrawDoc = getDocument(url);
   }
 
-  public Elements getActiveSiteCards() {
-    Elements result = new Elements();
+  public Elements getActiveSiteCards(String storeName) {
     Elements siteCardList = luckyDrawDoc.select("div.site_card");
+    Elements targetStoreElementList = getTargetStoreElements(storeName, siteCardList);
+    return targetStoreElementList;
+  }
+
+  private Elements getTargetStoreElements(String storeName, Elements siteCardList) {
+    Elements result = new Elements();
     for (Element e : siteCardList) {
       Elements releaseDateTimeList = e.getElementsByClass("release_date_time");
       if (!releaseDateTimeList.get(0).text().equals("종료")) {
-        result.add(e);
+        String tempStoreName = e.getElementsByClass("agent_site_title").get(0).text();
+        addTargetStoreElement(result, e, tempStoreName, storeName);
       }
     }
     return result;
+  }
+
+  private void addTargetStoreElement(Elements result, Element e, String tempStoreName, String storeName) {
+    if(tempStoreName.equals(storeName)) {
+      result.add(e);
+    }
   }
 
   private void checkArguments(String url, Jsoup jsoup) {

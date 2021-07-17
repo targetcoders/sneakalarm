@@ -255,8 +255,9 @@ public class SiteCardParserTest {
     String url = "testUrl";
     Mockito.doReturn(testDocument).when(jsoup).getDocument(url);
     siteCardParser = new SiteCardParser(url,jsoup);
-    Elements elements = siteCardParser.getActiveSiteCards();
+    Elements elements = siteCardParser.getActiveSiteCards("컨버스 코리아");
 
+    System.out.println(elements);
     int result = elements.size();
 
     Assert.assertEquals(1, result);
