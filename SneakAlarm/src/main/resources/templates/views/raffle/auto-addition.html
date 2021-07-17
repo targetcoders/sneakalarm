@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/default">
+
+<th:block layout:fragment="css">
+  <link rel="stylesheet" th:href="@{/css/raffle/auto-addition.css}" type="text/css">
+</th:block>
+
+<th:block layout:fragment="script">
+  <script src="https://sdk.amazonaws.com/js/aws-sdk-2.283.1.min.js"></script>
+  <script type="text/javascript" src="/js/util.js" charset="utf-8"></script>
+  <script type="text/javascript" src="/js/raffle/auto-addition.js" charset="utf-8"></script>
+</th:block>
+
+<div layout:fragment="content">
+  <div class="container-fluid d-flex flex-column justify-content-center align-items-center main-container" style="margin-top:80px">
+    <h1>응모카드 자동등록</h1>
+    <h3 th:text="${productName}"></h3>
+    <span id="productId" th:text="${productId}" style="display:none;"></span>
+    <hr>
+    <div class="raffle-auto-insert-form">
+      <table>
+        <tr>
+          <td>URL</td>
+          <td><input class="input-text" type="text" name="target-url" id="target-url"/></span></td>
+        </tr>
+        <tr>
+          <td>Store Name</td>
+          <td><input class="input-text" type="text" name="target-store-name" id="target-store-name"/></td>
+        </tr>
+        <tr>
+          <td colspan="2"><a id="auto-insert-submit" class="btn btn-danger">자동등록</a></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+</html>
