@@ -40,7 +40,10 @@ public class RaffleAutoInsertController {
 
         Elements siteCardList = luckyDrawHTML.select("div.site_card");
         for(Element e : siteCardList) {
-          System.out.println(e);
+          Elements releaseDateTimeList = e.getElementsByClass("release_date_time");
+          if(!releaseDateTimeList.get(0).text().equals("종료")){
+            System.out.println(e);
+          }
         }
 
     //System.out.println(luckyDrawHTML);
