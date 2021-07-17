@@ -4,7 +4,6 @@ import com.sneakalarm.raffle.domain.Jsoup;
 import com.sneakalarm.raffle.domain.JsoupImpl;
 import com.sneakalarm.raffle.domain.SiteCardParser;
 import java.io.IOException;
-import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.http.HttpStatus;
@@ -34,14 +33,17 @@ public class RaffleAutoInsertController {
   @ResponseBody
   @PostMapping("/raffle-auto-insert/{productId}")
   public ResponseEntity<String> autoInsertRaffle(@RequestParam("url") String url,
-      @PathVariable("productId") String productId) throws IOException {
+      @RequestParam("storeName") String storeName, @PathVariable("productId") String productId)
+      throws IOException {
 
     Jsoup jsoup = new JsoupImpl();
     SiteCardParser siteCardParser = new SiteCardParser(url, jsoup);
+    Elements elements = siteCardParser.getActiveSiteCards(storeName);
+    for(Element e : elements){
 
 
-
-    //System.out.println(luckyDrawHTML);
+    }
+    System.out.println(siteCardParser.getActiveSiteCards(storeName));
     return new ResponseEntity<>("{\"url\":\""+url+"\"}", HttpStatus.OK);
   }
 
