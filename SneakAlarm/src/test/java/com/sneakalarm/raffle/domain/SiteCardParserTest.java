@@ -1,7 +1,10 @@
 package com.sneakalarm.raffle.domain;
 
 import java.io.IOException;
+import javax.swing.text.html.parser.TagElement;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.parser.Tag;
 import org.jsoup.select.Elements;
 import org.junit.Assert;
 import org.junit.Before;
@@ -261,5 +264,27 @@ public class SiteCardParserTest {
     int result = elements.size();
 
     Assert.assertEquals(1, result);
+  }
+
+  @Test
+  public void testGetCountry() throws IOException {
+    siteCardParser = new SiteCardParser("testUrl",jsoup);
+
+    String result = siteCardParser.getCountry(new Element("div").append("<p>한국 </p>"));
+    Assert.assertEquals("한국",result);
+
+    result = siteCardParser.getCountry(new Element("div").append("<p>프랑스 / 배대지 </p>"));
+    Assert.assertEquals("프랑스",result);
+  }
+
+  @Test
+  public void testGetDelivery() throws IOException {
+    siteCardParser = new SiteCardParser("testUrl",jsoup);
+
+    String result = siteCardParser.getDelivery(new Element("div").append("<p>프랑스 / 배대지 </p>"));
+    Assert.assertEquals("배대지",result);
+
+    result = siteCardParser.getDelivery(new Element("div").append("<p>프랑스 / 방문 구매 </p>"));
+    Assert.assertEquals("방문 구매",result);
   }
 }
