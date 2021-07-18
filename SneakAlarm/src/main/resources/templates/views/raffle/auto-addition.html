@@ -19,6 +19,7 @@
     <h3 th:text="${productName}"></h3>
     <span id="productId" th:text="${productId}" style="display:none;"></span>
     <hr>
+
     <div class="raffle-auto-insert-form">
       <table>
         <tr>
@@ -33,6 +34,41 @@
           <td colspan="2"><a id="auto-insert-submit" class="btn btn-danger">자동등록</a></td>
         </tr>
       </table>
+    </div>
+  </div>
+  <div style="margin-top:50px; padding:5px; background-color:#b8b8b8; border:solid 1px;">
+    <span style="font-weight:bold; color:#fe0100;">[필독]아래의 요건 세 가지를 만족할 때 응모카드 auto-insert가 가능합니다 !</span><br><br>
+
+    <h5><b>※ URL ※</b></h5>
+    luck-d.com 사이트의 응모 카드를 클릭했을 때 이동 되는 상세 페이지의 url을 입력하세요.<br>
+    해당 페이지에서 자동으로 등록하고 싶은 응모 카드의 매장 이름을 정확하게 입력해야합니다.<br><br>
+
+    <h5><b>※ raffleSetting 등록※</b></h5>
+    &nbsp;&nbsp;[방문 구매]나이키<br>
+    &nbsp;&nbsp;[온라인 구매]나이키 코리아<br><br>
+    <b>(raffleSetting 제목의 형식이 위 형식과 일치해야 하며, 매장 이름도 luck-d 사이트와 통일시켜주세요.)</b>
+    <br><br>
+
+    <h5><b>※ store name ※</b></h5>
+    luck-d.com의 제품 상세 페이지의 응모 카드에서 자동 등록하고 싶은 응모 카드의 매장 이름을 정확히 일치시켜주세요.<br><br>
+    <div style="border:solid 1px">
+      [luck-d 응모 카드 내용1]<br><br>
+      <div style="font-size: 18px">
+        &nbsp;&nbsp;나이키<br>
+        &nbsp;&nbsp;한국 / 방문 구매 <br>
+      </div>
+      <br>
+      ↑&nbsp;<b>[방문 구매]나이키</b> raffleSetting이 적용됩니다.
+
+      <hr>
+
+      [luck-d 응모 카드 내용2]<br><br>
+      <div style="font-size: 18px">
+        &nbsp;&nbsp;나이키 코리아<br>
+        &nbsp;&nbsp;한국
+      </div>
+      <br>
+      ↑&nbsp;<b>[온라인 구매]나이키 코리아</b> raffleSetting이 적용됩니다.<br>
     </div>
   </div>
 </div>

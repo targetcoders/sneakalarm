@@ -1,0 +1,9 @@
+package com.sneakalarm.raffle.service;
+
+import com.sneakalarm.raffle.dto.RaffleVO;
+import java.util.List;
+
+public interface RaffleAutoInsertService {
+  List<RaffleVO> raffleAutoInsert(String targetUrl, String storeName, String productId)
+      throws Exception;
+}
