@@ -3,6 +3,9 @@
 #scroll-up-btn{
 
 }
+.navbar-top-pc {
+  margin-bottom: 3px;
+}
 .navbar__search-icon {
   cursor: pointer;
   width: 25px;
