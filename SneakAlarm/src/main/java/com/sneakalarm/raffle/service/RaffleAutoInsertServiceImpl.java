@@ -40,7 +40,7 @@ public class RaffleAutoInsertServiceImpl implements RaffleAutoInsertService{
 
       String prefixDelivery = (delivery==null) ? "[온라인 구매]" : "["+delivery+"]";
       List<RaffleSetting> raffleSettingList = raffleSettingService
-          .getRaffleSettingByKeyword(prefixDelivery+storeName.split(" ")[0]);
+          .getRaffleSettingByKeyword(prefixDelivery+storeName);
 
       if(raffleSettingList.isEmpty()){
         throw new IllegalStateException("RaffleSetting 테이블에 일치하는 데이터가 없습니다.");
