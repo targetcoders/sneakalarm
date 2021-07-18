@@ -43,7 +43,7 @@ public class RaffleAutoInsertServiceImpl implements RaffleAutoInsertService{
           .getRaffleSettingByKeyword(prefixDelivery+storeName);
 
       if(raffleSettingList.isEmpty()){
-        throw new IllegalStateException("RaffleSetting 테이블에 일치하는 데이터가 없습니다.");
+        return new ArrayList<>();
       }
 
       RaffleSetting raffleSetting = raffleSettingList.get(0);

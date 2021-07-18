@@ -83,7 +83,10 @@ public class SiteCardParser {
   public String getRaffleEndDateTime(Element e) {
     String release_date_time = e.getElementsByClass("release_date_time").get(0).text();
     String[] splitEndDateTime = release_date_time.split(" ");
-    return splitEndDateTime[0].substring(0, 2) + "-" + splitEndDateTime[1].substring(0, 2)
-        + " " + splitEndDateTime[2];
+    String dateTime = splitEndDateTime[0].substring(0, 2) + "-" + splitEndDateTime[1].substring(0, 2);
+    if(splitEndDateTime[2].equals("까지")) {
+      return dateTime + " 23:59";
+    }
+    return dateTime + " " + splitEndDateTime[2];
   }
 }
