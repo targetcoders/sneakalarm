@@ -13,8 +13,8 @@ $('document').ready(function(){
       success: function(){
         alert('['+storeName+'] 응모 카드가 등록되었습니다.');
       },
-      error: function(errorMessage){
-        alert('응모 카드 등록에 실패하였습니다.\n'+errorMessage);
+      error: function(response){
+        alert(response.responseText);
       }
     });
   });

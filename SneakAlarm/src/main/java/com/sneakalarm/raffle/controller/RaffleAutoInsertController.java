@@ -1,12 +1,16 @@
 package com.sneakalarm.raffle.controller;
 
-import com.sneakalarm.raffle.domain.Jsoup;
-import com.sneakalarm.raffle.domain.JsoupImpl;
-import com.sneakalarm.raffle.domain.SiteCardParser;
-import java.io.IOException;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
+import com.sneakalarm.raffle.dto.RaffleVO;
+import com.sneakalarm.raffle.service.RaffleAutoInsertService;
+import com.sneakalarm.rafflesetting.service.RaffleSettingService;
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +22,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class RaffleAutoInsertController {
+
+  @Autowired
+  private RaffleSettingService raffleSettingService;
+  @Autowired
+  private RaffleAutoInsertService raffleAutoInsertService;
+  @Autowired
+  private ObjectMapper objectMapper;
 
   @GetMapping("/raffle-auto-insert")
   public String showRaffleAutoInsertView(@RequestParam(name = "productId") String productId,
@@ -32,27 +43,21 @@ public class RaffleAutoInsertController {
 
   @ResponseBody
   @PostMapping("/raffle-auto-insert/{productId}")
-  public ResponseEntity<String> autoInsertRaffle(@RequestParam("url") String url,
-      @RequestParam("storeName") String storeName, @PathVariable("productId") String productId)
-      throws IOException {
-
-    Jsoup jsoup = new JsoupImpl();
-    SiteCardParser siteCardParser = new SiteCardParser(url, jsoup);
-    Elements elements = siteCardParser.getActiveSiteCards(storeName);
-    for(Element e : elements){
-      String country = siteCardParser.getCountry(e);
-      String delivery = siteCardParser.getDelivery(e);
-      String raffleUrl = siteCardParser.getRaffleUrl(e);
-      String raffleEndDateTime = siteCardParser.getRaffleEndDateTime(e);
-
-      System.out.println("storeName: "+storeName);
-      System.out.println("country: "+country);
-      System.out.println("delivery: "+delivery);
-      System.out.println("raffleUrl: "+raffleUrl);
-      System.out.println("raffleEndDateTime: "+raffleEndDateTime);
+  public ResponseEntity<String> autoInsertRaffle(@RequestParam("url") String targetUrl,
+      @RequestParam("storeName") String storeName, @PathVariable("productId") String productId) {
+    List<RaffleVO> raffleVO;
+    try {
+      raffleVO= raffleAutoInsertService
+          .raffleAutoInsert(targetUrl, storeName, productId);
+    } catch(Exception e) {
+      return new ResponseEntity<>("url을 확인하세요.", HttpStatus.BAD_REQUEST);
     }
-    System.out.println(siteCardParser.getActiveSiteCards(storeName));
-    return new ResponseEntity<>("{\"url\":\""+url+"\"}", HttpStatus.OK);
+    if(raffleVO.isEmpty()){
+      String message = "storeName이 정확하게 일치하는지, raffleSetting이 제대로 등록되어 있는지 확인하세요.";
+      return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
+    }
+
+    return new ResponseEntity<>("success", HttpStatus.OK);
   }
 
 }
