@@ -91,7 +91,6 @@ function addDrawsByActiveProductList() {
 
         if (model_kr == '?') {
           if($('#todayUnregisteredDraw-'+id).length > 0) continue;
-
           $('#activeDraws-unregistered').append('<div id="todayUnregisteredDraw-'+id+'" class="todayDrawContainer"><a href=/product-detail?id='+id+'><img id="todayProductImg-'+id+'" class="todayProductImg" src="'+imgSrc_home+'"></a></div>');
           $('#todayUnregisteredDraw-'+id).append('<div class="todayUnregisteredDrawContent-'+id+' todayDrawContentBox d-flex flex-wrap justify-content-center"></div>');
           continue;
@@ -146,12 +145,12 @@ function addDrawsByActiveProductList() {
                 if($('#drawCard-'+id).length > 0) continue;
                 if(releasePrice == '미등록 제품') {
                   if(status == 'active') {
-                    if(delivery == '택배배송' || delivery == '방문수령'){
+                    if(delivery == '택배배송' || delivery == '방문수령' || delivery == '직배' || delivery == '배대지'){
                       if(raffleType == '응모'){
                         $('.todayUnregisteredDrawContent-'+resultList[i].productId)
                           .append('<div class="todayDrawContent"><a id="drawCard-'+id+'" href="'+drawUrl+'" style="text-decoration: none;"><div><span class="draw-raffle-type-raffle">'+raffleType+'</span>&nbsp;-&nbsp;'+storeName+'</div><div><span class="draw-model_kr">'+model_kr+'</span></div><div class="draw-end-datetime">종료: '+endDate+'&nbsp;&nbsp;'+endWeek+'&nbsp;&nbsp;'+endTime+'</div><div class="draw-specialcase">'+specialCase+'</div></a></div>');
                       } else {
-                        $('.todayUnregisteredDrawContentKorea-'+resultList[i].productId)
+                        $('.todayUnregisteredDrawContent-'+resultList[i].productId)
                         .append('<div class="todayDrawContent"><a id="drawCard-'+id+'" href="'+drawUrl+'" style="text-decoration: none;"><div><span class="draw-raffle-type-firstcome">'+raffleType+'</span>&nbsp;-&nbsp;'+storeName+'</div><div><span class="draw-model_kr">'+model_kr+'</span></div><div class="draw-start-datetime">시작: '+startDate+'&nbsp;&nbsp;'+startWeek+'&nbsp;&nbsp;'+startTime+'</div><div class="draw-specialcase">'+specialCase+'</div></a></div>');
                       }
                     }
