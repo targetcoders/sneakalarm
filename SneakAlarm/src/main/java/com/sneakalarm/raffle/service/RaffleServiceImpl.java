@@ -90,6 +90,7 @@ public class RaffleServiceImpl implements RaffleService {
     raffleVO.setStartTime(raffleInsertVO.getStartTime());
     raffleVO.setStoreName(raffleInsertVO.getStoreName());
     raffleVO.setUrl(raffleInsertVO.getUrl());
+    raffleVO.setModel_kr(raffleInsertVO.getModel_kr());
     String fileName = raffleInsertVO.getFile().getOriginalFilename();
     if (!fileName.equals("")) {
       BucketVO bucketVO = new BucketVO(region, bucket, folderName);

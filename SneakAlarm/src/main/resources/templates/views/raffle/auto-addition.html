@@ -16,7 +16,7 @@
 <div layout:fragment="content">
   <div class="container-fluid d-flex flex-column justify-content-center align-items-center main-container" style="margin-top:80px">
     <h1>응모카드 자동등록</h1>
-    <h3 th:text="${productName}"></h3>
+    <h3 id="productName"th:text="${productName}"></h3>
     <span id="productId" th:text="${productId}" style="display:none;"></span>
     <hr>
 
@@ -29,6 +29,10 @@
         <tr>
           <td>Store Name</td>
           <td><input class="input-text" type="text" name="target-store-name" id="target-store-name"/></td>
+        </tr>
+        <tr>
+          <td>model_kr</td>
+          <td><input class="input-text" type="text" name="model_kr" id="model_kr"/></td>
         </tr>
         <tr>
           <td colspan="2"><a id="auto-insert-submit" class="btn btn-danger">자동등록</a></td>

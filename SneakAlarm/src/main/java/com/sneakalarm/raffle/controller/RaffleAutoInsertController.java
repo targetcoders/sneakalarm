@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -42,13 +43,13 @@ public class RaffleAutoInsertController {
   }
 
   @ResponseBody
-  @PostMapping("/raffle-auto-insert/{productId}")
+  @PostMapping("/raffle-auto-insert")
   public ResponseEntity<String> autoInsertRaffle(@RequestParam("url") String targetUrl,
-      @RequestParam("storeName") String storeName, @PathVariable("productId") String productId) {
+      @RequestParam("storeName") String storeName, @RequestParam("model_kr")String model_kr, @RequestParam("productId") String productId) {
     List<RaffleVO> raffleVO;
     try {
       raffleVO= raffleAutoInsertService
-          .raffleAutoInsert(targetUrl, storeName, productId);
+          .raffleAutoInsert(targetUrl, storeName, productId, model_kr);
     } catch(Exception e) {
       return new ResponseEntity<>("url을 확인하세요.", HttpStatus.BAD_REQUEST);
     }

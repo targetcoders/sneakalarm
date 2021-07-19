@@ -57,7 +57,7 @@
 						storeName=#{storeName}, country=#{country}, delivery=#{delivery},
 						payType=#{payType}, startDate=#{startDate}, startTime=#{startTime},
 						endDate=#{endDate}, endTime=#{endTime}, content=#{content},
-						specialCase=#{specialCase}, imgSrc=#{imgSrc} 
+						specialCase=#{specialCase}, imgSrc=#{imgSrc}, model_kr=#{model_kr}
 		WHERE		id=#{id}
 	</update>
 

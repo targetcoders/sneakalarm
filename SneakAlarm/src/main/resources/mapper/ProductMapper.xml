@@ -42,6 +42,7 @@
 		SELECT *
 		FROM product
 		WHERE deliveryTypes LIKE CONCAT('%',#{deliveryType},'%') AND (status='ready' OR status='active')
+		ORDER BY releaseEndDate;
 	</select>
 	
 	<delete id="deleteProduct" parameterType="String">

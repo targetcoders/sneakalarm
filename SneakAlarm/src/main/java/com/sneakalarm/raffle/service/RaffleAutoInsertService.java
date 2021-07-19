@@ -4,6 +4,7 @@ import com.sneakalarm.raffle.dto.RaffleVO;
 import java.util.List;
 
 public interface RaffleAutoInsertService {
-  List<RaffleVO> raffleAutoInsert(String targetUrl, String storeName, String productId)
+  List<RaffleVO> raffleAutoInsert(String targetUrl, String storeName, String productId,
+      String model_kr)
       throws Exception;
 }

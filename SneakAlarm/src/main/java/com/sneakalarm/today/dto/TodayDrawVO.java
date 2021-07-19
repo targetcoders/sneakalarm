@@ -1,9 +1,13 @@
 package com.sneakalarm.today.dto;
 
+import java.text.SimpleDateFormat;
+import java.util.Comparator;
+import java.util.Date;
 import lombok.Data;
+import lombok.SneakyThrows;
 
 @Data
-public class TodayDrawVO {
+public class TodayDrawVO implements Comparable<TodayDrawVO> {
   private String id;
   private String url;
   private String storeName;
@@ -17,10 +21,12 @@ public class TodayDrawVO {
   private String startWeek;
   private String endWeek;
   private String specialCase;
+  private String model_kr;
+  private String releasePrice;
 
   public TodayDrawVO(String id, String url, String storeName, String raffleType, String startDate,
       String startTime, String endDate, String endTime, String delivery, String status,
-      String startWeek, String endWeek, String specialCase) {
+      String startWeek, String endWeek, String specialCase, String model_kr, String releasePrice) {
     if(raffleType.equals("선착순"))
       raffleType = "선착";
     this.id = id;
@@ -36,5 +42,17 @@ public class TodayDrawVO {
     this.startWeek = startWeek;
     this.endWeek = endWeek;
     this.specialCase = specialCase;
+    this.model_kr = model_kr;
+    this.releasePrice = releasePrice;
+  }
+
+  @SneakyThrows
+  @Override
+  public int compareTo(TodayDrawVO o) {
+    SimpleDateFormat sdf = new SimpleDateFormat("MM/dd hh:mm");
+    Date endDateTime1 = sdf.parse(this.getEndDate() + " " + this.getEndTime());
+    Date endDateTime2 = sdf.parse(o.getEndDate() + " " + o.getEndTime());
+
+    return endDateTime2.compareTo(endDateTime1);
   }
 }
