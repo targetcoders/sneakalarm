@@ -36,6 +36,7 @@ public class RaffleAutoInsertServiceImpl implements RaffleAutoInsertService{
       String delivery = siteCardParser.getDelivery(e);
       String raffleUrl = siteCardParser.getRaffleUrl(e);
       String raffleEndDateTime = siteCardParser.getRaffleEndDateTime(e);
+      String releasePrice = (model_kr != null) ? "미등록 제품":"";
 
       List<RaffleSetting> raffleSettingList = raffleSettingService
           .getRaffleSettingByKeyword("["+usingDeliveryFor(delivery)+"]"+storeName);
@@ -69,7 +70,7 @@ public class RaffleAutoInsertServiceImpl implements RaffleAutoInsertService{
           .endDate(sdf.format(dateTime.getDate()).substring(0,4) + "-" + raffleEndDateTime.split(" ")[0])
           .endTime(raffleEndDateTime.split(" ")[1])
           .model_kr(model_kr)
-          .releasePrice("미등록 제품")
+          .releasePrice(releasePrice)
           .build();
       raffleVOList.add(raffleVO);
     }
