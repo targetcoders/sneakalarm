@@ -11,6 +11,10 @@ a:active {
   color:#FE0100;
 }
 
+.draw-model_kr{
+  font-size: 18px;
+  font-weight: bold;
+}
 .raffle-category{
   font-size:15px;
   color:white;
@@ -216,6 +220,13 @@ a:active {
   #activeDrawsContainer {
     width: 1125px;
     margin-bottom: 52px;
+  }
+  #activeDraws-unregistered {
+    width: 1125px;
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
   }
   #activeDraws-korea {
     width: 1125px;

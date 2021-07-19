@@ -1,9 +1,16 @@
 $('document').ready(function() {
   addDrawsByActiveProductList();
+  setHide();
   setPopup();
   setScrollMoving(new ScrollController());
   $('.navbar__search-icon').hide();
 });
+
+function setHide(){
+  if($('#activeDraws-unregistered').length == 0){
+    $('.product-unregistered').hide();
+  }
+}
 
 function setAds(){
   if($(window).width() < 768){
@@ -81,7 +88,15 @@ function addDrawsByActiveProductList() {
         let id = aDataToAddDraws.id;
         let imgSrc_home = aDataToAddDraws.imgSrc_home;
         let model_kr = aDataToAddDraws.model_kr;
-        
+
+        if (model_kr == '?') {
+          if($('#todayUnregisteredDraw-'+id).length > 0) continue;
+
+          $('#activeDraws-unregistered').append('<div id="todayUnregisteredDraw-'+id+'" class="todayDrawContainer"><a href=/product-detail?id='+id+'><img id="todayProductImg-'+id+'" class="todayProductImg" src="'+imgSrc_home+'"></a></div>');
+          $('#todayUnregisteredDraw-'+id).append('<div class="todayUnregisteredDrawContent-'+id+' todayDrawContentBox d-flex flex-wrap justify-content-center"></div>');
+          continue;
+        }
+
         if (deliveryType == '직배') {
           if($('#todayDirectDraw-'+id).length > 0) continue;
           $('#activeDraws-direct').append('<div id="todayDirectDraw-'+id+'" class="todayDrawContainer"><a href=/product-detail?id='+id+'><img id="todayProductImg-'+id+'" class="todayProductImg" src="'+imgSrc_home+'"></a></div>')
@@ -125,8 +140,24 @@ function addDrawsByActiveProductList() {
                 let startWeek = resultList[i].todayDraws[j].startWeek;
                 let endWeek = resultList[i].todayDraws[j].endWeek;
                 let specialCase = resultList[i].todayDraws[j].specialCase;
+                let model_kr = resultList[i].todayDraws[j].model_kr;
+                let releasePrice = resultList[i].todayDraws[j].releasePrice;
       
                 if($('#drawCard-'+id).length > 0) continue;
+                if(releasePrice == '미등록 제품') {
+                  if(status == 'active') {
+                    if(delivery == '택배배송' || delivery == '방문수령'){
+                      if(raffleType == '응모'){
+                        $('.todayUnregisteredDrawContent-'+resultList[i].productId)
+                          .append('<div class="todayDrawContent"><a id="drawCard-'+id+'" href="'+drawUrl+'" style="text-decoration: none;"><div><span class="draw-raffle-type-raffle">'+raffleType+'</span>&nbsp;-&nbsp;'+storeName+'</div><div><span class="draw-model_kr">'+model_kr+'</span></div><div class="draw-end-datetime">종료: '+endDate+'&nbsp;&nbsp;'+endWeek+'&nbsp;&nbsp;'+endTime+'</div><div class="draw-specialcase">'+specialCase+'</div></a></div>');
+                      } else {
+                        $('.todayUnregisteredDrawContentKorea-'+resultList[i].productId)
+                        .append('<div class="todayDrawContent"><a id="drawCard-'+id+'" href="'+drawUrl+'" style="text-decoration: none;"><div><span class="draw-raffle-type-firstcome">'+raffleType+'</span>&nbsp;-&nbsp;'+storeName+'</div><div><span class="draw-model_kr">'+model_kr+'</span></div><div class="draw-start-datetime">시작: '+startDate+'&nbsp;&nbsp;'+startWeek+'&nbsp;&nbsp;'+startTime+'</div><div class="draw-specialcase">'+specialCase+'</div></a></div>');
+                      }
+                    }
+                  }
+                  continue;
+                }
       
                 if(status == 'active') {
                   if(delivery == '택배배송' || delivery == '방문수령'){

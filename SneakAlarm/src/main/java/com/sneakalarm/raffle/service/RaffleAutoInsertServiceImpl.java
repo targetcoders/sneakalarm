@@ -24,7 +24,8 @@ public class RaffleAutoInsertServiceImpl implements RaffleAutoInsertService{
 
 
   @Override
-  public List<RaffleVO> raffleAutoInsert(String targetUrl, String storeName, String productId)
+  public List<RaffleVO> raffleAutoInsert(String targetUrl, String storeName, String productId,
+      String model_kr)
       throws Exception {
     Jsoup jsoup = new JsoupImpl();
     SiteCardParser siteCardParser = new SiteCardParser(targetUrl, jsoup);
@@ -36,11 +37,8 @@ public class RaffleAutoInsertServiceImpl implements RaffleAutoInsertService{
       String raffleUrl = siteCardParser.getRaffleUrl(e);
       String raffleEndDateTime = siteCardParser.getRaffleEndDateTime(e);
 
-      delivery = changeValueFor(delivery);
-
-      String prefixDelivery = (delivery==null) ? "[온라인 구매]" : "["+delivery+"]";
       List<RaffleSetting> raffleSettingList = raffleSettingService
-          .getRaffleSettingByKeyword(prefixDelivery+storeName);
+          .getRaffleSettingByKeyword("["+usingDeliveryFor(delivery)+"]"+storeName);
 
       if(raffleSettingList.isEmpty()){
         return new ArrayList<>();
@@ -53,6 +51,7 @@ public class RaffleAutoInsertServiceImpl implements RaffleAutoInsertService{
       if(!specialCase.isEmpty() && specialCase != null){
         specialCase = ", " + specialCase;
       }
+
       RaffleVO raffleVO = RaffleVO.builder()
           .productId(productId)
           .storeName(raffleSetting.getStoreName())
@@ -62,13 +61,15 @@ public class RaffleAutoInsertServiceImpl implements RaffleAutoInsertService{
           .imgSrc(raffleSetting.getImgSrc())
           .delivery(raffleSetting.getDelivery())
           .content(raffleSetting.getContent())
-          .specialCase(prefixDelivery.substring(1,7) + specialCase)
+          .specialCase(usingDeliveryFor(delivery) + specialCase)
           .releasePrice(raffleSetting.getReleasePrice())
           .payType(raffleSetting.getPayType())
           .startDate(sdf.format(dateTime.getDate()).split(" ")[0])
           .startTime(sdf.format(dateTime.getDate()).split(" ")[1])
           .endDate(sdf.format(dateTime.getDate()).substring(0,4) + "-" + raffleEndDateTime.split(" ")[0])
           .endTime(raffleEndDateTime.split(" ")[1])
+          .model_kr(model_kr)
+          .releasePrice("미등록 제품")
           .build();
       raffleVOList.add(raffleVO);
     }
@@ -78,10 +79,10 @@ public class RaffleAutoInsertServiceImpl implements RaffleAutoInsertService{
     return raffleVOList;
   }
 
-  private String changeValueFor(String delivery) {
-    if(delivery != null && (delivery.equals("배대지") || delivery.equals("직배"))){
-      delivery = null;
+  private String usingDeliveryFor(String delivery) {
+    if(delivery == null || delivery.equals("배대지") || delivery.equals("직배")){
+      return "온라인 구매";
     }
-    return delivery;
+    return "방문 구매";
   }
 }
