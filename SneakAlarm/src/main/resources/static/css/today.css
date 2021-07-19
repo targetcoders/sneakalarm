@@ -11,8 +11,12 @@ a:active {
   color:#FE0100;
 }
 
+.div-draw-model_kr{
+  margin-top:10px;
+  margin-bottom:10px;
+}
 .draw-model_kr{
-  font-size: 18px;
+  font-size: 17px;
   font-weight: bold;
 }
 .raffle-category{

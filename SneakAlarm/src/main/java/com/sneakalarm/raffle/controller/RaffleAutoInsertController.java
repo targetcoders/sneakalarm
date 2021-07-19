@@ -45,7 +45,7 @@ public class RaffleAutoInsertController {
   @ResponseBody
   @PostMapping("/raffle-auto-insert")
   public ResponseEntity<String> autoInsertRaffle(@RequestParam("url") String targetUrl,
-      @RequestParam("storeName") String storeName, @RequestParam("model_kr")String model_kr, @RequestParam("productId") String productId) {
+      @RequestParam("storeName") String storeName, @RequestParam("model_kr") String model_kr, @RequestParam("productId") String productId) {
     List<RaffleVO> raffleVO;
     try {
       raffleVO= raffleAutoInsertService
