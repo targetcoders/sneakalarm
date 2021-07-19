@@ -1,6 +1,6 @@
 $('document').ready(function(){
   if($('#productName').text() == '?'){
-    $('#model_kr').show();
+    $('#model_kr_tr').show();
   }
   $('#auto-insert-submit').on('click',function(){
     let productId = $('#productId').text();
@@ -9,9 +9,9 @@ $('document').ready(function(){
     let model_kr = $('#model_kr').val();
     $.ajax({
       type: 'POST',
-      url: '/raffle-auto-insert/'+,
+      url: '/raffle-auto-insert',
       data: {
-        productId: productId
+        productId: productId,
         url: url,
         storeName: storeName,
         model_kr: model_kr
