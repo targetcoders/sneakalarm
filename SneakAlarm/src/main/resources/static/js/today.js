@@ -1,16 +1,16 @@
 $('document').ready(function() {
   addDrawsByActiveProductList();
-  setHide();
+  $('.product-unregistered').hide();
   setPopup();
   setScrollMoving(new ScrollController());
-  $('.navbar__search-icon').hide();
-});
 
-function setHide(){
-  if($('#activeDraws-unregistered').children().length == 0) {
-    $('.product-unregistered').hide();
-  }
-}
+  setTimeout(function(){
+    if($('#activeDraws-unregistered').children().length > 0) {
+      $('.product-unregistered').show();
+    }
+    $('.navbar__search-icon').hide();
+  },300);
+});
 
 function setAds(){
   if($(window).width() < 768){
