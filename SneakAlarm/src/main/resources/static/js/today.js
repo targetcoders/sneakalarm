@@ -9,7 +9,7 @@ $('document').ready(function() {
       $('.product-unregistered').show();
     }
     $('.navbar__search-icon').hide();
-  },100);
+  },200);
 });
 
 function setAds(){
