@@ -7,7 +7,7 @@ $('document').ready(function() {
 });
 
 function setHide(){
-  if($('#activeDraws-unregistered').length == 0){
+  if($('#activeDraws-unregistered').children().length == 0) {
     $('.product-unregistered').hide();
   }
 }
