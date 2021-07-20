@@ -36,7 +36,7 @@ public class RaffleAutoInsertServiceImpl implements RaffleAutoInsertService{
       String delivery = siteCardParser.getDelivery(e);
       String raffleUrl = siteCardParser.getRaffleUrl(e);
       String raffleEndDateTime = siteCardParser.getRaffleEndDateTime(e);
-      String releasePrice = (model_kr != null) ? "미등록 제품":"";
+      String releasePrice = (model_kr.isEmpty() || (model_kr==null)) ? "" : "미등록 제품";
 
       List<RaffleSetting> raffleSettingList = raffleSettingService
           .getRaffleSettingByKeyword("["+usingDeliveryFor(delivery)+"]"+storeName);
