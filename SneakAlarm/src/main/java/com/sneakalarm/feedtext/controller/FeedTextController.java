@@ -1,14 +1,29 @@
 package com.sneakalarm.feedtext.controller;
 
+import com.sneakalarm.raffle.domain.DateTimeImpl;
+import com.sneakalarm.raffle.domain.InstaFeed;
+import com.sneakalarm.raffle.dto.RaffleVO;
+import com.sneakalarm.raffle.service.RaffleService;
+import java.text.ParseException;
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 @Controller
 public class FeedTextController {
 
+  @Autowired
+  RaffleService raffleService;
+
   @GetMapping("/feed-text/{raffleId}")
-  public String getFeedTextPage(@PathVariable("raffleId") String raffleId) {
+  public String getFeedTextPage(@PathVariable("raffleId") String raffleId, Model model)
+      throws ParseException {
+    List<RaffleVO> raffleVOList = raffleService.getRaffleList(raffleId);
+    InstaFeed instaFeed = new InstaFeed(raffleVOList.get(0), new DateTimeImpl());
+    model.addAttribute("feed-text",instaFeed.getText());
     return "views/feed-text/feed-text";
   }
 
