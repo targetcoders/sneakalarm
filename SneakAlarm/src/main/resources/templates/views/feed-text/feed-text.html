@@ -15,7 +15,10 @@
 
 <div layout:fragment="content">
   <div class="container-fluid d-flex flex-column justify-content-center align-items-center main-container" style="margin-top:80px">
-    <h1>Feed Text Page</h1>
+    <h1>Feed Text 자동 생성</h1>
+    <h2 th:text="${raffleVO.model_kr}"></h2>
+    <h2 th:text="${raffleVO.storeName}"></h2>
+    <a class="btn btn-danger" th:href="@{/product-detail(id=${raffleVO.productId})}" style="width:350px; margin-bottom:50px">GO TO PRODUCT-DETAILS</a>
     <textarea th:text="${feedText}" style="width:350px; height:900px"></textarea>
   </div>
 </div>
