@@ -16,8 +16,11 @@ $('document').ready(function(){
         storeName: storeName,
         model_kr: model_kr
       },
-      success: function(){
-        alert('['+storeName+'] 응모 카드가 등록되었습니다.');
+      success: function(raffleId){
+        let willGo = confirm('['+storeName+'] 응모 카드가 등록되었습니다.\nFeedText 생성 페이지로 이동하시겠습니까?');
+        if(willGo){
+          location.href='/feed-text/'+raffleId;
+        }
       },
       error: function(response){
         alert(response.responseText);
