@@ -24,6 +24,7 @@ public class FeedTextController {
     List<RaffleVO> raffleVOList = raffleService.getRaffleList(raffleId);
     InstaFeed instaFeed = new InstaFeed(raffleVOList.get(0), new DateTimeImpl());
     model.addAttribute("feedText",instaFeed.getText());
+    model.addAttribute("raffleVO",raffleVOList.get(0));
     return "views/feed-text/feed-text";
   }
 
