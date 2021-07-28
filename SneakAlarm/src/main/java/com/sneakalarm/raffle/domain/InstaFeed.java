@@ -69,8 +69,7 @@ public class InstaFeed {
         + ".\n"
         + ".\n"
         + ".\n"
-        + ".\n"
-        + "#응모하기 #스니커 #나이키매니아 #덩크로우 #조던 #나이키조던 #나이키조던1 #덩크하이 #나이키덩크하이 #조던1 #응모알림 #스알 #스니커응모";
+        + ".\n";
   }
 
   private String textForTodayOrTomorrow(String endDateString) throws ParseException {

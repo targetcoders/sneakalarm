@@ -36,7 +36,7 @@ public class RaffleAutoInsertServiceImpl implements RaffleAutoInsertService{
       String delivery = siteCardParser.getDelivery(e);
       String raffleUrl = siteCardParser.getRaffleUrl(e);
       String raffleEndDateTime = siteCardParser.getRaffleEndDateTime(e);
-      String releasePrice = (model_kr.isEmpty() || (model_kr==null)) ? "" : "미등록 제품";
+      String releasePrice = ((model_kr==null) || model_kr.isEmpty()) ? "" : "미등록 제품";
 
       List<RaffleSetting> raffleSettingList = raffleSettingService
           .getRaffleSettingByKeyword("["+usingDeliveryFor(delivery)+"]"+storeName);
@@ -49,7 +49,7 @@ public class RaffleAutoInsertServiceImpl implements RaffleAutoInsertService{
       DateTime dateTime = new DateTimeImpl();
       SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm");
       String specialCase =raffleSetting.getSpecialCase();
-      if(!specialCase.isEmpty() && specialCase != null){
+      if(specialCase != null && !specialCase.isEmpty()){
         specialCase = ", " + specialCase;
       }
 
@@ -75,7 +75,8 @@ public class RaffleAutoInsertServiceImpl implements RaffleAutoInsertService{
       raffleVOList.add(raffleVO);
     }
     for(RaffleVO raffleVO : raffleVOList) {
-      raffleSettingService.insertRaffle(raffleVO);
+      long raffleId = raffleSettingService.insertRaffle(raffleVO);
+      raffleVOList.get(0).setId(Long.toString(raffleId));
     }
     return raffleVOList;
   }
