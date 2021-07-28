@@ -56,7 +56,8 @@ public class RaffleSettingServiceImpl implements RaffleSettingService {
         .getDelivery().equals(RaffleConst.DELIVERY_VISIT)) {
       raffleVO.setDelivery(RaffleConst.DELIVERY_KOREA);
     }
-    return raffleSettingMapper.insertRaffle(raffleVO);
+    raffleSettingMapper.insertRaffle(raffleVO);
+    return Long.parseLong(raffleVO.getId());
   }
 
   @Override

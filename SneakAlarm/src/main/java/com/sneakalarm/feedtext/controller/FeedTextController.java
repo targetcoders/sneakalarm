@@ -23,7 +23,7 @@ public class FeedTextController {
       throws ParseException {
     List<RaffleVO> raffleVOList = raffleService.getRaffleList(raffleId);
     InstaFeed instaFeed = new InstaFeed(raffleVOList.get(0), new DateTimeImpl());
-    model.addAttribute("feed-text",instaFeed.getText());
+    model.addAttribute("feedText",instaFeed.getText());
     return "views/feed-text/feed-text";
   }
 
