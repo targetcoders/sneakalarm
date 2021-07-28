@@ -22,15 +22,15 @@ public class InstaFeed {
 
   public String getText() throws ParseException {
     if(this.text != null) {
-      return text + getCommonTags();
+      return text;
     }
     initTagList();
-    return text = generateFeedText() + getCommonTags();
+    return text = generateFeedText() + getCommonTags() + "\n\n#스알 #응모";
   }
 
   private String generateFeedText() throws ParseException {
     return "⏰"+raffleVO.getStoreName()+" "+raffleVO.getRaffleType()+": ~ "
-        + textForTodayOrTomorrow(raffleVO.getEndDate())+" "+raffleVO.getEndTime()
+        + textForTodayOrTomorrow(raffleVO.getEndDate())+" "+raffleVO.getEndTime().substring(0,5)
         + "\n" + raffleVO.getModel_kr()
         + "\n\n" + announceText()
         + "\n\n\n" + specialCaseText(raffleVO.getSpecialCase())
@@ -106,10 +106,8 @@ public class InstaFeed {
     tagList.add("#스니커");
     tagList.add("#스니커헤드");
     tagList.add("#오뭐신");
-    tagList.add("#sneakalrm");
-    tagList.add("#스알");
-    tagList.add("#응모맛집");
-    tagList.add("#스니커응모");
+    tagList.add("#신발추천");
+    tagList.add("#조던");
   }
 
   private String getCommonTags(){
