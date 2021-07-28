@@ -3,22 +3,29 @@ package com.sneakalarm.raffle.domain;
 import com.sneakalarm.raffle.dto.RaffleVO;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 
 public class InstaFeed {
   private DateTime datetime;
   private RaffleVO raffleVO;
   private String text;
+  private List<String> tagList;
 
   public InstaFeed(RaffleVO raffleVO, DateTime datetime){
     this.raffleVO = raffleVO;
     this.datetime = datetime;
+    this.tagList = new ArrayList<>();
   }
 
   public String getText() throws ParseException {
-    if(this.text != null)
-      return text;
-    return text = generateFeedText();
+    if(this.text != null) {
+      return text + getCommonTags();
+    }
+    initTagList();
+    return text = generateFeedText() + getCommonTags();
   }
 
   private String generateFeedText() throws ParseException {
@@ -90,5 +97,23 @@ public class InstaFeed {
 
   private long computeDiffDay(Date endDate, Date todayDate) {
     return Math.abs((todayDate.getTime() - endDate.getTime()) / (24 * 60 * 60 * 1000));
+  }
+
+  private void initTagList(){
+    tagList.add("#나이키매니아");
+    tagList.add("#나매");
+    tagList.add("#나매인");
+    tagList.add("#스니커");
+    tagList.add("#스니커헤드");
+    tagList.add("#오뭐신");
+    tagList.add("#sneakalrm");
+    tagList.add("#스알");
+    tagList.add("#응모맛집");
+    tagList.add("#스니커응모");
+  }
+
+  private String getCommonTags(){
+    Collections.shuffle(tagList);
+    return String.join(" ",tagList);
   }
 }
