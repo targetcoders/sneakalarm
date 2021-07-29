@@ -74,7 +74,6 @@ public class RaffleSettingRestController {
   public ResponseEntity<String> insertRaffle(@PathVariable("productId") String productId,
       RaffleVO raffleVO) {
     raffleVO.setProductId(productId);
-    raffleSettingService.insertRaffle(raffleVO);
-    return new ResponseEntity<>("success", HttpStatus.OK);
+    return new ResponseEntity<>(raffleSettingService.insertRaffle(raffleVO), HttpStatus.OK);
   }
 }

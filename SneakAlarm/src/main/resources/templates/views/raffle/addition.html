@@ -110,10 +110,11 @@ $('document').ready(function() {
 				content: $('#content').val(),
 				model_kr: $('#target-product').text()
 			},
-			success: function(instaFeedText){
-				alert('성공적으로 등록되었습니다.\ninstagram feed 등록을 위한 text가 자동 생성됩니다.');
-				$('.main-container').empty();
-				$('.main-container').append('<textarea style="width:375px; height:600px">'+instaFeedText+'</textarea>');
+			success: function(raffleId){
+				let willGo = confirm('['+storeName+'] 응모 카드가 등록되었습니다.\nFeedText 생성 페이지로 이동하시겠습니까?');
+        if(willGo){
+          location.href='/feed-text/'+raffleId;
+        }
 			}
 		});
 	});
