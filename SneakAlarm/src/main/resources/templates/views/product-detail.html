@@ -104,7 +104,7 @@ function isEmptyValue(value){
 </script>
 <script sec:authorize="hasRole('ADMIN')">
 $('document').ready(function(){
-	document.title = '상세 페이지 -'$('#model_kr').text();
+	document.title = '상세 페이지 -'+$('#model_kr').text();
 
 	$('.detail-raffle-modify').click(function(){
 		var id = $(this).attr('is');
