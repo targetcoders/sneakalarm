@@ -71,12 +71,10 @@ public class RaffleSettingRestController {
 
 
   @PostMapping("/raffles/addition/{productId}")
-  public ResponseEntity<String> insertRaffle(@PathVariable("productId") String productId, RaffleVO raffleVO)
-      throws ParseException {
+  public ResponseEntity<String> insertRaffle(@PathVariable("productId") String productId,
+      RaffleVO raffleVO) {
     raffleVO.setProductId(productId);
     raffleSettingService.insertRaffle(raffleVO);
-    DateTimeImpl dateTime = new DateTimeImpl();
-    InstaFeed instaFeed = new InstaFeed(raffleVO, dateTime);
-    return new ResponseEntity<>(instaFeed.getText(),HttpStatus.OK);
+    return new ResponseEntity<>("success", HttpStatus.OK);
   }
 }
