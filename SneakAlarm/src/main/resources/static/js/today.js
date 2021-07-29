@@ -1,14 +1,13 @@
 $('document').ready(function() {
   addDrawsByActiveProductList();
   $('.product-unregistered').hide();
+  $('.navbar__search-icon').hide();
   setPopup();
   setScrollMoving(new ScrollController());
-
   setTimeout(function(){
     if($('#activeDraws-unregistered').children().length > 0) {
       $('.product-unregistered').show();
     }
-    $('.navbar__search-icon').hide();
   },200);
 });
 
@@ -147,18 +146,18 @@ function addDrawsByActiveProductList() {
                   if(status == 'active') {
                     if(raffleType == '응모'){
                       $('.todayUnregisteredDrawContent-'+resultList[i].productId)
-                        .append('<div class="todayDrawContent"><a id="drawCard-'+id+'" href="'+drawUrl+'" style="text-decoration: none;"><div><span class="draw-raffle-type-raffle">'+raffleType+'</span>&nbsp;-&nbsp;'+storeName+'</div><div class="div-draw-model_kr"><span class="draw-model_kr">'+model_kr+'</span></div><div class="draw-end-datetime">종료: '+endDate+'&nbsp;&nbsp;'+endWeek+'&nbsp;&nbsp;'+endTime+'</div><div class="draw-specialcase">'+specialCase+'</div></a></div>');
+                        .append('<div class="todayDrawContent"><a id="drawCard-'+id+'" href="'+drawUrl+'" style="text-decoration: none;"><div class="div-draw-model_kr"><span class="draw-model_kr">'+model_kr+'</span></div><div><span class="draw-raffle-type-raffle">'+raffleType+'</span>&nbsp;-&nbsp;'+storeName+'</div><div class="draw-end-datetime">종료: '+endDate+'&nbsp;&nbsp;'+endWeek+'&nbsp;&nbsp;'+endTime+'</div><div class="draw-specialcase">'+specialCase+'</div></a></div>');
                     } else {
                       $('.todayUnregisteredDrawContent-'+resultList[i].productId)
-                      .append('<div class="todayDrawContent"><a id="drawCard-'+id+'" href="'+drawUrl+'" style="text-decoration: none;"><div><span class="draw-raffle-type-firstcome">'+raffleType+'</span>&nbsp;-&nbsp;'+storeName+'</div><div class="div-draw-model_kr"><span class="draw-model_kr">'+model_kr+'</span></div><div class="draw-start-datetime">시작: '+startDate+'&nbsp;&nbsp;'+startWeek+'&nbsp;&nbsp;'+startTime+'</div><div class="draw-specialcase">'+specialCase+'</div></a></div>');
+                      .append('<div class="todayDrawContent"><a id="drawCard-'+id+'" href="'+drawUrl+'" style="text-decoration: none;"><div class="div-draw-model_kr"><span class="draw-model_kr">'+model_kr+'</span></div><div><span class="draw-raffle-type-firstcome">'+raffleType+'</span>&nbsp;-&nbsp;'+storeName+'</div><div class="draw-start-datetime">시작: '+startDate+'&nbsp;&nbsp;'+startWeek+'&nbsp;&nbsp;'+startTime+'</div><div class="draw-specialcase">'+specialCase+'</div></a></div>');
                     }
                   } else {
                     if(raffleType == '응모'){
                       $('.todayUnregisteredDrawContent-'+resultList[i].productId)
-                      .append('<div class="todayReadyDrawContent"><a id="drawCard-'+id+'" href="'+drawUrl+'" style="text-decoration: none;"><div><span class="ready-draw-raffle-type-raffle">'+raffleType+'</span>&nbsp;<span class="ready-draw-storeName">-&nbsp;'+storeName+'</span></div><div class="div-draw-model_kr"><span class="draw-model_kr">'+model_kr+'</span></div><div class="ready-draw-start-datetime">시작: '+startDate+'&nbsp;&nbsp;'+startWeek+'&nbsp;&nbsp;'+startTime+'</div><div class="ready-draw-end-datetime">종료: '+endDate+'&nbsp;&nbsp;'+endWeek+'&nbsp;&nbsp;'+endTime+'</div><div class="ready-draw-specialcase">'+specialCase+'</div></a></div>');
+                      .append('<div class="todayReadyDrawContent"><a id="drawCard-'+id+'" href="'+drawUrl+'" style="text-decoration: none;"><div class="div-draw-model_kr"><span class="draw-model_kr">'+model_kr+'</span></div><div><span class="ready-draw-raffle-type-raffle">'+raffleType+'</span>&nbsp;<span class="ready-draw-storeName">-&nbsp;'+storeName+'</span></div><div class="ready-draw-start-datetime">시작: '+startDate+'&nbsp;&nbsp;'+startWeek+'&nbsp;&nbsp;'+startTime+'</div><div class="ready-draw-end-datetime">종료: '+endDate+'&nbsp;&nbsp;'+endWeek+'&nbsp;&nbsp;'+endTime+'</div><div class="ready-draw-specialcase">'+specialCase+'</div></a></div>');
                     } else {
                       $('.todayUnregisteredDrawContent-'+resultList[i].productId)
-                      .append('<div class="todayReadyDrawContent"><a id="drawCard-'+id+'" href="'+drawUrl+'" style="text-decoration: none;"><div><span class="ready-draw-raffle-type-firstcome">'+raffleType+'</span>&nbsp;<span class="ready-draw-storeName">-&nbsp;'+storeName+'</span><div class="div-draw-model_kr"><span class="draw-model_kr">'+model_kr+'</span></div></div><div class="draw-start-datetime">시작: '+startDate+'&nbsp;&nbsp;'+startWeek+'&nbsp;&nbsp;'+startTime+'</div><div class="draw-specialcase">'+specialCase+'</div></a></div>');
+                      .append('<div class="todayReadyDrawContent"><a id="drawCard-'+id+'" href="'+drawUrl+'" style="text-decoration: none;"><div class="div-draw-model_kr"><span class="draw-model_kr">'+model_kr+'</span></div><div><span class="ready-draw-raffle-type-firstcome">'+raffleType+'</span>&nbsp;<span class="ready-draw-storeName">-&nbsp;'+storeName+'</span></div><div class="draw-start-datetime">시작: '+startDate+'&nbsp;&nbsp;'+startWeek+'&nbsp;&nbsp;'+startTime+'</div><div class="draw-specialcase">'+specialCase+'</div></a></div>');
                     }
                   }
                   continue;
