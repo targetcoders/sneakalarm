@@ -24,7 +24,7 @@ public class RaffleAutoInsertServiceImpl implements RaffleAutoInsertService{
 
 
   @Override
-  public List<RaffleVO> raffleAutoInsert(String targetUrl, String storeName, String productId,
+  public List<RaffleVO> raffleAutoInsertForLuckD(String targetUrl, String storeName, String productId,
       String model_kr)
       throws Exception {
     Jsoup jsoup = new JsoupImpl();
