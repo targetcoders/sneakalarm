@@ -6,8 +6,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.LinkedHashSet;
 import java.util.List;
 
+import java.util.Set;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -26,6 +28,7 @@ import com.sneakalarm.product.service.ProductService;
 import com.sneakalarm.raffle.dto.RaffleCardVO;
 import com.sneakalarm.raffle.service.RaffleService;
 import com.sneakalarm.util.DateUtil;
+import org.thymeleaf.expression.Lists;
 
 @Controller
 public class ProductController {
@@ -343,14 +346,16 @@ public class ProductController {
   
   @GetMapping("/getProductCardListByKeyword")
   @ResponseBody
-  public List<ProductCardVO> searchProduct(@Param("keyword") String keyword, Model model) {
+  public List<ProductCardVO> searchProduct(@Param("keyword") String keyword) {
 	  if(keyword.equals("")) {
 		  return Collections.emptyList();
 	  }
-	  ArrayList<ProductCardVO> productCardVOList =
-		        (ArrayList<ProductCardVO>) productServiceImpl.getProductCardListByKeyword(keyword);
-	  	productCardVOList.sort(productAscendingInstance);
-	  return productCardVOList;
+
+	  Set<ProductCardVO> productCardVOSet = new LinkedHashSet<>();
+    for(String splitKeyword : keyword.split(" ")){
+      productCardVOSet.addAll(productServiceImpl.getProductCardListByKeyword(splitKeyword));
+    }
+	  return new ArrayList<>(productCardVOSet);
   }
   
   @Component
