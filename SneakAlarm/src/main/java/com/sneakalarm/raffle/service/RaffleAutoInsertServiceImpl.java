@@ -75,8 +75,8 @@ public class RaffleAutoInsertServiceImpl implements RaffleAutoInsertService{
       raffleVOList.add(raffleVO);
     }
     for(RaffleVO raffleVO : raffleVOList) {
-      long raffleId = raffleSettingService.insertRaffle(raffleVO);
-      raffleVOList.get(0).setId(Long.toString(raffleId));
+      String raffleId = raffleSettingService.insertRaffle(raffleVO);
+      raffleVOList.get(0).setId(raffleId);
     }
     return raffleVOList;
   }

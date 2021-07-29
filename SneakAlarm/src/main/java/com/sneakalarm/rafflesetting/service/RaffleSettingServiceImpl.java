@@ -51,13 +51,13 @@ public class RaffleSettingServiceImpl implements RaffleSettingService {
   }
 
   @Override
-  public long insertRaffle(RaffleVO raffleVO) {
+  public String insertRaffle(RaffleVO raffleVO) {
     if (raffleVO.getDelivery().equals(RaffleConst.DELIVERY_PACKAGE) || raffleVO
         .getDelivery().equals(RaffleConst.DELIVERY_VISIT)) {
       raffleVO.setDelivery(RaffleConst.DELIVERY_KOREA);
     }
     raffleSettingMapper.insertRaffle(raffleVO);
-    return Long.parseLong(raffleVO.getId());
+    return raffleVO.getId();
   }
 
   @Override
