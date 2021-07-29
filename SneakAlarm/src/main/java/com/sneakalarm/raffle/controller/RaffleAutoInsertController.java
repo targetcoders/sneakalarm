@@ -1,9 +1,7 @@
 package com.sneakalarm.raffle.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sneakalarm.raffle.dto.RaffleVO;
 import com.sneakalarm.raffle.service.RaffleAutoInsertService;
-import com.sneakalarm.rafflesetting.service.RaffleSettingService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -37,7 +35,7 @@ public class RaffleAutoInsertController {
     List<RaffleVO> RaffleVOList;
     try {
       RaffleVOList= raffleAutoInsertService
-          .raffleAutoInsert(targetUrl, storeName, productId, model_kr);
+          .raffleAutoInsertForLuckD(targetUrl, storeName, productId, model_kr);
     } catch(Exception e) {
       return new ResponseEntity<>("url을 확인하세요.", HttpStatus.BAD_REQUEST);
     }
