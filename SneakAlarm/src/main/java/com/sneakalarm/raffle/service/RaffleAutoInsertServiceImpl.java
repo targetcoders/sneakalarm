@@ -66,7 +66,7 @@ public class RaffleAutoInsertServiceImpl implements RaffleAutoInsertService{
           .releasePrice(raffleSetting.getReleasePrice())
           .payType(raffleSetting.getPayType())
           .startDate(sdf.format(dateTime.getDate()).split(" ")[0])
-          .startTime(sdf.format(dateTime.getDate()).split(" ")[1])
+          .startTime("00:00")
           .endDate(sdf.format(dateTime.getDate()).substring(0,4) + "-" + raffleEndDateTime.split(" ")[0])
           .endTime(raffleEndDateTime.split(" ")[1])
           .model_kr(model_kr)
