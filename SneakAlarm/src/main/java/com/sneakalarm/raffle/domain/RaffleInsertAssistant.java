@@ -19,6 +19,7 @@ public abstract class RaffleInsertAssistant {
     this.productId = productId;
   }
 
-  public abstract List<RaffleVO> insertParsedRaffles(RaffleSettingService raffleSettingService, Elements targetStoreElements);
+  public abstract List<RaffleVO> insertParsedRaffles(RaffleSettingService raffleSettingService,
+      Elements targetStoreElements);
 
 }
