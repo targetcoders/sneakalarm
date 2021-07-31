@@ -16,10 +16,11 @@ public class RaffleElementsParserForLuckD extends RaffleElementsParser {
 
   @Override
   public Elements getTargetStoreElements(String targetSiteUrl, String storeName) {
-    if(!targetSiteUrl.contains("luck-d.com")){
-      return null;
-    }
     Elements result = new Elements();
+    if(!targetSiteUrl.contains("luck-d.com")){
+      return result;
+    }
+
     Elements raffleElements = getDoc().select("div.site_card");
     for (Element e : raffleElements) {
       Elements releaseDateTimeList = e.getElementsByClass("release_date_time");

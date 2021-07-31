@@ -38,6 +38,7 @@ public class RaffleAutoInsertController {
       RaffleVOList= raffleAutoInsertService
           .raffleAutoInsert(targetUrl, storeName, productId, model_kr);
     } catch(Exception e) {
+      e.printStackTrace();
       return new ResponseEntity<>("url을 확인하세요.", HttpStatus.BAD_REQUEST);
     }
     if(RaffleVOList.isEmpty()){
