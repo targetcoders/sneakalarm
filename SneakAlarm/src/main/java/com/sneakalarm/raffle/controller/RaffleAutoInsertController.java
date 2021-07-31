@@ -36,7 +36,7 @@ public class RaffleAutoInsertController {
 
     try {
       RaffleVOList= raffleAutoInsertService
-          .raffleAutoInsertForLuckD(targetUrl, storeName, productId, model_kr);
+          .raffleAutoInsert(targetUrl, storeName, productId, model_kr);
     } catch(Exception e) {
       return new ResponseEntity<>("url을 확인하세요.", HttpStatus.BAD_REQUEST);
     }
