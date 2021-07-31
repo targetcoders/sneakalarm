@@ -7,10 +7,6 @@ import com.sneakalarm.raffle.dto.RaffleVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import com.sneakalarm.product.ProductConst;
-import com.sneakalarm.product.dto.ProductUpdateDrawNumVO;
-import com.sneakalarm.product.dto.ProductUpdateStatusVO;
-import com.sneakalarm.product.service.ProductService;
-import com.sneakalarm.raffle.dto.RaffleCardVO;
 import com.sneakalarm.raffle.service.RaffleService;
 
 @Component

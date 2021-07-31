@@ -33,6 +33,7 @@ public class RaffleAutoInsertController {
   public ResponseEntity<String> autoInsertRaffle(@RequestParam("url") String targetUrl,
       @RequestParam("storeName") String storeName, @RequestParam("model_kr") String model_kr, @RequestParam("productId") String productId) {
     List<RaffleVO> RaffleVOList;
+
     try {
       RaffleVOList= raffleAutoInsertService
           .raffleAutoInsertForLuckD(targetUrl, storeName, productId, model_kr);

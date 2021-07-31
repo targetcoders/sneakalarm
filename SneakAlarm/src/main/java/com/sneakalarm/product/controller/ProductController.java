@@ -28,7 +28,6 @@ import com.sneakalarm.product.service.ProductService;
 import com.sneakalarm.raffle.dto.RaffleCardVO;
 import com.sneakalarm.raffle.service.RaffleService;
 import com.sneakalarm.util.DateUtil;
-import org.thymeleaf.expression.Lists;
 
 @Controller
 public class ProductController {
