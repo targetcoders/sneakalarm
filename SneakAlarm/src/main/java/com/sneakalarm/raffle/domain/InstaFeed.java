@@ -177,8 +177,8 @@ public class InstaFeed {
 
   private String getRelatedTags(){
     Collections.shuffle(tagList);
-    if(tagList.size() >= 15)
-      return String.join(" ",tagList.subList(0,14));
+    if(tagList.size() >= 13)
+      return String.join(" ",tagList.subList(0,13));
 
     return String.join(" ",tagList);
   }
