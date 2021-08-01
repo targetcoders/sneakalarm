@@ -6,7 +6,7 @@ import org.jsoup.select.Elements;
 
 public class RaffleElementsParserForShoepize extends RaffleElementsParser {
 
-  public RaffleElementsParserForShoepize(String targetUrl, JsoupImpl jsoup) throws IOException {
+  public RaffleElementsParserForShoepize(String targetUrl, Jsoup jsoup) throws IOException {
     super(targetUrl, jsoup);
   }
 
@@ -28,9 +28,7 @@ public class RaffleElementsParserForShoepize extends RaffleElementsParser {
         continue;
       }
 
-      System.out.println(btns.get(0));
-      if(btns.get(0).text().contains("응모")) {
-        System.out.println("status: " + btns.get(0).text().trim());
+      if(!btns.get(0).text().contains("종료")) {
         result.add(e);
       }
     }

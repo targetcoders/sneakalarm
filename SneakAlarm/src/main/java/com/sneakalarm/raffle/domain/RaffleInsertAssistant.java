@@ -2,6 +2,7 @@ package com.sneakalarm.raffle.domain;
 
 import com.sneakalarm.raffle.dto.RaffleVO;
 import com.sneakalarm.rafflesetting.service.RaffleSettingService;
+import java.text.ParseException;
 import java.util.List;
 import lombok.Data;
 import org.jsoup.select.Elements;
@@ -20,6 +21,6 @@ public abstract class RaffleInsertAssistant {
   }
 
   public abstract List<RaffleVO> insertParsedRaffles(RaffleSettingService raffleSettingService,
-      Elements targetStoreElements);
+      Elements targetStoreElements) throws Exception;
 
 }

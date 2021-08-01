@@ -7,6 +7,10 @@ $('document').ready(function(){
     let url = $('#target-url').val();
     let storeName = $('#target-store-name').val();
     let model_kr = $('#model_kr').val();
+    if($('#productName').text() != '?') {
+      model_kr = $('#productName').text();
+    }
+
     $.ajax({
       type: 'POST',
       url: '/raffle-auto-insert',

@@ -2,9 +2,8 @@ package com.sneakalarm.raffle.domain;
 
 import java.io.IOException;
 import org.jsoup.nodes.Document;
-import org.jsoup.select.Elements;
 
-public class JsoupImpl implements Jsoup {
+public class JsoupImplForShoeprize implements Jsoup {
 
   @Override
   public Document getDocument(String url) throws IOException {
@@ -13,7 +12,7 @@ public class JsoupImpl implements Jsoup {
     };
     return org.jsoup.Jsoup.connect(url)
         .userAgent(userAgentList[0])
-        .referrer("https://www.luck-d.com/release-raffle/")
+        .referrer("https://www.shoeprize.com/today/?filter={%22excludeEnd%22:1,%22countries%22:%22%ED%95%9C%EA%B5%AD%22}")
         .get();
   }
 }
