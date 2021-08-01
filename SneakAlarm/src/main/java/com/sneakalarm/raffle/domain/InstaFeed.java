@@ -1,6 +1,7 @@
 package com.sneakalarm.raffle.domain;
 
 import com.sneakalarm.raffle.dto.RaffleVO;
+import com.sneakalarm.util.DateUtil;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -20,17 +21,20 @@ public class InstaFeed {
     this.tagList = new ArrayList<>();
   }
 
-  public String getText() throws ParseException {
+  public String getText() throws Exception {
     if(this.text != null) {
       return text;
     }
     initTagList();
-    return text = generateFeedText() + getCommonTags() + "\n\n#스알 #응모";
+    return text = generateFeedText() + getRelatedTags() + "\n\n#스알 #응모";
   }
 
-  private String generateFeedText() throws ParseException {
-    return "⏰"+raffleVO.getStoreName()+" "+raffleVO.getRaffleType()+": ~ "
-        + textForTodayOrTomorrow(raffleVO.getEndDate())+" "+raffleVO.getEndTime().substring(0,5)
+  private String generateFeedText() throws Exception {
+    return "⏰"+raffleVO.getStoreName()+" "+raffleVO.getRaffleType()+": "
+        + " "+raffleVO.getEndDate().substring(5).replaceAll("-","/")
+        + " "+DateUtil.getWeek(raffleVO.getEndDate()+ " " +raffleVO.getEndTime(), "yyyy-MM-dd HH:mm")
+        + " "+raffleVO.getEndTime().substring(0,5)
+        + " 종료"
         + "\n" + raffleVO.getModel_kr()
         + "\n\n" + announceText()
         + "\n\n\n" + specialCaseText(raffleVO.getSpecialCase())
@@ -100,6 +104,66 @@ public class InstaFeed {
   }
 
   private void initTagList(){
+    String model_kr = raffleVO.getModel_kr();
+    if(model_kr.contains("나이키")){
+      if(model_kr.contains("오프화이트")) {
+        tagList.add("#나이키콜라보");
+        tagList.add("#나이키오프화이트");
+        tagList.add("#오프화이트콜라보");
+      }
+    }
+    if(model_kr.contains("덩크")){
+      if(model_kr.contains("하이")){
+        tagList.add("#덩크하이");
+        tagList.add("#나이키덩크하이");
+        if(model_kr.contains("블랙")){
+          tagList.add("#덩크하이블랙");
+          tagList.add("#덩크하이범고래");
+        }
+      }
+      if(model_kr.contains("로우")){
+        tagList.add("#덩크로우");
+        tagList.add("#나이키덩크로우");
+        if(model_kr.contains("블랙")){
+          tagList.add("#덩크로우블랙");
+          tagList.add("#덩크로우범고래");
+        }
+        if(model_kr.contains("코스트")){
+          tagList.add("#덩크로우코스트");
+        }
+      }
+      if(model_kr.contains("미드")){
+        tagList.add("#덩크미드");
+        tagList.add("#나이키덩크미드");
+      }
+    }
+    if(model_kr.contains("조던 1")){
+      tagList.add("#조던1");
+      if(model_kr.contains("에어")) {
+        tagList.add("#에어조던");
+      }
+      if(model_kr.contains("하이")) {
+        tagList.add("#조던1하이");
+        tagList.add("#조던하이");
+      }
+      if(model_kr.contains("미드")) {
+        tagList.add("#조던1미드");
+      }
+      if(model_kr.contains("로우")) {
+        tagList.add("#조던1로우");
+        tagList.add("#조던로우");
+      }
+      if(model_kr.contains("트래비스스캇")) {
+        tagList.add("#트래비스스캇");
+      }
+    }
+    if(model_kr.contains("아디다스")){
+      tagList.add("#아디다스");
+      if(model_kr.contains("이지")) {
+        tagList.add("#아디다스이지");
+      }
+    }
+
     tagList.add("#나이키매니아");
     tagList.add("#나매");
     tagList.add("#나매인");
@@ -108,10 +172,14 @@ public class InstaFeed {
     tagList.add("#오뭐신");
     tagList.add("#신발추천");
     tagList.add("#조던");
+    tagList.add("#나이키");
   }
 
-  private String getCommonTags(){
+  private String getRelatedTags(){
     Collections.shuffle(tagList);
+    if(tagList.size() >= 15)
+      return String.join(" ",tagList.subList(0,14));
+
     return String.join(" ",tagList);
   }
 }
