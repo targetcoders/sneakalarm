@@ -1,9 +1,17 @@
 package com.sneakalarm.raffle.domain;
 
+import com.sneakalarm.raffle.dto.ParsedElement;
+import com.sneakalarm.raffle.dto.ParsedElementForShoeprize;
 import com.sneakalarm.raffle.dto.RaffleVO;
+import com.sneakalarm.rafflesetting.domain.RaffleSetting;
 import com.sneakalarm.rafflesetting.service.RaffleSettingService;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 public class RaffleInsertAssistantForShoeprize extends RaffleInsertAssistant{
@@ -14,8 +22,61 @@ public class RaffleInsertAssistantForShoeprize extends RaffleInsertAssistant{
 
   @Override
   public List<RaffleVO> insertParsedRaffles(RaffleSettingService raffleSettingService,
-      Elements targetStoreElements) {
+      Elements targetStoreElements) throws Exception {
     List<RaffleVO> raffleVOList = new ArrayList<>();
+
+    for(Element e : targetStoreElements) {
+      ParsedElement parsedElementForShoeprize = new ParsedElementForShoeprize(e);
+      String raffleUrl = parsedElementForShoeprize.parseRaffleUrl();
+      String startDateTime = parsedElementForShoeprize.parseStartDateTime();
+      String endDateTime = parsedElementForShoeprize.parseEndDateTime();
+      String delivery = parsedElementForShoeprize.parseDelivery();
+      String releasePrice = ((getModel_kr()==null) || getModel_kr().isEmpty()) ? "" : "미등록 제품";
+
+      List<RaffleSetting> raffleSettingList = raffleSettingService
+          .getRaffleSettingByKeyword("["+usingDeliveryFor(delivery)+"]"+getStoreName());
+
+      if(raffleSettingList.isEmpty()){
+        return new ArrayList<>();
+      }
+
+      RaffleSetting raffleSetting = raffleSettingList.get(0);
+
+      String specialCase =raffleSetting.getSpecialCase();
+      if(specialCase != null && !specialCase.isEmpty()){
+        specialCase = ", " + specialCase;
+      }
+      RaffleVO raffleVO = RaffleVO.builder()
+          .productId(getProductId())
+          .storeName(raffleSetting.getStoreName())
+          .url(raffleUrl)
+          .raffleType(raffleSetting.getRaffleType())
+          .country(raffleSetting.getCountry())
+          .imgSrc(raffleSetting.getImgSrc())
+          .delivery(raffleSetting.getDelivery())
+          .content(raffleSetting.getContent())
+          .specialCase(usingDeliveryFor(delivery) + specialCase)
+          .releasePrice(raffleSetting.getReleasePrice())
+          .payType(raffleSetting.getPayType())
+          .startDate(startDateTime.split(" ")[0])
+          .startTime(startDateTime.split(" ")[1])
+          .endDate(endDateTime.split(" ")[0])
+          .endTime(endDateTime.split(" ")[1])
+          .model_kr(getModel_kr())
+          .releasePrice(releasePrice)
+          .build();
+      raffleVOList.add(raffleVO);
+    }
+    for(RaffleVO raffleVO : raffleVOList) {
+      String raffleId = raffleSettingService.insertRaffle(raffleVO);
+      raffleVOList.get(0).setId(raffleId);
+    }
     return raffleVOList;
+  }
+  private String usingDeliveryFor(String delivery) {
+    if(delivery == null || delivery.equals("배대지") || delivery.equals("직배") || delivery.equals("국내 배송")){
+      return "온라인 구매";
+    }
+    return "방문 구매";
   }
 }

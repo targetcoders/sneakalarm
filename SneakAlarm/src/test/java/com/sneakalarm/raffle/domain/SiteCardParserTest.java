@@ -2,7 +2,6 @@ package com.sneakalarm.raffle.domain;
 
 import java.io.IOException;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.junit.Assert;
 import org.junit.Before;
@@ -23,7 +22,7 @@ public class SiteCardParserTest {
 
   @Before
   public void init() throws IOException {
-    this.jsoup = Mockito.mock(JsoupImpl.class);
+    this.jsoup = Mockito.mock(JsoupImplForLuckD.class);
     siteCardParser = new RaffleElementsParserForLuckD("testUrl",jsoup);
     testDocument = new Document("testUrl");
     testDocument.append("<div class=\"site_card_layer\">\n"

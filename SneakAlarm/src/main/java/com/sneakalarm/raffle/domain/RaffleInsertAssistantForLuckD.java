@@ -19,7 +19,7 @@ public class RaffleInsertAssistantForLuckD extends RaffleInsertAssistant{
 
   @Override
   public List<RaffleVO> insertParsedRaffles(RaffleSettingService raffleSettingService,
-      Elements targetStoreElements) {
+      Elements targetStoreElements) throws Exception {
     List<RaffleVO> raffleVOList = new ArrayList<>();
     for(Element e : targetStoreElements){
       ParsedElement elementForLuckD = new ParsedElementForLuckD(e);
@@ -37,7 +37,7 @@ public class RaffleInsertAssistantForLuckD extends RaffleInsertAssistant{
 
       RaffleSetting raffleSetting = raffleSettingList.get(0);
       DateTime dateTime = new DateTimeImpl();
-      SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+      SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
       String specialCase =raffleSetting.getSpecialCase();
       if(specialCase != null && !specialCase.isEmpty()){
         specialCase = ", " + specialCase;

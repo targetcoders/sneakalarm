@@ -36,6 +36,11 @@ public class ParsedElementForLuckD implements ParsedElement {
     return raffleUrl;
   }
 
+  @Override
+  public String parseStartDateTime() {
+    return "";
+  }
+
   public String parseEndDateTime() {
     String release_date_time = parsedElement.getElementsByClass("release_date_time").get(0).text();
     String[] splitEndDateTime = release_date_time.split(" ");
