@@ -24,7 +24,7 @@ public class FeedTextController {
 
   @GetMapping("/feed-text/{raffleId}")
   public String getFeedTextPage(@PathVariable("raffleId") String raffleId, Model model)
-      throws ParseException {
+      throws Exception {
     List<RaffleVO> raffleVOList = raffleService.getRaffleList(raffleId);
     RaffleVO raffleVO = raffleVOList.get(0);
     if(raffleVO.getModel_kr() == null || raffleVO.getModel_kr().isEmpty()) {

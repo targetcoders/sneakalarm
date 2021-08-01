@@ -35,7 +35,7 @@ public class InstaFeedTest {
   }
 
   @Test
-  public void testGetTextWhenTodayRaffle() throws ParseException {
+  public void testGetTextWhenTodayRaffle() throws Exception {
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
     Mockito.doReturn(sdf.parse("2021-07-12")).when(dateTime).getDate();
 
