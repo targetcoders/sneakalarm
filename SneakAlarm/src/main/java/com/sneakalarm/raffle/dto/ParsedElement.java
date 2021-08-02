@@ -8,4 +8,5 @@ public interface ParsedElement {
   String parseRaffleUrl() throws Exception;
   String parseStartDateTime();
   String parseEndDateTime();
+  String parseRaffleType();
 }

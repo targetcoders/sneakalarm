@@ -62,4 +62,9 @@ public class ParsedElementForShoeprize implements ParsedElement {
     }
     return result;
   }
+
+  @Override
+  public String parseRaffleType() {
+    return parsedElement.select(".btn_area button").get(0).text();
+  }
 }

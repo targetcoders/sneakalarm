@@ -27,7 +27,7 @@ public class RaffleElementsParserForShoepize extends RaffleElementsParser {
           continue;
         }
 
-        if (btns.get(0).text().contains("응모")) {
+        if (btns.get(0).text().contains("응모") || btns.get(0).text().contains("선착순")) {
           result.add(e);
         }
       }
