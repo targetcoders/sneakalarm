@@ -21,7 +21,7 @@ public class InstaFeed {
     this.tagList = new ArrayList<>();
   }
 
-  public String getText() throws Exception {
+  public String feedText() throws Exception {
     if(this.text != null) {
       return text;
     }
