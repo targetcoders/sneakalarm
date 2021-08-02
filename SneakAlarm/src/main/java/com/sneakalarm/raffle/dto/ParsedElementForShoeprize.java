@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import lombok.Data;
 import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 @Data
 public class ParsedElementForShoeprize implements ParsedElement {
@@ -42,7 +43,7 @@ public class ParsedElementForShoeprize implements ParsedElement {
   public String parseStartDateTime() {
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
     String dateStartTime = parsedElement.select(".time_count").get(0).attr("data-start-time");
-    if(dateStartTime == "0") {
+    if(dateStartTime.equals("0")) {
       return sdf.format(new DateTimeImpl().getDate()).split(" ")[0] + " 00:00";
     }
     return sdf.format(new Date((long)Float.parseFloat(dateStartTime)*1000));
@@ -52,6 +53,13 @@ public class ParsedElementForShoeprize implements ParsedElement {
   public String parseEndDateTime() {
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
     String dataEndTime = parsedElement.select(".time_count").get(0).attr("data-end-time");
-    return sdf.format(new Date((long)Float.parseFloat(dataEndTime)*1000));
+    String result = sdf.format(new Date((long)Float.parseFloat(dataEndTime)*1000));
+    String[] splitResult = result.split(" ");
+    String[] time = splitResult[1].split(":");
+    if(time[1].equals("58") || time[1].equals("59")){
+      int min = 60 - Integer.parseInt(time[1]);
+      result = sdf.format(new Date((long)Float.parseFloat(dataEndTime)*1000 + (1000L *60*min)));
+    }
+    return result;
   }
 }

@@ -18,19 +18,20 @@ public class RaffleElementsParserForShoepize extends RaffleElementsParser {
     }
     Elements raffleElements = getDoc().select("div.info_area");
     for(Element e : raffleElements){
+
       Elements brands = e.select(".brand");
-      if (brands.isEmpty() || !brands.get(0).text().trim().equals(storeName)) {
-        continue;
+      if (!brands.isEmpty() && (brands.get(0).text().trim().equals(storeName) || brands.get(0)
+          .select(".btn_brand_info_enable").attr("data-name").trim().equals(storeName))) {
+        Elements btns = e.select(".btn_area button");
+        if (btns.isEmpty()) {
+          continue;
+        }
+
+        if (btns.get(0).text().contains("응모")) {
+          result.add(e);
+        }
       }
 
-      Elements btns = e.select(".btn_area button");
-      if(btns.isEmpty()){
-        continue;
-      }
-
-      if(!btns.get(0).text().contains("종료")) {
-        result.add(e);
-      }
     }
 
     return result;
