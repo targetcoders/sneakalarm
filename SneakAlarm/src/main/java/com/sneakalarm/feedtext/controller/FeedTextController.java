@@ -6,7 +6,6 @@ import com.sneakalarm.raffle.domain.DateTimeImpl;
 import com.sneakalarm.raffle.domain.InstaFeed;
 import com.sneakalarm.raffle.dto.RaffleVO;
 import com.sneakalarm.raffle.service.RaffleService;
-import java.text.ParseException;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,7 +32,7 @@ public class FeedTextController {
     }
     InstaFeed instaFeed = new InstaFeed(raffleVOList.get(0), new DateTimeImpl());
 
-    model.addAttribute("feedText",instaFeed.getText());
+    model.addAttribute("feedText",instaFeed.feedText());
     model.addAttribute("raffleVO",raffleVOList.get(0));
     return "views/feed-text/feed-text";
   }
