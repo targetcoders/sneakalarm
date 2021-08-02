@@ -50,4 +50,9 @@ public class ParsedElementForLuckD implements ParsedElement {
     }
     return dateTime + " " + splitEndDateTime[2];
   }
+
+  @Override
+  public String parseRaffleType() {
+    return null;
+  }
 }
