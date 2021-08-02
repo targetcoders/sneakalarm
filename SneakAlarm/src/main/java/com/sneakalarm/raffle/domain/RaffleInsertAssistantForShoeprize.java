@@ -50,7 +50,7 @@ public class RaffleInsertAssistantForShoeprize extends RaffleInsertAssistant{
           .productId(getProductId())
           .storeName(raffleSetting.getStoreName())
           .url(raffleUrl)
-          .raffleType(raffleSetting.getRaffleType())
+          .raffleType(parsedElementForShoeprize.parseRaffleType())
           .country(raffleSetting.getCountry())
           .imgSrc(raffleSetting.getImgSrc())
           .delivery(raffleSetting.getDelivery())
