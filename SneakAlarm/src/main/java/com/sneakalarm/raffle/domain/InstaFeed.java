@@ -30,11 +30,12 @@ public class InstaFeed {
   }
 
   private String generateFeedText() throws Exception {
+    String raffleType = raffleVO.getRaffleType();
     return "⏰"+raffleVO.getStoreName()+" "+raffleVO.getRaffleType()+": "
         + " "+raffleVO.getEndDate().substring(5).replaceAll("-","/")
         + " "+DateUtil.getWeek(raffleVO.getEndDate()+ " " +raffleVO.getEndTime(), "yyyy-MM-dd HH:mm")
-        + " "+raffleVO.getEndTime().substring(0,5)
-        + " 종료"
+        + " "+((raffleType.equals("응모")) ? raffleVO.getEndTime().substring(0,5) : raffleVO.getStartTime().substring(0,5))
+        + " "+((raffleType.equals("응모")) ? "종료" : "시작")
         + "\n" + raffleVO.getModel_kr()
         + "\n\n" + announceText()
         + "\n\n\n" + specialCaseText(raffleVO.getSpecialCase())
