@@ -4,6 +4,7 @@ import com.sneakalarm.product.dto.ProductVO;
 import com.sneakalarm.product.service.ProductService;
 import com.sneakalarm.raffle.dto.RaffleListByDeliveryTypeVO;
 import com.sneakalarm.raffle.dto.RaffleVO;
+import com.sneakalarm.today.domain.DrawGroup;
 import com.sneakalarm.today.dto.TodayDrawResponseVO;
 import com.sneakalarm.today.dto.TodayProductResponseVO;
 import com.sneakalarm.raffle.service.RaffleService;
@@ -26,6 +27,11 @@ public class TodayController {
   @GetMapping("/now/productList")
   public ArrayList<TodayProductResponseVO> getProductList(){
     return productService.getTodayProductResponseVO();
+  }
+
+  @GetMapping("/now/drawList/korea")
+  public ArrayList<DrawGroup> koreaDrawList(){
+    return null;
   }
 
   @GetMapping("/now/drawList")

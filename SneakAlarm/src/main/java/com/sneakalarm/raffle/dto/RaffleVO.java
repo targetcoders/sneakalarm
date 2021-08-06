@@ -1,16 +1,19 @@
 package com.sneakalarm.raffle.dto;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.SneakyThrows;
 import lombok.ToString;
 
 @Getter
 @Setter
 @ToString
 @AllArgsConstructor @Builder
-public class RaffleVO {
+public class RaffleVO implements Comparable<RaffleVO> {
   private String id;
   private String productId;
   private String url;
@@ -53,4 +56,12 @@ public class RaffleVO {
 
   }
 
+  @SneakyThrows
+  @Override
+  public int compareTo(RaffleVO o) {
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+    Date dateTime1 = sdf.parse(this.getEndDate()+" "+this.getEndTime());
+    Date dateTime2 = sdf.parse(o.getEndDate()+" "+o.getEndTime());
+    return dateTime1.compareTo(dateTime2);
+  }
 }
