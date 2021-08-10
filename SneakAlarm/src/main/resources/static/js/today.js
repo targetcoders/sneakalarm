@@ -55,14 +55,48 @@ function setScrollMoving(scrollController){
 }
 
 function addDrawsByActiveProductList() {
-  return new Promise(function(resolve){
+  return new Promise(function (resolve) {
     $.ajax({
-      url: '/now/productList',
+      url: '/now/draw-list/korea',
       type: 'get',
       data: {},
-      success: function(activeProductList){
-        for(let i in activeProductList){
-          addDraws(createAdataToAddDraws(activeProductList[i]));
+      success: function (koreaDrawList) {
+        console.log(koreaDrawList);
+        const koreaDrawListJson = JSON.parse(koreaDrawList);
+        for (let i in koreaDrawListJson) {
+          const product = koreaDrawListJson[i].productVO;
+
+          $('#activeDraws-korea').append('<div id="todayKoreaDraw-' + product.id + '" class="todayDrawContainer"><a href=/product-detail?id=' + product.id + '><img id="todayProductImg-' + product.id + '" class="todayProductImg" src="' + product.imgSrc_home + '"></a></div>');
+          $('#todayKoreaDraw-' + product.id).append('<div class="todayDraw-model_kr">' + product.model_kr + '</div>');
+          $('#todayKoreaDraw-' + product.id).append('<div class="todayDrawContentKorea-' + product.id + ' todayDrawContentBox d-flex flex-wrap justify-content-center"></div>');
+
+          const targetRaffleVOList = koreaDrawListJson[i].targetRaffleVOList;
+          const endWeek = '욜';
+          const startWeek = '욜';
+          for (let i in targetRaffleVOList) {
+            const raffle = targetRaffleVOList[i];
+            if (raffle.status == 'active') {
+              if (raffle.raffleType == '응모') {
+                $('.todayDrawContentKorea-' + raffle.productId)
+                  .append('<div class="todayDrawContent"><a id="drawCard-' + raffle.id + '" href="' + raffle.url + '" style="text-decoration: none;">\
+                <div><span class="draw-raffle-type-raffle">'+ raffle.raffleType + '</span>&nbsp;-&nbsp;' + raffle.storeName + '</div>\
+                <div class="draw-end-datetime">종료: '+ raffle.endDate + '&nbsp;&nbsp;' + endWeek + '&nbsp;&nbsp;' + raffle.endTime + '</div>\
+                <div class="draw-specialcase">'+ raffle.specialCase + '</div>\
+                </a></div>');
+              } else {
+                $('.todayDrawContentKorea-' + raffle.productId)
+                  .append('<div class="todayDrawContent"><a id="drawCard-' + raffle.id + '" href="' + raffle.url + '" style="text-decoration: none;"><div><span class="draw-raffle-type-firstcome">' + raffle.raffleType + '</span>&nbsp;-&nbsp;' + raffle.storeName + '</div><div class="draw-start-datetime">시작: ' + raffle.startDate + '&nbsp;&nbsp;' + startWeek + '&nbsp;&nbsp;' + raffle.startTime + '</div><div class="draw-specialcase">' + raffle.specialCase + '</div></a></div>');
+              }
+            } else {
+              if(raffle.raffleType == '응모'){
+                $('.todayDrawContentKorea-'+raffle.productId)
+                .append('<div class="todayReadyDrawContent"><a id="drawCard-'+raffle.id+'" href="'+raffle.url+'" style="text-decoration: none;"><div><span class="ready-draw-raffle-type-raffle">'+raffle.raffleType+'</span>&nbsp;<span class="ready-draw-storeName">-&nbsp;'+raffle.storeName+'</span></div><div class="ready-draw-start-datetime">시작: '+raffle.startDate+'&nbsp;&nbsp;'+startWeek+'&nbsp;&nbsp;'+raffle.startTime+'</div><div class="ready-draw-end-datetime">종료: '+raffle.endDate+'&nbsp;&nbsp;'+endWeek+'&nbsp;&nbsp;'+raffle.endTime+'</div><div class="ready-draw-specialcase">'+raffle.specialCase+'</div></a></div>');
+              } else {
+                $('.todayDrawContentKorea-'+raffle.productId)
+                .append('<div class="todayReadyDrawContent"><a id="drawCard-'+raffle.id+'" href="'+raffle.url+'" style="text-decoration: none;"><div><span class="ready-draw-raffle-type-firstcome">'+raffle.raffleType+'</span>&nbsp;<span class="ready-draw-storeName">-&nbsp;'+raffle.storeName+'</span></div><div class="draw-start-datetime">시작: '+raffle.startDate+'&nbsp;&nbsp;'+startWeek+'&nbsp;&nbsp;'+raffle.startTime+'</div><div class="draw-specialcase">'+raffle.specialCase+'</div></a></div>');
+              }
+            }
+          }
         }
       }
     });

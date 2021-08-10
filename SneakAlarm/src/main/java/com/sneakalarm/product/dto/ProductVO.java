@@ -30,7 +30,7 @@ public class ProductVO {
   private String country;
   private String draw;
   private int isDeleted;
-  private String deliveryType;
+  private String deliveryTypes;
 
   public ProductVO() {}
 
@@ -53,7 +53,7 @@ public class ProductVO {
     this.releaseDate = productInsertVO.getReleaseDate();
     this.country = productInsertVO.getCountry();
     this.draw=productInsertVO.getDraw();
-    this.deliveryType = productInsertVO.getDeliveryType();
+    this.deliveryTypes = productInsertVO.getDeliveryType();
   }
 
 }
