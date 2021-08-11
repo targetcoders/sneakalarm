@@ -48,7 +48,7 @@ public class DrawGroup implements Comparable<DrawGroup>{
 
   private Date lastEndDateTime(List<RaffleVO> raffleVOList) throws ParseException {
     RaffleVO lastRaffle = raffleVOList.get(raffleVOList.size()-1);
-    SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd hh:mm");
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
     String nowYear = sdf.format(new Date()).substring(0,4);
     return sdf.parse(nowYear+"/"+lastRaffle.getEndDate()+" "+lastRaffle.getEndTime());
   }
