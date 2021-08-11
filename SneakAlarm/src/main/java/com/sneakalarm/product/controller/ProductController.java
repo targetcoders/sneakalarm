@@ -27,7 +27,7 @@ import com.sneakalarm.product.dto.ProductVO;
 import com.sneakalarm.product.service.ProductService;
 import com.sneakalarm.raffle.dto.RaffleCardVO;
 import com.sneakalarm.raffle.service.RaffleService;
-import com.sneakalarm.util.DateUtil;
+import com.sneakalarm.util.Week;
 
 @Controller
 public class ProductController {
@@ -36,7 +36,7 @@ public class ProductController {
   @Autowired
   RaffleService raffleService;
   @Autowired
-  DateUtil dateUtil;
+  Week week;
 
   @Autowired
   ProductConst productConst;
@@ -187,8 +187,8 @@ public class ProductController {
       String startTime = raffleCardVO.getStartTime();
       String endTime = raffleCardVO.getEndTime();
       String status = raffleService.calcRaffleStatus(startDate, startTime, endDate, endTime);
-      String startWeek = dateUtil.getWeek(startDate, "yyyy-MM-dd");
-      String endWeek = dateUtil.getWeek(endDate, "yyyy-MM-dd");
+      String startWeek = week.getWeek(startDate, "yyyy-MM-dd");
+      String endWeek = week.getWeek(endDate, "yyyy-MM-dd");
 
       raffleCardVO.setStartDate(startDate.replaceAll("-", "/") + " " + startWeek);
       raffleCardVO.setEndDate(endDate.replaceAll("-", "/") + " " + endWeek);

@@ -1,7 +1,7 @@
 package com.sneakalarm.raffle.domain;
 
 import com.sneakalarm.raffle.dto.RaffleVO;
-import com.sneakalarm.util.DateUtil;
+import com.sneakalarm.util.Week;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -33,7 +33,7 @@ public class InstaFeed {
     String raffleType = raffleVO.getRaffleType();
     return "⏰"+raffleVO.getStoreName()+" "+raffleVO.getRaffleType()+": "
         + " "+raffleVO.getEndDate().substring(5).replaceAll("-","/")
-        + " "+DateUtil.getWeek(raffleVO.getEndDate()+ " " +raffleVO.getEndTime(), "yyyy-MM-dd HH:mm")
+        + " "+ Week.getWeek(raffleVO.getEndDate()+ " " +raffleVO.getEndTime(), "yyyy-MM-dd HH:mm")
         + " "+((raffleType.equals("응모")) ? raffleVO.getEndTime().substring(0,5) : raffleVO.getStartTime().substring(0,5))
         + " "+((raffleType.equals("응모")) ? "종료" : "시작")
         + "\n" + raffleVO.getModel_kr()

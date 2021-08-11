@@ -27,7 +27,7 @@ import com.sneakalarm.product.dto.ProductUpdateStartDateTimeVO;
 import com.sneakalarm.product.dto.ProductUpdateStatusVO;
 import com.sneakalarm.product.dto.ProductVO;
 import com.sneakalarm.raffle.service.RaffleService;
-import com.sneakalarm.util.DateUtil;
+import com.sneakalarm.util.Week;
 import com.sneakalarm.util.StringUtil;
 import com.sneakalarm.util.dto.BucketVO;
 
@@ -48,7 +48,7 @@ public class ProductServiceImpl implements ProductService {
   @Autowired
   private RaffleService reffleService;
   @Autowired
-  private DateUtil dateUtil;
+  private Week week;
 
   @Value("${cloud.aws.credentials.accessKey}")
   private String accessKey;

@@ -6,7 +6,7 @@ import java.util.Date;
 import org.springframework.stereotype.Component;
 
 @Component
-public class DateUtil {
+public class Week {
   private static String[] day = {"일", "월", "화", "수", "목", "금", "토"};
 
   public static String getWeek(String date, String dateType) throws Exception {
