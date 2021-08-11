@@ -2,7 +2,6 @@ package com.sneakalarm.util;
 
 import java.util.Calendar;
 import java.util.Date;
-import org.springframework.stereotype.Component;
 
 public class Week {
   private final Date date;
