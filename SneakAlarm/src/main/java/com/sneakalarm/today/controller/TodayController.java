@@ -75,6 +75,21 @@ public class TodayController {
     return new ObjectMapper().writeValueAsString(drawGroupList);
   }
 
+  @GetMapping("/now/draw-list/agent")
+  public String drawListAgent() throws Exception {
+    List<DrawGroup> drawGroupList = new ArrayList<>();
+    String[] deliveryTypes = {"배대지"};
+    Set<ProductVO> productSet = new HashSet<>();
+    for (String deliveryType : deliveryTypes) {
+      productSet.addAll(productService.getProductByDeliveryType(deliveryType));
+    }
+    for (ProductVO product : new ArrayList<>(productSet)) {
+      drawGroupList.add(new DrawGroup(product.getId(), deliveryTypes, productMapper, raffleMapper));
+    }
+    Collections.sort(drawGroupList);
+    return new ObjectMapper().writeValueAsString(drawGroupList);
+  }
+
   private void addEqualsItemsToList(String[] deliveryList, List<String> sortingDeliveryArrayList, String deliveryType) {
     for(String delivery : deliveryList){
       if(delivery.equals(deliveryType))
