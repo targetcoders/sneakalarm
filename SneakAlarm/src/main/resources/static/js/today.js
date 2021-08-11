@@ -66,9 +66,10 @@ function addDrawsByActiveProductList() {
         for (let i in koreaDrawListJson) {
           const product = koreaDrawListJson[i].productVO;
 
-          $('#activeDraws-korea').append('<div id="todayKoreaDraw-' + product.id + '" class="todayDrawContainer"><a href=/product-detail?id=' + product.id + '><img id="todayProductImg-' + product.id + '" class="todayProductImg" src="' + product.imgSrc_home + '"></a></div>');
-          $('#todayKoreaDraw-' + product.id).append('<div class="todayDraw-model_kr">' + product.model_kr + '</div>');
-          $('#todayKoreaDraw-' + product.id).append('<div class="todayDrawContentKorea-' + product.id + ' todayDrawContentBox d-flex flex-wrap justify-content-center"></div>');
+          if($('#todayDirectDraw-'+id).length > 0) continue;
+          $('#activeDraws-direct').append('<div id="todayDirectDraw-'+id+'" class="todayDrawContainer"><a href=/product-detail?id='+id+'><img id="todayProductImg-'+id+'" class="todayProductImg" src="'+imgSrc_home+'"></a></div>')
+          $('#todayDirectDraw-'+id).append('<div class="todayDraw-model_kr">'+model_kr+'</div>')
+          $('#todayDirectDraw-'+id).append('<div class="todayDrawContentDirect-'+id+' todayDrawContentBox d-flex flex-wrap justify-content-center"></div>');
 
           const targetRaffleVOList = koreaDrawListJson[i].targetRaffleVOList;
           const endWeek = '욜';
@@ -94,6 +95,46 @@ function addDrawsByActiveProductList() {
               } else {
                 $('.todayDrawContentKorea-'+raffle.productId)
                 .append('<div class="todayReadyDrawContent"><a id="drawCard-'+raffle.id+'" href="'+raffle.url+'" style="text-decoration: none;"><div><span class="ready-draw-raffle-type-firstcome">'+raffle.raffleType+'</span>&nbsp;<span class="ready-draw-storeName">-&nbsp;'+raffle.storeName+'</span></div><div class="draw-start-datetime">시작: '+raffle.startDate+'&nbsp;&nbsp;'+startWeek+'&nbsp;&nbsp;'+raffle.startTime+'</div><div class="draw-specialcase">'+raffle.specialCase+'</div></a></div>');
+              }
+            }
+          }
+        }
+      }
+    });
+    $.ajax({
+      url: '/now/draw-list/direct',
+      type: 'get',
+      data: {},
+      success: function (directDrawList) {
+        console.log(directDrawList);
+        const directDrawListJson = JSON.parse(directDrawList);
+        for (let i in directDrawListJson) {
+          const product = directDrawListJson[i].productVO;
+
+          $('#activeDraws-direct').append('<div id="todayDirectDraw-'+product.id+'" class="todayDrawContainer"><a href=/product-detail?id='+product.id+'><img id="todayProductImg-'+product.id+'" class="todayProductImg" src="'+product.imgSrc_home+'"></a></div>')
+          $('#todayDirectDraw-'+product.id).append('<div class="todayDraw-model_kr">'+product.model_kr+'</div>')
+          $('#todayDirectDraw-'+product.id).append('<div class="todayDrawContentDirect-'+product.id+' todayDrawContentBox d-flex flex-wrap justify-content-center"></div>');
+
+          const targetRaffleVOList = directDrawListJson[i].targetRaffleVOList;
+          const endWeek = '욜';
+          const startWeek = '욜';
+          for (let i in targetRaffleVOList) {
+            const raffle = targetRaffleVOList[i];
+            if (raffle.status == 'active') {
+              if(raffle.raffleType == '응모'){
+                $('.todayDrawContentDirect-'+raffle.productId)
+                .append('<div class="todayDrawContent"><a id="drawCard-'+raffle.id+'" href="'+raffle.url+'" style="text-decoration: none;"><div><span class="draw-raffle-type-raffle">'+raffle.raffleType+'</span>&nbsp;-&nbsp;'+raffle.storeName+'</div><div class="draw-end-datetime">종료: '+raffle.endDate+'&nbsp;&nbsp;'+endWeek+'&nbsp;&nbsp;'+raffle.endTime+'</div><div class="draw-specialcase">'+raffle.specialCase+'</div></a></div>');
+              } else {
+                $('.todayDrawContentDirect-'+raffle.productId)
+                .append('<div class="todayDrawContent"><a id="drawCard-'+raffle.id+'" href="'+raffle.drawUrl+'" style="text-decoration: none;"><div><span class="draw-raffle-type-firstcome">'+raffle.raffleType+'</span>&nbsp;-&nbsp;'+raffle.storeName+'</div><div class="draw-start-datetime">시작: '+raffle.startDate+'&nbsp;&nbsp;'+startWeek+'&nbsp;&nbsp;'+raffle.startTime+'</div><div class="draw-specialcase">'+raffle.specialCase+'</div></a></div>');
+              }
+            } else {
+              if(raffle.raffleType == '응모'){
+                $('.todayDrawContentDirect-'+raffle.productId)
+                .append('<div class="todayReadyDrawContent"><a id="drawCard-'+raffle.id+'" href="'+raffle.url+'" style="text-decoration: none;"><div><span class="ready-draw-raffle-type-raffle">'+raffle.raffleType+'</span>&nbsp;<span class="ready-draw-storeName">-&nbsp;'+raffle.storeName+'</span></div><div class="ready-draw-start-datetime">시작: '+startDate+'&nbsp;&nbsp;'+raffle.startWeek+'&nbsp;&nbsp;'+raffle.startTime+'</div><div class="ready-draw-end-datetime">종료: '+raffle.endDate+'&nbsp;&nbsp;'+endWeek+'&nbsp;&nbsp;'+raffle.endTime+'</div><div class="ready-draw-specialcase">'+raffle.specialCase+'</div></a></div>');
+              } else {
+                $('.todayDrawContentDirect-'+raffle.productId)
+                .append('<div class="todayReadyDrawContent"><a id="drawCard-'+raffle.id+'" href="'+raffle.url+'" style="text-decoration: none;"><div><span class="ready-draw-raffle-type-firstcome">'+raffle.raffleType+'</span>&nbsp;<span class="ready-draw-storeName">-&nbsp;'+raffle.storeName+'</span></div><div class="draw-end-datetime">시작: '+raffle.startDate+'&nbsp;&nbsp;'+startWeek+'&nbsp;&nbsp;'+raffle.startTime+'</div><div class="draw-specialcase">'+raffle.specialCase+'</div></a></div>');
               }
             }
           }
