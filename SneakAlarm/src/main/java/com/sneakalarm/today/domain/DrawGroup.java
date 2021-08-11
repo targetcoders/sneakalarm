@@ -19,14 +19,14 @@ import lombok.Setter;
 public class DrawGroup implements Comparable<DrawGroup>{
   private ProductVO productVO;
   private List<RaffleVO> targetRaffleVOList;
-  private Date lastEndDateTime;
+  private Date firstEndDateTime;
 
   public DrawGroup(String productId, String[] deliveryTypes, ProductMapper productMapper, RaffleMapper raffleMapper)
       throws Exception {
     this.productVO = productMapper.getProductList(productId).get(0);
     this.targetRaffleVOList = targetRaffleList(deliveryTypes, raffleMapper);
     Collections.sort(this.targetRaffleVOList);
-    this.lastEndDateTime = lastEndDateTime(targetRaffleVOList);
+    this.firstEndDateTime = firstEndDateTime(targetRaffleVOList);
   }
 
   private List<RaffleVO> targetRaffleList(String[] deliveryTypes, RaffleMapper raffleMapper)
@@ -48,11 +48,11 @@ public class DrawGroup implements Comparable<DrawGroup>{
     return result;
   }
 
-  private Date lastEndDateTime(List<RaffleVO> raffleVOList) throws ParseException {
-    RaffleVO lastRaffle = raffleVOList.get(raffleVOList.size()-1);
+  private Date firstEndDateTime(List<RaffleVO> raffleVOList) throws ParseException {
+    RaffleVO firstRaffle = raffleVOList.get(0);
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
     String nowYear = sdf.format(new Date()).substring(0,4);
-    return sdf.parse(nowYear+"/"+lastRaffle.getEndDate()+" "+lastRaffle.getEndTime());
+    return sdf.parse(nowYear+"/"+firstRaffle.getEndDate()+" "+firstRaffle.getEndTime());
   }
 
   private List<RaffleVO> activeRaffleVOList(String productId, RaffleMapper raffleMapper) {
@@ -64,7 +64,7 @@ public class DrawGroup implements Comparable<DrawGroup>{
 
   @Override
   public int compareTo(DrawGroup o) {
-    return this.getLastEndDateTime().compareTo(o.getLastEndDateTime());
+    return this.getFirstEndDateTime().compareTo(o.getFirstEndDateTime());
   }
 
 }
