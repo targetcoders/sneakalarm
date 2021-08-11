@@ -66,10 +66,9 @@ function addDrawsByActiveProductList() {
         for (let i in koreaDrawListJson) {
           const product = koreaDrawListJson[i].productVO;
 
-          if($('#todayDirectDraw-'+id).length > 0) continue;
-          $('#activeDraws-direct').append('<div id="todayDirectDraw-'+id+'" class="todayDrawContainer"><a href=/product-detail?id='+id+'><img id="todayProductImg-'+id+'" class="todayProductImg" src="'+imgSrc_home+'"></a></div>')
-          $('#todayDirectDraw-'+id).append('<div class="todayDraw-model_kr">'+model_kr+'</div>')
-          $('#todayDirectDraw-'+id).append('<div class="todayDrawContentDirect-'+id+' todayDrawContentBox d-flex flex-wrap justify-content-center"></div>');
+          $('#activeDraws-korea').append('<div id="todayKoreaDraw-' + product.id + '" class="todayDrawContainer"><a href=/product-detail?id=' + product.id + '><img id="todayProductImg-' + product.id + '" class="todayProductImg" src="' + product.imgSrc_home + '"></a></div>');
+          $('#todayKoreaDraw-' + product.id).append('<div class="todayDraw-model_kr">' + product.model_kr + '</div>');
+          $('#todayKoreaDraw-' + product.id).append('<div class="todayDrawContentKorea-' + product.id + ' todayDrawContentBox d-flex flex-wrap justify-content-center"></div>');
 
           const targetRaffleVOList = koreaDrawListJson[i].targetRaffleVOList;
           const endWeek = '욜';

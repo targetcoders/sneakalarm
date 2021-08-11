@@ -35,8 +35,6 @@ public class ProductController {
   ProductService productServiceImpl;
   @Autowired
   RaffleService raffleService;
-  @Autowired
-  Week week;
 
   @Autowired
   ProductConst productConst;

@@ -47,8 +47,6 @@ public class ProductServiceImpl implements ProductService {
   private ProductMapper productMapper;
   @Autowired
   private RaffleService reffleService;
-  @Autowired
-  private Week week;
 
   @Value("${cloud.aws.credentials.accessKey}")
   private String accessKey;

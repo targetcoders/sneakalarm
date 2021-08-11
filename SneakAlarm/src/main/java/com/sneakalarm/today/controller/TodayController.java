@@ -46,9 +46,24 @@ public class TodayController {
   }
 
   @GetMapping("/now/draw-list/korea")
-  public String getTodayKorea() throws Exception {
+  public String drawListKorea() throws Exception {
     List<DrawGroup> drawGroupList = new ArrayList<>();
     String[] deliveryTypes = {"택배배송", "방문수령"};
+    Set<ProductVO> productSet = new HashSet<>();
+    for (String deliveryType : deliveryTypes) {
+      productSet.addAll(productService.getProductByDeliveryType(deliveryType));
+    }
+    for (ProductVO product : new ArrayList<>(productSet)) {
+      drawGroupList.add(new DrawGroup(product.getId(), deliveryTypes, productMapper, raffleMapper));
+    }
+    Collections.sort(drawGroupList);
+    return new ObjectMapper().writeValueAsString(drawGroupList);
+  }
+
+  @GetMapping("/now/draw-list/direct")
+  public String drawListDirect() throws Exception {
+    List<DrawGroup> drawGroupList = new ArrayList<>();
+    String[] deliveryTypes = {"직배"};
     Set<ProductVO> productSet = new HashSet<>();
     for (String deliveryType : deliveryTypes) {
       productSet.addAll(productService.getProductByDeliveryType(deliveryType));
