@@ -39,6 +39,8 @@ public class DrawGroup implements Comparable<DrawGroup>{
           raffle.setEndWeek(new Week(new SimpleDateFormat("yyyy-MM-dd").parse(raffle.getEndDate())).get());
           raffle.setStartDate(raffle.getStartDate().replaceAll("-","/").substring(5));
           raffle.setEndDate(raffle.getEndDate().replaceAll("-","/").substring(5));
+          raffle.setStartTime(raffle.getStartTime().substring(0,5));
+          raffle.setEndTime(raffle.getEndTime().substring(0,5));
           result.add(raffle);
         }
       }
