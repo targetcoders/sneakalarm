@@ -19,8 +19,9 @@ public class TodayDrawResponseVO {
   }
 
   private TodayDrawVO getTodayDraw(RaffleVO raffleVO) throws Exception {
-    String startWeek = Week.getWeek(raffleVO.getStartDate(), "yyyy-MM-dd");
-    String endWeek = Week.getWeek(raffleVO.getEndDate(), "yyyy-MM-dd");
+    Week week = new Week();
+    String startWeek = week.getWeek(raffleVO.getStartDate(), "yyyy-MM-dd");
+    String endWeek = week.getWeek(raffleVO.getEndDate(), "yyyy-MM-dd");
     String specialCase = raffleVO.getSpecialCase();
     String model_kr = raffleVO.getModel_kr();
     String releasePrice = raffleVO.getReleasePrice();
