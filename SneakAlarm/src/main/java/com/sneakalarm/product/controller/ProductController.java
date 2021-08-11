@@ -11,7 +11,6 @@ import java.util.List;
 
 import java.util.Set;
 import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.javassist.Loader.Simple;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
@@ -188,8 +187,8 @@ public class ProductController {
       String startTime = raffleCardVO.getStartTime();
       String endTime = raffleCardVO.getEndTime();
       String status = raffleService.calcRaffleStatus(startDate, startTime, endDate, endTime);
-      String startWeek = week.getWeek(startDate, new SimpleDateFormat("yyyy-MM-dd"));
-      String endWeek = week.getWeek(endDate, new SimpleDateFormat("yyyy-MM-dd"));
+      String startWeek = new Week(new SimpleDateFormat("yyyy-MM-dd").parse(startDate)).get();
+      String endWeek = new Week(new SimpleDateFormat("yyyy-MM-dd").parse(endDate)).get();
 
       raffleCardVO.setStartDate(startDate.replaceAll("-", "/") + " " + startWeek);
       raffleCardVO.setEndDate(endDate.replaceAll("-", "/") + " " + endWeek);

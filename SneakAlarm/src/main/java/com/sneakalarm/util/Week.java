@@ -7,14 +7,17 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class Week {
-  private final String[] day = {"일", "월", "화", "수", "목", "금", "토"};
+  private final Date date;
 
-  public String getWeek(String date, SimpleDateFormat dateFormat) throws Exception {
-    Date inputDate = dateFormat.parse(date);
+  private final String[] weeks = {"일", "월", "화", "수", "목", "금", "토"};
+
+  public Week(Date date){
+    this.date = date;
+  }
+
+  public String get() throws Exception {
     Calendar cal = Calendar.getInstance();
-    cal.setTime(inputDate);
-
-    int dayNum = cal.get(Calendar.DAY_OF_WEEK) - 1;
-    return day[dayNum];
+    cal.setTime(date);
+    return weeks[cal.get(Calendar.DAY_OF_WEEK) - 1];
   }
 }
