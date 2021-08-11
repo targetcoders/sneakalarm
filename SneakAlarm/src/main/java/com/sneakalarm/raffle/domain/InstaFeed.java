@@ -33,7 +33,7 @@ public class InstaFeed {
     String raffleType = raffleVO.getRaffleType();
     return "⏰"+raffleVO.getStoreName()+" "+raffleVO.getRaffleType()+": "
         + " "+raffleVO.getEndDate().substring(5).replaceAll("-","/")
-        + " "+ new Week().getWeek(raffleVO.getEndDate()+ " " +raffleVO.getEndTime(), "yyyy-MM-dd HH:mm")
+        + " "+ new Week().getWeek(raffleVO.getEndDate()+ " " +raffleVO.getEndTime(), new SimpleDateFormat("yyyy-MM-dd HH:mm"))
         + " "+((raffleType.equals("응모")) ? raffleVO.getEndTime().substring(0,5) : raffleVO.getStartTime().substring(0,5))
         + " "+((raffleType.equals("응모")) ? "종료" : "시작")
         + "\n" + raffleVO.getModel_kr()
