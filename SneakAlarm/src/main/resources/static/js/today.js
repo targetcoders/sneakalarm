@@ -47,6 +47,43 @@ function setScrollMoving(scrollController){
 function addDrawsByActiveProductList() {
   return new Promise(function (resolve) {
     $.ajax({
+      url: '/now/draw-list/unregistered',
+      type: 'get',
+      data: {},
+      success: function (unregisteredDrawList) {
+        console.log(unregisteredDrawList);
+        const unregisteredDrawListJson = JSON.parse(unregisteredDrawList);
+        for (let i in unregisteredDrawListJson) {
+          const product = unregisteredDrawListJson[i].productVO;
+          $('#activeDraws-unregistered').append('<div id="todayUnregisteredDraw-'+product.id+'" class="todayDrawContainer"><a href=/product-detail?id='+product.id+'><img id="todayProductImg-'+product.id+'" class="todayProductImg" src="'+product.imgSrc_home+'"></a></div>');
+          $('#todayUnregisteredDraw-'+product.id).append('<div class="todayUnregisteredDrawContent-'+product.id+' todayDrawContentBox d-flex flex-wrap justify-content-center"></div>');
+
+          const targetRaffleVOList = unregisteredDrawListJson[i].targetRaffleVOList;
+          for (let i in targetRaffleVOList) {
+            const raffle = targetRaffleVOList[i];
+            if (raffle.status == 'active') {
+              if(raffleType == '응모'){
+                $('.todayUnregisteredDrawContent-'+raffle.productId)
+                  .append('<div class="todayDrawContent"><a id="drawCard-'+raffle.id+'" href="'+raffle.url+'" style="text-decoration: none;"><div class="div-draw-model_kr"><span class="draw-model_kr">'+raffle.model_kr+'</span></div><div><span class="draw-raffle-type-raffle">'+raffle.raffleType+'</span>&nbsp;-&nbsp;'+raffle.storeName+'</div><div class="draw-end-datetime">종료: '+raffle.endDate+'&nbsp;&nbsp;'+raffle.endWeek+'&nbsp;&nbsp;'+raffle.endTime+'</div><div class="draw-specialcase">'+raffle.specialCase+'</div></a></div>');
+              } else {
+                $('.todayUnregisteredDrawContent-'+raffle.productId)
+                .append('<div class="todayDrawContent"><a id="drawCard-'+raffle.id+'" href="'+raffle.url+'" style="text-decoration: none;"><div class="div-draw-model_kr"><span class="draw-model_kr">'+raffle.model_kr+'</span></div><div><span class="draw-raffle-type-firstcome">'+raffle.raffleType+'</span>&nbsp;-&nbsp;'+raffle.storeName+'</div><div class="draw-start-datetime">시작: '+raffle.startDate+'&nbsp;&nbsp;'+raffle.startWeek+'&nbsp;&nbsp;'+raffle.startTime+'</div><div class="draw-specialcase">'+raffle.specialCase+'</div></a></div>');
+              }
+            } else {
+              if(raffleType == '응모'){
+                $('.todayUnregisteredDrawContent-'+raffle.productId)
+                .append('<div class="todayReadyDrawContent"><a id="drawCard-'+raffle.id+'" href="'+raffle.url+'" style="text-decoration: none;"><div class="div-draw-model_kr"><span class="draw-model_kr">'+raffle.model_kr+'</span></div><div><span class="ready-draw-raffle-type-raffle">'+raffle.raffleType+'</span>&nbsp;<span class="ready-draw-storeName">-&nbsp;'+raffle.storeName+'</span></div><div class="ready-draw-start-datetime">시작: '+raffle.startDate+'&nbsp;&nbsp;'+raffle.startWeek+'&nbsp;&nbsp;'+raffle.startTime+'</div><div class="ready-draw-end-datetime">종료: '+raffle.endDate+'&nbsp;&nbsp;'+raffle.endWeek+'&nbsp;&nbsp;'+raffle.endTime+'</div><div class="ready-draw-specialcase">'+raffle.specialCase+'</div></a></div>');
+              } else {
+                $('.todayUnregisteredDrawContent-'+raffle.productId)
+                .append('<div class="todayReadyDrawContent"><a id="drawCard-'+raffle.id+'" href="'+raffle.url+'" style="text-decoration: none;"><div class="div-draw-model_kr"><span class="draw-model_kr">'+raffle.model_kr+'</span></div><div><span class="ready-draw-raffle-type-firstcome">'+raffle.raffleType+'</span>&nbsp;<span class="ready-draw-storeName">-&nbsp;'+raffle.storeName+'</span></div><div class="draw-start-datetime">시작: '+raffle.startDate+'&nbsp;&nbsp;'+raffle.startWeek+'&nbsp;&nbsp;'+raffle.startTime+'</div><div class="draw-specialcase">'+raffle.specialCase+'</div></a></div>');
+              }
+            }
+          }
+        }
+      }
+    });
+
+    $.ajax({
       url: '/now/draw-list/korea',
       type: 'get',
       data: {},
