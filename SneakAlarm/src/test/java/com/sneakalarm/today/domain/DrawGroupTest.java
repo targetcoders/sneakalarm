@@ -17,11 +17,28 @@ public class DrawGroupTest {
 
   private ProductMapper productMapper;
   private RaffleMapper raffleMapper;
+  private List<RaffleVO> raffleVOListReady;
+  private List<RaffleVO> raffleVOListActive;
+  private RaffleVO readyRaffleVO1;
+  private RaffleVO readyRaffleVO2;
+  private RaffleVO activeRaffleVO1;
+  private RaffleVO activeRaffleVO2;
 
   @Before
   public void init(){
     productMapper = Mockito.mock(ProductMapper.class);
     raffleMapper = Mockito.mock(RaffleMapper.class);
+    raffleVOListReady = new ArrayList<>();
+    raffleVOListActive = new ArrayList<>();
+    readyRaffleVO1 = RaffleVO.builder().endDate("2021-08-07").endTime("01:30").delivery("택배배송").build();
+    readyRaffleVO2 = RaffleVO.builder().endDate("2021-08-17").endTime("18:00").delivery("방문수령").build();
+    raffleVOListReady.add(readyRaffleVO1);
+    raffleVOListReady.add(readyRaffleVO2);
+
+    activeRaffleVO1 = RaffleVO.builder().endDate("2021-08-13").endTime("00:00").delivery("방문수령").build();
+    activeRaffleVO2 = RaffleVO.builder().endDate("2021-08-07").endTime("02:00").delivery("방문수령").build();
+    raffleVOListActive.add(activeRaffleVO1);
+    raffleVOListActive.add(activeRaffleVO2);
   }
 
   @Test
@@ -31,36 +48,14 @@ public class DrawGroupTest {
     expectedProductVO.setId("0");
     expectedProductVO.setDeliveryTypes("방문수령,택배배송,배대지,직배");
     expectedProductVOList.add(expectedProductVO);
-    RaffleVO activeRaffleVO = new RaffleVO();
-    activeRaffleVO.setEndDate("2021-08-13");
-    activeRaffleVO.setEndTime("00:00");
-    activeRaffleVO.setDelivery("방문수령");
-    RaffleVO activeRaffleVO2 = new RaffleVO();
-    activeRaffleVO2.setEndDate("2021-08-07");
-    activeRaffleVO2.setEndTime("02:00");
-    activeRaffleVO2.setDelivery("방문수령");
-    List<RaffleVO> raffleVOListActive = new ArrayList<>();
-    raffleVOListActive.add(activeRaffleVO);
-    raffleVOListActive.add(activeRaffleVO2);
-    List<RaffleVO> raffleVOListReady = new ArrayList<>();
-    RaffleVO readyRaffle = new RaffleVO();
-    readyRaffle.setEndDate("2021-08-07");
-    readyRaffle.setEndTime("01:30");
-    readyRaffle.setDelivery("택배배송");
-    RaffleVO readyRaffle2 = new RaffleVO();
-    readyRaffle2.setEndDate("2021-08-17");
-    readyRaffle2.setEndTime("18:00");
-    readyRaffle2.setDelivery("방문수령");
-    raffleVOListReady.add(readyRaffle);
-    raffleVOListReady.add(readyRaffle2);
-    List<RaffleVO> expectedRaffleVOList = new ArrayList<>();
-    expectedRaffleVOList.add(readyRaffle);
-    expectedRaffleVOList.add(activeRaffleVO2);
-    expectedRaffleVOList.add(activeRaffleVO);
-    expectedRaffleVOList.add(readyRaffle2);
     Mockito.doReturn(expectedProductVOList).when(productMapper).getProductList("0");
     Mockito.doReturn(raffleVOListActive).when(raffleMapper).getRaffleListByStatus(new RaffleListByStatusVO("0", "active"));
     Mockito.doReturn(raffleVOListReady).when(raffleMapper).getRaffleListByStatus(new RaffleListByStatusVO("0", "ready"));
+    List<RaffleVO> expectedRaffleVOList = new ArrayList<>();
+    expectedRaffleVOList.add(readyRaffleVO1);
+    expectedRaffleVOList.add(activeRaffleVO2);
+    expectedRaffleVOList.add(activeRaffleVO1);
+    expectedRaffleVOList.add(readyRaffleVO2);
 
     String[] deliveryTypes = {"방문수령","택배배송"};
     DrawGroup drawGroup = new DrawGroup("0", deliveryTypes, productMapper, raffleMapper);
