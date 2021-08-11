@@ -32,6 +32,8 @@ public class RaffleVO implements Comparable<RaffleVO> {
   private String content;
   private String status;
   private String model_kr;
+  private String startWeek;
+  private String endWeek;
 
   public RaffleVO(RaffleInsertVO raffleInsertVO) {
     specialCase = raffleInsertVO.getSpecialCase();
@@ -59,9 +61,10 @@ public class RaffleVO implements Comparable<RaffleVO> {
   @SneakyThrows
   @Override
   public int compareTo(RaffleVO o) {
-    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-    Date dateTime1 = sdf.parse(this.getEndDate()+" "+this.getEndTime());
-    Date dateTime2 = sdf.parse(o.getEndDate()+" "+o.getEndTime());
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
+    String nowYear = sdf.format(new Date()).substring(0,4);
+    Date dateTime1 = sdf.parse(nowYear+"/"+this.getEndDate()+" "+this.getEndTime());
+    Date dateTime2 = sdf.parse(nowYear+"/"+o.getEndDate()+" "+o.getEndTime());
     return dateTime1.compareTo(dateTime2);
   }
 }

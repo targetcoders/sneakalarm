@@ -42,7 +42,7 @@ public class DrawGroupTest {
   }
 
   @Test
-  public void testConstructor() throws ParseException {
+  public void testConstructor() throws Exception {
     List<ProductVO> expectedProductVOList = new ArrayList<>();
     ProductVO expectedProductVO = new ProductVO();
     expectedProductVO.setId("0");
