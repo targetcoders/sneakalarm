@@ -9,9 +9,7 @@ import org.springframework.stereotype.Component;
 public class Week {
   private final String[] day = {"일", "월", "화", "수", "목", "금", "토"};
 
-  public String getWeek(String date, String dateType) throws Exception {
-
-    SimpleDateFormat dateFormat = new SimpleDateFormat(dateType);
+  public String getWeek(String date, SimpleDateFormat dateFormat) throws Exception {
     Date inputDate = dateFormat.parse(date);
     Calendar cal = Calendar.getInstance();
     cal.setTime(inputDate);
