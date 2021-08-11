@@ -140,6 +140,47 @@ function addDrawsByActiveProductList() {
         }
       }
     });
+
+    $.ajax({
+      url: '/now/draw-list/agent',
+      type: 'get',
+      data: {},
+      success: function (agentDrawList) {
+        console.log(agentDrawList);
+        const agentDrawListJson = JSON.parse(agentDrawList);
+        for (let i in agentDrawListJson) {
+          const product = agentDrawListJson[i].productVO;
+
+          $('#activeDraws-agent').append('<div id="todayAgentDraw-'+product.id+'" class="todayDrawContainer"><a href=/product-detail?id='+product.id+'><img id="todayProductImg-'+product.id+'" class="todayProductImg" src="'+product.imgSrc_home+'"></a></div>')
+          $('#todayAgentDraw-'+product.id).append('<div class="todayDraw-model_kr">'+product.model_kr+'</div>')
+          $('#todayAgentDraw-'+product.id).append('<div class="todayDrawContentAgent-'+product.id+' todayDrawContentBox d-flex flex-wrap justify-content-center"></div>');
+
+          const targetRaffleVOList = agentDrawListJson[i].targetRaffleVOList;
+          const endWeek = '욜';
+          const startWeek = '욜';
+          for (let i in targetRaffleVOList) {
+            const raffle = targetRaffleVOList[i];
+            if (raffle.status == 'active') {
+              if(raffle.raffleType == '응모'){
+                $('.todayDrawContentAgent-'+raffle.productId)
+                .append('<div class="todayDrawContent"><a id="drawCard-'+raffle.id+'" href="'+raffle.url+'" style="text-decoration: none;"><div><span class="draw-raffle-type-raffle">'+raffle.raffleType+'</span>&nbsp;-&nbsp;'+raffle.storeName+'</div><div class="draw-end-datetime">종료: '+raffle.endDate+'&nbsp;&nbsp;'+endWeek+'&nbsp;&nbsp;'+raffle.endTime+'</div><div class="draw-specialcase">'+raffle.specialCase+'</div></a></div>');
+              } else {
+                $('.todayDrawContentAgent-'+raffle.productId)
+                .append('<div class="todayDrawContent"><a id="drawCard-'+raffle.id+'" href="'+raffle.url+'" style="text-decoration: none;"><div><span class="draw-raffle-type-firstcome">'+raffle.raffleType+'</span>&nbsp;-&nbsp;'+raffle.storeName+'</div><div class="draw-start-datetime">시작: '+raffle.startDate+'&nbsp;&nbsp;'+startWeek+'&nbsp;&nbsp;'+raffle.startTime+'</div><div class="draw-specialcase">'+raffle.specialCase+'</div></a></div>');
+              }
+            } else {
+              if(raffle.raffleType == '응모'){
+                $('.todayDrawContentAgent-'+raffle.productId)
+                .append('<div class="todayReadyDrawContent"><a id="drawCard-'+id+'" href="'+raffle.raffle.raffle.drawUrl+'" style="text-decoration: none;"><div><span class="ready-draw-raffle-type-raffle">'+raffle.raffleType+'</span>&nbsp;<span class="ready-draw-storeName">-&nbsp;'+raffle.storeName+'</span></div><div class="ready-draw-start-datetime">시작: '+raffle.startDate+'&nbsp;&nbsp;'+startWeek+'&nbsp;&nbsp;'+raffle.startTime+'</div><div class="ready-draw-end-datetime">종료: '+raffle.endDate+'&nbsp;&nbsp;'+endWeek+'&nbsp;&nbsp;'+raffle.endTime+'</div><div class="ready-draw-specialcase">'+raffle.specialCase+'</div></a></div>');
+              } else {
+                $('.todayDrawContentAgent-'+raffle.productId)
+                .append('<div class="todayReadyDrawContent"><a id="drawCard-'+id+'" href="'+raffle.drawUrl+'" style="text-decoration: none;"><div><span class="ready-draw-raffle-type-firstcome">'+raffle.raffleType+'</span>&nbsp;<span class="ready-draw-storeName">-&nbsp;'+raffle.storeName+'</span></div><div class="draw-end-datetime">시작: '+raffle.startDate+'&nbsp;&nbsp;'+startWeek+'&nbsp;&nbsp;'+raffle.startTime+'</div><div class="draw-specialcase">'+raffle.specialCase+'</div></a></div>');
+              }
+            }
+          }
+        }
+      }
+    });
   });
 
   function createAdataToAddDraws(activeProduct) {
