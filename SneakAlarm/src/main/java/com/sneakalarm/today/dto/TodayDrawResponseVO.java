@@ -1,17 +1,9 @@
 package com.sneakalarm.today.dto;
 
 import com.sneakalarm.raffle.dto.RaffleVO;
-import com.sneakalarm.util.DateUtil;
-import com.sneakalarm.util.StringUtil;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import com.sneakalarm.util.Week;
 import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.Date;
 import lombok.Data;
-import lombok.SneakyThrows;
 
 @Data
 public class TodayDrawResponseVO {
@@ -27,8 +19,8 @@ public class TodayDrawResponseVO {
   }
 
   private TodayDrawVO getTodayDraw(RaffleVO raffleVO) throws Exception {
-    String startWeek = DateUtil.getWeek(raffleVO.getStartDate(), "yyyy-MM-dd");
-    String endWeek = DateUtil.getWeek(raffleVO.getEndDate(), "yyyy-MM-dd");
+    String startWeek = Week.getWeek(raffleVO.getStartDate(), "yyyy-MM-dd");
+    String endWeek = Week.getWeek(raffleVO.getEndDate(), "yyyy-MM-dd");
     String specialCase = raffleVO.getSpecialCase();
     String model_kr = raffleVO.getModel_kr();
     String releasePrice = raffleVO.getReleasePrice();
