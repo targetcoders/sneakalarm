@@ -1,12 +1,9 @@
 $('document').ready(function() {
+  $('.product-unregistered').hide();
   addDrawsByActiveProductList();
   setPopup();
   setScrollMoving(new ScrollController());
   setTimeout(function(){
-    if($('#activeDraws-unregistered').children().length > 0) {
-      $('.product-unregistered').show();
-    }
-    $('.product-unregistered').hide();
     $('.navbar__search-icon').hide();
   },200);
 });
@@ -53,6 +50,10 @@ function addDrawsByActiveProductList() {
       success: function (unregisteredDrawList) {
         console.log(unregisteredDrawList);
         const unregisteredDrawListJson = JSON.parse(unregisteredDrawList);
+        if(unregisteredDrawListJson.length==0){
+          return;
+        }
+        $('.product-unregistered').show();
         for (let i in unregisteredDrawListJson) {
           const product = unregisteredDrawListJson[i].productVO;
           $('#activeDraws-unregistered').append('<div id="todayUnregisteredDraw-'+product.id+'" class="todayDrawContainer"><a href=/product-detail?id='+product.id+'><img id="todayProductImg-'+product.id+'" class="todayProductImg" src="'+product.imgSrc_home+'"></a></div>');
@@ -62,7 +63,7 @@ function addDrawsByActiveProductList() {
           for (let i in targetRaffleVOList) {
             const raffle = targetRaffleVOList[i];
             if (raffle.status == 'active') {
-              if(raffleType == '응모'){
+              if(raffle.raffleType == '응모'){
                 $('.todayUnregisteredDrawContent-'+raffle.productId)
                   .append('<div class="todayDrawContent"><a id="drawCard-'+raffle.id+'" href="'+raffle.url+'" style="text-decoration: none;"><div class="div-draw-model_kr"><span class="draw-model_kr">'+raffle.model_kr+'</span></div><div><span class="draw-raffle-type-raffle">'+raffle.raffleType+'</span>&nbsp;-&nbsp;'+raffle.storeName+'</div><div class="draw-end-datetime">종료: '+raffle.endDate+'&nbsp;&nbsp;'+raffle.endWeek+'&nbsp;&nbsp;'+raffle.endTime+'</div><div class="draw-specialcase">'+raffle.specialCase+'</div></a></div>');
               } else {
