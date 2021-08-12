@@ -41,6 +41,7 @@ public class DrawGroup implements Comparable<DrawGroup>{
           raffle.setEndDate(raffle.getEndDate().replaceAll("-","/").substring(5));
           raffle.setStartTime(raffle.getStartTime().substring(0,5));
           raffle.setEndTime(raffle.getEndTime().substring(0,5));
+          raffle.setContent(null);
           result.add(raffle);
         }
       }

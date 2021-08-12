@@ -40,11 +40,6 @@ public class TodayController {
     return productService.getTodayProductResponseVO();
   }
 
-  @GetMapping("/now/drawList/korea")
-  public ArrayList<DrawGroup> koreaDrawList(){
-    return null;
-  }
-
   @GetMapping("/now/draw-list/unregistered")
   public String drawListUnregistered() throws Exception {
     List<DrawGroup> drawGroupList = new ArrayList<>();
@@ -108,24 +103,6 @@ public class TodayController {
     }
     Collections.sort(drawGroupList);
     return new ObjectMapper().writeValueAsString(drawGroupList);
-  }
-
-  private void addEqualsItemsToList(String[] deliveryList, List<String> sortingDeliveryArrayList, String deliveryType) {
-    for(String delivery : deliveryList){
-      if(delivery.equals(deliveryType))
-        sortingDeliveryArrayList.add(delivery);
-    }
-  }
-
-  private TodayDrawResponseVO getTodayDrawResponseVO(String deliveryType, ProductVO productVO)
-      throws Exception {
-    TodayDrawResponseVO todayDrawResponseVO = new TodayDrawResponseVO();
-    todayDrawResponseVO.setProductId(productVO.getId());
-    ArrayList<RaffleVO> raffleList = raffleService.getRaffleListByDeliveryType(
-        new RaffleListByDeliveryTypeVO(productVO.getId(), deliveryType));
-    todayDrawResponseVO.setTodayDraws(raffleList);
-    Collections.sort(todayDrawResponseVO.getTodayDraws());
-    return todayDrawResponseVO;
   }
 
 }
