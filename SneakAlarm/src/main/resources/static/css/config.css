@@ -1,5 +1,15 @@
 @charset "UTF-8";
-
+::-moz-selection { /* Code for Firefox */
+  color: rgb(255, 0, 0);
+  background:rgb(255, 255, 255)
+}
+::selection {
+  color: rgb(255, 0, 0);
+  background:rgb(255, 255, 255);
+}
+.h1 {
+  font-family: Helvetica, Arial, sans-serif;
+}
 body, html {
 	height: 100%;
 	width: 100%;
