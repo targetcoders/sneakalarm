@@ -38,7 +38,7 @@ public class ParsedElementForLuckD implements ParsedElement {
 
   @Override
   public String parseStartDateTime() {
-    return "";
+    return null;
   }
 
   public String parseEndDateTime() {

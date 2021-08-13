@@ -12,7 +12,17 @@ public class JsoupImplForShoeprize implements Jsoup {
     };
     return org.jsoup.Jsoup.connect(url)
         .userAgent(userAgentList[0])
-        .referrer("https://www.shoeprize.com/today/?filter={%22excludeEnd%22:1,%22countries%22:%22%ED%95%9C%EA%B5%AD%22}")
+        .referrer("https://www.shoeprize.com/")
+        .get();
+  }
+
+  public Document productDetail(String dataUUID) throws IOException {
+    String[] userAgentList = new String[]{
+        "Mozilla/5.0 (iPhone; CPU iPhone OS 14_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 Instagram 142.0.0.22.109 (iPhone12,5; iOS 14_1; en_US; en-US; scale=3.00; 1242x2688; 214888322) NW/1"
+    };
+    return org.jsoup.Jsoup.connect("https://www.shoeprize.com/api/v2/product_release/"+dataUUID)
+        .userAgent(userAgentList[0])
+        .referrer("https://www.shoeprize.com/")
         .get();
   }
 }
