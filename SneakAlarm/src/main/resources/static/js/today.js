@@ -38,7 +38,7 @@ function setScrollMoving(scrollController){
 }
 
 function addDrawsByActiveProductList() {
-  return new Promise(function (resolve) {
+  return new Promise(function (resolve, reject) {
     $.ajax({
       url: '/now/draw-list/unregistered',
       type: 'get',
@@ -198,6 +198,7 @@ function addDrawsByActiveProductList() {
         }
       }
     });
+    resolve(true);
   });
 }
 
