@@ -18,31 +18,27 @@
 </th:block>
 <th:block layout:fragment="script">
   <script type="text/javascript" src="/js/today.js" charset="utf-8"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lozad/dist/lozad.min.js"></script>
   <script>
   $(function() {
     $('.product-unregistered').hide();
       addDrawsByActiveProductList();
       setPopup();
       setScrollMoving(new ScrollController());
-      setTimeout(function(){
-        $('.navbar__search-icon').hide();
-      },200);
+  });
+  $(window).load(function(){
+    $('.navbar__search-icon').hide();
+    const observer = lozad();
+    observer.observe();
   });
   </script>
-
   <script sec:authorize="!hasRole('ADMIN')">
     document.title = 'SNEAKALARM';
   </script>
   <script sec:authorize="hasRole('ADMIN')">
     document.title = '_SNEAKALARM';
   </script>
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lozad/dist/lozad.min.js"></script>
-  <script>
-  setTimeout(function(){
-    const observer = lozad();
-    observer.observe();
-  },300);
-  </script>
+
 </th:block>
 
 
