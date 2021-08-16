@@ -20,8 +20,6 @@ function setPopup(){
     $('.fixed-bottom').css('z-index',1028);
   });
   $('#category-close-btn, .popBg').on('click',function(){
-    $('.navbar__clock__date').css('color','black');
-    $('.navbar__clock__week').css('color','black');
     $('.navbar__bogo').attr('src','image/pc/SneakAlarm_white_870x180.png');
     $('.navbar-top--mobile__container').css('background-color','rgba(0,0,0,0)');
     $('.navbar-top--pc__container').css('background-color','rgba(255,255,255,0.9)');
@@ -29,6 +27,8 @@ function setPopup(){
   });
 }
 function closeCategoryPopUp(){
+  $('.navbar__clock__date').css('color','black');
+  $('.navbar__clock__week').css('color','black');
   $('.fixed-bottom').show();
   $('#category-list-popup').fadeOut(200);
 }

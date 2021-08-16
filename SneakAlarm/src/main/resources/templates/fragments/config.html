@@ -84,8 +84,8 @@ function printClock() {
     var currentSeconds =  addZeros(currentDate.getSeconds(),2);
 
     $('.navbar__clock__date').text(calendar);
-	$('.navbar__clock__week').text(week[day]);
-	$('.navbar__clock__time').text(currentHours+":"+currentMinute+":"+currentSeconds);
+	  $('.navbar__clock__week').text(week[day]);
+	  $('.navbar__clock__time').text(currentHours+":"+currentMinute+":"+currentSeconds);
 
     setTimeout("printClock()",1000);         // 1초마다 printClock() 함수 호출
 
