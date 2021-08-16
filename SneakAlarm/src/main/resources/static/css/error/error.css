@@ -8,18 +8,25 @@
   margin-top: 100px;
 }
 .error-redirect-message{
+  font-size: 12px;
   font-weight: bold;
   color: #FE0100;
   text-align: center;
 }
 #error-image{
   width:100%;
-  height:350px;
+  height:500px;
 }
 
-@media(min-width:768px){
-    #error-image{
-        width:100%;
-        height:700px;
-    }
+@media(min-width:700px){
+  .error-redirect-message{
+    font-size: 18px;
+    font-weight: bold;
+    color: #FE0100;
+    text-align: center;
+  }
+  #error-image{
+    width:100%;
+    height:700px;
+  }
 }

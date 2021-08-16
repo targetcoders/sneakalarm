@@ -38,6 +38,16 @@ body, html {
   margin-top: 86px;
 }
 
+.navbar__clock__date {
+  color: black;
+}
+.navbar__clock__week {
+  color: black;
+}
+.navbar__clock__time {
+  color: #FE0100;
+}
+
 @media ( min-width : 768px) {
 	.container .information {
 		width: 750px;

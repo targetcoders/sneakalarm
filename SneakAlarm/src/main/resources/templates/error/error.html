@@ -38,6 +38,9 @@
   htmlTag.addEventListener('click',function(){
     location.href = homePageUrl;
   });
+  redirect(5);
+
+
   function redirect(second) {
     if (second == 0) {
       location.href = homePageUrl;
@@ -48,7 +51,6 @@
       redirect(second - 1);
     }, 1000);
   }
-  redirect(5);
 </script>
 </div>
 
