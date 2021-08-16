@@ -20,7 +20,6 @@ function setPopup(){
     $('.fixed-bottom').css('z-index',1028);
   });
   $('#category-close-btn, .popBg').on('click',function(){
-    $('.navbar__bogo').attr('src','image/pc/SneakAlarm_white_870x180.png');
     $('.navbar-top--mobile__container').css('background-color','rgba(0,0,0,0)');
     $('.navbar-top--pc__container').css('background-color','rgba(255,255,255,0.9)');
     closeCategoryPopUp();
@@ -29,21 +28,22 @@ function setPopup(){
 function closeCategoryPopUp(){
   $('.navbar__clock__date').css('color','black');
   $('.navbar__clock__week').css('color','black');
+  $('.navbar__bogo').attr('src','image/pc/SneakAlarm_white_870x180.png');
   $('.fixed-bottom').show();
   $('#category-list-popup').fadeOut(200);
 }
 function setScrollMoving(scrollController){
   $('#raffle-category-korea').on('click', function(){
-    scrollController.scrollTo('#activeDraws-korea');
     closeCategoryPopUp();
+    scrollController.scrollTo('#activeDraws-korea');
   });
   $('#raffle-category-direct').on('click', function(){
-    scrollController.scrollTo('#activeDraws-direct');
     closeCategoryPopUp();
+    scrollController.scrollTo('#activeDraws-direct');
   });
   $('#raffle-category-agent').on('click', function(){
-    scrollController.scrollTo('#activeDraws-agent');
     closeCategoryPopUp();
+    scrollController.scrollTo('#activeDraws-agent');
   });
 }
 
