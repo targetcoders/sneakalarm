@@ -14,7 +14,12 @@
 <div layout:fragment="content">
   <div class="error-container">
     <div class="error-redirect-message">YOU WILL BE REDIRECTED TO SNEAKALARM IN <span id="sec"></span> SECONDS</div>
-    <div id="image-area"></div>
+    <div id="image-area">
+      <picture>
+        <source media="(min-width: 700px)" srcset="image/error/404.jpg">
+        <img id="error-image" src="image/mobile/error/404.jpg" alt="error-404">
+      </picture>
+    </div>
   </div>
 
 <script>
@@ -24,7 +29,6 @@
     location.href = homePageUrl;
   });
   redirect(3);
-  createImgElement();
 
 
   function redirect(second) {
@@ -36,14 +40,6 @@
     setTimeout(function () {
       redirect(second - 1);
     }, 1000);
-  }
-
-  function createImgElement() {
-    let imgDiv = document.getElementById('image-area');
-    let errorImg = document.createElement('img');
-    errorImg.setAttribute('src', 'image/error/404.jpg');
-    errorImg.id = 'error-image';
-    imgDiv.append(errorImg);
   }
 </script>
 </div>
