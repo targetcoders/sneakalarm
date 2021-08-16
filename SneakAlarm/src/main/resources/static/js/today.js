@@ -1,15 +1,3 @@
-$('document').ready(function() {
-  $('.product-unregistered').hide();
-  addDrawsByActiveProductList();
-  setPopup();
-  setScrollMoving(new ScrollController());
-  setTimeout(function(){
-    $('.navbar__search-icon').hide();
-    const observer = lozad();
-    observer.observe();
-  },300);
-});
-
 function setPopup(){
   $('#category-open-btn').on('click',function(){
     $('.navbar__clock__date').css('color','white');
@@ -63,7 +51,7 @@ function addDrawsByActiveProductList() {
         $('.product-unregistered').show();
         for (let i in unregisteredDrawListJson) {
           const product = unregisteredDrawListJson[i].productVO;
-          $('#activeDraws-unregistered').append('<div id="todayUnregisteredDraw-'+product.id+'" class="todayDrawContainer"><a href=/product-detail?id='+product.id+'><img id="todayProductImg-'+product.id+'" class="todayProductImg lozad" data-src="'+product.imgSrc_home+'" alt="loading..."/></a></div>');
+          $('#activeDraws-unregistered').append('<div id="todayUnregisteredDraw-'+product.id+'" class="todayDrawContainer"><a href=/product-detail?id='+product.id+'><img id="todayProductImg-'+product.id+'" class="todayProductImg lozad" data-src="'+product.imgSrc_home+'" src="image/loading.png" alt="loading..."/></a></div>');
           $('#todayUnregisteredDraw-'+product.id).append('<div class="todayUnregisteredDrawContent-'+product.id+' todayDrawContentBox d-flex flex-wrap justify-content-center"></div>');
 
           const targetRaffleVOList = unregisteredDrawListJson[i].targetRaffleVOList;
@@ -101,7 +89,7 @@ function addDrawsByActiveProductList() {
           const product = koreaDrawListJson[i].productVO;
           if(product.model_kr == '?') continue;
 
-          $('#activeDraws-korea').append('<div id="todayKoreaDraw-' + product.id + '" class="todayDrawContainer"><a href=/product-detail?id=' + product.id + '><img id="todayProductImg-' + product.id + '" class="todayProductImg lozad" data-src="'+product.imgSrc_home+'" alt="'+product.model_kr+'"/></a></div>');
+          $('#activeDraws-korea').append('<div id="todayKoreaDraw-' + product.id + '" class="todayDrawContainer"><a href=/product-detail?id=' + product.id + '><img id="todayProductImg-' + product.id + '" class="todayProductImg lozad" data-src="'+product.imgSrc_home+'" src="image/loading.png" alt="'+product.model_kr+'"/></a></div>');
           $('#todayKoreaDraw-' + product.id).append('<div class="todayDraw-model_kr">' + product.model_kr + '</div>');
           $('#todayKoreaDraw-' + product.id).append('<div class="todayDrawContentKorea-' + product.id + ' todayDrawContentBox d-flex flex-wrap justify-content-center"></div>');
 
@@ -143,7 +131,7 @@ function addDrawsByActiveProductList() {
           const product = directDrawListJson[i].productVO;
           if(product.model_kr == '?') continue;
 
-          $('#activeDraws-direct').append('<div id="todayDirectDraw-'+product.id+'" class="todayDrawContainer"><a href=/product-detail?id='+product.id+'><img id="todayProductImg-'+product.id+'" class="todayProductImg lozad" data-src="'+product.imgSrc_home+'" alt="'+product.model_kr+'"/></a></div>');
+          $('#activeDraws-direct').append('<div id="todayDirectDraw-'+product.id+'" class="todayDrawContainer"><a href=/product-detail?id='+product.id+'><img id="todayProductImg-'+product.id+'" class="todayProductImg lozad" data-src="'+product.imgSrc_home+'" src="image/loading.png" alt="'+product.model_kr+'"/></a></div>');
           $('#todayDirectDraw-'+product.id).append('<div class="todayDraw-model_kr">'+product.model_kr+'</div>')
           $('#todayDirectDraw-'+product.id).append('<div class="todayDrawContentDirect-'+product.id+' todayDrawContentBox d-flex flex-wrap justify-content-center"></div>');
 
@@ -182,7 +170,7 @@ function addDrawsByActiveProductList() {
           const product = agentDrawListJson[i].productVO;
           if(product.model_kr == '?') continue;
 
-          $('#activeDraws-agent').append('<div id="todayAgentDraw-'+product.id+'" class="todayDrawContainer"><a href=/product-detail?id='+product.id+'><img id="todayProductImg-'+product.id+'" class="todayProductImg lozad" data-src="'+product.imgSrc_home+'" alt="'+product.model_kr+'"/></a></div>');
+          $('#activeDraws-agent').append('<div id="todayAgentDraw-'+product.id+'" class="todayDrawContainer"><a href=/product-detail?id='+product.id+'><img id="todayProductImg-'+product.id+'" class="todayProductImg lozad" data-src="'+product.imgSrc_home+'" src="image/loading.png" alt="'+product.model_kr+'"/></a></div>');
           $('#todayAgentDraw-'+product.id).append('<div class="todayDraw-model_kr">'+product.model_kr+'</div>')
           $('#todayAgentDraw-'+product.id).append('<div class="todayDrawContentAgent-'+product.id+' todayDrawContentBox d-flex flex-wrap justify-content-center"></div>');
 

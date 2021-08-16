@@ -17,9 +17,20 @@
   </style>
 </th:block>
 <th:block layout:fragment="script">
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lozad/dist/lozad.min.js"></script>  
   <script type="text/javascript" src="/js/today.js" charset="utf-8"></script>
-  
+  $(function() {
+    $('.product-unregistered').hide();
+      addDrawsByActiveProductList();
+      setPopup();
+      setScrollMoving(new ScrollController());
+      setTimeout(function(){
+      $('.navbar__search-icon').hide();
+    },200);
+  });
+
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lozad/dist/lozad.min.js"></script>
+  const observer = lozad();
+  observer.observe();
 
   <script sec:authorize="!hasRole('ADMIN')">
     document.title = 'SNEAKALARM';
