@@ -7,7 +7,7 @@ $('document').ready(function() {
     $('.navbar__search-icon').hide();
     const observer = lozad();
     observer.observe();
-  },200);
+  },300);
 });
 
 function setPopup(){
