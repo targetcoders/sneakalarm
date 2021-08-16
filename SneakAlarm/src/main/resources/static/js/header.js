@@ -30,11 +30,11 @@ function setShadowboxNavbar(){
   if (getScrollTop() > 50) {
     $('.navbar-top--pc__container').css({'box-shadow': '0px 10px 10px -10px rgba(0,0,0,0.1)'});
     if(windowWidth < 768)
-      $('.clock--mobile').hide();
+      $('.navbar__clock').hide();
   } else {
     $('.navbar-top--pc__container').css({'box-shadow': '0px 0px 0px 0px rgba(0,0,0,0)'});
     if(windowWidth < 768)
-      $('.clock--mobile').show();
+      $('.navbar__clock').show();
   }
 }
 
