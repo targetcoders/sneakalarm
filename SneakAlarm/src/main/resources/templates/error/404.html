@@ -6,18 +6,15 @@
        xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 
 <th:block layout:fragment="css">
-<style>
-
-</style>
+  <link rel="stylesheet" type="text/css" href="css/error/error.css">
 </th:block>
 <th:block layout:fragment="script">
-
 </th:block>
 
 <div layout:fragment="content">
-  <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; margin-top: 120px">
-    <div style="font-size: 24px; font-weight: bold;">Sorry, this page isn't available.</div>
-    <div style="margin-top: 20px;">You will be redirected to SNEAKALARM in <span id="sec" style="font-weight: bold;"></span> seconds</div>
+  <div class="error-container">
+    <div class="error-redirect-message">YOU WILL BE REDIRECTED TO SNEAKALARM IN <span id="sec"></span> SECONDS</div>
+    <div id="image-area"></div>
   </div>
 
 <script>
@@ -26,6 +23,10 @@
   htmlTag.addEventListener('click',function(){
     location.href = homePageUrl;
   });
+  redirect(3);
+  createImgElement();
+
+
   function redirect(second) {
     if (second == 0) {
       location.href = homePageUrl;
@@ -36,7 +37,14 @@
       redirect(second - 1);
     }, 1000);
   }
-  redirect(3);
+
+  function createImgElement() {
+    let imgDiv = document.getElementById('image-area');
+    let errorImg = document.createElement('img');
+    errorImg.setAttribute('src', 'image/error/404.jpg');
+    errorImg.id = 'error-image';
+    imgDiv.append(errorImg);
+  }
 </script>
 </div>
 

@@ -6,18 +6,30 @@
        xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 
 <th:block layout:fragment="css">
-<style>
-
-</style>
+  <link rel="stylesheet" type="text/css" href="css/error/error.css">
+  <style>
+  .error-container{
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   margin-top: 100px;
+  }
+  .error-redirect-message{
+   font-weight: bold;
+   color: #FE0100;
+   text-align: center;
+  }
+  </style>
 </th:block>
 <th:block layout:fragment="script">
 
 </th:block>
 
 <div layout:fragment="content">
-  <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; margin-top: 120px">
-    <div style="font-size: 24px; font-weight: bold;">Sorry, Something went wrong.</div>
-    <div style="margin-top: 20px;">You will be redirected to SNEAKALARM in <span id="sec" style="font-weight: bold;"></span> seconds</div>
+  <div class="error-container">
+    <div class="error-redirect-message">YOU WILL BE REDIRECTED TO SNEAKALARM IN <span id="sec" style="font-weight: bold;"></span> SECONDS</div>
+    <div style="font-size: 24px; font-weight: bold; text-align: center;">SORRY, SOMETHING WENT WRONG</div>
   </div>
 
 <script>
