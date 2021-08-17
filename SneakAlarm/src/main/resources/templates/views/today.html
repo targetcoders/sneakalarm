@@ -22,7 +22,7 @@
   <script>
   $(function() {
     $('.product-unregistered').hide();
-      if($('#activeDraws-unregistered').length > 0){
+      if($('#activeDraws-unregistered').children().length > 0){
         $('.product-unregistered').show();
       }
       setPopup();
@@ -260,7 +260,7 @@
       <hr class="today-draws-hr">
 
       <h2 style="text-align: center; font-weight:bold;">배대지 응모</h2>
-      
+
       <div class="product-agnet" id="activeDraws-agent">
         <div th:each="drawGroup : ${agentDrawGroupList}" th:id="|todayAgentDraw-${drawGroup.productVO.id}|"
           class="todayDrawContainer">
