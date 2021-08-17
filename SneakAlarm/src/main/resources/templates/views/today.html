@@ -1,38 +1,37 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
-      layout:decorator="layout/default">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" layout:decorator="layout/default">
 
 <th:block layout:fragment="css">
   <link rel="stylesheet" th:href="@{/css/today.css}" type="text/css">
   <style>
-	  #navbar-top__menu--today {
-	    color: #000000;
-	  }
-	  #navbar-bottom--mobile__menu--today {
-	    color: #000000;
-	  }
+    #navbar-top__menu--today {
+      color: #000000;
+    }
+
+    #navbar-bottom--mobile__menu--today {
+      color: #000000;
+    }
   </style>
 </th:block>
 <th:block layout:fragment="script">
   <script type="text/javascript" src="/js/today.js" charset="utf-8"></script>
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lozad/dist/lozad.min.js"></script>
   <script>
-  $(function() {
-    $('.product-unregistered').hide();
-      if($('#activeDraws-unregistered').children().length > 0){
+    $(function () {
+      $('.product-unregistered').hide();
+      if ($('#activeDraws-unregistered').children().length > 0) {
         $('.product-unregistered').show();
       }
       setPopup();
       setScrollMoving(new ScrollController());
-  });
-  $(window).on('load',function(){
-    $('.search-icon-area').hide();
-    const observer = lozad();
-    observer.observe();
-  });
+    });
+    $(window).on('load', function () {
+      $('.search-icon-area').hide();
+      const observer = lozad();
+      observer.observe();
+    });
   </script>
   <script sec:authorize="!hasRole('ADMIN')">
     document.title = 'SNEAKALARM';
@@ -56,7 +55,8 @@
             <img th:id="|todayProductImg-${drawGroup.productVO.id}|" class="todayProductImg lozad"
               th:data-src="${drawGroup.productVO.imgSrc_home}" src="image/loading.png" alt="loading..." />
           </a>
-          <div class="todayDrawContentBox d-flex flex-wrap justify-content-center">
+          <div
+            class="todayContentUnregistered-${drawGroup.productVO.id} todayDrawContentBox d-flex flex-wrap justify-content-center">
             <div th:each="raffle : ${drawGroup.targetRaffleVOList}">
               <div th:if="${raffle.status} == 'active'">
                 <div th:if="${raffle.raffleType} == '응모'" class="todayDrawContent">
@@ -208,28 +208,100 @@
               th:alt="${drawGroup.productVO.model_kr}" />
           </a>
           <div class="todayDraw-model_kr" th:text="${drawGroup.productVO.model_kr}"></div>
-          <div th:each="raffle : ${drawGroup.targetRaffleVOList}">
-            <div th:if="${raffle.status} == 'active'">
-              <div th:if="${raffle.raffleType} == '응모'" class="todayDrawContent">
-                <a th:id="|drawCard-${raffle.id}|" th:href="${raffle.url}" style="text-decoration: none;">
-                  <div><span class="draw-raffle-type-raffle" th:text="|${raffle.raffleType}"></span>&nbsp;-&nbsp;<span
-                      th:text="${raffle.storeName}"></span></div>
-                  <div class="draw-end-datetime"> <span th:text="|종료: ${raffle.endDate}|"></span>&nbsp;&nbsp; <span
-                      th:text="${raffle.endWeek}"></span>&nbsp;&nbsp;<span th:text="${raffle.endTime}"></span></div>
-                  <div class="draw-specialcase" th:text="${raffle.specialCase}"></div>
-                </a>
+          <div
+            th:class="|todayDrawContentDirect-${drawGroup.productVO.id} todayDrawContentBox d-flex flex-wrap justify-content-center|">
+            <div th:each="raffle : ${drawGroup.targetRaffleVOList}">
+              <div th:if="${raffle.status} == 'active'">
+                <div th:if="${raffle.raffleType} == '응모'" class="todayDrawContent">
+                  <a th:id="|drawCard-${raffle.id}|" th:href="${raffle.url}" style="text-decoration: none;">
+                    <div><span class="draw-raffle-type-raffle" th:text="|${raffle.raffleType}"></span>&nbsp;-&nbsp;<span
+                        th:text="${raffle.storeName}"></span></div>
+                    <div class="draw-end-datetime"> <span th:text="|종료: ${raffle.endDate}|"></span>&nbsp;&nbsp; <span
+                        th:text="${raffle.endWeek}"></span>&nbsp;&nbsp;<span th:text="${raffle.endTime}"></span></div>
+                    <div class="draw-specialcase" th:text="${raffle.specialCase}"></div>
+                  </a>
+                </div>
+                <div th:unless="${raffle.raffleType} == '응모'" class="todayDrawContent">
+                  <a th:id="|drawCard-${raffle.id}|" th:href="${raffle.url}" style="text-decoration: none;">
+                    <div><span class="draw-raffle-type-firstcome"
+                        th:text="${raffle.raffleType}"></span>&nbsp;-&nbsp;<span th:text="${raffle.storeName}"></span>
+                    </div>
+                    <div class="draw-start-datetime"><span th:text="|시작: ${raffle.startDate}|"></span>&nbsp;&nbsp;<span
+                        th:text="${raffle.startWeek}"></span>&nbsp;&nbsp;<span th:text="${raffle.startTime}"></span>
+                    </div>
+                    <div class="draw-specialcase"><span th:text="${raffle.specialCase}"></span></div>
+                  </a>
+                </div>
               </div>
-              <div th:unless="${raffle.raffleType} == '응모'" class="todayDrawContent">
-                <a th:id="|drawCard-${raffle.id}|" th:href="${raffle.url}" style="text-decoration: none;">
-                  <div><span class="draw-raffle-type-firstcome" th:text="${raffle.raffleType}"></span>&nbsp;-&nbsp;<span
-                      th:text="${raffle.storeName}"></span></div>
-                  <div class="draw-start-datetime"><span th:text="|시작: ${raffle.startDate}|"></span>&nbsp;&nbsp;<span
-                      th:text="${raffle.startWeek}"></span>&nbsp;&nbsp;<span th:text="${raffle.startTime}"></span></div>
-                  <div class="draw-specialcase"><span th:text="${raffle.specialCase}"></span></div>
-                </a>
+              <div th:unless="${raffle.status} == 'active'">
+                <div th:if="${raffle.raffleType} == '응모'" class="todayReadyDrawContent">
+                  <a th:id="|drawCard-${raffle.id}|" th:href="${raffle.url}" style="text-decoration: none;">
+                    <div><span class="ready-draw-raffle-type-raffle" th:text="|${raffle.raffleType} - |"></span><span
+                        class="ready-draw-storeName" th:text="${raffle.storeName}"></span></div>
+                    <div class="ready-draw-start-datetime"><span
+                        th:text="|시작: ${raffle.startDate}|"></span>&nbsp;&nbsp;<span
+                        th:text="|${raffle.startWeek}|"></span>&nbsp;&nbsp;<span th:text="${raffle.startTime}"></span>
+                    </div>
+                    <div class="ready-draw-end-datetime"><span
+                        th:text="|종료: ${raffle.endDate}|"></span>&nbsp;&nbsp;<span
+                        th:text="${raffle.endWeek}"></span>&nbsp;&nbsp;<span th:text="${raffle.endTime}"></span></div>
+                    <div class="ready-draw-specialcase"><span th:text="${raffle.specialCase}"></span></div>
+                  </a>
+                </div>
+                <div th:unless="${raffle.raffleType} == '응모'" class="todayReadyDrawContent">
+                  <a th:id="|drawCard-${raffle.id}|" th:href="${raffle.url}" style="text-decoration: none;">
+                    <div><span class="ready-draw-raffle-type-firstcome" th:text="${raffle.raffleType}"></span><span
+                        class="ready-draw-storeName" th:text="| - ${raffle.storeName}|"></span></div>
+                    <div class="draw-start-datetime"><span th:text="|시작: ${raffle.startDate}|"></span>&nbsp;&nbsp;<span
+                        th:text="${raffle.startWeek}"></span>&nbsp;&nbsp;<span th:text="${raffle.startTime}"></span>
+                    </div>
+                    <div class="draw-specialcase"><span th:text="${raffle.specialCase}"></span></div>
+                  </a>
+                </div>
               </div>
             </div>
-            <div th:unless="${raffle.status} == 'active'">
+          </div>
+        </div>
+      </div>
+
+      <hr class="today-draws-hr">
+
+      <h2 style="text-align: center; font-weight:bold;">배대지 응모</h2>
+
+      <div class="product-agnet" id="activeDraws-agent">
+        <div th:each="drawGroup : ${agentDrawGroupList}" th:id="|todayAgentDraw-${drawGroup.productVO.id}|"
+          class="todayDrawContainer">
+          <a th:href="|/product-detail?id=${drawGroup.productVO.id}|">
+            <img th:id="|todayProductImg-${drawGroup.productVO.id}|" class="todayProductImg lozad"
+              th:data-src="${drawGroup.productVO.imgSrc_home}" src="image/loading.png"
+              th:alt="${drawGroup.productVO.model_kr}" />
+          </a>
+          <div class="todayDraw-model_kr" th:text="${drawGroup.productVO.model_kr}"></div>
+          <div
+            th:class="|todayDrawContentAgent-${drawGroup.productVO.id} todayDrawContentBox d-flex flex-wrap justify-content-center|">
+            <div th:each="raffle : ${drawGroup.targetRaffleVOList}">
+              <div th:if="${raffle.status} == 'active'">
+                <div th:if="${raffle.raffleType} == '응모'" class="todayDrawContent">
+                  <a th:id="|drawCard-${raffle.id}|" th:href="${raffle.url}" style="text-decoration: none;">
+                    <div><span class="draw-raffle-type-raffle" th:text="|${raffle.raffleType}"></span>&nbsp;-&nbsp;<span
+                        th:text="${raffle.storeName}"></span></div>
+                    <div class="draw-end-datetime"> <span th:text="|종료: ${raffle.endDate}|"></span>&nbsp;&nbsp; <span
+                        th:text="${raffle.endWeek}"></span>&nbsp;&nbsp;<span th:text="${raffle.endTime}"></span></div>
+                    <div class="draw-specialcase" th:text="${raffle.specialCase}"></div>
+                  </a>
+                </div>
+                <div th:unless="${raffle.raffleType} == '응모'" class="todayDrawContent">
+                  <a th:id="|drawCard-${raffle.id}|" th:href="${raffle.url}" style="text-decoration: none;">
+                    <div><span class="draw-raffle-type-firstcome"
+                        th:text="${raffle.raffleType}"></span>&nbsp;-&nbsp;<span th:text="${raffle.storeName}"></span>
+                    </div>
+                    <div class="draw-start-datetime"><span th:text="|시작: ${raffle.startDate}|"></span>&nbsp;&nbsp;<span
+                        th:text="${raffle.startWeek}"></span>&nbsp;&nbsp;<span th:text="${raffle.startTime}"></span>
+                    </div>
+                    <div class="draw-specialcase"><span th:text="${raffle.specialCase}"></span></div>
+                  </a>
+                </div>
+              </div>
               <div th:if="${raffle.raffleType} == '응모'" class="todayReadyDrawContent">
                 <a th:id="|drawCard-${raffle.id}|" th:href="${raffle.url}" style="text-decoration: none;">
                   <div><span class="ready-draw-raffle-type-raffle" th:text="|${raffle.raffleType} - |"></span><span
@@ -256,64 +328,6 @@
           </div>
         </div>
       </div>
-
-      <hr class="today-draws-hr">
-
-      <h2 style="text-align: center; font-weight:bold;">배대지 응모</h2>
-
-      <div class="product-agnet" id="activeDraws-agent">
-        <div th:each="drawGroup : ${agentDrawGroupList}" th:id="|todayAgentDraw-${drawGroup.productVO.id}|"
-          class="todayDrawContainer">
-          <a th:href="|/product-detail?id=${drawGroup.productVO.id}|">
-            <img th:id="|todayProductImg-${drawGroup.productVO.id}|" class="todayProductImg lozad"
-              th:data-src="${drawGroup.productVO.imgSrc_home}" src="image/loading.png"
-              th:alt="${drawGroup.productVO.model_kr}" />
-          </a>
-          <div th:each="raffle : ${drawGroup.targetRaffleVOList}">
-            <div th:if="${raffle.status} == 'active'">
-              <div th:if="${raffle.raffleType} == '응모'" class="todayDrawContent">
-                <a th:id="|drawCard-${raffle.id}|" th:href="${raffle.url}" style="text-decoration: none;">
-                  <div><span class="draw-raffle-type-raffle" th:text="|${raffle.raffleType}"></span>&nbsp;-&nbsp;<span
-                      th:text="${raffle.storeName}"></span></div>
-                  <div class="draw-end-datetime"> <span th:text="|종료: ${raffle.endDate}|"></span>&nbsp;&nbsp; <span
-                      th:text="${raffle.endWeek}"></span>&nbsp;&nbsp;<span th:text="${raffle.endTime}"></span></div>
-                  <div class="draw-specialcase" th:text="${raffle.specialCase}"></div>
-                </a>
-              </div>
-              <div th:unless="${raffle.raffleType} == '응모'" class="todayDrawContent">
-                <a th:id="|drawCard-${raffle.id}|" th:href="${raffle.url}" style="text-decoration: none;">
-                  <div><span class="draw-raffle-type-firstcome" th:text="${raffle.raffleType}"></span>&nbsp;-&nbsp;<span
-                      th:text="${raffle.storeName}"></span></div>
-                  <div class="draw-start-datetime"><span th:text="|시작: ${raffle.startDate}|"></span>&nbsp;&nbsp;<span
-                      th:text="${raffle.startWeek}"></span>&nbsp;&nbsp;<span th:text="${raffle.startTime}"></span></div>
-                  <div class="draw-specialcase"><span th:text="${raffle.specialCase}"></span></div>
-                </a>
-              </div>
-            </div>
-            <div th:if="${raffle.raffleType} == '응모'" class="todayReadyDrawContent">
-              <a th:id="|drawCard-${raffle.id}|" th:href="${raffle.url}" style="text-decoration: none;">
-                <div><span class="ready-draw-raffle-type-raffle" th:text="|${raffle.raffleType} - |"></span><span
-                    class="ready-draw-storeName" th:text="${raffle.storeName}"></span></div>
-                <div class="ready-draw-start-datetime"><span
-                    th:text="|시작: ${raffle.startDate}|"></span>&nbsp;&nbsp;<span
-                    th:text="|${raffle.startWeek}|"></span>&nbsp;&nbsp;<span th:text="${raffle.startTime}"></span></div>
-                <div class="ready-draw-end-datetime"><span th:text="|종료: ${raffle.endDate}|"></span>&nbsp;&nbsp;<span
-                    th:text="${raffle.endWeek}"></span>&nbsp;&nbsp;<span th:text="${raffle.endTime}"></span></div>
-                <div class="ready-draw-specialcase"><span th:text="${raffle.specialCase}"></span></div>
-              </a>
-            </div>
-            <div th:unless="${raffle.raffleType} == '응모'" class="todayReadyDrawContent">
-              <a th:id="|drawCard-${raffle.id}|" th:href="${raffle.url}" style="text-decoration: none;">
-                <div><span class="ready-draw-raffle-type-firstcome" th:text="${raffle.raffleType}"></span><span
-                    class="ready-draw-storeName" th:text="| - ${raffle.storeName}|"></span></div>
-                <div class="draw-start-datetime"><span th:text="|시작: ${raffle.startDate}|"></span>&nbsp;&nbsp;<span
-                    th:text="${raffle.startWeek}"></span>&nbsp;&nbsp;<span th:text="${raffle.startTime}"></span></div>
-                <div class="draw-specialcase"><span th:text="${raffle.specialCase}"></span></div>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 
@@ -333,4 +347,3 @@
 </div>
 
 </html>
-
