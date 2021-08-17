@@ -29,6 +29,8 @@ public class TodayController {
   public String nowPage(Model model) throws Exception {
     model.addAttribute("unregisteredDrawGroupList",drawListUnregistered());
     model.addAttribute("koreaDrawGroupList",drawListKorea());
+    model.addAttribute("directDrawGroupList",drawListDirect());
+    model.addAttribute("agentDrawGroupList",drawListAgent());
     return "views/today";
   }
 

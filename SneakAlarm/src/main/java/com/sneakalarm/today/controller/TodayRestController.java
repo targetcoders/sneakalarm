@@ -87,6 +87,9 @@ public class TodayRestController {
       productSet.addAll(productService.getProductByDeliveryType(deliveryType));
     }
     for (ProductVO product : new ArrayList<>(productSet)) {
+      if(product.getModel_kr().equals("?")){
+        continue;
+      }
       drawGroupList.add(new DrawGroup(product.getId(), deliveryTypes, productMapper, raffleMapper));
     }
     Collections.sort(drawGroupList);
@@ -102,6 +105,9 @@ public class TodayRestController {
       productSet.addAll(productService.getProductByDeliveryType(deliveryType));
     }
     for (ProductVO product : new ArrayList<>(productSet)) {
+      if(product.getModel_kr().equals("?")){
+        continue;
+      }
       drawGroupList.add(new DrawGroup(product.getId(), deliveryTypes, productMapper, raffleMapper));
     }
     Collections.sort(drawGroupList);
