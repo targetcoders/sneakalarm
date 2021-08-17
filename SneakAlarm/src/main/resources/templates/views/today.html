@@ -26,7 +26,7 @@
       setPopup();
       setScrollMoving(new ScrollController());
   });
-  $(window).load(function(){
+  $(window).on('load',function(){
     $('.search-icon-area').hide();
     const observer = lozad();
     observer.observe();
