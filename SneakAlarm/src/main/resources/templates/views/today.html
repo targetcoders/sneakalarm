@@ -27,7 +27,7 @@
       setScrollMoving(new ScrollController());
   });
   $(window).load(function(){
-    $('.navbar__search-icon').hide();
+    $('.search-icon-area').hide();
     const observer = lozad();
     observer.observe();
   });
@@ -45,9 +45,6 @@
 
 <div layout:fragment="content" class="container" id="today-page-width">
   <div class="today-main-container">
-    <div style="margin-bottom: 10px;">
-      <div id="clock" class="text-center"></div>
-    </div>
 
     <div id="activeDrawsContainer">
 
