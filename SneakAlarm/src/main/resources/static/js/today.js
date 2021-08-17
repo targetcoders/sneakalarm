@@ -99,11 +99,7 @@ function addDrawsByActiveProductList() {
             if (raffle.status == 'active') {
               if (raffle.raffleType == '응모') {
                 $('.todayDrawContentKorea-' + raffle.productId)
-                  .append('<div class="todayDrawContent"><a id="drawCard-' + raffle.id + '" href="' + raffle.url + '" style="text-decoration: none;">\
-                <div><span class="draw-raffle-type-raffle">'+ raffle.raffleType + '</span>&nbsp;-&nbsp;' + raffle.storeName + '</div>\
-                <div class="draw-end-datetime">종료: '+ raffle.endDate + '&nbsp;&nbsp;' + raffle.endWeek + '&nbsp;&nbsp;' + raffle.endTime + '</div>\
-                <div class="draw-specialcase">'+ raffle.specialCase + '</div>\
-                </a></div>');
+                  .append('<div class="todayDrawContent"><a id="drawCard-' + raffle.id + '" href="' + raffle.url + '" style="text-decoration: none;"><div><span class="draw-raffle-type-raffle">'+ raffle.raffleType + '</span>&nbsp;-&nbsp;' + raffle.storeName + '</div><div class="draw-end-datetime">종료: '+ raffle.endDate + '&nbsp;&nbsp;' + raffle.endWeek + '&nbsp;&nbsp;' + raffle.endTime + '</div><div class="draw-specialcase">'+ raffle.specialCase + '</div></a></div>');
               } else {
                 $('.todayDrawContentKorea-' + raffle.productId)
                   .append('<div class="todayDrawContent"><a id="drawCard-' + raffle.id + '" href="' + raffle.url + '" style="text-decoration: none;"><div><span class="draw-raffle-type-firstcome">' + raffle.raffleType + '</span>&nbsp;-&nbsp;' + raffle.storeName + '</div><div class="draw-start-datetime">시작: ' + raffle.startDate + '&nbsp;&nbsp;' + raffle.startWeek + '&nbsp;&nbsp;' + raffle.startTime + '</div><div class="draw-specialcase">' + raffle.specialCase + '</div></a></div>');

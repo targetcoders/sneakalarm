@@ -22,7 +22,7 @@
   <script>
   $(function() {
     $('.product-unregistered').hide();
-      addDrawsByActiveProductList();
+      //addDrawsByActiveProductList();
       setPopup();
       setScrollMoving(new ScrollController());
   });
@@ -49,17 +49,93 @@
     <div id="activeDrawsContainer">
 
       <h2 class="product-unregistered" style="text-align: center; font-weight:bold;">미등록 제품 응모</h2>
-      <div class="product-unregistered" id="activeDraws-unregistered"></div>
+
+      <div class="product-unregistered" id="activeDraws-unregistered">
+        <div th:each = "drawGroup : ${unregisteredDrawGroupList}">
+          <div th:id="|todayUnregisteredDraw-${drawGroup.productVO.id}|" class="todayDrawContainer">
+            <a th:href="|/product-detail?id=${drawGroup.productVO.id}|">
+              <img th:id="|todayProductImg-${drawGroup.productVO.id}|" class="todayProductImg lozad" th:data-src="${drawGroup.productVO.imgSrc_home}" src="image/loading.png" alt="loading..."/>
+            </a>
+
+          </div>
+        </div>
+      </div>
 
       <hr class="today-draws-hr product-unregistered">
 
       <h2 style="text-align: center; font-weight:bold;">국내 응모</h2>
-      <div id="activeDraws-korea"></div>
+      <div id="activeDraws-korea">
+        <div th:each="drawGroup : ${koreaDrawGroupList}">
+          <div th:id="|todayKoreaDraw-${drawGroup.productVO.id}|" class="todayDrawContainer">
+            <a th:href="|/product-detail?id=${drawGroup.productVO.id}|">
+              <img th:id="|todayProductImg-${drawGroup.productVO.id}|" class="todayProductImg lozad"
+                th:data-src="${drawGroup.productVO.imgSrc_home}" src="image/loading.png"
+                th:alt="${drawGroup.productVO.model_kr}" />
+            </a>
+            <div class="todayDraw-model_kr" th:text="${drawGroup.productVO.model_kr}"></div>
+            <div
+              th:class="|todayDrawContentKorea-${drawGroup.productVO.id} todayDrawContentBox d-flex flex-wrap justify-content-center|">
+              <div th:each="raffle : ${drawGroup.targetRaffleVOList}">
+                <div th:if="${raffle.status} == 'active'">
+                  <div th:if="${raffle.raffleType} == '응모'">
+                    <div class="todayDrawContent">
+                      <a th:id="|drawCard-${raffle.id}|" th:href="${raffle.url}" style="text-decoration: none;">
+                        <div><span class="draw-raffle-type-raffle" th:text="|${raffle.raffleType}"></span>&nbsp;-&nbsp;<span
+                            th:text="${raffle.storeName}"></span></div>
+                        <div class="draw-end-datetime"> <span th:text="|종료: ${raffle.endDate}|"></span>&nbsp;&nbsp; <span
+                            th:text="${raffle.endWeek}"></span>&nbsp;&nbsp;<span th:text="${raffle.endTime}"></span></div>
+                        <div class="draw-specialcase" th:text="${raffle.specialCase}"></div>
+                      </a>
+                    </div>
+                  </div>
+                  <div th:unless="${raffle.raffleType} == '응모'">
+                    <div class="todayDrawContent">
+                      <a th:id="|drawCard-${raffle.id}|" th:href="${raffle.url}" style="text-decoration: none;">
+                        <div><span class="draw-raffle-type-firstcome" th:text="${raffle.raffleType}"></span>&nbsp;-&nbsp;<span
+                            th:text="${raffle.storeName}"></span></div>
+                        <div class="draw-start-datetime"><span th:text="|시작: ${raffle.startDate}|"></span>&nbsp;&nbsp;<span
+                            th:text="${raffle.startWeek}"></span>&nbsp;&nbsp;<span th:text="${raffle.startTime}"></span></div>
+                        <div class="draw-specialcase"><span th:text="${raffle.specialCase}"></span></div>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                <div th:unless="${raffle.status} == 'active'">
+                  <div th:if="${raffle.raffleType} == '응모'" class="todayReadyDrawContent">
+                    <a th:id="|drawCard-${raffle.id}|" th:href="${raffle.url}" style="text-decoration: none;">
+                      <div><span class="ready-draw-raffle-type-raffle" th:text="|${raffle.raffleType} - |"></span><span
+                          class="ready-draw-storeName" th:text="${raffle.storeName}"></span></div>
+                      <div class="ready-draw-start-datetime"><span
+                          th:text="|시작: ${raffle.startDate}|"></span>&nbsp;&nbsp;<span
+                          th:text="|${raffle.startWeek}|"></span>&nbsp;&nbsp;<span th:text="${raffle.startTime}"></span></div>
+                      <div class="ready-draw-end-datetime"><span th:text="|종료: ${raffle.endDate}|"></span>&nbsp;&nbsp;<span
+                          th:text="${raffle.endWeek}"></span>&nbsp;&nbsp;<span th:text="${raffle.endTime}"></span></div>
+                      <div class="ready-draw-specialcase"><span th:text="${raffle.specialCase}"></span></div>
+                    </a>
+                  </div>
+      
+                  <div th:unless="${raffle.raffleType} == '응모'" class="todayReadyDrawContent">
+                    <a th:id="|drawCard-${raffle.id}|" th:href="${raffle.url}" style="text-decoration: none;">
+                      <div><span class="ready-draw-raffle-type-firstcome" th:text="${raffle.raffleType}"></span><span
+                          class="ready-draw-storeName" th:text="| - ${raffle.storeName}|"></span></div>
+                      <div class="draw-start-datetime"><span th:text="|시작: ${raffle.startDate}|"></span>&nbsp;&nbsp;<span
+                          th:text="${raffle.startWeek}"></span>&nbsp;&nbsp;<span th:text="${raffle.startTime}"></span></div>
+                      <div class="draw-specialcase"><span th:text="${raffle.specialCase}"></span></div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
       <hr class="today-draws-hr">
 
       <h2 style="text-align: center; font-weight:bold;">직배 응모</h2>
-      <div id="activeDraws-direct"></div>
+      <div id="activeDraws-direct">
+
+      </div>
 
       <hr class="today-draws-hr">
 

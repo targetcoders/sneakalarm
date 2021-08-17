@@ -5,34 +5,43 @@ import com.sneakalarm.product.dao.ProductMapper;
 import com.sneakalarm.product.dto.ProductVO;
 import com.sneakalarm.product.service.ProductService;
 import com.sneakalarm.raffle.dao.RaffleMapper;
+import com.sneakalarm.raffle.dto.RaffleListByDeliveryTypeVO;
+import com.sneakalarm.raffle.dto.RaffleVO;
 import com.sneakalarm.today.domain.DrawGroup;
+import com.sneakalarm.today.dto.TodayDrawResponseVO;
+import com.sneakalarm.today.dto.TodayProductResponseVO;
+import com.sneakalarm.raffle.service.RaffleService;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.thymeleaf.expression.Lists;
 
-@Controller
-public class TodayController {
+@RestController
+public class TodayRestController {
+
   @Autowired
   ProductService productService;
+  @Autowired
+  RaffleService raffleService;
   @Autowired
   ProductMapper productMapper;
   @Autowired
   RaffleMapper raffleMapper;
 
-  @GetMapping("/")
-  public String nowPage(Model model) throws Exception {
-    model.addAttribute("unregisteredDrawGroupList",drawListUnregistered());
-    model.addAttribute("koreaDrawGroupList",drawListKorea());
-    return "views/today";
+  @GetMapping("/now/productList")
+  public ArrayList<TodayProductResponseVO> getProductList(){
+    return productService.getTodayProductResponseVO();
   }
 
-  private List<DrawGroup> drawListUnregistered() throws Exception {
+  @GetMapping("/now/draw-list/unregistered")
+  public String drawListUnregistered() throws Exception {
     List<DrawGroup> drawGroupList = new ArrayList<>();
     String[] deliveryTypes = {"택배배송", "방문수령"};
     Set<ProductVO> productSet = new HashSet<>();
@@ -48,9 +57,11 @@ public class TodayController {
       drawGroupList.add(new DrawGroup(product.getId(), deliveryTypes, productMapper, raffleMapper));
     }
     Collections.sort(drawGroupList);
-    return drawGroupList;
+    return new ObjectMapper().writeValueAsString(drawGroupList);
   }
-  private List<DrawGroup> drawListKorea() throws Exception {
+
+  @GetMapping("/now/draw-list/korea")
+  public String drawListKorea() throws Exception {
     List<DrawGroup> drawGroupList = new ArrayList<>();
     String[] deliveryTypes = {"택배배송", "방문수령"};
     Set<ProductVO> productSet = new HashSet<>();
@@ -64,9 +75,11 @@ public class TodayController {
       drawGroupList.add(new DrawGroup(product.getId(), deliveryTypes, productMapper, raffleMapper));
     }
     Collections.sort(drawGroupList);
-    return drawGroupList;
+    return new ObjectMapper().writeValueAsString(drawGroupList);
   }
-  private List<DrawGroup> drawListDirect() throws Exception {
+
+  @GetMapping("/now/draw-list/direct")
+  public String drawListDirect() throws Exception {
     List<DrawGroup> drawGroupList = new ArrayList<>();
     String[] deliveryTypes = {"직배"};
     Set<ProductVO> productSet = new HashSet<>();
@@ -77,9 +90,11 @@ public class TodayController {
       drawGroupList.add(new DrawGroup(product.getId(), deliveryTypes, productMapper, raffleMapper));
     }
     Collections.sort(drawGroupList);
-    return drawGroupList;
+    return new ObjectMapper().writeValueAsString(drawGroupList);
   }
-  private List<DrawGroup> drawListAgent() throws Exception {
+
+  @GetMapping("/now/draw-list/agent")
+  public String drawListAgent() throws Exception {
     List<DrawGroup> drawGroupList = new ArrayList<>();
     String[] deliveryTypes = {"배대지"};
     Set<ProductVO> productSet = new HashSet<>();
@@ -90,7 +105,7 @@ public class TodayController {
       drawGroupList.add(new DrawGroup(product.getId(), deliveryTypes, productMapper, raffleMapper));
     }
     Collections.sort(drawGroupList);
-    return drawGroupList;
+    return new ObjectMapper().writeValueAsString(drawGroupList);
   }
 
 }
