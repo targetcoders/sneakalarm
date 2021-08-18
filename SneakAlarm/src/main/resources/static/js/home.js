@@ -13,22 +13,28 @@ $('document').ready(function() {
     }
 	);
 
-	$.ajax({
-		url: '/getEndedProductCardList',
-		type: 'get',
-		data: {
-			page: page
-		},
-		success: function(resultList) {
-			for (var i in resultList) {
-				$("#endedDrawProductCards").append("<div class=\"home-product endedDrawProductCard\" style=\"display:none;\"><div class=\"d-flex flex-column align-items-center endedDrawProductCard\" id=\"card-" + resultList[i].id + "\" style=\"display:none;\"><a class=\"endedDrawProductCard\" href=\"/product-detail?id=" + resultList[i].id + "\" style=\"opacity:0.4; display:none;\"><img src=\"" + resultList[i].imgSrc_home + "\" class=\"home-product-img\"></a><span class=\"endedDrawProductCard home-product-model_kr\" style=\"display:none;\">" + resultList[i].model_kr + "</span><span class=\"endedDrawProductCard\" id=\"home-product-releaseDate\" style=\"display:none;\">" + resultList[i].releaseDate + " 출시</span></div></div>");
-			}
-			page++;
-		},
-		error: function() {
-			alert('error! : getEndedProductCardList');
-		}
-	});
+$('#endedDrawProductCardsDiv').on('click',function(){
+    if(page > 0){
+      return;
+    }
+  	$.ajax({
+  		url: '/getEndedProductCardList',
+  		type: 'get',
+  		data: {
+  			page: page
+  		},
+  		success: function(resultList) {
+  			for (var i in resultList) {
+  				$("#endedDrawProductCards").append('<div class="home-product endedDrawProductCard"><div class="d-flex flex-column align-items-center endedDrawProductCard" id="card-' + resultList[i].id + '"><a class="endedDrawProductCard" href="/product-detail?id=' + resultList[i].id + '" style="opacity:0.4;"><img src="' + resultList[i].imgSrc_home + '" class="home-product-img"></a><span class="endedDrawProductCard home-product-model_kr">' + resultList[i].model_kr + '</span><span class="endedDrawProductCard" id="home-product-releaseDate">' + resultList[i].releaseDate + ' 출시</span></div></div>');
+  			}
+  			page++;
+  		},
+  		error: function() {
+  			alert('error! : getEndedProductCardList');
+  		}
+  	});
+});
+
 
 	window.addEventListener('scroll', () => {
 		if (passFlag == 1 && getFlag == 1 && ($('#endedDrawProductCardsDiv').attr('is') == '1') && !(getScrollTop() < getDocumentHeight() - window.innerHeight - 100)) {
