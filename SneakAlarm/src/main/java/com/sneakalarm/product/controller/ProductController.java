@@ -348,9 +348,20 @@ public class ProductController {
 		  return Collections.emptyList();
 	  }
 
-	  Set<ProductCardVO> productCardVOSet = new LinkedHashSet<>();
+    Set<ProductCardVO> productCardVOSet = new LinkedHashSet<>(
+        productServiceImpl.getProductCardListByKeyword(keyword.split(" ")[0]));
+
     for(String splitKeyword : keyword.split(" ")){
-      productCardVOSet.addAll(productServiceImpl.getProductCardListByKeyword(splitKeyword));
+      List<ProductCardVO> productCardListByKeyword = productServiceImpl
+          .getProductCardListByKeyword(splitKeyword);
+
+      Set<ProductCardVO> tempProductCardVOSet = new LinkedHashSet<>();
+      for(ProductCardVO productCardVO : productCardListByKeyword){
+        if(productCardVOSet.contains(productCardVO)){
+          tempProductCardVOSet.add(productCardVO);
+        }
+      }
+      productCardVOSet = tempProductCardVOSet;
     }
 	  return new ArrayList<>(productCardVOSet);
   }
