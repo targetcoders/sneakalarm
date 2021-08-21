@@ -111,7 +111,7 @@ $('document').ready(function() {
 				model_kr: $('#target-product').text()
 			},
 			success: function(raffleId){
-				let willGo = confirm('['+storeName+'] 응모 카드가 등록되었습니다.\nFeedText 생성 페이지로 이동하시겠습니까?');
+				let willGo = confirm('['+$('#storeName').val()+'] 응모 카드가 등록되었습니다.\nFeedText 생성 페이지로 이동하시겠습니까?');
         if(willGo){
           location.href='/feed-text/'+raffleId;
         }

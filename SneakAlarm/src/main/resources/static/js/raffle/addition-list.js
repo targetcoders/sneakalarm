@@ -44,10 +44,13 @@ $('document').ready(function() {
 });
 
 function appendRaffleSettingTableForRaffleInsert(jsonData){
+  let splitPath = document.location.href.split('=');
+  let productId = splitPath[splitPath.length-1];
+
   for(let i in jsonData){
     console.log(jsonData[i]);
     let dateTime = getDateTimeString(jsonData[i].insertDateTime.date, jsonData[i].insertDateTime.time);
     let raffleSettingTableRow = new RaffleSettingTableRow(i, jsonData[i].id, jsonData[i].raffleSettingName, dateTime);
-    $('.raffle-setting-rows').append(raffleSettingTableRow.getTableRowForRaffleInsert());
+    $('.raffle-setting-rows').append(raffleSettingTableRow.getTableRowForRaffleInsert(productId));
   }
 }
