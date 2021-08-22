@@ -351,6 +351,13 @@ public class ProductController {
     Set<ProductCardVO> productCardVOSet = new LinkedHashSet<>(
         productServiceImpl.getProductCardListByKeyword(keyword.split(" ")[0]));
 
+	  if(keyword.split(" ").length == 1){
+      return new ArrayList<>(productCardVOSet);
+    }
+
+    productCardVOSet = new LinkedHashSet<>(
+        productServiceImpl.getProductCardListByModelKeyword(keyword.split(" ")[0]));
+
     for(String splitKeyword : keyword.split(" ")){
       List<ProductCardVO> productCardListByKeyword = productServiceImpl
           .getProductCardListByModelKeyword(splitKeyword);
