@@ -28,8 +28,8 @@
   <select id="getRaffleSettingByKeyword" parameterType="String" resultType="com.sneakalarm.rafflesetting.domain.RaffleSetting" >
     SELECT *
     FROM raffle_setting
-    WHERE UPPER(replace(raffleSettingName,' ','')) LIKE UPPER(CONCAT('%',#{keyword},'%')) OR
-          UPPER(replace(storeName,' ','')) LIKE UPPER(CONCAT('%',#{keyword},'%'))
+    WHERE UPPER(replace(raffleSettingName,' ','')) LIKE UPPER(replace(CONCAT('%',#{keyword},'%'),' ','')) OR
+          UPPER(replace(storeName,' ','')) LIKE UPPER(replace(CONCAT('%',#{keyword},'%'),' ',''))
     ORDER BY insertDateTime DESC
   </select>
 

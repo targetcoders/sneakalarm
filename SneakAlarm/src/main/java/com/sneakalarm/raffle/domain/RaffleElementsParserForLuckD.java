@@ -1,6 +1,7 @@
 package com.sneakalarm.raffle.domain;
 
 import java.io.IOException;
+import java.util.Locale;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -25,7 +26,9 @@ public class RaffleElementsParserForLuckD extends RaffleElementsParser {
     for (Element e : raffleElements) {
       Elements releaseDateTimeList = e.getElementsByClass("release_date_time");
       if (!releaseDateTimeList.get(0).text().equals("종료")) {
-        String tempStoreName = e.getElementsByClass("agent_site_title").get(0).text();
+        String tempStoreName = e.getElementsByClass("agent_site_title").get(0).text().toUpperCase();
+        tempStoreName = tempStoreName.replaceAll(" ","");
+        storeName = storeName.toUpperCase().replaceAll(" ","");
         if(tempStoreName.equals(storeName)) {
           result.add(e);
         }

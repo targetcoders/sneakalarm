@@ -51,7 +51,7 @@ public class RaffleSettingRestController {
 
   @GetMapping("/raffle-settings/keyword/{keyword}")
   public ResponseEntity<String> getRaffleSettingByKeyword(@PathVariable(value="keyword") String keyword) {
-    //System.out.println("keyword : "+keyword);
+    System.out.println("keyword : "+keyword);
     List<RaffleSetting> raffleSettingList = raffleSettingService.getRaffleSettingByKeyword(keyword);
     String raffleSettingListJson = new Gson().toJson(raffleSettingList);
     return new ResponseEntity<>(raffleSettingListJson,HttpStatus.OK);
