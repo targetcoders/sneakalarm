@@ -9,4 +9,5 @@ import com.sneakalarm.product.dto.ProductCardVO;
 public interface ProductCardMapper {
   List<ProductCardVO> getProductCardList();
   ArrayList<ProductCardVO> getProductCardListByKeyword(String keyword);
+  ArrayList<ProductCardVO> getProductCardListByModelKeyword(String keyword);
 }

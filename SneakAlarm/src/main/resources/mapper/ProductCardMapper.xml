@@ -19,5 +19,14 @@
 					replace(code,' ','') LIKE CONCAT('%', #{keyword}, '%')
 		ORDER BY insertdate DESC
 	</select>
+
+	<select id="getProductCardListByModelKeyword" parameterType="String"
+		resultType="com.sneakalarm.product.dto.ProductCardVO">
+		SELECT	id, model_kr, code, retailPrice, releaseStartDate, releaseEndDate, imgSrc_home, releaseDate, drawNumKorea, drawNumOverseas, drawNumFirstcome
+		FROM 	product
+		WHERE replace(model_kr,' ','') LIKE CONCAT('%', #{keyword}, '%') OR
+		replace(model_en,' ','') LIKE CONCAT('%', #{keyword}, '%')
+		ORDER BY insertdate DESC
+	</select>
 	 
 </mapper>

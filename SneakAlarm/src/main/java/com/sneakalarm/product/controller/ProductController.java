@@ -353,7 +353,7 @@ public class ProductController {
 
     for(String splitKeyword : keyword.split(" ")){
       List<ProductCardVO> productCardListByKeyword = productServiceImpl
-          .getProductCardListByKeyword(splitKeyword);
+          .getProductCardListByModelKeyword(splitKeyword);
 
       Set<ProductCardVO> tempProductCardVOSet = new LinkedHashSet<>();
       for(ProductCardVO productCardVO : productCardListByKeyword){

@@ -90,18 +90,6 @@ public class ProductServiceImpl implements ProductService {
     return ret;
   }
 
-  public List<ProductCardVO> getProductCardListByKeyword(String keyword) {
-    ArrayList<ProductCardVO> cardList = productCardMapper.getProductCardListByKeyword(keyword);
-
-    ArrayList<ProductCardVO> settedCardList = null;
-    try {
-      settedCardList = setProductCardStatus(cardList);
-    } catch (ParseException e) {
-      e.printStackTrace();
-    }
-    return settedCardList;
-  }
-
   public ArrayList<ProductCardVO> setProductCardStatus(ArrayList<ProductCardVO> productCardList)
       throws ParseException {
     ArrayList<ProductCardVO> ret = new ArrayList<ProductCardVO>();
@@ -313,6 +301,31 @@ public class ProductServiceImpl implements ProductService {
   @Override
   public ArrayList<TodayProductResponseVO> getTodayProductResponseVO() {
     return productMapper.getTodayProductResponseVO();
+  }
+
+  @Override
+  public List<ProductCardVO> getProductCardListByKeyword(String keyword) {
+    ArrayList<ProductCardVO> cardList = productCardMapper.getProductCardListByKeyword(keyword);
+
+    ArrayList<ProductCardVO> settedCardList = null;
+    try {
+      settedCardList = setProductCardStatus(cardList);
+    } catch (ParseException e) {
+      e.printStackTrace();
+    }
+    return settedCardList;
+  }
+
+  @Override
+  public List<ProductCardVO> getProductCardListByModelKeyword(String keyword) {
+    ArrayList<ProductCardVO> cardList = productCardMapper.getProductCardListByModelKeyword(keyword);
+    ArrayList<ProductCardVO> settedCardList = null;
+    try {
+      settedCardList = setProductCardStatus(cardList);
+    } catch (ParseException e) {
+      e.printStackTrace();
+    }
+    return settedCardList;
   }
 
   @Override

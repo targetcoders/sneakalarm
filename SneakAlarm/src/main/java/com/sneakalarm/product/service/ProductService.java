@@ -46,4 +46,6 @@ public interface ProductService {
   ArrayList<TodayProductResponseVO> getTodayProductResponseVO();
 
   ArrayList<ProductVO> getProductByDeliveryType(String delivery);
+
+  List<ProductCardVO> getProductCardListByModelKeyword(String splitKeyword);
 }
