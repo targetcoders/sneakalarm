@@ -42,8 +42,8 @@ public class RaffleInsertAssistantForShoeprize extends RaffleInsertAssistant{
 
       String endDateTime = oClockDateTime(sdf, jsonObj.get("closedAt").toString());
       if(raffleType.equals("선착순")){
-        //선착순은 종료시간과 시작시간이 같으면 안 되므로 +5분
-        long closedAt = Long.parseLong(jsonObj.get("closedAt").toString()) + (1000L*5*60);
+        //선착순은 종료시간과 시작시간이 같으면 안 되므로 +30분
+        long closedAt = Long.parseLong(jsonObj.get("closedAt").toString()) + (1000L*30*60);
         endDateTime = oClockDateTime(sdf, Long.toString(closedAt));
       }
       String delivery = jsonObj.get("shippingMethod").toString();

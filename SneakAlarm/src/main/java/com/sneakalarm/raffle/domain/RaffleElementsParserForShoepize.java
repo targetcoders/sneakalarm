@@ -1,6 +1,7 @@
 package com.sneakalarm.raffle.domain;
 
 import java.io.IOException;
+import java.util.Locale;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
@@ -20,8 +21,18 @@ public class RaffleElementsParserForShoepize extends RaffleElementsParser {
     for(Element e : raffleElements){
 
       Elements brands = e.select(".brand");
-      if (!brands.isEmpty() && (brands.get(0).text().trim().equals(storeName) || brands.get(0)
-          .select(".btn_brand_info_enable").attr("data-name").trim().equals(storeName))) {
+      if(brands.isEmpty()){
+        continue;
+      }
+
+      String brand = brands.get(0).text().trim();
+      if(brand.isEmpty()) {
+        brand = brands.get(0).select(".btn_brand_info_enable").attr("data-name");
+      }
+      brand = brand.toUpperCase().replaceAll(" ","");
+      storeName = storeName.toUpperCase().replaceAll(" ","");
+
+      if (brand.equals(storeName)) {
         Elements btns = e.select(".btn_area button");
         if (btns.isEmpty()) {
           continue;
