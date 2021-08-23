@@ -1,11 +1,12 @@
 package com.sneakalarm.raffle.dao;
 
-import com.sneakalarm.raffle.dto.RaffleCardVO;
+import com.sneakalarm.raffle.dto.ActiveRafflesVO;
 import com.sneakalarm.raffle.dto.RaffleListByDeliveryTypeVO;
 import com.sneakalarm.raffle.dto.RaffleListByStatusVO;
 import java.util.ArrayList;
 
 import com.sneakalarm.raffle.dto.RaffleUpdateStatusVO;
+import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.sneakalarm.raffle.dto.RaffleVO;
@@ -31,4 +32,6 @@ public interface RaffleMapper {
   ArrayList<RaffleVO> getRaffleListByStatus(RaffleListByStatusVO status);
 
   ArrayList<RaffleVO> getRaffleListByDeliveryType(RaffleListByDeliveryTypeVO DeliveryTypeVO);
+
+  List<RaffleVO> activeRaffles(ActiveRafflesVO activeRafflesVO);
 }
