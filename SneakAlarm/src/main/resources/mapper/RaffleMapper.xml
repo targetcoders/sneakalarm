@@ -50,6 +50,15 @@
 			ON p.id = r.productId
 		where r.id = #{id};
 	</select>
+
+	<select id="activeRaffles" parameterType="com.sneakalarm.raffle.dto.ActiveRafflesVO"
+		resultType="com.sneakalarm.raffle.dto.RaffleVO">
+		SELECT *
+		FROM raffle AS r
+		JOIN product AS p
+		ON p.id = r.productId
+		where p.id = #{productId} AND r.storeName = #{storeName};
+	</select>
 	
 	<update id="updateRaffle" parameterType="com.sneakalarm.raffle.dto.RaffleVO">
 		UPDATE 	raffle

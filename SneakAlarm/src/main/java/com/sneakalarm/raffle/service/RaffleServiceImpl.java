@@ -2,6 +2,7 @@ package com.sneakalarm.raffle.service;
 
 import com.sneakalarm.raffle.RaffleConst;
 import com.sneakalarm.raffle.dao.RaffleCardMapper;
+import com.sneakalarm.raffle.dto.ActiveRafflesVO;
 import com.sneakalarm.raffle.dto.RaffleListByDeliveryTypeVO;
 import com.sneakalarm.raffle.dto.RaffleListByStatusVO;
 import java.text.ParseException;
@@ -10,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import com.sneakalarm.raffle.dto.RaffleUpdateStatusVO;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -74,7 +76,7 @@ public class RaffleServiceImpl implements RaffleService {
 
   @Override
   public void updateRaffle(RaffleInsertVO raffleInsertVO) {
-    ArrayList<RaffleVO> list = (ArrayList<RaffleVO>) raffleMapper.getRaffle(raffleInsertVO.getId());
+    ArrayList<RaffleVO> list = raffleMapper.getRaffle(raffleInsertVO.getId());
     RaffleVO raffleVO = list.get(0);
 
     raffleVO.setContent(raffleInsertVO.getContent());
@@ -92,7 +94,7 @@ public class RaffleServiceImpl implements RaffleService {
     raffleVO.setUrl(raffleInsertVO.getUrl());
     raffleVO.setModel_kr(raffleInsertVO.getModel_kr());
     String fileName = raffleInsertVO.getFile().getOriginalFilename();
-    if (!fileName.equals("")) {
+    if (fileName != null && !fileName.equals("")) {
       BucketVO bucketVO = new BucketVO(region, bucket, folderName);
       String productId = raffleInsertVO.getProductId();
       raffleVO.setImgSrc(stringUtil.getDrawImgURL(bucketVO, productId, fileName));
@@ -109,7 +111,7 @@ public class RaffleServiceImpl implements RaffleService {
   @Override
   public String calcRaffleStatus(String startDate, String startTime, String endDate, String endTime)
       throws ParseException {
-    String status = "";
+    String status;
     SimpleDateFormat sdf = new SimpleDateFormat(ProductConst.DATE_FORMAT.replaceAll("/", "-"));
     Date nowDateTime = new Date();
     Date startDateTime = sdf.parse(startDate + " " + startTime);
@@ -159,4 +161,8 @@ public class RaffleServiceImpl implements RaffleService {
     }
   }
 
+  @Override
+  public List<RaffleVO> activeRaffles(ActiveRafflesVO activeRafflesVO) {
+    return raffleMapper.activeRaffles(activeRafflesVO);
+  }
 }
