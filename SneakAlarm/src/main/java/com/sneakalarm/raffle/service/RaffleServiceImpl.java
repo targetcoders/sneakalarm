@@ -118,9 +118,9 @@ public class RaffleServiceImpl implements RaffleService {
     Date endDateTime = sdf.parse(endDate + " " + endTime);
     
     int res = nowDateTime.compareTo(endDateTime);
-    if (res > 0) {
+    if (res > 0)
       status = ProductConst.STATUS_ENDED;
-    } else if (nowDateTime.compareTo(startDateTime) < 0) {
+    else if (nowDateTime.compareTo(startDateTime) < 0) {
       status = ProductConst.STATUS_READY;
     } else {
       status = ProductConst.STATUS_GOING;
