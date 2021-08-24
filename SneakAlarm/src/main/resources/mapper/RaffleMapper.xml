@@ -57,7 +57,7 @@
 		FROM raffle AS r
 		JOIN product AS p
 		ON p.id = r.productId
-		where p.id = #{productId} AND r.storeName = #{storeName} AND (r.status = 'active' OR r.status is null);
+		where p.id = #{productId} AND r.storeName = #{storeName} AND (r.status = 'active' OR r.status = 'ready' OR r.status is null);
 	</select>
 	
 	<update id="updateRaffle" parameterType="com.sneakalarm.raffle.dto.RaffleVO">
