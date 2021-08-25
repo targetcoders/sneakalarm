@@ -53,7 +53,7 @@
           th:id="|todayUnregisteredDraw-${drawGroup.productVO.id}|" class="todayDrawContainer">
           <a th:href="|/product-detail?id=${drawGroup.productVO.id}|">
             <img th:id="|todayProductImg-${drawGroup.productVO.id}|" class="todayProductImg lozad"
-              th:data-src="${drawGroup.productVO.imgSrc_home}" src="image/loading.png" alt="loading..." />
+              th:data-src="${drawGroup.productVO.imgSrc_home}" src="image/loading.gif" alt="loading..." />
           </a>
           <div
             class="todayContentUnregistered-${drawGroup.productVO.id} todayDrawContentBox d-flex flex-wrap justify-content-center">
@@ -125,11 +125,11 @@
       <h2 style="text-align: center; font-weight:bold;">국내 응모</h2>
 
       <div id="activeDraws-korea">
-        <div th:each="drawGroup : ${koreaDrawGroupList}" th:id="|todayKoreaDraw-${drawGroup.productVO.id}|"
+        <div th:each="drawGroup,index : ${koreaDrawGroupList}" th:id="|todayKoreaDraw-${drawGroup.productVO.id}|"
           class="todayDrawContainer">
           <a th:href="|/product-detail?id=${drawGroup.productVO.id}|">
             <img th:id="|todayProductImg-${drawGroup.productVO.id}|" class="todayProductImg lozad"
-              th:data-src="${drawGroup.productVO.imgSrc_home}" src="image/loading.png"
+              th:data-src="${drawGroup.productVO.imgSrc_home}" src="image/loading.gif"
               th:alt="${drawGroup.productVO.model_kr}" />
           </a>
           <div class="todayDraw-model_kr" th:text="${drawGroup.productVO.model_kr}"></div>
@@ -204,7 +204,7 @@
           class="todayDrawContainer">
           <a th:href="|/product-detail?id=${drawGroup.productVO.id}|">
             <img th:id="|todayProductImg-${drawGroup.productVO.id}|" class="todayProductImg lozad"
-              th:data-src="${drawGroup.productVO.imgSrc_home}" src="image/loading.png"
+              th:data-src="${drawGroup.productVO.imgSrc_home}" src="image/loading.gif"
               th:alt="${drawGroup.productVO.model_kr}" />
           </a>
           <div class="todayDraw-model_kr" th:text="${drawGroup.productVO.model_kr}"></div>
@@ -273,7 +273,7 @@
           class="todayDrawContainer">
           <a th:href="|/product-detail?id=${drawGroup.productVO.id}|">
             <img th:id="|todayProductImg-${drawGroup.productVO.id}|" class="todayProductImg lozad"
-              th:data-src="${drawGroup.productVO.imgSrc_home}" src="image/loading.png"
+              th:data-src="${drawGroup.productVO.imgSrc_home}" src="image/loading.gif"
               th:alt="${drawGroup.productVO.model_kr}" />
           </a>
           <div class="todayDraw-model_kr" th:text="${drawGroup.productVO.model_kr}"></div>
