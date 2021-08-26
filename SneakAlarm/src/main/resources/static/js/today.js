@@ -38,23 +38,26 @@ function setScrollMoving(scrollController){
 }
 function addCookie(raffleId) {
   let myRaffleList = myRaffleCookies();
-  myRaffleList.add(raffleId);
-  setCookie('myRaffles', myRaffleList.join(','), 30);
-  return;
-  
-  function setCookie(cookie_name, value, days) {
-      var exdate = new Date();
-      exdate.setDate(exdate.getDate() + days);
-      var cookie_value = escape(value) + ((days == null) ? '' : '; expires=' + exdate.toUTCString());
-      document.cookie = cookie_name + '=' + cookie_value;
-  }
+  myRaffleList.push(raffleId);
+  setCookie('myRaffles', myRaffleList.join('/'), 30);
+}
+function setCookie(cookie_name, value, days) {
+  var exdate = new Date();
+  exdate.setDate(exdate.getDate() + days);
+  var cookie_value = escape(value) + ((days == null) ? '' : '; expires=' + exdate.toUTCString());
+  document.cookie = cookie_name + '=' + cookie_value;
 }
 function myRaffleCookies() {
   let cookieList = document.cookie.split(';');
-  for (cookie in cookieList) {
-      let splitCookie = cookie.split('=');
-      if (splitCookie[0] == 'myRaffles') {
-          return splitCookie[1].split(',');
+  console.log(cookieList);
+  for (i in cookieList) {
+      console.log(cookieList[i]);
+      let splitCookie = cookieList[i].split('=');
+      console.log('splitCookie: '+splitCookie);
+      console.log(splitCookie[0].trim());
+      if (splitCookie[0].trim() == 'myRaffles') {
+        console.log(unescape(splitCookie[1]).split('/'));
+        return splitCookie[1].split('/');
       }
   }
   return [];
