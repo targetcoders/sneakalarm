@@ -49,12 +49,8 @@ function setCookie(cookie_name, value, days) {
 }
 function myRaffleCookies() {
   let cookieList = document.cookie.split(';');
-  console.log(cookieList);
   for (i in cookieList) {
-      console.log(cookieList[i]);
       let splitCookie = cookieList[i].split('=');
-      console.log('splitCookie: '+splitCookie);
-      console.log(splitCookie[0].trim());
       if (splitCookie[0].trim() == 'myRaffles') {
         console.log(unescape(splitCookie[1]).split('/'));
         return splitCookie[1].split('/');

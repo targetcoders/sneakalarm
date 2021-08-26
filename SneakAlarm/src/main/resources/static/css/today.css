@@ -124,6 +124,7 @@ a:active {
 }
 
 .todayDrawContent {
+  height:100%;
   width: 175px;
   font-size:14px;
   text-align:center;
@@ -206,8 +207,18 @@ a:active {
   color: #b8b8b8;
 }
 
+.hr-check {
+  width: 100%;
+  margin: 0;
+  margin-top:10px;
+  border: solid 1px #b8b8b8;
+}
 .check {
   cursor: pointer;
+  height:100%;
+  width:100%
+}
+.check__img {
   width:40px;
   height:40px;
 }
