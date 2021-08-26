@@ -90,7 +90,10 @@
                         th:text="${raffle.endWeek}"></span>&nbsp;&nbsp;<span th:text="${raffle.endTime}"></span></div>
                     <div class="draw-specialcase"><span th:text="${raffle.specialCase}"></span></div>
                   </a>
-                  <div><img th:id="|check-${raffle.id}|" class="check" th:data-raffle-id="${raffle.id}" src="/image/icon/check_off.svg"></div>
+                  <hr class="hr-check">
+                  <div class="check" th:data-raffle-id="${raffle.id}">
+                    <img th:id="|check-${raffle.id}|" class="check__img" src="/image/icon/check_off.svg">
+                  </div>
                 </div>
                 <div th:unless="${raffle.raffleType} == '응모'" class="todayDrawContent">
                   <a th:id="|drawCard-${raffle.id}|" th:href="${raffle.url}" style="text-decoration: none;">
@@ -168,6 +171,10 @@
                           th:text="${raffle.endWeek}"></span>&nbsp;&nbsp;<span th:text="${raffle.endTime}"></span></div>
                       <div class="draw-specialcase" th:text="${raffle.specialCase}"></div>
                     </a>
+                    <hr class="hr-check">
+                    <div class="check" th:data-raffle-id="${raffle.id}">
+                      <img th:id="|check-${raffle.id}|" class="check__img" src="/image/icon/check_off.svg">
+                    </div>
                   </div>
                 </div>
                 <div th:unless="${raffle.raffleType} == '응모'">
@@ -241,6 +248,10 @@
                         th:text="${raffle.endWeek}"></span>&nbsp;&nbsp;<span th:text="${raffle.endTime}"></span></div>
                     <div class="draw-specialcase" th:text="${raffle.specialCase}"></div>
                   </a>
+                  <hr class="hr-check">
+                    <div class="check" th:data-raffle-id="${raffle.id}">
+                      <img th:id="|check-${raffle.id}|" class="check__img" src="/image/icon/check_off.svg">
+                    </div>
                 </div>
                 <div th:unless="${raffle.raffleType} == '응모'" class="todayDrawContent">
                   <a th:id="|drawCard-${raffle.id}|" th:href="${raffle.url}" style="text-decoration: none;">
@@ -310,6 +321,10 @@
                         th:text="${raffle.endWeek}"></span>&nbsp;&nbsp;<span th:text="${raffle.endTime}"></span></div>
                     <div class="draw-specialcase" th:text="${raffle.specialCase}"></div>
                   </a>
+                  <hr class="hr-check">
+                    <div class="check" th:data-raffle-id="${raffle.id}">
+                      <img th:id="|check-${raffle.id}|" class="check__img" src="/image/icon/check_off.svg">
+                    </div>
                 </div>
                 <div th:unless="${raffle.raffleType} == '응모'" class="todayDrawContent">
                   <a th:id="|drawCard-${raffle.id}|" th:href="${raffle.url}" style="text-decoration: none;">
