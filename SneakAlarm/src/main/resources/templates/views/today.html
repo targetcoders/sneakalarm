@@ -29,12 +29,28 @@
     });
     $(window).on('load', function () {
       let doneRaffleIdList = myRaffleCookies();
-      for(doneRaffleId in doneRaffleIdList) {
-        $('#check-'+doneRaffleId).attr('src','/image/icon/check_on.svg');
+      for(i in doneRaffleIdList) {
+        $('#check-'+doneRaffleIdList[i]).attr('src','/image/icon/check_on.svg');
       }
       $('.search-icon-area').hide();
+
+      $('.check').on('click',function(){
+        console.log('enter');
+        let id = $(this).attr('data-raffle-id');
+        let myRaffleList = myRaffleCookies();
+        if(myRaffleList.includes(id)){
+          let idx = myRaffleList.indexOf(id);
+          myRaffleList.splice(idx,1);
+          setCookie('myRaffles',myRaffleList.join('/'), 30);
+          $('#check-'+id).attr('src','/image/icon/check_off.svg');
+        } else {
+          addCookie(id);
+          $('#check-'+id).attr('src','/image/icon/check_on.svg');
+        }
+      });
       const observer = lozad();
       observer.observe();
+      
     });
   </script>
   <script sec:authorize="!hasRole('ADMIN')">
@@ -74,6 +90,7 @@
                         th:text="${raffle.endWeek}"></span>&nbsp;&nbsp;<span th:text="${raffle.endTime}"></span></div>
                     <div class="draw-specialcase"><span th:text="${raffle.specialCase}"></span></div>
                   </a>
+                  <div><img th:id="|check-${raffle.id}|" class="check" th:data-raffle-id="${raffle.id}" src="/image/icon/check_off.svg"></div>
                 </div>
                 <div th:unless="${raffle.raffleType} == '응모'" class="todayDrawContent">
                   <a th:id="|drawCard-${raffle.id}|" th:href="${raffle.url}" style="text-decoration: none;">
