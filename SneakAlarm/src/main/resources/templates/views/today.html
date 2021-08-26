@@ -28,6 +28,10 @@
       setScrollMoving(new ScrollController());
     });
     $(window).on('load', function () {
+      let doneRaffleIdList = myRaffleCookies();
+      for(doneRaffleId in doneRaffleIdList) {
+        $('#check-'+doneRaffleId).attr('src','/image/icon/check_on.svg');
+      }
       $('.search-icon-area').hide();
       const observer = lozad();
       observer.observe();
