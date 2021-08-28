@@ -132,7 +132,6 @@ a:active {
 }
 
 .todayDrawContent {
-  height:100%;
   width: 175px;
   font-size:14px;
   text-align:center;
@@ -140,8 +139,9 @@ a:active {
   cursor: pointer;
   opacity:0.90;
   border: 1px solid #E4E4E4;
-  border-radius:8px/8px;
+  border-radius:8px 8px 0 0/8px;
   margin: 5px;
+  margin-bottom:0px;
   transition: all 0.4s;
 }
 .todayDrawContent:hover{
@@ -232,8 +232,15 @@ a:active {
 }
 .check {
   cursor: pointer;
-  height:100%;
-  width:100%
+  width:175px;
+  opacity:0.90;
+  margin: 0px 5px 5px 5px;
+  border-top: 0px solid #E4E4E4;
+  border-right: 1px solid #E4E4E4;
+  border-bottom: 1px solid #E4E4E4;
+  border-left: 1px solid #E4E4E4;
+  border-radius:0 0 8px 8px/8px;
+  text-align:center;
 }
 .check__img {
   width:40px;
