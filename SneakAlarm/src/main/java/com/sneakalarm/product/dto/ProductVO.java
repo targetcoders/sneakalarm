@@ -31,6 +31,10 @@ public class ProductVO {
   private String draw;
   private int isDeleted;
   private String deliveryTypes;
+  private String drawNumKorea;
+  private String drawNumOverseas;
+  private String drawNumFirstcome;
+  private String drawNumReady;
 
   public ProductVO() {}
 

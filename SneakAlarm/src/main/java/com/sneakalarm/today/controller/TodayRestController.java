@@ -54,7 +54,7 @@ public class TodayRestController {
       }
     }
     for (ProductVO product : new ArrayList<>(productSet)) {
-      drawGroupList.add(new DrawGroup(product.getId(), deliveryTypes, productMapper, raffleMapper));
+      drawGroupList.add(new DrawGroup(product.getId(), deliveryTypes, DrawGroup.STATUS_ACTIVE, productMapper, raffleMapper));
     }
     Collections.sort(drawGroupList);
     return new ObjectMapper().writeValueAsString(drawGroupList);
@@ -72,7 +72,7 @@ public class TodayRestController {
       if(product.getModel_kr().equals("?")){
         continue;
       }
-      drawGroupList.add(new DrawGroup(product.getId(), deliveryTypes, productMapper, raffleMapper));
+      drawGroupList.add(new DrawGroup(product.getId(), deliveryTypes, DrawGroup.STATUS_ACTIVE, productMapper, raffleMapper));
     }
     Collections.sort(drawGroupList);
     return new ObjectMapper().writeValueAsString(drawGroupList);
@@ -90,7 +90,7 @@ public class TodayRestController {
       if(product.getModel_kr().equals("?")){
         continue;
       }
-      drawGroupList.add(new DrawGroup(product.getId(), deliveryTypes, productMapper, raffleMapper));
+      drawGroupList.add(new DrawGroup(product.getId(), deliveryTypes, DrawGroup.STATUS_ACTIVE, productMapper, raffleMapper));
     }
     Collections.sort(drawGroupList);
     return new ObjectMapper().writeValueAsString(drawGroupList);
@@ -108,7 +108,7 @@ public class TodayRestController {
       if(product.getModel_kr().equals("?")){
         continue;
       }
-      drawGroupList.add(new DrawGroup(product.getId(), deliveryTypes, productMapper, raffleMapper));
+      drawGroupList.add(new DrawGroup(product.getId(), deliveryTypes, DrawGroup.STATUS_ACTIVE, productMapper, raffleMapper));
     }
     Collections.sort(drawGroupList);
     return new ObjectMapper().writeValueAsString(drawGroupList);
