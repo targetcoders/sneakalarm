@@ -5,7 +5,6 @@ import com.sneakalarm.product.dto.ProductVO;
 import com.sneakalarm.raffle.dao.RaffleMapper;
 import com.sneakalarm.raffle.dto.RaffleListByStatusVO;
 import com.sneakalarm.raffle.dto.RaffleVO;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.Assert;
@@ -58,7 +57,7 @@ public class DrawGroupTest {
     expectedRaffleVOList.add(readyRaffleVO2);
 
     String[] deliveryTypes = {"방문수령","택배배송"};
-    DrawGroup drawGroup = new DrawGroup("0", deliveryTypes, productMapper, raffleMapper);
+    DrawGroup drawGroup = new DrawGroup("0", deliveryTypes, DrawGroup.STATUS_ACTIVE, productMapper, raffleMapper);
 
     System.out.println(drawGroup.getTargetRaffleVOList().toString());
     Assert.assertEquals(expectedProductVO, drawGroup.getProductVO());

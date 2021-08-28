@@ -1,6 +1,5 @@
 package com.sneakalarm.today.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sneakalarm.product.dao.ProductMapper;
 import com.sneakalarm.product.dto.ProductVO;
 import com.sneakalarm.product.service.ProductService;
@@ -29,8 +28,11 @@ public class TodayController {
   public String nowPage(Model model) throws Exception {
     model.addAttribute("unregisteredDrawGroupList",drawListUnregistered());
     model.addAttribute("koreaDrawGroupList",drawListKorea());
+    model.addAttribute("readyKoreaDrawGroupList",drawListReadyKorea());
     model.addAttribute("directDrawGroupList",drawListDirect());
+    model.addAttribute("readyDirectDrawGroupList",drawListReadyDirect());
     model.addAttribute("agentDrawGroupList",drawListAgent());
+    model.addAttribute("readyAgentDrawGroupList", drawListReadyAgent());
     return "views/today";
   }
 
@@ -47,7 +49,7 @@ public class TodayController {
       }
     }
     for (ProductVO product : new ArrayList<>(productSet)) {
-      drawGroupList.add(new DrawGroup(product.getId(), deliveryTypes, productMapper, raffleMapper));
+      drawGroupList.add(new DrawGroup(product.getId(), deliveryTypes, DrawGroup.STATUS_ACTIVE, productMapper, raffleMapper));
     }
     Collections.sort(drawGroupList);
     return drawGroupList;
@@ -63,7 +65,28 @@ public class TodayController {
       if(product.getModel_kr().equals("?")){
         continue;
       }
-      drawGroupList.add(new DrawGroup(product.getId(), deliveryTypes, productMapper, raffleMapper));
+      drawGroupList.add(new DrawGroup(product.getId(), deliveryTypes, DrawGroup.STATUS_ACTIVE, productMapper, raffleMapper));
+    }
+    Collections.sort(drawGroupList);
+    return drawGroupList;
+  }
+  private List<DrawGroup> drawListReadyKorea() throws Exception {
+    List<DrawGroup> drawGroupList = new ArrayList<>();
+    String[] deliveryTypes = {"택배배송", "방문수령"};
+    Set<ProductVO> productSet = new HashSet<>();
+    for (String deliveryType : deliveryTypes) {
+      productSet.addAll(productService.getProductByDeliveryType(deliveryType));
+    }
+    for (ProductVO product : new ArrayList<>(productSet)) {
+      if(product.getModel_kr().equals("?")){
+        continue;
+      }
+      if(product.getDrawNumReady().equals("0")){
+        continue;
+      }
+      System.out.println(product);
+      System.out.println();
+      drawGroupList.add(new DrawGroup(product.getId(), deliveryTypes, DrawGroup.STATUS_READY, productMapper, raffleMapper));
     }
     Collections.sort(drawGroupList);
     return drawGroupList;
@@ -76,7 +99,31 @@ public class TodayController {
       productSet.addAll(productService.getProductByDeliveryType(deliveryType));
     }
     for (ProductVO product : new ArrayList<>(productSet)) {
-      drawGroupList.add(new DrawGroup(product.getId(), deliveryTypes, productMapper, raffleMapper));
+      if(product.getModel_kr().equals("?")){
+        continue;
+      }
+      drawGroupList.add(new DrawGroup(product.getId(), deliveryTypes, DrawGroup.STATUS_ACTIVE, productMapper, raffleMapper));
+    }
+    Collections.sort(drawGroupList);
+    return drawGroupList;
+  }
+  private List<DrawGroup> drawListReadyDirect() throws Exception {
+    List<DrawGroup> drawGroupList = new ArrayList<>();
+    String[] deliveryTypes = {"직배"};
+    Set<ProductVO> productSet = new HashSet<>();
+    for (String deliveryType : deliveryTypes) {
+      productSet.addAll(productService.getProductByDeliveryType(deliveryType));
+    }
+    for (ProductVO product : new ArrayList<>(productSet)) {
+      if(product.getModel_kr().equals("?")){
+        continue;
+      }
+      if(product.getDrawNumReady().equals("0")){
+        continue;
+      }
+      System.out.println(product);
+      System.out.println();
+      drawGroupList.add(new DrawGroup(product.getId(), deliveryTypes, DrawGroup.STATUS_READY, productMapper, raffleMapper));
     }
     Collections.sort(drawGroupList);
     return drawGroupList;
@@ -89,7 +136,30 @@ public class TodayController {
       productSet.addAll(productService.getProductByDeliveryType(deliveryType));
     }
     for (ProductVO product : new ArrayList<>(productSet)) {
-      drawGroupList.add(new DrawGroup(product.getId(), deliveryTypes, productMapper, raffleMapper));
+      if(product.getModel_kr().equals("?")){
+        continue;
+      }
+      drawGroupList.add(new DrawGroup(product.getId(), deliveryTypes, DrawGroup.STATUS_ACTIVE, productMapper, raffleMapper));
+    }
+    Collections.sort(drawGroupList);
+    return drawGroupList;
+  }
+  private List<DrawGroup> drawListReadyAgent() throws Exception {
+    List<DrawGroup> drawGroupList = new ArrayList<>();
+    String[] deliveryTypes = {"배대지"};
+    Set<ProductVO> productSet = new HashSet<>();
+    for (String deliveryType : deliveryTypes) {
+      productSet.addAll(productService.getProductByDeliveryType(deliveryType));
+    }
+    for (ProductVO product : new ArrayList<>(productSet)) {
+      if(product.getModel_kr().equals("?")){
+        continue;
+      }
+      if(product.getDrawNumReady().equals("0")){
+        continue;
+      }
+      System.out.println(product);
+      drawGroupList.add(new DrawGroup(product.getId(), deliveryTypes, DrawGroup.STATUS_READY, productMapper, raffleMapper));
     }
     Collections.sort(drawGroupList);
     return drawGroupList;
