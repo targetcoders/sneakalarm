@@ -35,7 +35,6 @@
       $('.search-icon-area').hide();
 
       $('.check').on('click',function(){
-        console.log('enter');
         let id = $(this).attr('data-raffle-id');
         let myRaffleList = myRaffleCookies();
         if(myRaffleList.includes(id)){

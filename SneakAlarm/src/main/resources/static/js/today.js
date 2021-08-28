@@ -52,7 +52,6 @@ function myRaffleCookies() {
   for (i in cookieList) {
       let splitCookie = cookieList[i].split('=');
       if (splitCookie[0].trim() == 'myRaffles') {
-        console.log(unescape(splitCookie[1]).split('/'));
         return splitCookie[1].split('/');
       }
   }
