@@ -106,7 +106,15 @@ a:active {
   justify-content: center;
   align-items: center;
 }
-#activeDrawsContainer {
+#activeDrawsContainer{
+  width: 375px;
+  margin-bottom: 52px;
+}
+#readyDrawsContainer{
+  width: 100%;
+  margin-bottom: 52px;
+}
+.draw-area{
   width: 375px;
   margin-bottom: 52px;
 }
@@ -187,6 +195,14 @@ a:active {
 }
 
 .today-draws-hr {
+  margin-top: 26px;
+  margin-bottom: 26px;
+  height: 10px;
+  opacity: 1;
+  border: solid 1px #f2f2f2;
+  width:100%;
+}
+.today-draws-hr--ready{
   margin-top: 26px;
   margin-bottom: 26px;
   height: 10px;
@@ -275,6 +291,13 @@ a:active {
     justify-content: center;
   }
   #activeDraws-agent {
+    width: 1125px;
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .draw-area{
     width: 1125px;
     height: 100%;
     display: flex;
