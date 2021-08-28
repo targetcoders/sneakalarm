@@ -35,6 +35,10 @@ function setScrollMoving(scrollController){
     closeCategoryPopUp();
     scrollController.scrollTo('#activeDraws-agent');
   });
+  $('#raffle-category-ready').on('click', function(){
+    closeCategoryPopUp();
+    scrollController.scrollTo('#readyDraws-korea');
+  });
 }
 function addCookie(raffleId) {
   let myRaffleList = myRaffleCookies();
