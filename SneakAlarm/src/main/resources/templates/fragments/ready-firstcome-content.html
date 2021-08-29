@@ -1,0 +1,7 @@
+<div><span class="draw__raffle-type--ready-firstcome" th:text="${raffle.raffleType}"></span>
+    <span class="draw__store-name" th:text="${raffle.storeName}"></span>
+</div>
+<div><span class="draw__date--ready" th:text="${raffle.startDate}"></span>&nbsp;<span class="draw__week--ready"
+        th:text="${raffle.startWeek}"></span>&nbsp;<span class="draw__time--ready" th:text="|${raffle.startTime} 부터|"></span>
+</div>
+<div class="draw__specialcase"><span th:text="${raffle.specialCase}"></span></div>

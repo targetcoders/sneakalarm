@@ -133,9 +133,9 @@ a:active {
 
 .todayDrawContent {
   width: 175px;
+  padding: 10px;
   font-size:14px;
-  text-align:center;
-  color: black;
+  text-align:left;
   cursor: pointer;
   opacity:0.90;
   border: 1px solid #E4E4E4;
@@ -151,47 +151,57 @@ a:active {
 }
 .todayReadyDrawContent {
   width: 175px;
+  padding: 10px;
   font-size:14px;
-  text-align:center;
-  color: black;
+  text-align:left;
   cursor: pointer;
   background-color:white;
   opacity:0.9;
   border: 1px solid #E4E4E4;
-  border-radius:8px/8px;
+  border-radius:8px 8px 0 0/8px;
   margin: 5px;
+  margin-bottom:0px;
+  transition: all 0.4s;
 }
-.draw-end-datetime {
-  font-weight: bold;
+.todayReadyDrawContent:hover{
+  background-color:#e6e6e6;
+  color: rgb(0, 0, 0);
+  font-weight: bolder;
 }
-.draw-start-datetime {
-  font-weight: bold;
+.draw__week, .draw__time, .draw__date {
+  font-size:12px;
+  font-weight: 550;
+  color:#444444;
 }
-.ready-draw-end-datetime{
-  color: #b8b8b8;
-  font-weight: bold;
+.draw__week--ready, .draw__time--ready, .draw__date--ready {
+  font-size:12px;
+  font-weight: 550;
+  color:#6b6b6b;
 }
-.ready-draw-start-datetime{
-  color: #b8b8b8;
-  font-weight: bold;
+.draw__raffle-type--firstcome {
+  font-weight: 700;
+  font-size: 12px;
+  color: #F11900;
 }
-.ready-draw-storeName {
-  color: #b8b8b8;
+.draw__raffle-type--raffle {
+  font-weight: 700;
+  font-size: 12px;
+  color:#4971FF;
 }
-.ready-draw-raffle-type-raffle {
-  font-weight: bold;
-  color: #b8b8b8;
+.draw__raffle-type--ready-firstcome {
+  font-weight: 700;
+  font-size: 14px;
+  color: #F11900;
 }
-.ready-draw-raffle-type-firstcome {
-  font-weight: bold;
-  color: #b8b8b8;
+.draw__raffle-type--ready-raffle {
+  font-weight: 700;
+  font-size: 14px;
+  color:#4971FF;
 }
-.draw-raffle-type-firstcome {
-  font-weight: bold;
-  color: #FE0100;
-}
-.draw-raffle-type-raffle {
-  font-weight: bold;
+.draw__store-name {
+  font-weight: 700;
+  font-size: 14px;
+  color: #191919;
 }
 
 .today-draws-hr {
@@ -216,10 +226,12 @@ a:active {
   font-size: 14px;
   color: #000000;
 }
-.draw-specialcase {
-  color: #414141;
+.draw__specialcase {
+  font-size:12px;
+  color: #444444;
 }
 .ready-draw-specialcase {
+  font-size:12px;
   color: #b8b8b8;
 }
 
@@ -241,6 +253,12 @@ a:active {
   border-left: 1px solid #E4E4E4;
   border-radius:0 0 8px 8px/8px;
   text-align:center;
+  transition: all 0.4s;
+}
+.check:hover {
+  background-color:#e6e6e6;
+  color: rgb(0, 0, 0);
+  font-weight: bolder;
 }
 .check__img {
   width:40px;
