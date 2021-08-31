@@ -49,8 +49,8 @@
           $('#check-'+id).attr('src','/image/icon/check_on.svg');
           $('#drawCard-'+id).children('div').css('opacity','0.5');
         }
-        
       });
+      setCardsMaxHeight();
       const observer = lozad();
       observer.observe();
     });

@@ -61,5 +61,15 @@ function myRaffleCookies() {
   }
   return [];
 }
-
+function setCardsMaxHeight(){
+  let todayDrawContainerList = document.getElementsByClassName('todayDrawContainer')
+      for(let i in todayDrawContainerList){
+        let heightArr = [];
+        $('#' + todayDrawContainerList[i].id + ' .todayDrawContent').each(function () {
+          heightArr.push($(this).css('height'));
+        });
+        heightArr.sort();
+        $('#' + todayDrawContainerList[i].id + ' .todayDrawContent').css('height',heightArr[heightArr.length-1]);
+      }
+}
 
