@@ -103,13 +103,6 @@
                 th:alt="${drawGroup.productVO.model_kr}" />
             </a>
             <div class="todayDraw-model_kr" th:text="${drawGroup.productVO.model_kr}"></div>
-            <div th:if="${index.first}" style="display:inline-block; width:100%;">
-              <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2682527241610745"
-                crossorigin="anonymous"></script>
-              <!-- now페이지 광고1 -->
-              <ins class="adsbygoogle ad-box" style="display:block" data-ad-client="ca-pub-2682527241610745" data-ad-slot="9219850758"
-                data-ad-format="auto" data-full-width-responsive="true"></ins>
-            </div>
             <div
               th:class="|todayDrawContentKorea-${drawGroup.productVO.id} todayDrawContentBox d-flex flex-wrap justify-content-center|">
               <div th:each="raffle : ${drawGroup.targetRaffleVOList}">
@@ -131,6 +124,13 @@
                   <img th:id="|check-${raffle.id}|" class="check__img" src="/image/icon/check_off.svg">
                 </div>
               </div>
+            </div>
+            <div th:if="${index.first}" style="display:inline-block; width:100%;">
+              <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2682527241610745"
+                crossorigin="anonymous"></script>
+              <!-- now페이지 광고1 -->
+              <ins class="adsbygoogle ad-box" style="display:block" data-ad-client="ca-pub-2682527241610745" data-ad-slot="9219850758"
+                data-ad-format="auto" data-full-width-responsive="true"></ins>
             </div>
           </div>
         </div>
