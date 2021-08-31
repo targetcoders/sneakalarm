@@ -10,6 +10,10 @@ a:hover {
 a:active {
   color:#FE0100;
 }
+.ad-box {
+  min-width: 320px;
+  min-height: 100px;
+}
 
 .div-draw-model_kr{
   margin-top:10px;

@@ -1,3 +1,7 @@
+$(document).ready(function(){
+  (adsbygoogle = window.adsbygoogle || []).push({});
+});
+
 function setPopup(){
   $('#category-open-btn').on('click',function(){
     $('.navbar__clock__date').css('color','white');
@@ -76,6 +80,7 @@ function onClickCheckMyRaffles() {
     $('#drawCard-' + id).children('div').css('opacity', '0.5');
   }
 }
+
 function setCardsMaxHeight() {
   let todayDrawContainerList = document.getElementsByClassName('todayDrawContainer')
   for (let i in todayDrawContainerList) {
@@ -83,7 +88,13 @@ function setCardsMaxHeight() {
     $('#' + todayDrawContainerList[i].id + ' .todayDrawContent').each(function () {
       heightArr.push($(this).css('height'));
     });
-    heightArr.sort();
+    heightArr.sort(function(h1,h2){
+      h1.splice(h1.length-2,2);
+      console.log(h1);
+      h2.splice(h1.length-2,2);
+      console.log(h2);
+      return Number(h2) - Number(h1);
+    });
     console.log(heightArr);
     $('#' + todayDrawContainerList[i].id + ' .todayDrawContent').css('height', heightArr[heightArr.length - 1]);
   }
