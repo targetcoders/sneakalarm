@@ -37,47 +37,46 @@ public class InstaFeed {
         + " "+((raffleType.equals("응모")) ? raffleVO.getEndTime().substring(0,5) : raffleVO.getStartTime().substring(0,5))
         + " "+((raffleType.equals("응모")) ? "종료" : "시작")
         + "\n" + raffleVO.getModel_kr()
+        + "\n" + specialCaseText(raffleVO.getSpecialCase())
         + "\n\n" + announceText()
-        + "\n\n\n" + specialCaseText(raffleVO.getSpecialCase())
-        + "\n\n\n" + commonText();
+        + "\n\n" + commonText();
   }
 
   private String specialCaseText(String specialCase) {
     if(specialCase == null)
       return "";
 
-    return "✅ 주의 사항 ✅"
-        +"\n" + specialCase;
+    return "✅ " + specialCase;
   }
 
   private String announceText(){
-    String result = raffleVO.getStoreName()
-        + "에서 "+ raffleVO.getRaffleType() +" 진행합니다!!\uD83D\uDD25\n"
-        + "기회를 놓치지 마세요!! \uD83D\uDD25";
-
-    if(raffleVO.getRaffleType().equals("응모")) {
-      result += "\n여러분의 당첨을 기원합니다.\uD83E\uDD17";
+    String result;
+    if(raffleVO.getRaffleType().equals("응모")){
+      result = raffleVO.getStoreName()
+          + "에서 응모 진행중입니다.\n"
+          + "당첨 기회를 놓치지 마세요! \uD83D\uDD25";
+    } else {
+      result = raffleVO.getStoreName()
+          + "에서 선착순 구매를 진행합니다.\n"
+          + "기회를 놓치지 마세요! \uD83D\uDD25";
     }
-
     return result;
   }
 
   private String commonText() {
     return
-        "[편하게 응모하는 방법1]\n"
-        + "1. @sneakalarm 프로필로 이동\n"
-        + "2. 홈페이지 주소를 클릭\uD83D\uDE0D\n"
-        + "3. 참여할 응모 카드를 클릭"
+        "[응모 참여 방법 1]\n"
+        + "1. @sneakalarm 인스타그램 프로필로 이동\n"
+        + "2. 홈페이지 주소 클릭"
+        + "3. 참여할 응모 카드 클릭"
         + "\n\n"
-        + "[편하게 응모하는 방법2]\n"
+        + "[응모 참여 방법 2]\n"
         + "1. 브라우저 실행\n"
         + "2. 주소창에 sneakalarm.com 입력\n"
-        + "3. 참여할 응모 카드를 클릭"
+        + "3. 참여할 응모 카드 클릭"
         + "\n\n"
         + "\" 게시물 \uD83D\uDECE알람 설정하고 한정판 신발 겟하세요! \""
         + "\n\n"
-        + "스알님들의 좋아요+댓글은 큰 힘이 됩니다\uD83D\uDC4D\uD83C\uDFFB"
-        + "\n"
         + ".\n"
         + ".\n"
         + ".\n"
