@@ -61,15 +61,30 @@ function myRaffleCookies() {
   }
   return [];
 }
-function setCardsMaxHeight(){
+function onClickCheckMyRaffles() {
+  let id = $(this).attr('data-raffle-id');
+  let myRaffleList = myRaffleCookies();
+  if (myRaffleList.includes(id)) {
+    let idx = myRaffleList.indexOf(id);
+    myRaffleList.splice(idx, 1);
+    setCookie('myRaffles', myRaffleList.join('/'), 30);
+    $('#check-' + id).attr('src', '/image/icon/check_off.svg');
+    $('#drawCard-' + id).children('div').css('opacity', '1');
+  } else {
+    addCookie(id);
+    $('#check-' + id).attr('src', '/image/icon/check_on.svg');
+    $('#drawCard-' + id).children('div').css('opacity', '0.5');
+  }
+}
+function setCardsMaxHeight() {
   let todayDrawContainerList = document.getElementsByClassName('todayDrawContainer')
-      for(let i in todayDrawContainerList){
-        let heightArr = [];
-        $('#' + todayDrawContainerList[i].id + ' .todayDrawContent').each(function () {
-          heightArr.push($(this).css('height'));
-        });
-        heightArr.sort();
-        $('#' + todayDrawContainerList[i].id + ' .todayDrawContent').css('height',heightArr[heightArr.length-1]);
-      }
+  for (let i in todayDrawContainerList) {
+    let heightArr = [];
+    $('#' + todayDrawContainerList[i].id + ' .todayDrawContent').each(function () {
+      heightArr.push($(this).css('height'));
+    });
+    heightArr.sort();
+    $('#' + todayDrawContainerList[i].id + ' .todayDrawContent').css('height', heightArr[heightArr.length - 1]);
+  }
 }
 
