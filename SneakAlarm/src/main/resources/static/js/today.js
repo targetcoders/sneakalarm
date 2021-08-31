@@ -65,8 +65,8 @@ function myRaffleCookies() {
   }
   return [];
 }
-function onClickCheckMyRaffles() {
-  let id = $(this).attr('data-raffle-id');
+function onClickCheckMyRaffles(raffleId) {
+  let id = raffleId;
   let myRaffleList = myRaffleCookies();
   if (myRaffleList.includes(id)) {
     let idx = myRaffleList.indexOf(id);
