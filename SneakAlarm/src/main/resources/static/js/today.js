@@ -89,13 +89,8 @@ function setCardsMaxHeight() {
       heightArr.push($(this).css('height'));
     });
     heightArr.sort(function(h1,h2){
-      h1.splice(h1.length-2,2);
-      console.log(h1);
-      h2.splice(h1.length-2,2);
-      console.log(h2);
-      return Number(h2) - Number(h1);
+      return Number(h1.substring(h1.length-2,h1.length)) - Number(h2.substring(h2.length-2,h2.length));
     });
-    console.log(heightArr);
     $('#' + todayDrawContainerList[i].id + ' .todayDrawContent').css('height', heightArr[heightArr.length - 1]);
   }
 }
