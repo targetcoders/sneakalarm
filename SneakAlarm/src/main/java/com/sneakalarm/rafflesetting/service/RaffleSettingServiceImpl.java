@@ -51,6 +51,11 @@ public class RaffleSettingServiceImpl implements RaffleSettingService {
   }
 
   @Override
+  public List<RaffleSetting> getRaffleSettingByStoreName(String storeName){
+    return raffleSettingMapper.getRaffleSettingByStoreName(storeName);
+  }
+
+  @Override
   public String insertRaffle(RaffleVO raffleVO) {
     if (raffleVO.getDelivery().equals(RaffleConst.DELIVERY_PACKAGE) || raffleVO
         .getDelivery().equals(RaffleConst.DELIVERY_VISIT)) {

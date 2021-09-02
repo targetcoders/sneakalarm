@@ -30,7 +30,7 @@ public class RaffleRestController {
   public ResponseEntity<String> activeRaffles(@PathVariable("productId") String productId,
       @PathVariable("storeName") String storeName) throws JsonProcessingException {
     List<RaffleSetting> raffleSettingList = raffleSettingService
-        .getRaffleSettingByKeyword(storeName);
+        .getRaffleSettingByStoreName(storeName);
     if (raffleSettingList.isEmpty()) {
       return new ResponseEntity<>(new ObjectMapper().writeValueAsString(new ArrayList<>()),
           HttpStatus.OK);
