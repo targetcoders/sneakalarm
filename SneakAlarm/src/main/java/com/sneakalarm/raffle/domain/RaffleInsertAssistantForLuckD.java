@@ -28,14 +28,24 @@ public class RaffleInsertAssistantForLuckD extends RaffleInsertAssistant{
       String raffleEndDateTime = elementForLuckD.parseEndDateTime();
       String releasePrice = ((getModel_kr()==null) || getModel_kr().isEmpty()) ? "" : "미등록 제품";
 
+      String keyword = "["+usingDeliveryFor(delivery)+"]"+getStoreName();
+      keyword = keyword.replaceAll(" ","").toUpperCase();
       List<RaffleSetting> raffleSettingList = raffleSettingService
-          .getRaffleSettingByKeyword("["+usingDeliveryFor(delivery)+"]"+getStoreName());
-
+          .getRaffleSettingByKeyword(keyword);
       if(raffleSettingList.isEmpty()){
         return new ArrayList<>();
       }
 
-      RaffleSetting raffleSetting = raffleSettingList.get(0);
+      RaffleSetting searchedRaffleSetting = raffleSettingList.get(0);
+      for(RaffleSetting raffleSetting : raffleSettingList) {
+        String raffleSettingName = raffleSetting.getRaffleSettingName().toUpperCase();
+        raffleSettingName = raffleSettingName.replaceAll(" ","");
+        if(raffleSettingName.equals(keyword)){
+          searchedRaffleSetting = raffleSetting;
+        }
+      }
+
+      RaffleSetting raffleSetting = searchedRaffleSetting;
       DateTime dateTime = new DateTimeImpl();
       SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
       String specialCase =raffleSetting.getSpecialCase();

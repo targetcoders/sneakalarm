@@ -3,6 +3,7 @@ package com.sneakalarm.rafflesetting.domain;
 import com.google.gson.Gson;
 import java.time.LocalDateTime;
 import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -11,6 +12,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Getter
 @Setter
 @ToString
+@EqualsAndHashCode(of = "storeName")
 public class RaffleSetting {
 
   private String id;
