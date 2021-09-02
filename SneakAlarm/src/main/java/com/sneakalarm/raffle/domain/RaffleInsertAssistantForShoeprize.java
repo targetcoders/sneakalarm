@@ -108,7 +108,7 @@ public class RaffleInsertAssistantForShoeprize extends RaffleInsertAssistant{
     String[] splitResult = result.split(" ");
     String[] time = splitResult[1].split(":");
     if(time[1].equals("58") || time[1].equals("59")){
-      int min = 60 - Integer.parseInt(time[1]);
+      int min = 59 - Integer.parseInt(time[1]);
       result = sdf.format(Long.parseLong(dateTime)+(60L*min));
     }
     return result;

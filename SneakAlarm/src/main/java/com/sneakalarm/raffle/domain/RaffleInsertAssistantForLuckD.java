@@ -35,17 +35,7 @@ public class RaffleInsertAssistantForLuckD extends RaffleInsertAssistant{
       if(raffleSettingList.isEmpty()){
         return new ArrayList<>();
       }
-
-      RaffleSetting searchedRaffleSetting = raffleSettingList.get(0);
-      for(RaffleSetting raffleSetting : raffleSettingList) {
-        String raffleSettingName = raffleSetting.getRaffleSettingName().toUpperCase();
-        raffleSettingName = raffleSettingName.replaceAll(" ","");
-        if(raffleSettingName.equals(keyword)){
-          searchedRaffleSetting = raffleSetting;
-        }
-      }
-
-      RaffleSetting raffleSetting = searchedRaffleSetting;
+      RaffleSetting raffleSetting = raffleSettingList.get(0);
       DateTime dateTime = new DateTimeImpl();
       SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
       String specialCase =raffleSetting.getSpecialCase();
