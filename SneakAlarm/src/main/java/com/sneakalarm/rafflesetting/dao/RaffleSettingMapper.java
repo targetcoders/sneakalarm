@@ -21,4 +21,6 @@ public interface RaffleSettingMapper {
   List<RaffleSetting> getRaffleSettingByKeyword(String keyword);
 
   long insertRaffle(RaffleVO raffleInsertVO);
+
+  List<RaffleSetting> getRaffleSettingByStoreName(String storeName);
 }

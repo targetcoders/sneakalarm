@@ -18,5 +18,7 @@ public interface RaffleSettingService {
 
   List<RaffleSetting> getRaffleSettingByKeyword(String keyword);
 
+  List<RaffleSetting> getRaffleSettingByStoreName(String storeName);
+
   String insertRaffle(RaffleVO raffleVO);
 }

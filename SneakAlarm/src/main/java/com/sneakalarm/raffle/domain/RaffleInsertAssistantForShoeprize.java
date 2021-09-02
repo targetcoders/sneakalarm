@@ -33,6 +33,10 @@ public class RaffleInsertAssistantForShoeprize extends RaffleInsertAssistant{
       String raffleType = e.select(".btn_area button").get(0).text();
       JSONObject jsonObj = (JSONObject) jsonParser.parse(doc.text().substring(doc.text().indexOf('{')));
       String raffleUrl = jsonObj.get("url").toString();
+      int idx = raffleUrl.indexOf("utm_source=shoeprize");
+      if(idx != -1){
+        raffleUrl = raffleUrl.substring(0, idx)+"utm_source=sneakalarm";
+      }
       String startDateTime;
       if(jsonObj.get("startTimestamp") == null){
         startDateTime = new ParsedElementForShoeprize(e).parseStartDateTime();
