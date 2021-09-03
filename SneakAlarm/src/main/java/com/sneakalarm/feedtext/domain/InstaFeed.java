@@ -1,5 +1,6 @@
-package com.sneakalarm.raffle.domain;
+package com.sneakalarm.feedtext.domain;
 
+import com.sneakalarm.raffle.domain.DateTime;
 import com.sneakalarm.raffle.dto.RaffleVO;
 import com.sneakalarm.util.Week;
 import java.text.ParseException;

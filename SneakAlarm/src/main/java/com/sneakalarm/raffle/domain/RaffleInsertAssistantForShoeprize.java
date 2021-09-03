@@ -28,7 +28,7 @@ public class RaffleInsertAssistantForShoeprize extends RaffleInsertAssistant{
       SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
       JSONParser jsonParser = new JSONParser();
       String dataUUID = e.select(".btn_area").select("button").get(0).attr("data-uuid");
-      Document doc = new JsoupImplForShoeprize().productDetail(dataUUID);
+      Document doc = new JsoupShoeprize().productDetail(dataUUID);
 
       String raffleType = e.select(".btn_area button").get(0).text();
       JSONObject jsonObj = (JSONObject) jsonParser.parse(doc.text().substring(doc.text().indexOf('{')));

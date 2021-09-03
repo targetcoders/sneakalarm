@@ -22,7 +22,7 @@ public class SiteCardParserTest {
 
   @Before
   public void init() throws IOException {
-    this.jsoup = Mockito.mock(JsoupImplForLuckD.class);
+    this.jsoup = Mockito.mock(JsoupLuckD.class);
     siteCardParser = new RaffleElementsParserForLuckD("testUrl",jsoup);
     testDocument = new Document("testUrl");
     testDocument.append("<div class=\"site_card_layer\">\n"
