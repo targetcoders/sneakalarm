@@ -14,9 +14,10 @@ import java.util.Date;
 import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.security.core.parameters.P;
 
 @Setter @Getter
-public class DrawGroup implements Comparable<DrawGroup>{
+public class DrawGroup implements Comparable<DrawGroup>, Group{
   public final static String STATUS_ACTIVE = "active";
   public final static String STATUS_READY = "ready";
 
