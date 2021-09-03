@@ -1,9 +1,9 @@
 package com.sneakalarm.raffle.service;
 
-import com.sneakalarm.raffle.domain.JsoupImplForShoeprize;
+import com.sneakalarm.raffle.domain.JsoupShoeprize;
 import com.sneakalarm.raffle.domain.RaffleElementsParserForShoepize;
 import com.sneakalarm.raffle.domain.RaffleInsertAssistant;
-import com.sneakalarm.raffle.domain.JsoupImplForLuckD;
+import com.sneakalarm.raffle.domain.JsoupLuckD;
 import com.sneakalarm.raffle.domain.RaffleElementsParser;
 import com.sneakalarm.raffle.domain.RaffleInsertAssistantForLuckD;
 import com.sneakalarm.raffle.domain.RaffleElementsParserForLuckD;
@@ -44,9 +44,9 @@ public class RaffleAutoInsertServiceImpl implements RaffleAutoInsertService{
   private RaffleElementsParser getRaffleElementsParser(String targetUrl) throws IOException {
     RaffleElementsParser raffleElementsParser;
     if(targetUrl.contains("luck-d.com")) {
-      raffleElementsParser = new RaffleElementsParserForLuckD(targetUrl, new JsoupImplForLuckD());
+      raffleElementsParser = new RaffleElementsParserForLuckD(targetUrl, new JsoupLuckD());
     } else {
-      raffleElementsParser = new RaffleElementsParserForShoepize(targetUrl, new JsoupImplForShoeprize());
+      raffleElementsParser = new RaffleElementsParserForShoepize(targetUrl, new JsoupShoeprize());
     }
     return raffleElementsParser;
   }

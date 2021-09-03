@@ -3,7 +3,7 @@ package com.sneakalarm.feedtext.controller;
 import com.sneakalarm.product.dto.ProductVO;
 import com.sneakalarm.product.service.ProductService;
 import com.sneakalarm.raffle.domain.DateTimeImpl;
-import com.sneakalarm.raffle.domain.InstaFeed;
+import com.sneakalarm.feedtext.domain.InstaFeed;
 import com.sneakalarm.raffle.dto.RaffleVO;
 import com.sneakalarm.raffle.service.RaffleService;
 import java.util.List;

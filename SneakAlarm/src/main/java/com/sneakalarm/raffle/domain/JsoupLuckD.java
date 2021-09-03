@@ -4,7 +4,7 @@ import java.io.IOException;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
-public class JsoupImplForLuckD implements Jsoup {
+public class JsoupLuckD implements Jsoup {
 
   @Override
   public Document getDocument(String url) throws IOException {

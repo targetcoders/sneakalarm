@@ -2,18 +2,13 @@ package com.sneakalarm.rafflesetting.controller;
 
 import com.google.gson.Gson;
 import com.sneakalarm.raffle.dao.RaffleMapper;
-import com.sneakalarm.raffle.domain.DateTimeImpl;
-import com.sneakalarm.raffle.domain.InstaFeed;
 import com.sneakalarm.raffle.dto.RaffleVO;
 import com.sneakalarm.rafflesetting.domain.RaffleSetting;
 import com.sneakalarm.rafflesetting.service.RaffleSettingService;
-import java.text.ParseException;
 import java.util.List;
-import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

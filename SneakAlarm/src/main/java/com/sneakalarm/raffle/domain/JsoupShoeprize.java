@@ -3,7 +3,7 @@ package com.sneakalarm.raffle.domain;
 import java.io.IOException;
 import org.jsoup.nodes.Document;
 
-public class JsoupImplForShoeprize implements Jsoup {
+public class JsoupShoeprize implements Jsoup {
 
   @Override
   public Document getDocument(String url) throws IOException {
