@@ -15,7 +15,9 @@ import com.sneakalarm.raffle.dto.RaffleVO;
 public interface RaffleMapper {
   void raffleInsert(RaffleVO raffleVO);
 
-  ArrayList<RaffleVO> getRaffleList(String productId);
+  ArrayList<RaffleVO> getCheckedRaffleList(String productId);
+
+  List<RaffleVO> getCheckedRaffleList(String[] myRaffles);
 
   ArrayList<RaffleVO> getRaffleListAll();
 

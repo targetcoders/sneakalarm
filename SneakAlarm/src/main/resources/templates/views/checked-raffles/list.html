@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" layout:decorator="layout/default">
+
+<th:block layout:fragment="css">
+  <link rel="stylesheet" th:href="@{/css/today.css}" type="text/css">
+</th:block>
+
+<th:block layout:fragment="script">
+  <script type="text/javascript" src="/js/today.js" charset="utf-8"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lozad/dist/lozad.min.js"></script>
+  <script>
+  $(window).on('load', function () {
+    let doneRaffleIdList = searchCookies("myRaffles");
+    for(i in doneRaffleIdList) {
+      $('#check-'+doneRaffleIdList[i]).attr('src','/image/icon/check_on.svg');
+      $('#drawCard-'+doneRaffleIdList[i]).children('div').css('opacity','0.5');
+    }
+    $('.search-icon-area').hide();
+    $('.check').on('click',function(){
+      onClickCheckMyRaffles($(this).attr('data-raffle-id'));
+    });
+    setCardsMaxHeight();
+    const observer = lozad();
+    observer.observe();
+   });
+  </script>
+</th:block>
+
+<div layout:fragment="content">
+  <div class="container-fluid d-flex flex-column justify-content-center align-items-center main-container" style="margin-top:80px">
+    <th:block th:if="${checkedDrawNumbers &gt; 0}">
+      <hr class="today-draws-hr product-unregistered">
+      <h2 style="text-align: center; font-weight:bold;">체크된 응모: <span th:text="${checkedDrawNumbers}"></span></h2>
+
+      <div id="activeDraws-korea">
+        <div th:each="drawGroup,index : ${checkedDrawGroupList}" th:id="|endedDraw-${drawGroup.productVO.id}|"
+             class="todayDrawContainer">
+          <a th:href="|/product-detail?id=${drawGroup.productVO.id}|">
+            <img th:id="|todayProductImg-${drawGroup.productVO.id}|" class="todayProductImg lozad"
+                 th:data-src="${drawGroup.productVO.imgSrc_home}" src="image/loading.gif"
+                 th:alt="${drawGroup.productVO.model_kr}" />
+          </a>
+          <div class="todayDraw-model_kr" th:text="${drawGroup.productVO.model_kr}"></div>
+          <div
+              th:class="|todayDrawContentKorea-${drawGroup.productVO.id} todayDrawContentBox d-flex flex-wrap justify-content-center|">
+            <div th:each="raffle : ${drawGroup.targetRaffleVOList}">
+              <div th:if="${raffle.raffleType} == '응모'">
+                <div class="todayDrawContent">
+                  <a th:id="|drawCard-${raffle.id}|" th:href="${raffle.url}" style="text-decoration: none;">
+                    <th:block th:include="fragments/active-raffle-content"></th:block>
+                  </a>
+                </div>
+              </div>
+              <div th:unless="${raffle.raffleType} == '응모'">
+                <div class="todayDrawContent">
+                  <a th:id="|drawCard-${raffle.id}|" th:href="${raffle.url}" style="text-decoration: none;">
+                    <th:block th:include="fragments/active-firstcome-content"></th:block>
+                  </a>
+                </div>
+              </div>
+              <div class="check" th:data-raffle-id="${raffle.id}">
+                <img th:id="|check-${raffle.id}|" class="check__img" src="/image/icon/check_off.svg">
+              </div>
+            </div>
+          </div>
+          <div th:if="${index.first}" style="display:inline-block; width:100%;">
+            <!-- now페이지 광고1 -->
+            <ins class="adsbygoogle ad-box" style="display:block" data-ad-client="ca-pub-2682527241610745" data-ad-slot="9219850758"
+                 data-ad-format="auto" data-full-width-responsive="true"></ins>
+          </div>
+        </div>
+      </div>
+    </th:block>
+  </div>
+</div>
+</html>
