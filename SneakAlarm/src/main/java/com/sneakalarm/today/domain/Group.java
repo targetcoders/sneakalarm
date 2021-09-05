@@ -9,10 +9,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import org.springframework.security.core.parameters.P;
 
 public interface Group {
 
-  final class Fake implements Group{
+  final class Fake implements Group {
     public final static String STATUS_ACTIVE = "active";
     public final static String STATUS_READY = "ready";
 
@@ -20,7 +21,7 @@ public interface Group {
     private List<RaffleVO> targetRaffleVOList;
     private Date firstEndDateTime;
 
-    public Fake(String productId, String[] deliveryTypes, String status)
+    public Fake(String productId, String[] deliveryTypes, String status, ProductMapper productMapper, RaffleMapper raffleMapper)
         throws ParseException {
       ProductVO productVO = new ProductVO();
       productVO.setId(productId);
@@ -32,11 +33,15 @@ public interface Group {
       raffleVO1.setProductId("100");
       raffleVO1.setDelivery("방문수령");
       raffleVO1.setStatus(STATUS_ACTIVE);
+      raffleVO1.setEndDate("2021-09-01");
+      raffleVO1.setEndTime("10:30");
       RaffleVO raffleVO2 = new RaffleVO();
       raffleVO2.setProductId("200");
       raffleVO2.setId("2");
       raffleVO2.setDelivery("택배배송");
       raffleVO2.setStatus(STATUS_ACTIVE);
+      raffleVO2.setEndDate("2021-09-01");
+      raffleVO2.setEndTime("09:30");
       raffleVOArrayList.add(raffleVO1);
       raffleVOArrayList.add(raffleVO2);
 
@@ -51,7 +56,16 @@ public interface Group {
       }
 
       SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
-      this.firstEndDateTime = sdf.parse("2021/09/01 09:00");
+      this.firstEndDateTime = sdf.parse("2021/09/01 09:30");
+    }
+
+    public Fake(RaffleVO raffleVO, ProductMapper productMapper) throws ParseException {
+      ProductVO productVO = new ProductVO();
+      productVO.setId(raffleVO.getProductId());
+      this.productVO = productVO;
+      this.targetRaffleVOList = new ArrayList<>();
+      SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
+      this.firstEndDateTime = sdf.parse("2021/09/01 09:30");
     }
 
     public ProductVO getProductVO(){
@@ -63,5 +77,10 @@ public interface Group {
     public Date getFirstEndDateTime() {
       return this.firstEndDateTime;
     }
+    public void addRaffle(RaffleVO raffleVO) {
+      this.targetRaffleVOList.add(raffleVO);
+    }
   }
+
+  public void addRaffle(RaffleVO raffleVO);
 }

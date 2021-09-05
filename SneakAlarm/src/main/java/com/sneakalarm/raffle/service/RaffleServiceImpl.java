@@ -75,6 +75,11 @@ public class RaffleServiceImpl implements RaffleService {
   }
 
   @Override
+  public List<RaffleVO> getCheckedRaffleList(String[] splitMyRaffles) {
+    return raffleMapper.getCheckedRaffleList(splitMyRaffles);
+  }
+
+  @Override
   public void updateRaffle(RaffleInsertVO raffleInsertVO) {
     ArrayList<RaffleVO> list = raffleMapper.getRaffle(raffleInsertVO.getId());
     RaffleVO raffleVO = list.get(0);

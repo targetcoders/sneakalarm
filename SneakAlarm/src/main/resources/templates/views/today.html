@@ -28,7 +28,7 @@
       setScrollMoving(new ScrollController());
     });
     $(window).on('load', function () {
-      let doneRaffleIdList = myRaffleCookies();
+      let doneRaffleIdList = searchCookies("myRaffles");
       for(i in doneRaffleIdList) {
         $('#check-'+doneRaffleIdList[i]).attr('src','/image/icon/check_on.svg');
         $('#drawCard-'+doneRaffleIdList[i]).children('div').css('opacity','0.5');

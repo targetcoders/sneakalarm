@@ -44,8 +44,16 @@ function setScrollMoving(scrollController){
     scrollController.scrollTo('#readyDraws-korea');
   });
 }
+function addSearchConditionsCookie() {
+  let searchDrawConditionList = searchCookies("searchDrawConditions");
+  if(searchDrawConditionList.includes('ended')){
+    return;
+  }
+  searchDrawConditionList.push('ended');
+  setCookie('searchDrawConditions', searchDrawConditionList.join('/'), 30);
+}
 function addCookie(raffleId) {
-  let myRaffleList = myRaffleCookies();
+  let myRaffleList = searchCookies("myRaffles");
   myRaffleList.push(raffleId);
   setCookie('myRaffles', myRaffleList.join('/'), 30);
 }
@@ -55,11 +63,11 @@ function setCookie(cookie_name, value, days) {
   var cookie_value = escape(value) + ((days == null) ? '' : '; expires=' + exdate.toUTCString());
   document.cookie = cookie_name + '=' + cookie_value;
 }
-function myRaffleCookies() {
+function searchCookies(keyword) {
   let cookieList = document.cookie.split(';');
   for (i in cookieList) {
       let splitCookie = cookieList[i].split('=');
-      if (splitCookie[0].trim() == 'myRaffles') {
+      if (splitCookie[0].trim() == keyword) {
         return splitCookie[1].split('/');
       }
   }
@@ -67,7 +75,7 @@ function myRaffleCookies() {
 }
 function onClickCheckMyRaffles(raffleId) {
   let id = raffleId;
-  let myRaffleList = myRaffleCookies();
+  let myRaffleList = searchCookies("myRaffles");
   if (myRaffleList.includes(id)) {
     let idx = myRaffleList.indexOf(id);
     myRaffleList.splice(idx, 1);
@@ -97,4 +105,3 @@ function setCardsMaxHeight() {
     $('#' + todayDrawContainerList[i].id + ' .todayDrawContent').css('height', heightArr[heightArr.length - 1]);
   }
 }
-

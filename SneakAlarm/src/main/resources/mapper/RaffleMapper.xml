@@ -16,6 +16,17 @@
 		WHERE productId = #{productID}
 	</select>
 
+	<select id="getCheckedRaffleList" parameterType="java.util.ArrayList"
+		resultType="com.sneakalarm.raffle.dto.RaffleVO">
+		SELECT *
+		FROM raffle
+		WHERE id IN (
+			<foreach collection="array" item="item" index="index" separator=",">
+				#{item}
+			</foreach>
+		)
+	</select>
+
 	<select id="getRaffleListByStatus" parameterType="com.sneakalarm.raffle.dto.RaffleListByStatusVO"
 		resultType="com.sneakalarm.raffle.dto.RaffleVO">
 		SELECT *

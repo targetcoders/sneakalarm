@@ -5,23 +5,17 @@ import com.sneakalarm.product.dao.ProductMapper;
 import com.sneakalarm.product.dto.ProductVO;
 import com.sneakalarm.product.service.ProductService;
 import com.sneakalarm.raffle.dao.RaffleMapper;
-import com.sneakalarm.raffle.dto.RaffleListByDeliveryTypeVO;
-import com.sneakalarm.raffle.dto.RaffleVO;
 import com.sneakalarm.today.domain.DrawGroup;
-import com.sneakalarm.today.dto.TodayDrawResponseVO;
 import com.sneakalarm.today.dto.TodayProductResponseVO;
 import com.sneakalarm.raffle.service.RaffleService;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.thymeleaf.expression.Lists;
 
 @RestController
 public class TodayRestController {

@@ -15,6 +15,8 @@ public interface RaffleService {
 
   ArrayList<RaffleVO> getRaffleList(String raffleId);
 
+  List<RaffleVO> getCheckedRaffleList(String[] splitMyRaffles);
+
   ArrayList<RaffleCardVO> getRaffleCardList(String productId);
 
   ArrayList<RaffleVO> getRaffleListAll();
@@ -34,4 +36,5 @@ public interface RaffleService {
   ArrayList<RaffleVO> getRaffleListByDeliveryType(RaffleListByDeliveryTypeVO raffleListByDeliveryTypeVO);
 
   List<RaffleVO> activeRaffles(ActiveRafflesVO activeRafflesVO);
+
 }

@@ -14,10 +14,9 @@ import java.util.Date;
 import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.security.core.parameters.P;
 
 @Setter @Getter
-public class DrawGroup implements Comparable<DrawGroup>, Group{
+public class DrawGroup implements Comparable<DrawGroup>, Group {
   public final static String STATUS_ACTIVE = "active";
   public final static String STATUS_READY = "ready";
 
@@ -32,6 +31,14 @@ public class DrawGroup implements Comparable<DrawGroup>, Group{
         status.equals(STATUS_ACTIVE) ? activeRaffleList(deliveryTypes, raffleMapper)
             : readyRaffleList(deliveryTypes, raffleMapper);
     Collections.sort(this.targetRaffleVOList);
+    this.firstEndDateTime = firstEndDateTime(targetRaffleVOList);
+  }
+
+  public DrawGroup(RaffleVO raffleVO, ProductMapper productMapper) throws Exception {
+    this.productVO = productMapper.getProductList(raffleVO.getProductId()).get(0);
+    this.targetRaffleVOList = new ArrayList<>();
+    convertToTodayFormat(raffleVO);
+    this.targetRaffleVOList.add(raffleVO);
     this.firstEndDateTime = firstEndDateTime(targetRaffleVOList);
   }
 
@@ -90,6 +97,11 @@ public class DrawGroup implements Comparable<DrawGroup>, Group{
   @Override
   public int compareTo(DrawGroup o) {
     return this.getFirstEndDateTime().compareTo(o.getFirstEndDateTime());
+  }
+
+  @Override
+  public void addRaffle(RaffleVO raffleVO) {
+    this.targetRaffleVOList.add(raffleVO);
   }
 
 }
