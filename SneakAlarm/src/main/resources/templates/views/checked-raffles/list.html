@@ -5,6 +5,7 @@
 
 <th:block layout:fragment="css">
   <link rel="stylesheet" th:href="@{/css/today.css}" type="text/css">
+  <link rel="stylesheet" th:href="@{/css/checked.css}" type="text/css">
 </th:block>
 
 <th:block layout:fragment="script">
@@ -22,6 +23,24 @@
       onClickCheckMyRaffles($(this).attr('data-raffle-id'));
     });
     setCardsMaxHeight();
+
+    setSearchConditionsCookie();
+    let drawCondition = searchCookies('searchDrawConditions');
+    $('.button-'+drawCondition).attr('class', 'category-button--clicked');
+    
+    $('.button-ended').on('click',function(){
+      addDrawCondition('ended');
+      location.reload();
+    });
+    $('.button-going').on('click',function(){
+      addDrawCondition('going');
+      location.reload();
+    });
+    $('.button-ready').on('click',function(){
+      addDrawCondition('ready');
+      location.reload();
+    });
+
     const observer = lozad();
     observer.observe();
    });
@@ -30,9 +49,23 @@
 
 <div layout:fragment="content">
   <div class="container-fluid d-flex flex-column justify-content-center align-items-center main-container" style="margin-top:80px">
+    <div class="checked-title-area">
+      체크된 응모
+    </div>
+    <div class="category-button-area">
+      <div class="category-button--basic button-ended">
+        <div class="button-ended">지난 응모:&nbsp;<span class="category-button__number" th:text="${checkedDrawNumbers}"></span></div>
+      </div>
+      <div class="category-button--basic button-going">
+        <div class="button-going">진행중:&nbsp;<span class="category-button__number" th:text="${checkedDrawNumbers}"></span></div>
+      </div>
+      <div class="category-button--basic button-ready">
+        <div class="button-ready">예정 응모:&nbsp;<span class="category-button__number" th:text="${checkedDrawNumbers}"></span></div>
+      </div>
+    </div>
     <th:block th:if="${checkedDrawNumbers &gt; 0}">
       <hr class="today-draws-hr product-unregistered">
-      <h2 style="text-align: center; font-weight:bold;">체크된 응모: <span th:text="${checkedDrawNumbers}"></span></h2>
+      <h2 style="text-align: center; font-weight:bold;">응모: <span th:text="${checkedDrawNumbers}"></span></h2>
 
       <div id="activeDraws-korea">
         <div th:each="drawGroup,index : ${checkedDrawGroupList}" th:id="|endedDraw-${drawGroup.productVO.id}|"
