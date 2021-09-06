@@ -136,7 +136,7 @@ a:active {
 }
 
 .todayDrawContent {
-  width: 175px;
+  width: 168px;
   padding: 10px;
   font-size:14px;
   text-align:left;
@@ -154,7 +154,7 @@ a:active {
     font-weight: bolder;
 }
 .todayReadyDrawContent {
-  width: 175px;
+  width: 168px;
   padding: 10px;
   font-size:14px;
   text-align:left;
@@ -248,7 +248,7 @@ a:active {
 }
 .check {
   cursor: pointer;
-  width:175px;
+  width:168px;
   opacity:0.90;
   margin: 0px 5px 5px 5px;
   border-top: 0px solid #E4E4E4;
