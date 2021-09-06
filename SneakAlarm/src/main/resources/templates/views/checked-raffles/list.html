@@ -32,8 +32,8 @@
       addDrawCondition('ended');
       location.reload();
     });
-    $('.button-going').on('click',function(){
-      addDrawCondition('going');
+    $('.button-active').on('click',function(){
+      addDrawCondition('active');
       location.reload();
     });
     $('.button-ready').on('click',function(){
@@ -54,30 +54,29 @@
     </div>
     <div class="category-button-area">
       <div class="category-button--basic button-ended">
-        <div class="button-ended">지난 응모:&nbsp;<span class="category-button__number" th:text="${checkedDrawNumbers}"></span></div>
+        <div class="button-ended">지난 응모<span th:if="${status.toString().equals('ended')}" class="category-button__number" th:text="|: ${checkedDrawNumbers}|"></span></div>
       </div>
-      <div class="category-button--basic button-going">
-        <div class="button-going">진행중:&nbsp;<span class="category-button__number" th:text="${checkedDrawNumbers}"></span></div>
+      <div class="category-button--basic button-active">
+        <div class="button-active">진행중<span th:if="${status.toString().equals('active')}" class="category-button__number" th:text="|: ${checkedDrawNumbers}|"></span></div>
       </div>
       <div class="category-button--basic button-ready">
-        <div class="button-ready">예정 응모:&nbsp;<span class="category-button__number" th:text="${checkedDrawNumbers}"></span></div>
+        <div class="button-ready">예정 응모<span th:if="${status.toString().equals('ready')}" class="category-button__number" th:text="|: ${checkedDrawNumbers}|"></span></div>
       </div>
     </div>
     <th:block th:if="${checkedDrawNumbers &gt; 0}">
-      <hr class="today-draws-hr product-unregistered">
-      <h2 style="text-align: center; font-weight:bold;">응모: <span th:text="${checkedDrawNumbers}"></span></h2>
-
       <div id="activeDraws-korea">
         <div th:each="drawGroup,index : ${checkedDrawGroupList}" th:id="|endedDraw-${drawGroup.productVO.id}|"
              class="todayDrawContainer">
-          <a th:href="|/product-detail?id=${drawGroup.productVO.id}|">
-            <img th:id="|todayProductImg-${drawGroup.productVO.id}|" class="todayProductImg lozad"
-                 th:data-src="${drawGroup.productVO.imgSrc_home}" src="image/loading.gif"
-                 th:alt="${drawGroup.productVO.model_kr}" />
-          </a>
-          <div class="todayDraw-model_kr" th:text="${drawGroup.productVO.model_kr}"></div>
+          <div style="display:flex; align-items:center; justify-content:begin; width:375px; padding-left:5px; padding-right:5px;">
+            <a th:href="|/product-detail?id=${drawGroup.productVO.id}|">
+              <img th:id="|todayProductImg-${drawGroup.productVO.id}|" class="todayProductImg lozad"
+                   th:data-src="${drawGroup.productVO.imgSrc_home}" src="image/loading.gif"
+                   th:alt="${drawGroup.productVO.model_kr}" style="width:44px;height:44px;"/>
+            </a>
+            <div class="todayDraw-model_kr" th:text="${drawGroup.productVO.model_kr}" style="margin-left: 8px; font-size:14px;"></div>
+          </div>
           <div
-              th:class="|todayDrawContentKorea-${drawGroup.productVO.id} todayDrawContentBox d-flex flex-wrap justify-content-center|">
+              th:class="|todayDrawContentKorea-${drawGroup.productVO.id} todayDrawContentBox d-flex flex-wrap justify-content-center|" style="margin-bottom: 20px;">
             <div th:each="raffle : ${drawGroup.targetRaffleVOList}">
               <div th:if="${raffle.raffleType} == '응모'">
                 <div class="todayDrawContent">
