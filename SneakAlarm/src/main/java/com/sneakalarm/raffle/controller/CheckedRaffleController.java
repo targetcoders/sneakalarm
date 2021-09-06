@@ -27,30 +27,30 @@ public class CheckedRaffleController {
   @Autowired
   ProductMapper productMapper;
 
-  private int raffleListSize;
-
   @GetMapping("/checked")
   public String checkedRaffleList(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Model model)
       throws Exception {
     Cookie[] cookies = httpServletRequest.getCookies();
     String myRaffles = searchCookie(cookies,"myRaffles").getValue();
     String conditions = searchCookie(cookies,"searchDrawConditions").getValue();
-    if(myRaffles.equals("fail")){
+    if(myRaffles.equals("fail")) {
       httpServletResponse.addCookie(new Cookie("myRaffles",""));
-      conditions = "";
     }
     if(conditions.equals("fail")) {
       httpServletResponse.addCookie(new Cookie("searchDrawConditions","ended"));
       conditions = "ended";
     }
+    System.out.println(conditions);
     String[] splitMyRaffles = myRaffles.split("/");
     List<RaffleVO> checkedRaffleVOList = raffleService.getCheckedRaffleList(splitMyRaffles);
     List<DrawGroup> drawGroupList = checkedDrawGroups(conditions, checkedRaffleVOList);
     model.addAttribute("checkedDrawGroupList", drawGroupList);
+    int raffleListSize = 0;
     for(DrawGroup drawGroup : drawGroupList) {
       raffleListSize += drawGroup.getTargetRaffleVOList().size();
     }
     model.addAttribute("checkedDrawNumbers", raffleListSize);
+    model.addAttribute("status", conditions);
     return "views/checked-raffles/list";
   }
 
