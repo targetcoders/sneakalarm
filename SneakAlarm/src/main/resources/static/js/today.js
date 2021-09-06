@@ -44,13 +44,16 @@ function setScrollMoving(scrollController){
     scrollController.scrollTo('#readyDraws-korea');
   });
 }
-function addSearchConditionsCookie() {
+function setSearchConditionsCookie() {
   let searchDrawConditionList = searchCookies("searchDrawConditions");
-  if(searchDrawConditionList.includes('ended')){
+  if(searchDrawConditionList.length > 0 ){
     return;
   }
   searchDrawConditionList.push('ended');
   setCookie('searchDrawConditions', searchDrawConditionList.join('/'), 30);
+}
+function addDrawCondition(status){
+  setCookie('searchDrawConditions', status, 30);
 }
 function addCookie(raffleId) {
   let myRaffleList = searchCookies("myRaffles");
