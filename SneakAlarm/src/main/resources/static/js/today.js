@@ -106,5 +106,6 @@ function setCardsMaxHeight() {
       return Number(h1.substring(0,h1.length-2)) - Number(h2.substring(0,h2.length-2));
     });
     $('#' + todayDrawContainerList[i].id + ' .todayDrawContent').css('height', heightArr[heightArr.length - 1]);
+    $('#' + todayDrawContainerList[i].id + ' .todayReadyDrawContent').css('height', heightArr[heightArr.length - 1]);
   }
 }

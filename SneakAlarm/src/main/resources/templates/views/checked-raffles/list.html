@@ -49,10 +49,10 @@
 </th:block>
 
 <div layout:fragment="content">
-  <div class="container-fluid d-flex flex-column justify-content-center align-items-center main-container" style="margin-top:80px">
-    <div class="checked-title-area">
+  <div class="container-fluid d-flex flex-column justify-content-center align-items-center main-container" style="margin-top:86px">
+    <h2 class="checked-title-area">
       체크된 응모
-    </div>
+    </h2>
     <div class="category-button-area">
       <div class="category-button--basic button-ended">
         <div class="button-ended">지난 응모<span th:if="${status.toString().equals('ended')}" class="category-button__number" th:text="|: ${checkedDrawNumbers}|"></span></div>
@@ -66,32 +66,31 @@
     </div>
     <th:block th:if="${checkedDrawNumbers &gt; 0}">
       <div>
-        <div th:each="drawGroup,index : ${checkedDrawGroupList}" th:id="|endedDraw-${drawGroup.productVO.id}|"
-             class="todayDrawContainer">
-          <div style="display:flex; align-items:center; justify-content:begin; width:375px; padding-left:16px; padding-right:5px;">
+        <div th:id="|endedDraw-${drawGroup.productVO.id}|" class="todayDrawContainer" th:each="drawGroup,index : ${checkedDrawGroupList}">
+          <div class="checked-product-area">
             <a th:href="|/product-detail?id=${drawGroup.productVO.id}|">
-              <img th:id="|todayProductImg-${drawGroup.productVO.id}|" class="todayProductImg lozad"
+              <img th:id="|todayProductImg-${drawGroup.productVO.id}|" class="checked-product__image lozad"
                    th:data-src="${drawGroup.productVO.imgSrc_home}" src="image/loading.gif"
-                   th:alt="${drawGroup.productVO.model_kr}" style="width:44px;height:44px;"/>
+                   th:alt="${drawGroup.productVO.model_kr}"/>
             </a>
-            <div class="todayDraw-model_kr" th:text="${drawGroup.productVO.model_kr}" style="margin-left: 8px; font-size:14px;"></div>
+            <div class="checked-product__model_kr" th:text="${drawGroup.productVO.model_kr}"></div>
           </div>
-          <div class="d-flex flex-wrap justify-content-center" style="margin-bottom: 20px;">
+          <div class="checked-draws-area">
             <div th:each="raffle : ${drawGroup.targetRaffleVOList}">
-              <div th:if="${raffle.raffleType} == '응모'">
+              <th:block th:if="${raffle.raffleType} == '응모'">
                 <div class="todayDrawContent">
                   <a th:id="|drawCard-${raffle.id}|" th:href="${raffle.url}" style="text-decoration: none;">
                     <th:block th:include="fragments/active-raffle-content"></th:block>
                   </a>
                 </div>
-              </div>
-              <div th:unless="${raffle.raffleType} == '응모'">
+              </th:block>
+              <th:block th:unless="${raffle.raffleType} == '응모'">
                 <div class="todayDrawContent">
                   <a th:id="|drawCard-${raffle.id}|" th:href="${raffle.url}" style="text-decoration: none;">
                     <th:block th:include="fragments/active-firstcome-content"></th:block>
                   </a>
                 </div>
-              </div>
+              </th:block>
               <div class="check" th:data-raffle-id="${raffle.id}">
                 <img th:id="|check-${raffle.id}|" class="check__img" src="/image/icon/check_off.svg">
               </div>
