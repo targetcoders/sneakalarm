@@ -144,8 +144,10 @@ a:active {
   opacity:0.90;
   border: 1px solid #E4E4E4;
   border-radius:8px 8px 0 0/8px;
-  margin: 5px;
-  margin-bottom:0px;
+  margin-top: 10px;
+  margin-left: 5px;
+  margin-right: 5px;
+  margin-bottom: 0px;
   transition: all 0.4s;
 }
 .todayDrawContent:hover{
@@ -163,8 +165,10 @@ a:active {
   opacity:0.9;
   border: 1px solid #E4E4E4;
   border-radius:8px 8px 0 0/8px;
-  margin: 5px;
-  margin-bottom:0px;
+  margin-top: 10px;
+  margin-left: 5px;
+  margin-right: 5px;
+  margin-bottom: 0px;
   transition: all 0.4s;
 }
 .todayReadyDrawContent:hover{
