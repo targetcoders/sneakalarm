@@ -272,7 +272,9 @@ a:active {
   width:40px;
   height:40px;
 }
-
+.raffle-ad-area {
+  width:375px;
+}
 @media (min-width : 1125px){
 .todayDraw-model_kr {
   font-weight: bold;
