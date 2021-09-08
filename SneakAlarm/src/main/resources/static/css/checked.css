@@ -65,11 +65,12 @@
 }
 .checked-draws-group {
     width: 375px;
-    height: 400px;
+    min-height: 400px;
 }
 .help-content {
     font-size:12px;
     color: #676A6D;
+    margin-bottom:0px;
 }
 .reset-button-area {
     display: flex;
