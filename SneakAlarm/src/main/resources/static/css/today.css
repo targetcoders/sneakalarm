@@ -37,7 +37,7 @@ a:active {
   position:fixed;
   width:36px;
   height:36px;
-  bottom:70px;
+  bottom:100px;
   right:25px;
   cursor:pointer;
   z-index:1028;
@@ -46,7 +46,7 @@ a:active {
   position: absolute;
   width:36px;
   height:36px;
-  bottom:70px;
+  bottom:100px;
   right:25px;
   cursor:pointer;
   z-index:1029;
@@ -57,10 +57,10 @@ a:active {
   align-items:flex-end;
   flex-direction:column;
   position:absolute;
-  bottom:140px;
+  bottom:170px;
   right:25px;
   width:100px;
-  height:180px;
+  height:210px;
   text-align:center;
   background:rgba(0,0,0,0);
 }
