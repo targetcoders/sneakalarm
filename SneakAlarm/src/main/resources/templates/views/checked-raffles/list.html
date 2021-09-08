@@ -95,12 +95,12 @@
 </th:block>
 
 <div layout:fragment="content">
-  <div class="container-fluid d-flex flex-column justify-content-center align-items-center main-container" style="margin-top:86px">
+  <div class="container-fluid d-flex flex-column justify-content-center align-items-center main-container" style="margin-top:86px;">
     <h2 class="checked-title-area">
       체크된 응모
     </h2>
     <section class="reset-button-area"><span id="reset-button--check-all" class="reset-button--basic">모두 체크</span><span id="reset-button--reset" class="reset-button--basic">모두 해제</span></section>
-    <p class="help-content">※ 체크 해제 후 화면이동/새로고침 시 삭제됩니다.</p>
+    <p class="help-content">※ 체크 해제 후 화면이동/새로고침 시 이 페이지에서 삭제됩니다.</p>
     <div class="category-button-area">
       <div class="category-button--basic button-ended">
         <div class="button-ended">지난 응모<span th:if="${status.toString().equals('ended')}" class="category-button__number" th:text="|: ${checkedDrawNumbers}|"></span></div>
@@ -146,6 +146,9 @@
           </div>
         </div>
       </article>
+    </th:block>
+    <th:block th:unless="${checkedDrawNumbers &gt; 0}">
+      <article class="checked-draws-group"></article>
     </th:block>
   </div>
   <section class="checked-ad-area">
