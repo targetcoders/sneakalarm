@@ -25,10 +25,11 @@
   color: #000000;
 }
 .navbar-top__menu {
-  color:#585858;
+  color:#D3D5D9;
+  transition: all 0.4s;
 }
 .navbar-top__menu:hover {
-  color:#FE0100;
+  color:#F11900;
 }
 .navbar-bottom--mobile__menu {
   font-family: Roboto;
@@ -39,9 +40,10 @@
 /* identical to box height */
 /* SR_RED_01 */
   color: #D3D5D9;
+  transition: all 0.4s;
 }
 .navbar-bottom--mobile__menu:hover {
-  color: #FE0100;
+  color: #F11900;
 }
 .navbar-bottom--mobile__line {
   border-left: 1px solid #b8b8b8;
