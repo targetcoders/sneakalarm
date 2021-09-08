@@ -100,7 +100,6 @@
       체크된 응모
     </h2>
     <section class="reset-button-area"><span id="reset-button--check-all" class="reset-button--basic">모두 체크</span><span id="reset-button--reset" class="reset-button--basic">모두 해제</span></section>
-    <p class="help-content">※ 체크 해제 후 화면이동/새로고침 시 이 페이지에서 삭제됩니다.</p>
     <div class="category-button-area">
       <div class="category-button--basic button-ended">
         <div class="button-ended">지난 응모<span th:if="${status.toString().equals('ended')}" class="category-button__number" th:text="|: ${checkedDrawNumbers}|"></span></div>
@@ -112,6 +111,9 @@
         <div class="button-ready">예정 응모<span th:if="${status.toString().equals('ready')}" class="category-button__number" th:text="|: ${checkedDrawNumbers}|"></span></div>
       </div>
     </div>
+    <th:block th:if="${status.toString.equals('ended')}">
+      <section class="help-content">※ 체크 해제 후 화면이동/새로고침 시 이 페이지에서 삭제됩니다.</section>
+    </th:block>
     <th:block th:if="${checkedDrawNumbers &gt; 0}">
       <article class="checked-draws-group">
         <div th:id="|endedDraw-${drawGroup.productVO.id}|" class="todayDrawContainer" th:each="drawGroup,index : ${checkedDrawGroupList}">
