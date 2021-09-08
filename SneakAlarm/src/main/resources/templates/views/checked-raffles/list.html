@@ -17,7 +17,7 @@
   <script type="text/javascript" src="/js/today.js" charset="utf-8"></script>
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lozad/dist/lozad.min.js"></script>
   <script>
-  document.title = 'CHECKED ■ SNEAKALARM';
+  document.title = ;
   $(window).on('load', function () {
     let doneRaffleIdList = searchCookies("myRaffles");
     for(i in doneRaffleIdList) {
@@ -56,6 +56,12 @@
     });
   }
   </script>
+  <script sec:authorize="!hasRole('ADMIN')">
+    document.title = 'CHECKED ■ SNEAKALARM';
+  </script>
+  <script sec:authorize="hasRole('ADMIN')">
+    document.title = '_CHECKED ■ SNEAKALARM';
+  </script>
 </th:block>
 
 <div layout:fragment="content">
@@ -76,7 +82,7 @@
       </div>
     </div>
     <th:block th:if="${checkedDrawNumbers &gt; 0}">
-      <div>
+      <article class="checked-draws-group">
         <div th:id="|endedDraw-${drawGroup.productVO.id}|" class="todayDrawContainer" th:each="drawGroup,index : ${checkedDrawGroupList}">
           <div class="checked-product-area">
             <a th:href="|/product-detail?id=${drawGroup.productVO.id}|">
@@ -108,7 +114,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </article>
     </th:block>
   </div>
   <div style="display:inline-block; width:100%;">
