@@ -44,7 +44,7 @@ function setScrollMoving(scrollController){
     scrollController.scrollTo('#readyDraws-korea');
   });
 }
-function setSearchConditionsCookie() {
+function setCookieSearchConditions() {
   let searchDrawConditionList = searchCookies("searchDrawConditions");
   if(searchDrawConditionList.length > 0 ){
     return;

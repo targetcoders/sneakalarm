@@ -31,11 +31,14 @@
   color:#FE0100;
 }
 .navbar-bottom--mobile__menu {
-  font-size:18px;
+  font-family: Roboto;
   font-style: italic;
-  font-weight:bold;
-  cursor: pointer;
-  color: #585858;
+  font-weight: 900;
+  font-size: 18px;
+  line-height: 21px;
+/* identical to box height */
+/* SR_RED_01 */
+  color: #D3D5D9;
 }
 .navbar-bottom--mobile__menu:hover {
   color: #FE0100;
@@ -51,13 +54,17 @@
   flex-direction: column;
 }
 #navbar-bottom--mobile__container {
-  background-color:white;
-  height:50px;
-  width:250px;
-  opacity:0.90;
-  box-shadow: 0px 0px 10px 1.5px rgba(0,0,0,0.2);
-  border-radius:8px/8px;
   display:flex;
+  justify-content:space-between;
+  align-items: center;
+  width: 375px;
+  height: 84px;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0px -2px 4px rgba(159, 159, 159, 0.15);
+  backdrop-filter: blur(8px);
+  /* Note: backdrop-filter has minimal browser support */
+  border-radius: 30px 30px 0px 0px;
+  padding: 0px 48px;
 }
 @media ( min-width : 768px) {
   .navbar__search-icon {

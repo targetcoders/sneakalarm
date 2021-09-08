@@ -7,11 +7,11 @@
   <link rel="stylesheet" th:href="@{/css/today.css}" type="text/css">
   <style>
     #navbar-top__menu--today {
-      color: #000000;
+      color: #F11900;
     }
 
     #navbar-bottom--mobile__menu--today {
-      color: #000000;
+      color: #F11900;
     }
   </style>
 </th:block>
@@ -33,7 +33,7 @@
         $('#check-'+doneRaffleIdList[i]).attr('src','/image/icon/check_on.svg');
         $('#drawCard-'+doneRaffleIdList[i]).children('div').css('opacity','0.5');
       }
-      $('.search-icon-area').hide();
+      $('.search-icon-area').remove();
       $('.check').on('click',function(){
         onClickCheckMyRaffles($(this).attr('data-raffle-id'));
       });
