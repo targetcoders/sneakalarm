@@ -62,6 +62,9 @@
     width:100%;
     padding: 0px 11px;
 }
+.checked-draws-group {
+  width: 375px;
+}
 .help-content {
     font-size:12px;
     color: #676A6D;
