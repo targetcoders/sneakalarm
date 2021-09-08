@@ -100,8 +100,14 @@ public class DrawGroup implements Comparable<DrawGroup>, Group {
   }
 
   @Override
-  public void addRaffle(RaffleVO raffleVO) {
+  public void addRaffle(RaffleVO raffleVO) throws Exception {
+    convertToTodayFormat(raffleVO);
     this.targetRaffleVOList.add(raffleVO);
+  }
+
+  @Override
+  public void sortRaffleList() {
+    Collections.sort(this.targetRaffleVOList);
   }
 
 }

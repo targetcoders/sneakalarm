@@ -8,6 +8,7 @@ import com.sneakalarm.raffle.service.RaffleService;
 import com.sneakalarm.today.domain.DrawGroup;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -40,7 +41,7 @@ public class CheckedRaffleController {
       httpServletResponse.addCookie(new Cookie("searchDrawConditions","ended"));
       conditions = "ended";
     }
-    System.out.println(conditions);
+
     String[] splitMyRaffles = myRaffles.split("/");
     List<RaffleVO> checkedRaffleVOList = raffleService.getCheckedRaffleList(splitMyRaffles);
     List<DrawGroup> drawGroupList = checkedDrawGroups(conditions, checkedRaffleVOList);
@@ -70,6 +71,10 @@ public class CheckedRaffleController {
       }
       drawGroup.addRaffle(raffleVO);
     }
+    for(DrawGroup drawGroup : drawGroupList) {
+      drawGroup.sortRaffleList();
+    }
+    Collections.sort(drawGroupList);
     return drawGroupList;
   }
 
