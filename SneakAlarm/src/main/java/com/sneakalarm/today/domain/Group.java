@@ -7,6 +7,7 @@ import com.sneakalarm.raffle.dto.RaffleVO;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import org.springframework.security.core.parameters.P;
@@ -80,7 +81,13 @@ public interface Group {
     public void addRaffle(RaffleVO raffleVO) {
       this.targetRaffleVOList.add(raffleVO);
     }
+
+    @Override
+    public void sortRaffleList() {
+      Collections.sort(this.targetRaffleVOList);
+    }
   }
 
-  public void addRaffle(RaffleVO raffleVO);
+  void addRaffle(RaffleVO raffleVO) throws Exception;
+  void sortRaffleList();
 }
