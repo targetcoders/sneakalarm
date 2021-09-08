@@ -57,9 +57,10 @@
 }
 .checked-draws-area {
     display: flex;
-    justify-content: start;
-    margin-bottom: 20px;
+    justify-content: flex-start;
+    flex-wrap: wrap;
     width:375px;
+    margin-bottom: 20px;
     padding: 0px 11px;
 }
 .checked-draws-group {
