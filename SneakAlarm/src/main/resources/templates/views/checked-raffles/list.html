@@ -6,6 +6,11 @@
 <th:block layout:fragment="css">
   <link rel="stylesheet" th:href="@{/css/today.css}" type="text/css">
   <link rel="stylesheet" th:href="@{/css/checked.css}" type="text/css">
+  <style>
+    #navbar-bottom--mobile__menu--checked {
+      color: #F11900;
+    }
+  </style>
 </th:block>
 
 <th:block layout:fragment="script">
@@ -19,16 +24,24 @@
       $('#check-'+doneRaffleIdList[i]).attr('src','/image/icon/check_on.svg');
       $('#drawCard-'+doneRaffleIdList[i]).children('div').css('opacity','0.5');
     }
-    $('.search-icon-area').hide();
+    $('.search-icon-area').remove();
     $('.check').on('click',function(){
       onClickCheckMyRaffles($(this).attr('data-raffle-id'));
     });
     setCardsMaxHeight();
+    setCookieSearchConditions();
+    setCssClickedButton()
+    setOnclickCategoryButton();
 
-    setSearchConditionsCookie();
+    const observer = lozad();
+    observer.observe();
+   });
+
+  function setCssClickedButton() {
     let drawCondition = searchCookies('searchDrawConditions');
     $('.button-'+drawCondition).attr('class', 'category-button--clicked');
-    
+  }
+  function setOnclickCategoryButton() {
     $('.button-ended').on('click',function(){
       addDrawCondition('ended');
       location.reload();
@@ -41,10 +54,7 @@
       addDrawCondition('ready');
       location.reload();
     });
-
-    const observer = lozad();
-    observer.observe();
-   });
+  }
   </script>
 </th:block>
 

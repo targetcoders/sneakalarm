@@ -55,10 +55,15 @@ function getDocumentHeight() {
 
 function moveToNowPage() {
   location.replace("/");
-  $('.navbar-top__menu').css("#585858");
+  $('.navbar-top__menu').css("#D3D5D9");
 }
 
 function moveToLaunchPage() {
   location.replace("/launch");
-  $('.navbar-top__menu').css("#585858");
+  $('.navbar-top__menu').css("#D3D5D9");
+}
+
+function moveToCheckedPage() {
+  location.replace("/checked");
+  $('.navbar-top__menu').css("#D3D5D9");
 }

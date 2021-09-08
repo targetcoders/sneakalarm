@@ -9,10 +9,10 @@
   <link rel="stylesheet" th:href="@{/css/product-detail.css}" type="text/css">
 	<style>
 	  #navbar-top__menu--launch {
-	    color: #000000;
+	    color: #F11900;
 	  }
 	  #navbar-bottom--mobile__menu--launch {
-	    color: #000000;
+	    color: #F11900;
 	  }
 	</style>
 </th:block>
@@ -21,7 +21,7 @@
 <script type="text/javascript" th:src="@{js/util.js}" charset="utf-8"></script>
 <script>
 $('document').ready(function(){
-	$('.navbar__search-icon').hide();
+	$('.navbar__search-icon').remove();
 	document.title = $('#model_kr').text() + " ■ SNEAKALARM";
 
 	if(isEmptyValue($('#avgSalePriceRow-value').text())){
