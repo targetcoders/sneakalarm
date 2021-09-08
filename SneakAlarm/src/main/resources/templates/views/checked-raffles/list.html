@@ -19,7 +19,7 @@
   <script>
   $(window).on('load', function () {
     let doneRaffleIdList = searchCookies("myRaffles");
-    for(i in doneRaffleIdList) {
+    for(let i=0 ; i<doneRaffleIdList.length; i++) {
       $('#check-'+doneRaffleIdList[i]).attr('src','/image/icon/check_on.svg');
       $('#drawCard-'+doneRaffleIdList[i]).children('div').css('opacity','0.5');
     }
@@ -31,10 +31,41 @@
     setCookieSearchConditions();
     setCssClickedButton()
     setOnclickCategoryButton();
+    setOnclickResetButton();
 
     const observer = lozad();
     observer.observe();
    });
+  function setOnclickResetButton() {
+    let checkList = document.querySelectorAll('div.check');
+    console.log(checkList);
+    let raffleIdList = [];
+    for(let i=0 ; i<checkList.length; i++){
+      console.log(checkList[i]);
+      raffleIdList.push(checkList[i].dataset.raffleId);
+    }
+    console.log(raffleIdList);
+    $('#reset-button--reset').on('click', function(){
+      for(let i=0 ; i<raffleIdList.length; i++){
+        deleteMyRaffles(searchCookies("myRaffles"), raffleIdList[i]);
+        console.log(raffleIdList[i]);
+      }
+      for(let i=0 ; i<checkList.length; i++){
+        let checkImgElement = checkList[i].getElementsByTagName('img')[0];
+        checkImgElement.setAttribute('src','/image/icon/check_off.svg');
+      }
+    });
+    console.log(raffleIdList);
+    $('#reset-button--check-all').on('click', function(){
+      for(let i=0 ; i<raffleIdList.length; i++){
+        addMyRaffles(raffleIdList[i]);
+      }
+      for(let i=0 ; i<checkList.length; i++){
+        let checkImgElement = checkList[i].getElementsByTagName('img')[0];
+        checkImgElement.setAttribute('src','/image/icon/check_on.svg');
+      }
+    });
+  }
 
   function setCssClickedButton() {
     let drawCondition = searchCookies('searchDrawConditions');
@@ -68,6 +99,7 @@
     <h2 class="checked-title-area">
       체크된 응모
     </h2>
+    <section class="reset-button-area"><span id="reset-button--check-all" class="reset-button--basic">모두 체크</span><span id="reset-button--reset" class="reset-button--basic">모두 해제</span></section>
     <p class="help-content">※ 체크 해제 후 화면이동/새로고침 시 삭제됩니다.</p>
     <div class="category-button-area">
       <div class="category-button--basic button-ended">

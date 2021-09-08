@@ -81,16 +81,24 @@ function onClickCheckMyRaffles(raffleId) {
   let id = raffleId;
   let myRaffleList = searchCookies("myRaffles");
   if (myRaffleList.includes(id)) {
-    let idx = myRaffleList.indexOf(id);
-    myRaffleList.splice(idx, 1);
-    setCookie('myRaffles', myRaffleList.join('/'), 30);
-    $('#check-' + id).attr('src', '/image/icon/check_off.svg');
-    $('#drawCard-' + id).children('div').css('opacity', '1');
+    deleteMyRaffles(myRaffleList, id);
   } else {
-    addCookie(id);
-    $('#check-' + id).attr('src', '/image/icon/check_on.svg');
-    $('#drawCard-' + id).children('div').css('opacity', '0.5');
+    addMyRaffles(id);
   }
+}
+function deleteMyRaffles(myRaffleList, raffleId) {
+  let id = raffleId;
+  let idx = myRaffleList.indexOf(id);
+  myRaffleList.splice(idx, 1);
+  setCookie('myRaffles', myRaffleList.join('/'), 30);
+  $('#check-' + id).attr('src', '/image/icon/check_off.svg');
+  $('#drawCard-' + id).children('div').css('opacity', '1');
+}
+function addMyRaffles(raffleId) {
+  let id = raffleId;
+  addCookie(id);
+  $('#check-' + id).attr('src', '/image/icon/check_on.svg');
+  $('#drawCard-' + id).children('div').css('opacity', '0.5');
 }
 
 function setCardsMaxHeight() {
