@@ -44,6 +44,8 @@ public class CheckedRaffleController {
 
     String[] splitMyRaffles = myRaffles.split("/");
     if(splitMyRaffles.length == 0){
+      model.addAttribute("checkedDrawNumbers", 0);
+      model.addAttribute("status", conditions);
       return "views/checked-raffles/list";
     }
 
