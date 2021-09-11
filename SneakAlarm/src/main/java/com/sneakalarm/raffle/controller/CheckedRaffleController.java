@@ -43,6 +43,10 @@ public class CheckedRaffleController {
     }
 
     String[] splitMyRaffles = myRaffles.split("/");
+    if(splitMyRaffles.length == 0){
+      return "views/checked-raffles/list";
+    }
+
     List<RaffleVO> checkedRaffleVOList = raffleService.getCheckedRaffleList(splitMyRaffles);
     List<DrawGroup> drawGroupList = checkedDrawGroups(conditions, checkedRaffleVOList);
     model.addAttribute("checkedDrawGroupList", drawGroupList);
