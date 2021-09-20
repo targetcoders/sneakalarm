@@ -1,4 +1,4 @@
-package com.sneakalarm.feedtext.domain;
+package com.sneakalarm.instatext.domain;
 
 import com.sneakalarm.raffle.dto.RaffleVO;
 import org.junit.Assert;
