@@ -13,7 +13,7 @@ import java.util.List;
 public interface RaffleService {
   void raffleInsert(RaffleInsertVO raffleInsertVO);
 
-  ArrayList<RaffleVO> getRaffleList(String raffleId);
+  ArrayList<RaffleVO> getRaffleList(String raffleId) throws Exception;
 
   List<RaffleVO> getCheckedRaffleList(String[] splitMyRaffles);
 

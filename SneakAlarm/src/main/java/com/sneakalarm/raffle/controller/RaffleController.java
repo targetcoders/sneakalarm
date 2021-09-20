@@ -36,7 +36,7 @@ public class RaffleController {
   }
 
   @GetMapping("/raffle-modify")
-  public String modifyProduct(@Param("id") String id, Model model) {
+  public String modifyProduct(@Param("id") String id, Model model) throws Exception {
     ArrayList<RaffleVO> list = (ArrayList<RaffleVO>) raffleService.getRaffleList(id);
     RaffleVO raffleVO = list.get(0);
     model.addAttribute("raffleVO", raffleVO);
