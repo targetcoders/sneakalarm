@@ -1,8 +1,6 @@
 package com.sneakalarm.raffle.domain;
 
-import static org.hamcrest.Matchers.is;
-
-import com.sneakalarm.feedtext.domain.InstaFeed;
+import com.sneakalarm.instatext.domain.InstaFeed;
 import com.sneakalarm.raffle.dto.RaffleVO;
 import java.text.SimpleDateFormat;
 import org.junit.Assert;
