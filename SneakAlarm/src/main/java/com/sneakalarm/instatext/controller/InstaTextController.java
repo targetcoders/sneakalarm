@@ -1,9 +1,10 @@
-package com.sneakalarm.feedtext.controller;
+package com.sneakalarm.instatext.controller;
 
+import com.sneakalarm.instatext.domain.InstaStory;
 import com.sneakalarm.product.dto.ProductVO;
 import com.sneakalarm.product.service.ProductService;
 import com.sneakalarm.raffle.domain.DateTimeImpl;
-import com.sneakalarm.feedtext.domain.InstaFeed;
+import com.sneakalarm.instatext.domain.InstaFeed;
 import com.sneakalarm.raffle.dto.RaffleVO;
 import com.sneakalarm.raffle.service.RaffleService;
 import java.util.List;
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 @Controller
-public class FeedTextController {
+public class InstaTextController {
 
   @Autowired
   RaffleService raffleService;
@@ -31,9 +32,11 @@ public class FeedTextController {
       raffleVO.setModel_kr(productVOList.get(0).getModel_kr());
     }
     InstaFeed instaFeed = new InstaFeed(raffleVOList.get(0), new DateTimeImpl());
+    InstaStory instaStory = new InstaStory(raffleVO);
 
     model.addAttribute("feedText",instaFeed.feedText());
     model.addAttribute("raffleVO",raffleVOList.get(0));
+    model.addAttribute("storyText",instaStory.makeText());
     return "views/feed-text/feed-text";
   }
 
