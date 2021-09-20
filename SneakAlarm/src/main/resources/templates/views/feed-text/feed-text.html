@@ -15,11 +15,16 @@
 
 <div layout:fragment="content">
   <div class="container-fluid d-flex flex-column justify-content-center align-items-center main-container" style="margin-top:80px">
-    <h1>Feed Text 자동 생성</h1>
+    <h1>Insta Text 자동 생성</h1>
     <h2 th:text="${raffleVO.model_kr}"></h2>
     <h2 th:text="${raffleVO.storeName}"></h2>
     <a class="btn btn-danger" th:href="@{/product-detail(id=${raffleVO.productId})}" style="width:350px; margin-bottom:50px">GO TO PRODUCT-DETAILS</a>
-    <textarea th:text="${feedText}" style="width:350px; height:900px"></textarea>
+    <div style="display:flex; flex-direction: column; width:350px;">
+      <h2>Feed</h2>
+      <textarea th:text="${feedText}" style="width:350px; height:750px"></textarea>
+      <h2>Story</h2>
+      <textarea th:text="${storyText}" style="width:350px; height:150px"></textarea>
+    </div>
   </div>
 </div>
 </html>
