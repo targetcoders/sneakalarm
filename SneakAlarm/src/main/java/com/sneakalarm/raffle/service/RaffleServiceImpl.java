@@ -5,6 +5,7 @@ import com.sneakalarm.raffle.dao.RaffleCardMapper;
 import com.sneakalarm.raffle.dto.ActiveRafflesVO;
 import com.sneakalarm.raffle.dto.RaffleListByDeliveryTypeVO;
 import com.sneakalarm.raffle.dto.RaffleListByStatusVO;
+import com.sneakalarm.util.Week;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -70,8 +71,13 @@ public class RaffleServiceImpl implements RaffleService {
     return raffleMapper.getRaffleListAll();
   }
 
-  public ArrayList<RaffleVO> getRaffleList(String raffleId) {
-    return raffleMapper.getRaffle(raffleId);
+  public ArrayList<RaffleVO> getRaffleList(String raffleId) throws Exception {
+    ArrayList<RaffleVO> result = raffleMapper.getRaffle(raffleId);
+    for(RaffleVO raffleVO : result){
+      raffleVO.setEndWeek(new Week(new SimpleDateFormat("yyyy-MM-dd").parse(raffleVO.getEndDate())).get());
+      raffleVO.setStartWeek(new Week(new SimpleDateFormat("yyyy-MM-dd").parse(raffleVO.getStartDate())).get());
+    }
+    return result;
   }
 
   @Override
