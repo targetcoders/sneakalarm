@@ -26,7 +26,7 @@ public class InstaStoryTest {
         .build();
     String expectedText = raffleVO.getStoreName() + "\n"
         + "("+raffleVO.getEndWeek()+") "+raffleVO.getEndTime()+" 종료\n"
-        + "*방문 구매\n\n"
+        + "\n\n"
         + "↗응모하러 가기↖";
 
     String result = new InstaStory(raffleVO).makeText();
@@ -48,7 +48,7 @@ public class InstaStoryTest {
         .build();
     String expectedText = raffleVO.getStoreName() + "\n"
         + "("+raffleVO.getEndWeek()+") "+raffleVO.getEndTime()+" 종료\n"
-        + "*온라인 구매\n\n"
+        + "\n\n"
         + "↗응모하러 가기↖";
 
     String result = new InstaStory(raffleVO).makeText();
@@ -70,7 +70,7 @@ public class InstaStoryTest {
         .build();
     String expectedText = raffleVO.getStoreName() + "\n"
         + "("+raffleVO.getEndWeek()+") "+raffleVO.getEndTime()+" 종료\n"
-        + "*온라인 구매, 1000원 구매 가능\n\n"
+        + "*1000원 구매 가능\n\n"
         + "↗응모하러 가기↖";
 
     String result = new InstaStory(raffleVO).makeText();
@@ -92,7 +92,7 @@ public class InstaStoryTest {
         .build();
     String expectedText = raffleVO.getStoreName() + "\n"
         + "선착 ("+raffleVO.getEndWeek()+") "+raffleVO.getEndTime()+" 시작\n"
-        + "*온라인 구매, 1000원 구매 가능\n\n"
+        + "*1000원 구매 가능\n\n"
         + "↗선착 구매하기↖";
 
     String result = new InstaStory(raffleVO).makeText();
@@ -114,7 +114,7 @@ public class InstaStoryTest {
         .build();
     String expectedText = raffleVO.getStoreName() + "\n"
         + "선착 ("+raffleVO.getEndWeek()+") "+raffleVO.getEndTime()+" 시작\n"
-        + "*온라인 구매\n\n"
+        + "\n\n"
         + "↗선착 구매하기↖";
 
     String result = new InstaStory(raffleVO).makeText();
