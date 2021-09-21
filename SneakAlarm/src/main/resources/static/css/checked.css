@@ -100,5 +100,7 @@
     color: #676A6D;
 }
 .checked-ad-area {
-    width:375px;
+    display: flex;
+    justify-center: center;
+    width:100%;
 }
