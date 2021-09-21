@@ -273,8 +273,9 @@ a:active {
   height:40px;
 }
 .raffle-ad-area {
-  display: inline-block;
-  width: 320px;
+  display: flex;
+  justify-content: center;
+  width: 100%;
   height: 100px;
 }
 @media (min-width : 1125px){
