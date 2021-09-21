@@ -80,7 +80,7 @@
                     <div class="div-draw-model_kr"><span class="draw-model_kr" th:text="${raffle.model_kr}"></span></div>
                     <th:block th:include="fragments/active-firstcome-content"></th:block>
                   </a>
-                </div>
+                </div>`
                 <div class="check" th:data-raffle-id="${raffle.id}">
                   <img th:id="|check-${raffle.id}|" class="check__img" src="/image/icon/check_off.svg">
                 </div>
@@ -88,10 +88,10 @@
             </div>
           </div>
         </div>
+        <hr class="today-draws-hr product-unregistered">
       </th:block>
     
       <th:block th:if="${koreaRaffleListSize &gt; 0}">
-        <hr class="today-draws-hr product-unregistered">
         <h2 style="text-align: center; font-weight:bold;">국내 응모: <span th:text="${koreaRaffleListSize}"></span></h2>
     
         <div id="activeDraws-korea">
