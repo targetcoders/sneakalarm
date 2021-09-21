@@ -18,27 +18,23 @@ public class InstaStory {
   }
 
   private String specialCaseText() {
-    String result = "온라인 구매";
-    if (raffleVO.getCountry().equals("한국") && raffleVO.getDelivery().equals("방문수령")) {
-      result = "방문 구매";
+    if(raffleVO.getSpecialCase().isEmpty()) {
+      return "\n\n";
     }
-    if(!raffleVO.getSpecialCase().isEmpty()) {
-      result += ", "+raffleVO.getSpecialCase();
-    }
-    return result;
+    return "*" + raffleVO.getSpecialCase()+ "\n\n";
   }
 
   private String firstcomeStoryText(String specialCase) {
     return raffleVO.getStoreName() + "\n"
         + "선착 (" + raffleVO.getEndWeek() + ") " + raffleVO.getEndTime() + " 시작\n"
-        + "*" + specialCase + "\n\n"
+        + specialCase
         + "↗선착 구매하기↖";
   }
 
   private String raffleStoryText(String specialCase) {
     return raffleVO.getStoreName() + "\n"
         + "(" + raffleVO.getEndWeek() + ") " + raffleVO.getEndTime() + " 종료\n"
-        + "*" + specialCase + "\n\n"
+        + specialCase
         + "↗응모하러 가기↖";
   }
 
