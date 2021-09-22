@@ -72,6 +72,10 @@
   	$(window).resize(function(){
   		showNavBar();
   	});
+
+  	window.addEventListener('scroll', () => {
+  		setShadowboxNavbar();
+  	});
   });
   
 function printClock() {
