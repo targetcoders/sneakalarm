@@ -19,6 +19,7 @@
       setScrollMoving(new ScrollController());
       setCookieSearchConditions();
       $('#navbar-bottom--mobile__menu--today').attr('src','/image/icon/navbar/btmnav_icn_raffle_ver1_on.svg');
+      $('.search-icon-area').remove();
     });
     $(window).on('load', function () {
       let doneRaffleIdList = searchCookies("myRaffles");
@@ -26,7 +27,6 @@
         $('#check-'+doneRaffleIdList[i]).attr('src','/image/icon/check_on.svg');
         $('#drawCard-'+doneRaffleIdList[i]).children('div').css('opacity','0.5');
       }
-      $('.search-icon-area').remove();
       $('.check').on('click',function(){
         onClickCheckMyRaffles($(this).attr('data-raffle-id'));
       });
