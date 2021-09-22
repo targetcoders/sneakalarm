@@ -19,6 +19,11 @@
   <script type="text/javascript" src="/js/today.js" charset="utf-8"></script>
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lozad/dist/lozad.min.js"></script>
   <script>
+    $(document).ready(function(){
+      (adsbygoogle = window.adsbygoogle || []).push({});
+      setCookieSearchConditions();
+      $('#navbar-bottom--mobile__menu--today').attr('src','/image/icon/navbar/btmnav_icn_raffle_ver1_on.svg');
+    });
     $(function () {
       $('.product-unregistered').hide();
       if ($('#activeDraws-unregistered').children().length > 0) {
