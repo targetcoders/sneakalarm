@@ -1,6 +1,7 @@
 $(document).ready(function(){
   (adsbygoogle = window.adsbygoogle || []).push({});
   setCookieSearchConditions();
+  $('#navbar-bottom--mobile__menu--today').attr('src','/image/icon/navbar/btmnav_icn_raffle_ver1_on.svg');
 });
 
 function setPopup(){
