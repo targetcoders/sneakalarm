@@ -72,20 +72,6 @@
   	$(window).resize(function(){
   		showNavBar();
   	});
-
-	var prevScrollpos = window.pageYOffset;
-	document.getElementById("navbar-bottom--mobile__container").style.bottom = "0";
-
-  	window.addEventListener('scroll', () => {
-  		setShadowboxNavbar();  
-	    var currentScrollPos = window.pageYOffset;
-	    if (prevScrollpos > currentScrollPos) {
-    	    document.getElementById("navbar-bottom--mobile__container").style.bottom = "0";
-	    } else {
-	    	document.getElementById("navbar-bottom--mobile__container").style.bottom = "-84px";
-	    }
-	    prevScrollpos = currentScrollPos;
-  	});
   });
   
 function printClock() {
