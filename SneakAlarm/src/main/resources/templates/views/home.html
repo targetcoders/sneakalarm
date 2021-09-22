@@ -48,7 +48,7 @@
 		<div id="goingDrawProductCards" class="container-fluid d-flex flex-wrap justify-content-center">
 			<div class="home-product" th:each="list : ${goingCardList}">
 				<div class="d-flex flex-column align-items-center" th:id="|card-${list.id}|">
-					<a th:href="@{/product-detail(id=${list.id})}"><img th:data-src="${list.imgSrc_home}" src="image/loading.gif" class="home-product-img lozad" th:alt="${list.model_kr}"></a>
+					<a class="item-zoom" th:href="@{/product-detail(id=${list.id})}"><img th:data-src="${list.imgSrc_home}" src="image/loading.gif" class="home-product-img lozad" th:alt="${list.model_kr}"></a>
 					<span th:text="${list.model_kr}" class="home-product-model_kr"></span>
 					<div class="container-fluid d-flex flex-wrap justify-content-evenly home-product-drawNums">
 						<span th:if="${list.drawNumKorea != 0}" class="activeDrawNum" th:id="|home-product-drawNumKoreaSet-${list.id}|">국내: <span th:text="${list.drawNumKorea}" th:id="|home-product-drawNumKorea-${list.id}|"></span></span>
@@ -65,7 +65,7 @@
 		<div id="readyDrawProductCards" class="container-fluid d-flex flex-wrap justify-content-center">
 			<div class="home-product" th:each="list : ${readyCardList}">
 				<div class="d-flex flex-column align-items-center" th:id="|card-${list.id}|">
-					<a th:href="@{/product-detail(id=${list.id})}" style="opacity:0.5;"><img th:data-src="${list.imgSrc_home}" src="image/loading.gif" class="home-product-img lozad" th:alt="${list.model_kr}"></a>
+					<a class="item-zoom" th:href="@{/product-detail(id=${list.id})}" style="opacity:0.5;"><img th:data-src="${list.imgSrc_home}" src="image/loading.gif" class="home-product-img lozad" th:alt="${list.model_kr}"></a>
 					<span th:text="${list.model_kr}" class="home-product-model_kr"></span>
 					<div class="container-fluid d-flex flex-wrap justify-content-evenly home-product-drawNums">
 						<span th:if="${list.drawNumKorea != 0}" class="activeDrawNum" th:id="|home-product-drawNumKoreaSet-${list.id}|">국내: <span th:text="${list.drawNumKorea}" th:id="|home-product-drawNumKorea-${list.id}|"></span></span>
