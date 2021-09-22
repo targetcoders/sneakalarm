@@ -2,19 +2,10 @@
 a:link {
   color: black;
 }
-a:visited {
-  color:purple;
-}
-a:hover {
-}
-a:active {
-  color:#FE0100;
-}
 .ad-box {
   min-width: 320px;
   min-height: 100px;
 }
-
 .div-draw-model_kr{
   margin-top:10px;
   margin-bottom:10px;
@@ -150,10 +141,12 @@ a:active {
   margin-bottom: 0px;
   transition: all 0.4s;
 }
+a:visited span.draw__store-name {
+  color: purple;
+}
 .todayDrawContent:hover{
-    background-color:#e6e6e6;
-    color: rgb(0, 0, 0);
-    font-weight: bolder;
+  background-color:#e6e6e6;
+  font-weight: bolder;
 }
 .todayReadyDrawContent {
   width: 168px;
@@ -173,8 +166,10 @@ a:active {
 }
 .todayReadyDrawContent:hover{
   background-color:#e6e6e6;
-  color: rgb(0, 0, 0);
   font-weight: bolder;
+}
+a:active {
+  color:#FE0100;
 }
 .draw__week, .draw__time, .draw__date {
   font-size:12px;
