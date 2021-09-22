@@ -17,17 +17,16 @@
   <script type="text/javascript" src="/js/today.js" charset="utf-8"></script>
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lozad/dist/lozad.min.js"></script>
   <script>
-  $(document).ready(function(){
+  $(function(){
     $('#navbar-bottom--mobile__menu--checked').attr('src','/image/icon/navbar/btmnav_icn_checked_ver1_on.svg');
+    $('.search-icon-area').remove();
   });
-
   $(window).on('load', function () {
     let doneRaffleIdList = searchCookies("myRaffles");
     for(let i=0 ; i<doneRaffleIdList.length; i++) {
       $('#check-'+doneRaffleIdList[i]).attr('src','/image/icon/check_on.svg');
       $('#drawCard-'+doneRaffleIdList[i]).children('div').css('opacity','0.5');
     }
-    $('.search-icon-area').remove();
     $('.check').on('click',function(){
       onClickCheckMyRaffles($(this).attr('data-raffle-id'));
     });
