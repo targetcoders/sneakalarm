@@ -5,25 +5,11 @@
 
 <th:block layout:fragment="css">
   <link rel="stylesheet" th:href="@{/css/today.css}" type="text/css">
-  <style>
-    #navbar-top__menu--today {
-      color: #F11900;
-    }
-
-    #navbar-bottom--mobile__menu--today {
-      color: #F11900;
-    }
-  </style>
 </th:block>
 <th:block layout:fragment="script">
   <script type="text/javascript" src="/js/today.js" charset="utf-8"></script>
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lozad/dist/lozad.min.js"></script>
   <script>
-    $(document).ready(function(){
-      (adsbygoogle = window.adsbygoogle || []).push({});
-      setCookieSearchConditions();
-      $('#navbar-bottom--mobile__menu--today').attr('src','/image/icon/navbar/btmnav_icn_raffle_ver1_on.svg');
-    });
     $(function () {
       $('.product-unregistered').hide();
       if ($('#activeDraws-unregistered').children().length > 0) {
@@ -31,6 +17,8 @@
       }
       setPopup();
       setScrollMoving(new ScrollController());
+      setCookieSearchConditions();
+      $('#navbar-bottom--mobile__menu--today').attr('src','/image/icon/navbar/btmnav_icn_raffle_ver1_on.svg');
     });
     $(window).on('load', function () {
       let doneRaffleIdList = searchCookies("myRaffles");
