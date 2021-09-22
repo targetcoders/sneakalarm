@@ -62,7 +62,7 @@
         <div class="product-unregistered" id="activeDraws-unregistered">
           <div th:each="drawGroup : ${unregisteredDrawGroupList}" th:id="|todayUnregisteredDraw-${drawGroup.productVO.id}|"
             class="todayDrawContainer">
-            <a th:href="|/product-detail?id=${drawGroup.productVO.id}|">
+            <a class="item-zoom" th:href="|/product-detail?id=${drawGroup.productVO.id}|">
               <img th:id="|todayProductImg-${drawGroup.productVO.id}|" class="todayProductImg lozad"
                 th:data-src="${drawGroup.productVO.imgSrc_home}" src="image/loading.gif" alt="loading..." />
             </a>
@@ -97,7 +97,7 @@
         <div id="activeDraws-korea">
           <div th:each="drawGroup,index : ${koreaDrawGroupList}" th:id="|todayKoreaDraw-${drawGroup.productVO.id}|"
             class="todayDrawContainer">
-            <a th:href="|/product-detail?id=${drawGroup.productVO.id}|">
+            <a class="item-zoom" th:href="|/product-detail?id=${drawGroup.productVO.id}|">
               <img th:id="|todayProductImg-${drawGroup.productVO.id}|" class="todayProductImg lozad"
                 th:data-src="${drawGroup.productVO.imgSrc_home}" src="image/loading.gif"
                 th:alt="${drawGroup.productVO.model_kr}" />
@@ -145,7 +145,7 @@
         <div class="product-direct" id="activeDraws-direct">
           <div th:each="drawGroup : ${directDrawGroupList}" th:id="|todayDirectDraw-${drawGroup.productVO.id}|"
             class="todayDrawContainer">
-            <a th:href="|/product-detail?id=${drawGroup.productVO.id}|">
+            <a class="item-zoom" th:href="|/product-detail?id=${drawGroup.productVO.id}|">
               <img th:id="|todayProductImg-${drawGroup.productVO.id}|" class="todayProductImg lozad"
                 th:data-src="${drawGroup.productVO.imgSrc_home}" src="image/loading.gif"
                 th:alt="${drawGroup.productVO.model_kr}" />
@@ -180,7 +180,7 @@
         <div class="product-agnet" id="activeDraws-agent">
           <div th:each="drawGroup : ${agentDrawGroupList}" th:id="|todayAgentDraw-${drawGroup.productVO.id}|"
             class="todayDrawContainer">
-            <a th:href="|/product-detail?id=${drawGroup.productVO.id}|">
+            <a class="item-zoom" th:href="|/product-detail?id=${drawGroup.productVO.id}|">
               <img th:id="|todayProductImg-${drawGroup.productVO.id}|" class="todayProductImg lozad"
                 th:data-src="${drawGroup.productVO.imgSrc_home}" src="image/loading.gif"
                 th:alt="${drawGroup.productVO.model_kr}" />
@@ -218,7 +218,7 @@
         <div class="draw-area">
           <div th:each="drawGroup : ${readyUnregisteredDrawGroupList}"
             th:id="|todayUnregisteredDraw-${drawGroup.productVO.id}|" class="todayDrawContainer">
-            <a th:href="|/product-detail?id=${drawGroup.productVO.id}|">
+            <a class="item-zoom" th:href="|/product-detail?id=${drawGroup.productVO.id}|">
               <img th:id="|todayProductImg-${drawGroup.productVO.id}|" class="todayProductImg lozad"
                 th:data-src="${drawGroup.productVO.imgSrc_home}" src="image/loading.gif" alt="loading..." />
             </a>
@@ -256,7 +256,7 @@
         <div class="draw-area">
           <div th:each="drawGroup,index : ${readyKoreaDrawGroupList}" th:id="|todayKoreaDraw-${drawGroup.productVO.id}|"
             class="todayDrawContainer">
-            <a th:href="|/product-detail?id=${drawGroup.productVO.id}|">
+            <a class="item-zoom" th:href="|/product-detail?id=${drawGroup.productVO.id}|">
               <img th:id="|todayProductImg-${drawGroup.productVO.id}|" class="todayProductImg lozad"
                 th:data-src="${drawGroup.productVO.imgSrc_home}" src="image/loading.gif"
                 th:alt="${drawGroup.productVO.model_kr}" />
@@ -293,7 +293,7 @@
         <div class="draw-area">
           <div th:each="drawGroup : ${readyDirectDrawGroupList}" th:id="|todayDirectDraw-${drawGroup.productVO.id}|"
             class="todayDrawContainer">
-            <a th:href="|/product-detail?id=${drawGroup.productVO.id}|">
+            <a class="item-zoom" th:href="|/product-detail?id=${drawGroup.productVO.id}|">
               <img th:id="|todayProductImg-${drawGroup.productVO.id}|" class="todayProductImg lozad"
                 th:data-src="${drawGroup.productVO.imgSrc_home}" src="image/loading.gif"
                 th:alt="${drawGroup.productVO.model_kr}" />
@@ -329,7 +329,7 @@
         <div class="draw-area">
           <div th:each="drawGroup : ${readyAgentDrawGroupList}" th:id="|todayAgentDraw-${drawGroup.productVO.id}|"
             class="todayDrawContainer">
-            <a th:href="|/product-detail?id=${drawGroup.productVO.id}|">
+            <a class="item-zoom" th:href="|/product-detail?id=${drawGroup.productVO.id}|">
               <img th:id="|todayProductImg-${drawGroup.productVO.id}|" class="todayProductImg lozad"
                 th:data-src="${drawGroup.productVO.imgSrc_home}" src="image/loading.gif"
                 th:alt="${drawGroup.productVO.model_kr}" />
