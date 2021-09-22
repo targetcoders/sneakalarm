@@ -7,20 +7,13 @@
 	
 <th:block layout:fragment="css">
   <link rel="stylesheet" th:href="@{/css/product-detail.css}" type="text/css">
-	<style>
-	  #navbar-top__menu--launch {
-	    color: #F11900;
-	  }
-	  #navbar-bottom--mobile__menu--launch {
-	    color: #F11900;
-	  }
-	</style>
 </th:block>
 
 <th:block layout:fragment="script">
 <script type="text/javascript" th:src="@{js/util.js}" charset="utf-8"></script>
 <script>
-$('document').ready(function(){
+$(function(){
+	$('#navbar-bottom--mobile__menu--launch').attr('src','/image/icon/navbar/btmnav_icn_launch_ver1_on.svg');
 	$('.navbar__search-icon').remove();
 	document.title = $('#model_kr').text() + " ■ SNEAKALARM";
 
