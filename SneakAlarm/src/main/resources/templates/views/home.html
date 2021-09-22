@@ -7,14 +7,6 @@
 
 <th:block layout:fragment="css">
 	<link rel="stylesheet" th:href="@{/css/home.css}" type="text/css">
-	<style>
-	  #navbar-top__menu--launch {
-	    color: #F11900;
-	  }
-	  #navbar-bottom--mobile__menu--launch {
-	    color: #F11900;
-	  }
-	</style>
 </th:block>
 <th:block layout:fragment="script">
 	<script type="text/javascript" th:src="@{js/home.js}" charset="utf-8"></script>
@@ -26,6 +18,9 @@
 	<script sec:authorize="hasRole('ADMIN')">
     document.title = '_LAUNCH ■ SNEAKALARM';
   </script>
+	<script>
+
+	</script>
 </th:block>
 
 <div layout:fragment="content">

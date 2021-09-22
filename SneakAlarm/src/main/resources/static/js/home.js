@@ -120,6 +120,7 @@ $('#endedDrawProductCardsDiv').on('click',function(){
 	}
 	});
 
+  $('#navbar-bottom--mobile__menu--launch').attr('src','/image/icon/navbar/btmnav_icn_launch_ver1_on.svg');
 });
 
 // 현재 스크롤한 높이를 구하는 함수 
