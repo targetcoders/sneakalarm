@@ -1,10 +1,6 @@
 @charset "UTF-8";
-@font-face {
-    font-family: 'Pretendard-ExtraLight';
-    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-ExtraLight.woff') format('woff');
-    font-weight: 200;
-    font-style: normal;
-}
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+
 ::-moz-selection { /* Code for Firefox */
   color: rgb(255, 0, 0);
   background:rgb(255, 255, 255)
@@ -17,6 +13,7 @@
   font-family: Helvetica, Arial, sans-serif;
 }
 body, html {
+  font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif !important;
 	height: 100%;
 	width: 100%;
 }
