@@ -192,12 +192,12 @@ a:active {
 }
 .draw__week, .draw__time, .draw__date {
   font-size:12px;
-  font-weight: 550;
+  font-weight: 400;
   color:#444444;
 }
 .draw__week--ready, .draw__time--ready, .draw__date--ready {
   font-size:12px;
-  font-weight: 550;
+  font-weight: 400;
   color:#6b6b6b;
 }
 .draw__raffle-type--firstcome {
