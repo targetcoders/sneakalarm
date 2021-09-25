@@ -294,7 +294,7 @@ a:active {
 .ad-container {
   display:inline-block;
   width:300px;
-  height:50px
+  height:100px
 }
 
 @media(min-width:960px) {
