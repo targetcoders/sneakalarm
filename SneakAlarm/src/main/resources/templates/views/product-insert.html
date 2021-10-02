@@ -16,19 +16,9 @@ hr {
 <script src="https://sdk.amazonaws.com/js/aws-sdk-2.283.1.min.js"></script>
 <!-- <script type="text/javascript" th:src="@{se2/js/service/HuskyEZCreator.js}" charset="utf-8"></script> -->
 <script type="text/javascript" th:src="@{js/util.js}" charset="utf-8"></script>
+<script type="text/javascript" th:src="@{js/resizeImage.js}" charset="utf-8"></script>
+<script type="text/javascript" th:src="@{js/s3ImageUpload.js}" charset="utf-8"></script>
 <script type="text/javascript">
-var albumBucketName = 'sneakalarm.media';
-var bucketRegion = 'ap-northeast-2';
-var IdentityPoolId = 'ap-northeast-2:e33e44cf-1621-4149-98b8-9dd28c45ecc8';
-
-AWS.config.update({
-	  region: bucketRegion,
-	  credentials: new AWS.CognitoIdentityCredentials({ IdentityPoolId: IdentityPoolId })
-});
-var s3 = new AWS.S3({
-	  apiVersion: '2006-03-01',
-	  params: {Bucket: albumBucketName}
-});
 
 function validCheck(){
 	return $('#photoupload').val().length == 0 || $('#photoupload_detail').val().length==0 || 
@@ -71,35 +61,31 @@ $('document').ready(function(){
 							
 							var files = document.getElementById('photoupload_detail').files;
 							console.log(files);
-							for(let i=0; i<files.length; i++){
-								setTimeout(function(){
+							for (let i = 0; i < files.length; i++) {
+								setTimeout(function () {
 									var file = files[i];
 									console.log(file);
 									var fileName = file.name;
-									new Promise(function(data){
+									new Promise(function (data) {
 										var albumName = $('#code').val();
-										var albumPhotosKey = 'product/'+encodeURIComponent(albumName)+'/';
-								 		var photoKey = albumPhotosKey + fileName;
-								 		data({photoKey:photoKey, file:file});
+										var albumPhotosKey = 'product/' + encodeURIComponent(albumName) + '/';
+										var photoKey = albumPhotosKey + fileName;
+										data({ photoKey: photoKey, file: file });
 									})
-									.then(function(data){
-										s3.upload({
-								 			Key: data.photoKey,
-								 			Body: data.file,
-								 			ACL: 'public-read'
-								 		}, 
-								 		function(err, data) {
-								 			if (err) {
-								 		  	return alert('There was an error uploading your photo: ', err.message);
-								 			}
-								 			if(i == files.length-1){
-								 				alert('제품이 성공적으로 등록되었습니다.');
-								 				location.replace('/');
-								 			}
-								 		});
-									});	
-								},500);
-						}
+										.then(function (data) {
+											data.photoKey = albumPhotosKey + fileName;
+											return s3ResizedUpload(data, 580);
+										})
+										.then(function (data) {
+											data.photoKey = albumPhotosKey + 'size350/' + fileName;
+											return s3ResizedUpload(data, 350);
+										})
+										.then(function (data) {
+											data.photoKey = albumPhotosKey + 'size150/' + fileName;
+											return s3ResizedUpload(data, 150);
+										});
+								}, 500);
+							}
 						});
 				});
 			},
