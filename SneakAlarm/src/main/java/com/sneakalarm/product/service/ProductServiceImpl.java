@@ -134,23 +134,17 @@ public class ProductServiceImpl implements ProductService {
 
     ArrayList<MultipartFile> fileList_home =
         (ArrayList<MultipartFile>) productInsertVO.getFileList_home();
-    ArrayList<MultipartFile> fileList_detail =
-        (ArrayList<MultipartFile>) productInsertVO.getFileList_detail();
 
     String code = productInsertVO.getCode();
     BucketVO bucketVO = new BucketVO(region, bucket, productFolderName);
 
     ArrayList<String> urlList_home = stringUtil.getInputFileNameList(bucketVO, code, fileList_home);
-    ArrayList<String> urlList_detail =
-        stringUtil.getInputFileNameList(bucketVO, code, fileList_detail);
 
     String now = getNowDate();
     String imgSrc_home = String.join(",", urlList_home);
-    String imgSrc_detail = String.join(",", urlList_detail);
 
     ProductVO productVO = new ProductVO(productInsertVO);
     productVO.setImgSrc_home(imgSrc_home);
-    productVO.setImgSrc_detail(imgSrc_detail);
     productVO.setLastUpdateDate(now);
     productVO.setPopularity("0");
     productVO.setInsertDate(now);
