@@ -26,70 +26,40 @@ function validCheck(){
 	$('#model_kr').val()=='' || $('#model_en').val()=='' || $('#retailPrice').val()=='';
 }
 
-$('document').ready(function(){
-	
-	$('#submitBtn').click(function(){
+$('document').ready(function () {
+
+	$('#submitBtn').click(function () {
 		if (validCheck()) {
 			return alert('입력하지 않은 값이 있는지 확인해주세요.');
 		}
-		
+
 		var formData = new FormData(document.getElementById('insertform'));
-		formData.append('releaseStartDate','');
-		formData.append('releaseEndDate','RELEASING SOON');
+		formData.append('releaseStartDate', '');
+		formData.append('releaseEndDate', 'RELEASING SOON');
 		$.ajax({
 			url: '/product-insert',
 			data: formData,
 			processData: false,
 			contentType: false,
 			type: 'POST',
-			success: function(){
-				new Promise(function(data){
-					var albumName = $('#code').val();
-				 	var file = document.getElementById('photoupload').files[0];
-				 	var fileName = file.name;
-					var albumPhotosKey = 'product/'+encodeURIComponent(albumName)+'/';
-					var photoKey = albumPhotosKey + fileName;
-				 		s3.upload({
-							Key: photoKey,
-							Body: file,
-							ACL: 'public-read'
-						}, 
-						function(err, data) {
-							if (err) {
-						  	return alert('There was an error uploading your photo: ', err.message);
-							}
-							
-							var files = document.getElementById('photoupload_detail').files;
-							console.log(files);
-							for (let i = 0; i < files.length; i++) {
-								setTimeout(function () {
-									var file = files[i];
-									console.log(file);
-									var fileName = file.name;
-									new Promise(function (data) {
-										var albumName = $('#code').val();
-										var albumPhotosKey = 'product/' + encodeURIComponent(albumName) + '/';
-										var photoKey = albumPhotosKey + fileName;
-										data({ photoKey: photoKey, file: file });
-									})
-										.then(function (data) {
-											data.photoKey = albumPhotosKey + fileName;
-											return s3ResizedUpload(data, 580);
-										})
-										.then(function (data) {
-											data.photoKey = albumPhotosKey + 'size350/' + fileName;
-											return s3ResizedUpload(data, 350);
-										})
-										.then(function (data) {
-											data.photoKey = albumPhotosKey + 'size150/' + fileName;
-											return s3ResizedUpload(data, 150);
-										});
-								}, 500);
-							}
-						});
-				});
+			success: function () {
+				let files = document.getElementById('photoupload_detail').files;
+				console.log(files);
+				for (let i = 0; i < files.length; i++) {
+					setTimeout(function () {
+						const file = files[i];
+						const albumPhotosKey = 'product/' + encodeURIComponent($('#code').val()) + '/';
+						let data = {
+							albumPhotosKey: albumPhotosKey,
+							file: file
+						};
+						s3ResizedUpload(data, albumPhotosKey + 'size580/' + file.name.replace(/ /g, '_'), 580);	
+						s3ResizedUpload(data, albumPhotosKey + 'size350/' + file.name.replace(/ /g, '_'), 350);
+						s3ResizedUpload(data, albumPhotosKey + 'size150/' + file.name.replace(/ /g, '_'), 150);
+					}, 500);
+				}
 			},
-			error: function(){
+			error: function () {
 				alert('error!');
 			}
 		});
