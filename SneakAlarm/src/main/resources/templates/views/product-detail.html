@@ -163,12 +163,22 @@ function move(id){
 	<div class="container-fluid">
 		<div id="carousel-detail-img" class="carousel slide carousel-dark" data-bs-ride="carousel">
   		<div class="carousel-inner detail-img">
+		<th:block th:if="${#lists.size(urlList_detail) > 0}">
   			<div th:each="url, index : ${urlList_detail}" th:if="${index.count} eq 1" class="carousel-item active" data-bs-interval="7000">
   				<img th:src="${url}" alt="..." class="detail-img">
   			</div>
   			<div th:each="url, index : ${urlList_detail}" th:unless="${index.count} eq 1" class="carousel-item" data-bs-interval="3500">
   				<img th:src="${url}" alt="..." class="detail-img">
   			</div>
+		</th:block>
+		<th:block th:unless="${#lists.size(urlList_detail) > 0}">
+			<div th:each="url, index : ${urlList_detail_v2}" class="carousel-item active" data-bs-interval="7000">
+				<picture>
+					<source media="(min-width: 1125px)" th:srcset="|${url}/size580/${productVO.model_en}.jpg|">
+  					<img th:src="|${url}/size350/${productVO.model_en}.jpg|" alt="..." class="detail-img">
+				</picture>
+  			</div>
+		</th:block>
   		</div>
   		<a class="carousel-control-prev" href="#carousel-detail-img" role="button" data-bs-slide="prev">
     		<span class="carousel-control-prev-icon" aria-hidden="true"></span>
