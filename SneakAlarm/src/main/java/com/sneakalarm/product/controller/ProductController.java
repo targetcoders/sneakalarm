@@ -158,7 +158,8 @@ public class ProductController {
     String lastUpdateDate = productVO.getLastUpdateDate();
     String[] lastUpdateDateList = lastUpdateDate.split(" ");
     productVO.setLastUpdateDate(lastUpdateDateList[0]);
-    String[] urlArray = productVO.getImgSrc_detail().split(",");
+    String[] urlArray = (productVO.getImgSrc_detail()==null) ? new String[]{} : productVO.getImgSrc_detail().split(",");
+    String[] urlArrayV2 = {"https://s3.ap-northeast-2.amazonaws.com/sneakalarm.media/product/"+productVO.getCode()};
     ArrayList<RaffleCardVO> raffleCardList = raffleService.getRaffleCardList(id);
 
     ArrayList<RaffleCardVO> endedRaffleRet = new ArrayList<RaffleCardVO>();
@@ -266,6 +267,7 @@ public class ProductController {
 
     model.addAttribute("productVO", productVO);
     model.addAttribute("urlList_detail", urlArray);
+    model.addAttribute("urlList_detail_v2", urlArrayV2);
 
     model.addAttribute("goingRaffleList", goingRaffleRet);
     model.addAttribute("readyRaffleList", readyRaffleRet);
