@@ -11,33 +11,31 @@ var s3 = new AWS.S3({
     params: { Bucket: albumBucketName }
 });
 
-function s3Upload(result) {
-    console.log("upload resized image")
-    console.log(result);
-    s3.upload({
-        Key: result.data.photoKey,
-        Body: result.resizedImage,
-        ACL: 'public-read'
-    },
-        function (err, data) {
-            if (err) {
-                return alert('There was an error uploading your photo: ', err.message);
+function s3Upload(resizedResult) {
+        console.log("upload resized image")
+        console.log(resizedResult);
+        s3.upload({
+            Key: resizedResult.data.path,
+            Body: resizedResult.resizedImage,
+            ACL: 'public-read'
+        },
+            function (err, data) {
+                if (err) {
+                    return alert('There was an error uploading your photo: ', err.message);
+                }
             }
-        }
-    );
+        );
+    
 }
 
-function s3ResizedUpload(data, maxSize) {
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            resizeImage({
-                data: data,
-                maxSize: maxSize,
-            }).then(function (result) {
-                s3Upload(result);
-            });
-            resolve(data);
-        }, 500);
+function s3ResizedUpload(data, path, maxSize) {
+    data.path = path;
+    console.log(maxSize + ' ' + path);
+    console.log(data);
+    resizeImage({
+        data: data,
+        maxSize: maxSize,
+    }).then(function (ok) {
+        s3Upload(ok);
     });
-
 }
