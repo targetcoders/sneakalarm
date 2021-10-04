@@ -174,7 +174,7 @@ function move(id){
 		<th:block th:unless="${#lists.size(urlList_detail) > 0}">
 			<div th:each="url, index : ${urlList_detail_v2}" class="carousel-item active" data-bs-interval="7000">
 				<picture>
-					<source media="(min-width: 1125px)" th:srcset="|${url}/size580/${productVO.model_en}.jpg|">
+					<source media="(min-width: 950px)" th:srcset="|${url}/size580/${productVO.model_en}.jpg|">
   					<img th:src="|${url}/size350/${productVO.model_en}.jpg|" alt="..." class="detail-img">
 				</picture>
   			</div>
