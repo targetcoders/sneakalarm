@@ -219,7 +219,7 @@ hr {
 	height: 350px;
 }
 
-@media ( min-width : 1125px) {
+@media ( min-width : 950px) {
 	#model_kr {
 		font-size: 24px;
 		font-weight: bold;
