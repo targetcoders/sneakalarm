@@ -21,7 +21,7 @@ hr {
 <script type="text/javascript">
 
 function validCheck(){
-	return $('#photoupload').val().length == 0 || $('#photoupload_detail').val().length==0 || 
+	return $('#photoupload').val().length == 0 || 
 	$('#brand').val()=='' || $('#code').val()=='' || $('#releaseDate').val()=='' ||
 	$('#model_kr').val()=='' || $('#model_en').val()=='' || $('#retailPrice').val()=='';
 }
@@ -43,7 +43,7 @@ $('document').ready(function () {
 			contentType: false,
 			type: 'POST',
 			success: function () {
-				let files = document.getElementById('photoupload_detail').files;
+				let files = document.getElementById('photoupload').files;
 				console.log(files);
 				for (let i = 0; i < files.length; i++) {
 					setTimeout(function () {
@@ -163,12 +163,14 @@ $('document').ready(function () {
  				<input class="form-control form-control-lg" type="file" id="photoupload" name="fileList_home" multiple required="required" >
  			</div>
 		</div>
+		<!--
 		<div class="mb-3 row">
  			<label for="photoupload_detail" class="col-sm-2 col-form-label text-center">* 상세 이미지</label>
  				<div class="col-sm-10">
  					<input class="form-control form-control-lg" type="file" id="photoupload_detail" name="fileList_detail" multiple required="required">
  				</div>
 		</div>
+		-->
 		<hr>
 		<div class="mb-3 row">
 			<label for="releaseDate" class="col-sm-2 col-form-label text-center">* 출시일</label>
