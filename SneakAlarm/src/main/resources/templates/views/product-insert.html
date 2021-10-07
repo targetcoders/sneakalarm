@@ -13,195 +13,195 @@ hr {
 </th:block>
 
 <th:block layout:fragment="script">
-<script src="https://sdk.amazonaws.com/js/aws-sdk-2.283.1.min.js"></script>
-<!-- <script type="text/javascript" th:src="@{se2/js/service/HuskyEZCreator.js}" charset="utf-8"></script> -->
-<script type="text/javascript" th:src="@{js/util.js}" charset="utf-8"></script>
-<script type="text/javascript" th:src="@{js/resizeImage.js}" charset="utf-8"></script>
-<script type="text/javascript" th:src="@{js/s3ImageUpload.js}" charset="utf-8"></script>
-<script type="text/javascript">
-
-function validCheck(){
-	return $('#photoupload').val().length == 0 || 
-	$('#brand').val()=='' || $('#code').val()=='' || $('#releaseDate').val()=='' ||
-	$('#model_kr').val()=='' || $('#model_en').val()=='' || $('#retailPrice').val()=='';
-}
-
-$('document').ready(function () {
-
-	$('#submitBtn').click(function () {
-		if (validCheck()) {
-			return alert('입력하지 않은 값이 있는지 확인해주세요.');
-		}
-
-		var formData = new FormData(document.getElementById('insertform'));
-		formData.append('releaseStartDate', '');
-		formData.append('releaseEndDate', 'RELEASING SOON');
-		$.ajax({
-			url: '/product-insert',
-			data: formData,
-			processData: false,
-			contentType: false,
-			type: 'POST',
-			success: function () {
-				let files = document.getElementById('photoupload').files;
-				let uploadingFileName = document.getElementById('model_en').value.replace(/ /g, '_') + '.jpg';
-				console.log(files);
-				for (let i = 0; i < files.length; i++) {
-					setTimeout(function () {
-						const file = files[i];
-						const albumPhotosKey = 'product/' + encodeURIComponent($('#code').val()) + '/';
-						let data = {
-							albumPhotosKey: albumPhotosKey,
-							file: file
-						};
-						setTimeout(()=>{s3ResizedUpload(data, albumPhotosKey + 'size580/' + uploadingFileName, 580);	}, 150);
-						setTimeout(()=>{s3ResizedUpload(data, albumPhotosKey + 'size350/' + uploadingFileName, 350);	}, 300);
-						setTimeout(()=>{s3ResizedUpload(data, albumPhotosKey + 'size200/' + uploadingFileName, 200);	}, 450);
-					}, 500);
-				}
-			},
-			error: function () {
-				alert('error!');
-			}
-		});
-	});
-});
-
-</script>
 </th:block>
 
 <div layout:fragment="content">
-<div class="container-fluid d-flex justify-content-center main-container" style="margin-top:77.5px">
-<div class="productinsert">
-	<h1 class="text-center mb-3">PRODUCT REGISTRATION</h1>
-	<form method="post" id="insertform" class="productinsert-form">
-		<hr>
-  	<div class="mb-3 row">
-			<label for="model_kr" class="col-sm-2 col-form-label text-center">* 한글 모델명</label>
-			<div class="col-sm-10">
-				<input type="text" class="form-control" id="model_kr" name="model_kr" required="required"/>
-			</div>
-		</div>
-		<hr>
-		<div class="mb-3 row">
-			<label for="model_en" class="col-sm-2 col-form-label text-center">* 영어 모델명</label>
-			<div class="col-sm-10">
-				<input type="text" class="form-control" id="model_en" name="model_en" required="required"/>
-			</div>
-		</div>
-		<hr>
-		<div class="mb-3 row">
-			<label for="averageSalePrice" class="col-sm-2 col-form-label text-center">평균거래가격<br>(321,000 (200.9%))</label>
-			<div class="col-sm-10">
-				<input type="text" class="form-control" id="averageSalePrice" name="averageSalePrice" value="₩" required="required"/>
-			</div>
-		</div>
+	<div class="container-fluid d-flex justify-content-center main-container" style="margin-top:77.5px">
+		<div class="productinsert">
+			<h1 class="text-center mb-3">PRODUCT REGISTRATION</h1>
+			<form method="post" id="insertform" class="productinsert-form">
+				<hr>
+				<div class="mb-3 row">
+					<label for="model_kr" class="col-sm-2 col-form-label text-center">* 한글 모델명</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" id="model_kr" name="model_kr" required="required" />
+					</div>
+				</div>
+				<hr>
+				<div class="mb-3 row">
+					<label for="model_en" class="col-sm-2 col-form-label text-center">* 영어 모델명</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" id="model_en" name="model_en" required="required" />
+					</div>
+				</div>
+				<hr>
+				<div class="mb-3 row">
+					<label for="averageSalePrice" class="col-sm-2 col-form-label text-center">평균거래가격<br>(321,000
+						(200.9%))</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" id="averageSalePrice" name="averageSalePrice" value="₩"
+							required="required" />
+					</div>
+				</div>
 
-		<hr>
-		<div class="mb-3 row">
-			<label for="premiumPrice" class="col-sm-2 col-form-label text-center">평균프리미엄<br>(123,000)</label>
-			<div class="col-sm-10">
-				<input type="text" class="form-control" id="premiumPrice" name="premiumPrice" value="₩" required="required" />
-			</div>
+				<hr>
+				<div class="mb-3 row">
+					<label for="premiumPrice" class="col-sm-2 col-form-label text-center">평균프리미엄<br>(123,000)</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" id="premiumPrice" name="premiumPrice" value="₩"
+							required="required" />
+					</div>
+				</div>
+				<hr>
+				<div class="mb-3 row">
+					<label for="lowestSoldPrice" class="col-sm-2 col-form-label text-center">거래가격범위<br>(lowest ~
+						highest)</label>
+					<div class="col-sm-4">
+						<input type="text" class="form-control" id="lowestSoldPrice" name="lowestSoldPrice" value="₩"
+							required="required" />
+					</div>
+					<div class="col-sm-2 text-center">~</div>
+					<div class="col-sm-4">
+						<input type="text" class="form-control" id="highestSoldPrice" name="highestSoldPrice" value="₩"
+							required="required" />
+					</div>
+				</div>
+				<hr>
+				<div class="mb-3 row">
+					<label for="size" class="col-sm-2 col-form-label text-center">사이즈<br>(220 ~ 290)</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" id="size" name="size" required="required" />
+					</div>
+				</div>
+				<hr>
+				<div class="mb-3 row">
+					<label for="retailPrice" class="col-sm-2 col-form-label text-center">* 발매가격<br>(199,000)</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" id="retailPrice" name="retailPrice" value="₩"
+							required="required" />
+					</div>
+				</div>
+				<hr>
+				<div class="mb-3 row">
+					<label for="brand" class="col-sm-2 col-form-label text-center">* 브랜드<br>(Nike)</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" id="brand" name="brand" required="required" />
+					</div>
+				</div>
+				<hr>
+				<div class="mb-3 row">
+					<label for="code" class="col-sm-2 col-form-label text-center">* 코드</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" id="code" name="code" required="required" />
+					</div>
+				</div>
+				<hr>
+				<div class="mb-3 row">
+					<label for="signatureColor" class="col-sm-2 col-form-label text-center">대표 색상</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" id="signatureColor" name="signatureColor" />
+					</div>
+				</div>
+				<hr>
+				<div class="mb-3 row">
+					<label for="content" class="col-sm-2 col-form-label text-center">내용</label>
+					<div class="col-sm-10">
+						<textarea class="form-control" name="content" id="content"
+							style="height:150px;width:100%"></textarea>
+					</div>
+				</div>
+				<hr>
+				<div class="mb-3 row">
+					<label for="photoupload" class="col-sm-2 col-form-label text-center">* 홈 이미지</label>
+					<div class="col-sm-10">
+						<input class="form-control form-control-lg" type="file" id="photoupload" name="fileList_home"
+							required="required">
+					</div>
+				</div>
+
+				<div class="mb-3 row">
+					<label for="photoupload_detail" class="col-sm-2 col-form-label text-center">* 상세 이미지</label>
+					<div class="col-sm-10">
+						<input class="form-control form-control-lg" type="file" id="photoupload_detail"
+							name="fileList_detail" multiple required="required">
+					</div>
+				</div>
+
+				<hr>
+				<div class="mb-3 row">
+					<label for="releaseDate" class="col-sm-2 col-form-label text-center">* 출시일</label>
+					<div class="col-sm-10">
+						<input type="date" class="form-control form-control-lg" id="releaseDate" name="releaseDate" />
+					</div>
+				</div>
+				<hr>
+				<div class="mb-3 row">
+					<button type="button" class="btn btn-danger col-sm-12" id="submitBtn">등록</button>
+				</div>
+			</form>
 		</div>
-		<hr>
-		<div class="mb-3 row">
-			<label for="lowestSoldPrice" class="col-sm-2 col-form-label text-center">거래가격범위<br>(lowest ~ highest)</label>
-			<div class="col-sm-4">
-				<input type="text" class="form-control" id="lowestSoldPrice" name="lowestSoldPrice" value="₩" required="required"/>
-			</div>
-			<div class="col-sm-2 text-center">~</div>
-			<div class="col-sm-4">
-				<input type="text" class="form-control" id="highestSoldPrice" name="highestSoldPrice" value="₩" required="required"/>
-			</div>
-		</div>
-		<hr>
-		<div class="mb-3 row">
-			<label for="size" class="col-sm-2 col-form-label text-center">사이즈<br>(220 ~ 290)</label>
-			<div class="col-sm-10">
-				<input type="text" class="form-control" id="size" name="size" required="required"/>
-			</div>
-		</div>
-		<hr>
-		<div class="mb-3 row">
-			<label for="retailPrice" class="col-sm-2 col-form-label text-center">* 발매가격<br>(199,000)</label>
-			<div class="col-sm-10">
-				<input type="text" class="form-control" id="retailPrice" name="retailPrice" value="₩" required="required"/>
-			</div>
-		</div>
-		<hr>
-		<div class="mb-3 row">
-			<label for="brand" class="col-sm-2 col-form-label text-center">* 브랜드<br>(Nike)</label>
-			<div class="col-sm-10">
-				<input type="text" class="form-control" id="brand" name="brand" required="required"/>
-			</div>
-		</div>
-		<hr>
-		<div class="mb-3 row">
-			<label for="code" class="col-sm-2 col-form-label text-center">* 코드</label>
-			<div class="col-sm-10">
-				<input type="text" class="form-control" id="code" name="code" required="required"/>
-			</div>
-		</div>
-		<hr>
-		<div class="mb-3 row">
-			<label for="signatureColor" class="col-sm-2 col-form-label text-center">대표 색상</label>
-			<div class="col-sm-10">
-				<input type="text" class="form-control" id="signatureColor" name="signatureColor"/>
-			</div>
-		</div>
-		<hr>
-		<div class="mb-3 row">
-			<label for="content" class="col-sm-2 col-form-label text-center">내용</label>
-			<div class="col-sm-10">
-				<textarea class="form-control" name="content" id="content" style="height:150px;width:100%"></textarea>
-			</div>
-		</div>
-		<hr>
-		<div class="mb-3 row">
- 			<label for="photoupload" class="col-sm-2 col-form-label text-center">* 홈 이미지</label>
- 			<div class="col-sm-10">
- 				<input class="form-control form-control-lg" type="file" id="photoupload" name="fileList_home" required="required" >
- 			</div>
-		</div>
-		<!--
-		<div class="mb-3 row">
- 			<label for="photoupload_detail" class="col-sm-2 col-form-label text-center">* 상세 이미지</label>
- 				<div class="col-sm-10">
- 					<input class="form-control form-control-lg" type="file" id="photoupload_detail" name="fileList_detail" multiple required="required">
- 				</div>
-		</div>
-		-->
-		<hr>
-		<div class="mb-3 row">
-			<label for="releaseDate" class="col-sm-2 col-form-label text-center">* 출시일</label>
-			<div class="col-sm-10">
-				<input type="date" class="form-control form-control-lg" id="releaseDate" name="releaseDate"/>
-			</div>
-		</div>
-		<hr>
-		<div class="mb-3 row">
-			<button type="button" class="btn btn-danger col-sm-12" id="submitBtn">등록</button>
-		</div>
-	</form>
-</div>
-</div>
-<!-- <script>
-		var oEditors = [];
-		nhn.husky.EZCreator.createInIFrame({
- 			oAppRef: oEditors,
- 			elPlaceHolder: "content",
- 			sSkinURI: "se2/SmartEditor2Skin.html",
- 			fCreator: "createSEditor2"
+	</div>
+
+	<script src="https://sdk.amazonaws.com/js/aws-sdk-2.283.1.min.js"></script>
+	<script type="text/javascript" th:src="@{js/util.js}" charset="utf-8"></script>
+	<script type="text/javascript" th:src="@{js/resizeImage.js}" charset="utf-8"></script>
+	<script type="text/javascript" th:src="@{js/s3ImageUpload.js}" charset="utf-8"></script>
+	<script type="text/javascript">
+		function validCheck() {
+			return $('#photoupload').val().length == 0 ||
+				$('#brand').val() == '' || $('#code').val() == '' || $('#releaseDate').val() == '' ||
+				$('#model_kr').val() == '' || $('#model_en').val() == '' || $('#retailPrice').val() == '';
+		}
+
+		$('document').ready(function () {
+			$('#submitBtn').click(function () {
+				if (validCheck()) {
+					return alert('입력하지 않은 값이 있는지 확인해주세요.');
+				}
+
+				var formData = new FormData(document.getElementById('insertform'));
+				formData.append('releaseStartDate', '');
+				formData.append('releaseEndDate', 'RELEASING SOON');
+				$.ajax({
+					url: '/product-insert',
+					data: formData,
+					processData: false,
+					contentType: false,
+					type: 'POST',
+					success: function () {
+						const productMainImage = document.getElementById('photoupload').files[0];
+						const productDetailImages = document.getElementById('photoupload_detail').files;
+						const mainImageFileName = document.getElementById('model_en').value.replace(/ /g, '_');
+						const albumPhotosKey = 'product/' + encodeURIComponent($('#code').val()) + '/';
+						console.log(productMainImage);
+						
+						let data = {
+							albumPhotosKey: albumPhotosKey,
+							file: productMainImage
+						};
+						setTimeout(() => { s3ResizedUpload(data, albumPhotosKey + 'size150/' + mainImageFileName + '.jpg', 150); }, 150);
+						setTimeout(() => { s3ResizedUpload(data, albumPhotosKey + 'size375/' + mainImageFileName + '.jpg', 375); }, 300);
+						setTimeout(() => { s3ResizedUpload(data, albumPhotosKey + 'size800/' + mainImageFileName + '.jpg', 800); }, 450);
+						
+						console.log(productDetailImages);
+						for (let i = 1; i <= productDetailImages.length; i++) {
+							setTimeout(()=> {
+								const file = productDetailImages[i-1];
+								let data = {
+									albumPhotosKey: albumPhotosKey,
+									file: file
+								};
+								setTimeout(() => { s3ResizedUpload(data, albumPhotosKey + 'size800/' + mainImageFileName + i + '.jpg', 800); }, 600);
+								setTimeout(() => { s3ResizedUpload(data, albumPhotosKey + 'size375/' + mainImageFileName + i + '.jpg', 375); }, 300);
+							}, i*1000);
+						}
+					},
+					error: function () {
+						alert('error!');
+					}
+				});
+			});
 		});
-		
-		// ‘저장’ 버튼을 누르는 등 저장을 위한 액션을 했을 때 submitContents가 호출된다고 가정한다.
-	function submitContents() {
-		 // 에디터의 내용이 textarea에 적용된다.
-		 oEditors.getById["content"].exec("UPDATE_CONTENTS_FIELD", []);
-		 // 에디터의 내용에 대한 값 검증은 이곳에서
-		 // document.getElementById("content").value를 이용해서 처리한다.
-	}
-</script> -->
+	</script>
 </div>
 </html>

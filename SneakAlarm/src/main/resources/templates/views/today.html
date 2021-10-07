@@ -57,7 +57,14 @@
             class="todayDrawContainer">
             <a class="item-zoom" th:href="|/product-detail?id=${drawGroup.productVO.id}|">
               <img th:id="|todayProductImg-${drawGroup.productVO.id}|" class="todayProductImg lozad"
-                th:data-src="${drawGroup.productVO.imgSrc_home}" src="image/loading.gif" alt="loading..." />
+                th:data-src="${drawGroup.productVO.imgSrc_home}" th:if="${drawGroup.productVO.imgSrc_home != null}" src="image/loading.gif" alt="loading..." />
+              <picture th:unless="${drawGroup.productVO.imgSrc_home != null}">
+                <source media="(min-width: 950px)"
+                  th:srcset="|https://s3.ap-northeast-2.amazonaws.com/sneakalarm.media/product/${drawGroup.productVO.code}/size350/${drawGroup.productVO.model_en}.jpg|" />
+                <img th:id="|todayProductImg-${drawGroup.productVO.id}|" class="todayProductImg lozad"
+                  th:data-src="|https://s3.ap-northeast-2.amazonaws.com/sneakalarm.media/product/${drawGroup.productVO.code}/size150/${drawGroup.productVO.model_en}.jpg|"
+                  src="image/loading.gif" alt="loading..." />
+              </picture>
             </a>
             <div
               th:class="|todayContentUnregistered-${drawGroup.productVO.id} todayDrawContentBox d-flex flex-wrap justify-content-center|">
