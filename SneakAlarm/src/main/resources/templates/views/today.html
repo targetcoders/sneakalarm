@@ -6,44 +6,7 @@
 <th:block layout:fragment="css">
   <link rel="stylesheet" th:href="@{/css/today.css}" type="text/css">
 </th:block>
-<th:block layout:fragment="script">
-  <script type="text/javascript" src="/js/today.js" charset="utf-8"></script>
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lozad/dist/lozad.min.js"></script>
-  <script>
-    $(function () {
-      $('.product-unregistered').hide();
-      if ($('#activeDraws-unregistered').children().length > 0) {
-        $('.product-unregistered').show();
-      }
-      setPopup();
-      setScrollMoving(new ScrollController());
-      setCookieSearchConditions();
-      $('#navbar-bottom--mobile__menu--today').attr('src','/image/icon/navbar/btmnav_icn_raffle_ver1_on.svg');
-      $('.search-icon-area').remove();
-    });
-    $(window).on('load', function () {
-      let doneRaffleIdList = searchCookies("myRaffles");
-      for(i in doneRaffleIdList) {
-        $('#check-'+doneRaffleIdList[i]).attr('src','/image/icon/check_on.svg');
-        $('#drawCard-'+doneRaffleIdList[i]).children('div').css('opacity','0.5');
-      }
-      $('.check').on('click',function(){
-        onClickCheckMyRaffles($(this).attr('data-raffle-id'));
-      });
-      setCardsMaxHeight();
-      const observer = lozad();
-      observer.observe();
-    });
-  </script>
-  <script sec:authorize="!hasRole('ADMIN')">
-    document.title = 'SNEAKALARM';
-  </script>
-  <script sec:authorize="hasRole('ADMIN')">
-    document.title = '_SNEAKALARM';
-  </script>
-
-</th:block>
-
+<th:block layout:fragment="script"></th:block>
 
 <div layout:fragment="content" class="container" id="today-page-width">
   <div class="today-main-container">
@@ -56,15 +19,7 @@
           <div th:each="drawGroup : ${unregisteredDrawGroupList}" th:id="|todayUnregisteredDraw-${drawGroup.productVO.id}|"
             class="todayDrawContainer">
             <a class="item-zoom" th:href="|/product-detail?id=${drawGroup.productVO.id}|">
-              <img th:id="|todayProductImg-${drawGroup.productVO.id}|" class="todayProductImg lozad"
-                th:data-src="${drawGroup.productVO.imgSrc_home}" th:if="${drawGroup.productVO.imgSrc_home != null}" src="image/loading.gif" alt="loading..." />
-              <picture th:unless="${drawGroup.productVO.imgSrc_home != null}">
-                <source media="(min-width: 950px)"
-                  th:srcset="|https://s3.ap-northeast-2.amazonaws.com/sneakalarm.media/product/${drawGroup.productVO.code}/size350/${drawGroup.productVO.model_en}.jpg|" />
-                <img th:id="|todayProductImg-${drawGroup.productVO.id}|" class="todayProductImg lozad"
-                  th:data-src="|https://s3.ap-northeast-2.amazonaws.com/sneakalarm.media/product/${drawGroup.productVO.code}/size150/${drawGroup.productVO.model_en}.jpg|"
-                  src="image/loading.gif" alt="loading..." />
-              </picture>
+              <th:block th:include="fragments/today-product-image"></th:block>
             </a>
             <div
               th:class="|todayContentUnregistered-${drawGroup.productVO.id} todayDrawContentBox d-flex flex-wrap justify-content-center|">
@@ -98,9 +53,7 @@
           <div th:each="drawGroup,index : ${koreaDrawGroupList}" th:id="|todayKoreaDraw-${drawGroup.productVO.id}|"
             class="todayDrawContainer">
             <a class="item-zoom" th:href="|/product-detail?id=${drawGroup.productVO.id}|">
-              <img th:id="|todayProductImg-${drawGroup.productVO.id}|" class="todayProductImg lozad"
-                th:data-src="${drawGroup.productVO.imgSrc_home}" src="image/loading.gif"
-                th:alt="${drawGroup.productVO.model_kr}" />
+              <th:block th:include="fragments/today-product-image"></th:block>
             </a>
             <div class="todayDraw-model_kr" th:text="${drawGroup.productVO.model_kr}"></div>
             <div
@@ -128,7 +81,7 @@
             
             <!-- NOW 고정형 -->
             <section class="raffle-ad-area" th:if="${index.index == 1}">
-              <ins class="adsbygoogle ad-container" data-ad-client="ca-pub-2682527241610745"
+              <ins class="adsbygoogle ad-container" data-full-width-responsive="true" data-ad-client="ca-pub-2682527241610745"
                 data-ad-slot="8269680833"></ins>
               <script>
                 (adsbygoogle = window.adsbygoogle || []).push({});
@@ -146,9 +99,7 @@
           <div th:each="drawGroup : ${directDrawGroupList}" th:id="|todayDirectDraw-${drawGroup.productVO.id}|"
             class="todayDrawContainer">
             <a class="item-zoom" th:href="|/product-detail?id=${drawGroup.productVO.id}|">
-              <img th:id="|todayProductImg-${drawGroup.productVO.id}|" class="todayProductImg lozad"
-                th:data-src="${drawGroup.productVO.imgSrc_home}" src="image/loading.gif"
-                th:alt="${drawGroup.productVO.model_kr}" />
+              <th:block th:include="fragments/today-product-image"></th:block>
             </a>
             <div class="todayDraw-model_kr" th:text="${drawGroup.productVO.model_kr}"></div>
             <div
@@ -181,9 +132,7 @@
           <div th:each="drawGroup : ${agentDrawGroupList}" th:id="|todayAgentDraw-${drawGroup.productVO.id}|"
             class="todayDrawContainer">
             <a class="item-zoom" th:href="|/product-detail?id=${drawGroup.productVO.id}|">
-              <img th:id="|todayProductImg-${drawGroup.productVO.id}|" class="todayProductImg lozad"
-                th:data-src="${drawGroup.productVO.imgSrc_home}" src="image/loading.gif"
-                th:alt="${drawGroup.productVO.model_kr}" />
+              <th:block th:include="fragments/today-product-image"></th:block>
             </a>
             <div class="todayDraw-model_kr" th:text="${drawGroup.productVO.model_kr}"></div>
             <div
@@ -219,8 +168,7 @@
           <div th:each="drawGroup : ${readyUnregisteredDrawGroupList}"
             th:id="|todayUnregisteredDraw-${drawGroup.productVO.id}|" class="todayDrawContainer">
             <a class="item-zoom" th:href="|/product-detail?id=${drawGroup.productVO.id}|">
-              <img th:id="|todayProductImg-${drawGroup.productVO.id}|" class="todayProductImg lozad"
-                th:data-src="${drawGroup.productVO.imgSrc_home}" src="image/loading.gif" alt="loading..." />
+              <th:block th:include="fragments/today-product-image"></th:block>
             </a>
             <div
               class="todayContentUnregistered-${drawGroup.productVO.id} todayDrawContentBox d-flex flex-wrap justify-content-center">
@@ -257,9 +205,7 @@
           <div th:each="drawGroup,index : ${readyKoreaDrawGroupList}" th:id="|todayKoreaDraw-${drawGroup.productVO.id}|"
             class="todayDrawContainer">
             <a class="item-zoom" th:href="|/product-detail?id=${drawGroup.productVO.id}|">
-              <img th:id="|todayProductImg-${drawGroup.productVO.id}|" class="todayProductImg lozad"
-                th:data-src="${drawGroup.productVO.imgSrc_home}" src="image/loading.gif"
-                th:alt="${drawGroup.productVO.model_kr}" />
+              <th:block th:include="fragments/today-product-image"></th:block>
             </a>
             <div class="todayDraw-model_kr" th:text="${drawGroup.productVO.model_kr}"></div>
             <div
@@ -302,9 +248,7 @@
           <div th:each="drawGroup : ${readyDirectDrawGroupList}" th:id="|todayDirectDraw-${drawGroup.productVO.id}|"
             class="todayDrawContainer">
             <a class="item-zoom" th:href="|/product-detail?id=${drawGroup.productVO.id}|">
-              <img th:id="|todayProductImg-${drawGroup.productVO.id}|" class="todayProductImg lozad"
-                th:data-src="${drawGroup.productVO.imgSrc_home}" src="image/loading.gif"
-                th:alt="${drawGroup.productVO.model_kr}" />
+              <th:block th:include="fragments/today-product-image"></th:block>
             </a>
             <div class="todayDraw-model_kr" th:text="${drawGroup.productVO.model_kr}"></div>
             <div
@@ -338,9 +282,7 @@
           <div th:each="drawGroup : ${readyAgentDrawGroupList}" th:id="|todayAgentDraw-${drawGroup.productVO.id}|"
             class="todayDrawContainer">
             <a class="item-zoom" th:href="|/product-detail?id=${drawGroup.productVO.id}|">
-              <img th:id="|todayProductImg-${drawGroup.productVO.id}|" class="todayProductImg lozad"
-                th:data-src="${drawGroup.productVO.imgSrc_home}" src="image/loading.gif"
-                th:alt="${drawGroup.productVO.model_kr}" />
+              <th:block th:include="fragments/today-product-image"></th:block>
             </a>
             <div class="todayDraw-model_kr" th:text="${drawGroup.productVO.model_kr}"></div>
             <div
@@ -380,5 +322,41 @@
 
     <img id="category-close-btn" src="/image/icon/floating_x.png">
   </div>
+
+
+  <script type="text/javascript" src="/js/today.js" charset="utf-8"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lozad/dist/lozad.min.js"></script>
+  <script>
+    $(function () {
+      $('.product-unregistered').hide();
+      if ($('#activeDraws-unregistered').children().length > 0) {
+        $('.product-unregistered').show();
+      }
+      setPopup();
+      setScrollMoving(new ScrollController());
+      setCookieSearchConditions();
+      $('#navbar-bottom--mobile__menu--today').attr('src','/image/icon/navbar/btmnav_icn_raffle_ver1_on.svg');
+      $('.search-icon-area').remove();
+    });
+    $(window).on('load', function () {
+      let doneRaffleIdList = searchCookies("myRaffles");
+      for(i in doneRaffleIdList) {
+        $('#check-'+doneRaffleIdList[i]).attr('src','/image/icon/check_on.svg');
+        $('#drawCard-'+doneRaffleIdList[i]).children('div').css('opacity','0.5');
+      }
+      $('.check').on('click',function(){
+        onClickCheckMyRaffles($(this).attr('data-raffle-id'));
+      });
+      setCardsMaxHeight();
+      const observer = lozad();
+      observer.observe();
+    });
+  </script>
+  <script sec:authorize="!hasRole('ADMIN')">
+    document.title = 'SNEAKALARM';
+  </script>
+  <script sec:authorize="hasRole('ADMIN')">
+    document.title = '_SNEAKALARM';
+  </script>
 </div>
 </html>
