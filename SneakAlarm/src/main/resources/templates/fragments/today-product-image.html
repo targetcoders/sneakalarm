@@ -1,0 +1,10 @@
+<img th:id="|todayProductImg-${drawGroup.productVO.id}|" class="todayProductImg lozad"
+    th:data-src="${drawGroup.productVO.imgSrc_home}" th:if="${drawGroup.productVO.imgSrc_home != null}"
+    src="image/loading.gif" alt="loading..." />
+<picture th:unless="${drawGroup.productVO.imgSrc_home != null}">
+    <source media="(min-width: 950px)"
+        th:srcset="|https://s3.ap-northeast-2.amazonaws.com/sneakalarm.media/product/${drawGroup.productVO.code}/size450/${drawGroup.productVO.model_en}.jpg|" />
+    <img th:id="|todayProductImg-${drawGroup.productVO.id}|" class="todayProductImg lozad"
+        th:data-src="|https://s3.ap-northeast-2.amazonaws.com/sneakalarm.media/product/${drawGroup.productVO.code}/size200/${drawGroup.productVO.model_en}.jpg|"
+        src="image/loading.gif" alt="loading..." />
+</picture>
