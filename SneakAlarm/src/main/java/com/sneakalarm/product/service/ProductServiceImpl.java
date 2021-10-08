@@ -82,8 +82,10 @@ public class ProductServiceImpl implements ProductService {
     for (int i = 0; i < settedCardList.size(); i++) {
       ProductCardVO productCard = settedCardList.get(i);
       String imgSrcOrigin = productCard.getImgSrc_home();
-      String[] imgSrcList = imgSrcOrigin.split(",");
-      productCard.setImgSrc_home(imgSrcList[0]);
+      if(imgSrcOrigin != null) {
+        String[] imgSrcList = imgSrcOrigin.split(",");
+        productCard.setImgSrc_home(imgSrcList[0]);
+      }
       ret.add(productCard);
     }
 

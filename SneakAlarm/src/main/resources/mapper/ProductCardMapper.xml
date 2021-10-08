@@ -5,14 +5,14 @@
 
 	<select id="getProductCardList" 
 	resultType="com.sneakalarm.product.dto.ProductCardVO">
-		SELECT	id, model_kr, code, retailPrice, releaseStartDate, releaseEndDate, imgSrc_home, releaseDate, drawNumKorea, drawNumOverseas, drawNumFirstcome
+		SELECT	id, model_kr, model_en, code, retailPrice, releaseStartDate, releaseEndDate, imgSrc_home, releaseDate, drawNumKorea, drawNumOverseas, drawNumFirstcome
 		FROM 	product
 		ORDER BY insertdate DESC
 	</select>
 	
 	<select id="getProductCardListByKeyword" parameterType="String" 
 	resultType="com.sneakalarm.product.dto.ProductCardVO">
-		SELECT	id, model_kr, code, retailPrice, releaseStartDate, releaseEndDate, imgSrc_home, releaseDate, drawNumKorea, drawNumOverseas, drawNumFirstcome
+		SELECT	id, model_kr, model_en, code, retailPrice, releaseStartDate, releaseEndDate, imgSrc_home, releaseDate, drawNumKorea, drawNumOverseas, drawNumFirstcome
 		FROM 	product
 		WHERE replace(model_kr,' ','') LIKE CONCAT('%', #{keyword}, '%') OR
 					replace(model_en,' ','') LIKE CONCAT('%', #{keyword}, '%') OR
@@ -22,7 +22,7 @@
 
 	<select id="getProductCardListByModelKeyword" parameterType="String"
 		resultType="com.sneakalarm.product.dto.ProductCardVO">
-		SELECT	id, model_kr, code, retailPrice, releaseStartDate, releaseEndDate, imgSrc_home, releaseDate, drawNumKorea, drawNumOverseas, drawNumFirstcome
+		SELECT	id, model_kr, model_en, code, retailPrice, releaseStartDate, releaseEndDate, imgSrc_home, releaseDate, drawNumKorea, drawNumOverseas, drawNumFirstcome
 		FROM 	product
 		WHERE replace(model_kr,' ','') LIKE CONCAT('%', #{keyword}, '%') OR
 		replace(model_en,' ','') LIKE CONCAT('%', #{keyword}, '%')
