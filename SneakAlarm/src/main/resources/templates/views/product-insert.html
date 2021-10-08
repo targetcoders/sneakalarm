@@ -162,6 +162,9 @@ hr {
 				var formData = new FormData(document.getElementById('insertform'));
 				formData.append('releaseStartDate', '');
 				formData.append('releaseEndDate', 'RELEASING SOON');
+				formData.append('detailImagesSize', document.getElementById('photoupload_detail').files.length);
+				formData.set('fileList_home',null);
+				formData.set('fileList_detail',null);
 				$.ajax({
 					url: '/product-insert',
 					data: formData,
@@ -179,9 +182,9 @@ hr {
 							albumPhotosKey: albumPhotosKey,
 							file: productMainImage
 						};
-						setTimeout(() => { s3ResizedUpload(data, albumPhotosKey + 'size150/' + mainImageFileName + '.jpg', 150); }, 150);
-						setTimeout(() => { s3ResizedUpload(data, albumPhotosKey + 'size375/' + mainImageFileName + '.jpg', 375); }, 300);
-						setTimeout(() => { s3ResizedUpload(data, albumPhotosKey + 'size800/' + mainImageFileName + '.jpg', 800); }, 450);
+						setTimeout(() => { s3ResizedUpload(data, albumPhotosKey + 'size200/' + mainImageFileName + '.jpg', 200); }, 150);
+						setTimeout(() => { s3ResizedUpload(data, albumPhotosKey + 'size450/' + mainImageFileName + '.jpg', 450); }, 300);
+						setTimeout(() => { s3ResizedUpload(data, albumPhotosKey + 'size900/' + mainImageFileName + '.jpg', 900); }, 450);
 						
 						console.log(productDetailImages);
 						for (let i = 1; i <= productDetailImages.length; i++) {
@@ -191,9 +194,9 @@ hr {
 									albumPhotosKey: albumPhotosKey,
 									file: file
 								};
-								setTimeout(() => { s3ResizedUpload(data, albumPhotosKey + 'size800/' + mainImageFileName + i + '.jpg', 800); }, 600);
-								setTimeout(() => { s3ResizedUpload(data, albumPhotosKey + 'size375/' + mainImageFileName + i + '.jpg', 375); }, 300);
-							}, i*1000);
+								setTimeout(() => { s3ResizedUpload(data, albumPhotosKey + 'size900/' + mainImageFileName + i + '.jpg', 900); }, 150);
+								setTimeout(() => { s3ResizedUpload(data, albumPhotosKey + 'size450/' + mainImageFileName + i + '.jpg', 450); }, 300);
+							}, i*500);
 						}
 					},
 					error: function () {

@@ -28,6 +28,7 @@ public class ProductInsertVO {
   private String country;
   private String draw;
   private String deliveryType;
+  private String detailImagesSize;
 
 
   public ProductInsertVO() {}

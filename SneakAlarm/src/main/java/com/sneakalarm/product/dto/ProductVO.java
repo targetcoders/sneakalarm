@@ -35,6 +35,7 @@ public class ProductVO {
   private String drawNumOverseas;
   private String drawNumFirstcome;
   private String drawNumReady;
+  private String detailImagesSize;
 
   public ProductVO() {}
 
@@ -58,6 +59,7 @@ public class ProductVO {
     this.country = productInsertVO.getCountry();
     this.draw=productInsertVO.getDraw();
     this.deliveryTypes = productInsertVO.getDeliveryType();
+    this.detailImagesSize = productInsertVO.getDetailImagesSize();
   }
 
 }
