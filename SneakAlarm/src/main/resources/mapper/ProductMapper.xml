@@ -7,10 +7,10 @@
 	parameterType="com.sneakalarm.product.dto.ProductVO">
 		INSERT	INTO product(model_kr, model_en, code, retailPrice, brand, content, imgSrc_home, imgSrc_detail,
 							releaseStartDate, releaseEndDate, popularity, insertDate, releaseDate, premiumPrice, averageSalePrice, 
-							lastUpdateDate, size, country, draw, lowestSoldPrice, highestSoldPrice, isDeleted, signatureColor)
+							lastUpdateDate, size, country, draw, lowestSoldPrice, highestSoldPrice, isDeleted, signatureColor, detailImagesSize)
 		VALUES 	(#{model_kr}, #{model_en}, #{code}, #{retailPrice}, #{brand}, #{content}, #{imgSrc_home}, #{imgSrc_detail},
 							#{releaseStartDate}, #{releaseEndDate}, #{popularity}, #{insertDate}, #{releaseDate}, #{premiumPrice}, #{averageSalePrice}, 
-							#{lastUpdateDate}, #{size}, #{country}, #{draw}, #{lowestSoldPrice}, #{highestSoldPrice}, #{isDeleted}, #{signatureColor})
+							#{lastUpdateDate}, #{size}, #{country}, #{draw}, #{lowestSoldPrice}, #{highestSoldPrice}, #{isDeleted}, #{signatureColor}, #{detailImagesSize})
 	</insert>
 	
 	<select id="getProductList" parameterType="String" resultType="com.sneakalarm.product.dto.ProductVO">
@@ -57,7 +57,7 @@
 	 					averageSalePrice=#{averageSalePrice}, lastUpdateDate=#{lastUpdateDate}, size=#{size}, 
 	 					lowestSoldPrice=#{lowestSoldPrice}, highestSoldPrice=#{highestSoldPrice}, content=#{content},
 	 					releaseStartDate=#{releaseStartDate}, releaseEndDate=#{releaseEndDate}, code=#{code}, releaseDate=#{releaseDate},
-		 				signatureColor=#{signatureColor}
+		 				signatureColor=#{signatureColor}, detailImagesSize=#{detailImagesSize}
 	 	WHERE 	id=#{id}
 	 </update>
 	 
