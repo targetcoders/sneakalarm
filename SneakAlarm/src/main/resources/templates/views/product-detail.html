@@ -10,8 +10,14 @@
 </th:block>
 
 <th:block layout:fragment="script">
-<script type="text/javascript" th:src="@{js/util.js}" charset="utf-8"></script>
+	<script src="https://sdk.amazonaws.com/js/aws-sdk-2.283.1.min.js"></script>
+	<script type="text/javascript" th:src="@{js/util.js}" charset="utf-8"></script>
+	<script type="text/javascript" th:src="@{js/S3.js}" charset="utf-8"></script>
+<script type="text/javascript" th:src="@{js/S3Config.js}" charset="utf-8"></script>
 <script>
+	var s3Config = new S3Config(AWS,'sneakalarm.media','ap-northeast-2','ap-northeast-2:e33e44cf-1621-4149-98b8-9dd28c45ecc8');
+	var s3 = new S3(s3Config).instance();
+
 $(function(){
 	$('#navbar-bottom--mobile__menu--launch').attr('src','/image/icon/navbar/btmnav_icn_launch_ver1_on.svg');
 	$('.navbar__search-icon').remove();
@@ -104,47 +110,89 @@ $('document').ready(function(){
 		location.replace("/raffle-modify?id="+id);
 	});
 	
-	$('#detail-product-delete').click(function(){
+	$('#detail-product-delete').click(function () {
 		var id = $(this).attr('is');
-			var res = confirm('id: '+id+'\n정말 삭제하시겠습니까?');
-			if(res){
+		var res = confirm('id: ' + id + '\n정말 삭제하시겠습니까?');
+		if (res) {
 			$.ajax({
-	  		url:'/product-delete',
-	    	type:'get',
-	    	data:{
-	     		id: id
-	    	},
-	    	success: function(data) {
-	    		alert('삭제되었습니다.');
-	    		location.replace("/");
-	   		},
-	    	error: function(){
-	    		alert('error!');
-	    	}
+				url: '/product-delete',
+				type: 'get',
+				data: {
+					id: id
+				},
+				success: function (data) {
+					const mainImageFileName = document.getElementById('model_en').innerHTML.replace(/ /g, '_');
+					const albumPhotosKey = 'product/' + encodeURIComponent($('#code').text()) + '/';
+
+					let objectsToDelete = [
+						{ Key: albumPhotosKey + 'size200/' + mainImageFileName + '.jpg' },
+						{ Key: albumPhotosKey + 'size450/' + mainImageFileName + '.jpg' },
+						{ Key: albumPhotosKey + 'size900/' + mainImageFileName + '.jpg' },
+						{ Key: albumPhotosKey + 'size200/' },
+						{ Key: albumPhotosKey + 'size450/' },
+						{ Key: albumPhotosKey + 'size900/' }
+					];
+					let detailImagesSize = Number(document.getElementById("detailImagesSize").innerHTML);
+					console.log(detailImagesSize);
+
+					for (let i = 1; i <= detailImagesSize; i++) {
+						objectsToDelete.push({
+							Key: albumPhotosKey + 'size450/' + mainImageFileName + i + '.jpg'
+						});
+						objectsToDelete.push({
+							Key: albumPhotosKey + 'size900/' + mainImageFileName + i + '.jpg'
+						});
+						console.log(i + objectsToDelete);
+					}
+					console.log(objectsToDelete);
+
+					let allImagesParams = {
+						Bucket: s3Config.albumBucketName,
+						Delete: {
+							Objects: objectsToDelete,
+							Quiet: false
+						}
+					};
+					console.log(allImagesParams);
+
+					setTimeout(() => {
+						s3.deleteObjects(allImagesParams, function (err, data) {
+							if (err) {
+								return console.log('S3 detail images 삭제 실패');
+							}
+							console.log(allImagesParams);
+							alert('제품 삭제 완료');
+							location.replace("/");
+						})
+					}, 200);
+				},
+				error: function () {
+					alert('error!');
+				}
 			});
-			}
+		}
 	});
 	
-	$('.detail-raffle-delete').click(function(){
+	$('.detail-raffle-delete').click(function () {
 		var id = $(this).attr('is');
 		var productId = getParam('id');
-			var res = confirm('id: '+id+'\n정말 삭제하시겠습니까?');
-			if(res){
+		var res = confirm('id: ' + id + '\n정말 삭제하시겠습니까?');
+		if (res) {
 			$.ajax({
-	  		url:'/raffle-delete',
-	    	type:'get',
-	    	data:{
-	     		id: id
-	    	},
-	    	success: function(data) {
-	    		alert('삭제되었습니다.');
-	    		location.replace("/product-detail?id="+productId);
-	   		},
-	    	error: function(){
-	    		alert('error!');
-	    	}
+				url: '/raffle-delete',
+				type: 'get',
+				data: {
+					id: id
+				},
+				success: function (data) {
+					alert('삭제되었습니다.');
+					location.replace("/product-detail?id=" + productId);
+				},
+				error: function () {
+					alert('error!');
+				}
 			});
-			}
+		}
 	});
 	
 });
@@ -156,6 +204,7 @@ function move(id){
 </th:block>
 
 <div layout:fragment="content">
+<div id="detailImagesSize" style="display:none;" th:text="${productVO.detailImagesSize}"></div>
 <div class="container main-container" id="product-detail-container">
 	<div class="text-center">
 	<div id="clock"></div>
@@ -181,7 +230,6 @@ function move(id){
 					<source media="(min-width: 950px)" th:srcset="|https://s3.ap-northeast-2.amazonaws.com/sneakalarm.media/product/${productVO.code}/size900/${#strings.replace(productVO.model_en,' ','_')}${index}.jpg|">
   					<img th:src="|https://s3.ap-northeast-2.amazonaws.com/sneakalarm.media/product/${productVO.code}/size450/${#strings.replace(productVO.model_en,' ','_')}${index}.jpg|" alt="..." class="detail-img" data-bs-interval="7000">
 				</picture>
-				<div th:text="${index}"></div> 
 			</th:block>
 		</th:block>
   		</div>
@@ -231,7 +279,7 @@ function move(id){
 					<tr style="border-bottom: none;">
 						<td style="border-left: none; border-right: none;" class="table2RowValue"><span th:utext="${productVO.brand}"></span></td>
 						<td style="border-left: none; border-right: none;" class="table2RowValue col-size"><span id="col-size-value" th:utext="${productVO.size}"></span></td>
-						<td style="border-left: none; border-right: none;" class="table2RowValue"><span th:utext="${productVO.code}"></span></td>
+						<td style="border-left: none; border-right: none;" class="table2RowValue"><span id="code" th:utext="${productVO.code}"></span></td>
 					</tr>
 				</tbody>
 				</table>
