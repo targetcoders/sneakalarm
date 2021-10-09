@@ -17,7 +17,7 @@ import com.sneakalarm.product.dto.ProductVO;
 public interface ProductService {
   List<ProductCardVO> getProductCardList();
   
-  boolean insertProduct(ProductInsertVO productInsertVO) throws Exception;
+  String insertProduct(ProductInsertVO productInsertVO) throws Exception;
 
   List<ProductVO> getProductList(String id);
 

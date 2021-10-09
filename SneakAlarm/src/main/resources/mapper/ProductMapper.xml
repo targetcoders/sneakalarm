@@ -4,7 +4,7 @@
 <mapper namespace="com.sneakalarm.product.dao.ProductMapper" >
 
 	<insert id="insertProduct" 
-	parameterType="com.sneakalarm.product.dto.ProductVO">
+	parameterType="com.sneakalarm.product.dto.ProductVO" useGeneratedKeys="true" keyProperty="id">
 		INSERT	INTO product(model_kr, model_en, code, retailPrice, brand, content, imgSrc_home, imgSrc_detail,
 							releaseStartDate, releaseEndDate, popularity, insertDate, releaseDate, premiumPrice, averageSalePrice, 
 							lastUpdateDate, size, country, draw, lowestSoldPrice, highestSoldPrice, isDeleted, signatureColor, detailImagesSize)
