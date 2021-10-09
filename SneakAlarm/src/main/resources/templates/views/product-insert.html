@@ -163,15 +163,13 @@ hr {
 				formData.append('releaseStartDate', '');
 				formData.append('releaseEndDate', 'RELEASING SOON');
 				formData.append('detailImagesSize', document.getElementById('photoupload_detail').files.length);
-				formData.set('fileList_home',null);
-				formData.set('fileList_detail',null);
 				$.ajax({
 					url: '/product-insert',
 					data: formData,
 					processData: false,
 					contentType: false,
 					type: 'POST',
-					success: function () {
+					success: function (productId) {
 						const productMainImage = document.getElementById('photoupload').files[0];
 						const productDetailImages = document.getElementById('photoupload_detail').files;
 						const mainImageFileName = document.getElementById('model_en').value.replace(/ /g, '_');
@@ -196,6 +194,12 @@ hr {
 								};
 								setTimeout(() => { s3ResizedUpload(data, albumPhotosKey + 'size900/' + mainImageFileName + i + '.jpg', 900); }, 150);
 								setTimeout(() => { s3ResizedUpload(data, albumPhotosKey + 'size450/' + mainImageFileName + i + '.jpg', 450); }, 300);
+								if(i == productDetailImages.length) {
+									setTimeout(() => {
+										alert('제품 등록 완료');
+										location.replace('/product-detail?id='+productId);
+									}, 400);
+								}
 							}, i*500);
 						}
 					},

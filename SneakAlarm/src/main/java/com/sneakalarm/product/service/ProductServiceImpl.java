@@ -127,11 +127,11 @@ public class ProductServiceImpl implements ProductService {
   }
 
   @Override
-  public boolean insertProduct(ProductInsertVO productInsertVO) {
+  public String insertProduct(ProductInsertVO productInsertVO) {
     ArrayList<ProductVO> prodList =
         (ArrayList<ProductVO>) productMapper.getProductList(productInsertVO.getCode());
     if (prodList.size() != 0) {
-      return false;
+      return "-1";
     }
 
     String now = getNowDate();
@@ -142,7 +142,7 @@ public class ProductServiceImpl implements ProductService {
     productVO.setStatus(new ProductStatus("해외/국내", "선착/응모", 0, 0));
     productVO.setIsDeleted(0);
     productMapper.insertProduct(productVO);
-    return true;
+    return productVO.getId();
   }
 
   public String getNowDate() {
@@ -190,41 +190,13 @@ public class ProductServiceImpl implements ProductService {
     productVO.setHighestSoldPrice(productInsertVO.getHighestSoldPrice());
     productVO.setSize(productInsertVO.getSize());
     productVO.setCode(productInsertVO.getCode());
+    productVO.setImgSrc_detail(null);
+    productVO.setImgSrc_home(null);
     productVO.setSignatureColor(productInsertVO.getSignatureColor());
     productVO.setReleaseDate(productInsertVO.getReleaseDate());
+    productVO.setDetailImagesSize(productInsertVO.getDetailImagesSize());
     if (productInsertVO.getIsChanged().equals("true")) {
       productVO.setLastUpdateDate(getNowDate());
-    }
-
-    ArrayList<MultipartFile> fileList_home =
-        (ArrayList<MultipartFile>) productInsertVO.getFileList_home();
-    ArrayList<MultipartFile> fileList_detail =
-        (ArrayList<MultipartFile>) productInsertVO.getFileList_detail();
-
-    if (fileList_home != null && fileList_home.get(0).getOriginalFilename().equals("")) {
-      fileList_home = null;
-    }
-    if (fileList_detail != null && fileList_detail.get(0).getOriginalFilename().equals("")) {
-      fileList_detail = null;
-    }
-
-    String code = productInsertVO.getCode();
-    BucketVO bucketVO = new BucketVO(region, bucket, productFolderName);
-    ArrayList<String> urlList_home;
-    ArrayList<String> urlList_detail;
-
-    if (fileList_home != null && fileList_detail != null) {
-      urlList_home = stringUtil.getInputFileNameList(bucketVO, code, fileList_home);
-      urlList_detail = stringUtil.getInputFileNameList(bucketVO, code, fileList_detail);
-
-      productVO.setImgSrc_home(String.join(",", urlList_home));
-      productVO.setImgSrc_detail(String.join(",", urlList_detail));
-    } else if (fileList_home != null && fileList_detail == null) {
-      urlList_home = stringUtil.getInputFileNameList(bucketVO, code, fileList_home);
-      productVO.setImgSrc_home(String.join(",", urlList_home));
-    } else if (fileList_home == null && fileList_detail != null) {
-      urlList_detail = stringUtil.getInputFileNameList(bucketVO, code, fileList_detail);
-      productVO.setImgSrc_detail(String.join(",", urlList_detail));
     }
 
     productMapper.updateProduct(productVO);

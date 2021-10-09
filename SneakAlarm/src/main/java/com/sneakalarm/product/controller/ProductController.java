@@ -135,9 +135,8 @@ public class ProductController {
 
   @PostMapping("/product-insert")
   @ResponseBody
-  public boolean insertProduct(ProductInsertVO productInsertVO) throws Exception {
-    productServiceImpl.insertProduct(productInsertVO);
-    return true;
+  public String insertProduct(ProductInsertVO productInsertVO) throws Exception {
+    return productServiceImpl.insertProduct(productInsertVO);
   }
 
   @GetMapping("/product-delete")
