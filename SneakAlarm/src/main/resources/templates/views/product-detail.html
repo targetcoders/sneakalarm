@@ -225,11 +225,15 @@ function move(id){
 				<source media="(min-width: 950px)" th:srcset="|https://s3.ap-northeast-2.amazonaws.com/sneakalarm.media/product/${productVO.code}/size900/${#strings.replace(productVO.model_en,' ','_')}.jpg|">
 				  <img th:src="|https://s3.ap-northeast-2.amazonaws.com/sneakalarm.media/product/${productVO.code}/size450/${#strings.replace(productVO.model_en,' ','_')}.jpg|" alt="..." class="detail-img" data-bs-interval="7000">
 			</picture>
-			<th:block th:each="index : ${#numbers.sequence(1,productVO.detailImagesSize)}"> 
-				<picture class="carousel-item">
-					<source media="(min-width: 950px)" th:srcset="|https://s3.ap-northeast-2.amazonaws.com/sneakalarm.media/product/${productVO.code}/size900/${#strings.replace(productVO.model_en,' ','_')}${index}.jpg|">
-  					<img th:src="|https://s3.ap-northeast-2.amazonaws.com/sneakalarm.media/product/${productVO.code}/size450/${#strings.replace(productVO.model_en,' ','_')}${index}.jpg|" alt="..." class="detail-img" data-bs-interval="7000">
-				</picture>
+			<th:block th:if="${productVO.detailImagesSize != '0'}">
+				<th:block th:each="index : ${#numbers.sequence(1,productVO.detailImagesSize)}">
+					<picture class="carousel-item">
+						<source media="(min-width: 950px)"
+							th:srcset="|https://s3.ap-northeast-2.amazonaws.com/sneakalarm.media/product/${productVO.code}/size900/${#strings.replace(productVO.model_en,' ','_')}${index}.jpg|">
+						<img th:src="|https://s3.ap-northeast-2.amazonaws.com/sneakalarm.media/product/${productVO.code}/size450/${#strings.replace(productVO.model_en,' ','_')}${index}.jpg|"
+							alt="..." class="detail-img" data-bs-interval="7000">
+					</picture>
+				</th:block>
 			</th:block>
 		</th:block>
   		</div>
