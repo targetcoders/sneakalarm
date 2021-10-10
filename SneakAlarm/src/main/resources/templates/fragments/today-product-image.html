@@ -5,6 +5,6 @@
     <source media="(min-width: 950px)"
         th:srcset="|https://s3.ap-northeast-2.amazonaws.com/sneakalarm.media/product/${drawGroup.productVO.code}/size450/${#strings.replace(drawGroup.productVO.model_en,' ','_')}.jpg|" />
     <img th:id="|todayProductImg-${drawGroup.productVO.id}|" class="todayProductImg lozad"
-        th:data-src="|https://s3.ap-northeast-2.amazonaws.com/sneakalarm.media/product/${drawGroup.productVO.code}/size200/${#strings.replace(drawGroup.productVO.model_en,' ','_')}.jpg|"
+        th:data-src="|https://s3.ap-northeast-2.amazonaws.com/sneakalarm.media/product/${drawGroup.productVO.code}/size450/${#strings.replace(drawGroup.productVO.model_en,' ','_')}.jpg|"
         src="image/loading.gif" alt="loading..." />
 </picture>
