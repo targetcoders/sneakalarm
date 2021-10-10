@@ -296,6 +296,9 @@ a:active {
   width:300px;
   height:100px
 }
+.opacity-50 {
+  opacity: 0.5;
+}
 
 @media(min-width:960px) {
   .ad-container {

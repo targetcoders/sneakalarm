@@ -167,7 +167,7 @@
         <div class="draw-area">
           <div th:each="drawGroup : ${readyUnregisteredDrawGroupList}"
             th:id="|todayUnregisteredDraw-${drawGroup.productVO.id}|" class="todayDrawContainer">
-            <a class="item-zoom" th:href="|/product-detail?id=${drawGroup.productVO.id}|">
+            <a class="item-zoom opacity-50" th:href="|/product-detail?id=${drawGroup.productVO.id}|">
               <th:block th:include="fragments/today-product-image"></th:block>
             </a>
             <div
@@ -204,7 +204,7 @@
         <div class="draw-area">
           <div th:each="drawGroup,index : ${readyKoreaDrawGroupList}" th:id="|todayKoreaDraw-${drawGroup.productVO.id}|"
             class="todayDrawContainer">
-            <a class="item-zoom" th:href="|/product-detail?id=${drawGroup.productVO.id}|">
+            <a class="item-zoom opacity-50" th:href="|/product-detail?id=${drawGroup.productVO.id}|">
               <th:block th:include="fragments/today-product-image"></th:block>
             </a>
             <div class="todayDraw-model_kr" th:text="${drawGroup.productVO.model_kr}"></div>
@@ -247,7 +247,7 @@
         <div class="draw-area">
           <div th:each="drawGroup : ${readyDirectDrawGroupList}" th:id="|todayDirectDraw-${drawGroup.productVO.id}|"
             class="todayDrawContainer">
-            <a class="item-zoom" th:href="|/product-detail?id=${drawGroup.productVO.id}|">
+            <a class="item-zoom opacity-50" th:href="|/product-detail?id=${drawGroup.productVO.id}|">
               <th:block th:include="fragments/today-product-image"></th:block>
             </a>
             <div class="todayDraw-model_kr" th:text="${drawGroup.productVO.model_kr}"></div>
@@ -281,7 +281,7 @@
         <div class="draw-area">
           <div th:each="drawGroup : ${readyAgentDrawGroupList}" th:id="|todayAgentDraw-${drawGroup.productVO.id}|"
             class="todayDrawContainer">
-            <a class="item-zoom" th:href="|/product-detail?id=${drawGroup.productVO.id}|">
+            <a class="item-zoom opacity-50" th:href="|/product-detail?id=${drawGroup.productVO.id}|">
               <th:block th:include="fragments/today-product-image"></th:block>
             </a>
             <div class="todayDraw-model_kr" th:text="${drawGroup.productVO.model_kr}"></div>
