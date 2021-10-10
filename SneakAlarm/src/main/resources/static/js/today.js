@@ -1,3 +1,17 @@
+function changeCheckIcon(element){
+  const raffleId = element.dataset.raffleId;
+  if(document.getElementById('check-'+raffleId).src == window.location.href+'image/icon/check_on.svg') {
+    return;
+  }
+
+  if(document.getElementById('check-'+raffleId).src == window.location.href+'image/icon/check_off.svg') {
+    document.getElementById('check-'+raffleId).src = '/image/icon/check_off_white.svg';
+    console.log(document.getElementById('check-'+raffleId).src);
+  } else if(document.getElementById('check-'+raffleId).src == window.location.href+'image/icon/check_off_white.svg') {
+    document.getElementById('check-'+raffleId).src = '/image/icon/check_off.svg';
+    console.log(document.getElementById('check-'+raffleId).src);
+  }
+}
 function setPopup(){
   $('#category-open-btn').on('click',function(){
     $('.navbar__clock__date').css('color','white');
@@ -86,7 +100,7 @@ function deleteMyRaffles(myRaffleList, raffleId) {
   let idx = myRaffleList.indexOf(id);
   myRaffleList.splice(idx, 1);
   setCookie('myRaffles', myRaffleList.join('/'), 30);
-  $('#check-' + id).attr('src', '/image/icon/check_off.svg');
+  $('#check-' + id).attr('src', '/image/icon/check_off_white.svg');
   $('#drawCard-' + id).children('div').css('opacity', '1');
 }
 function addMyRaffles(raffleId) {
