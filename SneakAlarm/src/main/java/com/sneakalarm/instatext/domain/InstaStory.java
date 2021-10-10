@@ -26,14 +26,14 @@ public class InstaStory {
 
   private String firstcomeStoryText(String specialCase) {
     return raffleVO.getStoreName() + "\n"
-        + "선착 (" + raffleVO.getEndWeek() + ") " + raffleVO.getEndTime() + " 시작\n"
+        + "선착 (" + raffleVO.getEndWeek() + ") " + raffleVO.getStartTime().substring(0,5) + " 시작\n"
         + specialCase
         + "↗선착 구매하기↖";
   }
 
   private String raffleStoryText(String specialCase) {
     return raffleVO.getStoreName() + "\n"
-        + "(" + raffleVO.getEndWeek() + ") " + raffleVO.getEndTime() + " 종료\n"
+        + "(" + raffleVO.getEndWeek() + ") " + raffleVO.getEndTime().substring(0,5) + " 종료\n"
         + specialCase
         + "↗응모하러 가기↖";
   }
