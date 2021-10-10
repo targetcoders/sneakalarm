@@ -5,6 +5,7 @@ import com.sneakalarm.raffle.dto.RaffleCardVO;
 import com.sneakalarm.raffle.dto.RaffleInsertVO;
 import com.sneakalarm.raffle.dto.RaffleListByDeliveryTypeVO;
 import com.sneakalarm.raffle.dto.RaffleListByStatusVO;
+import com.sneakalarm.raffle.dto.RaffleSearchCondition;
 import com.sneakalarm.raffle.dto.RaffleVO;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -37,4 +38,5 @@ public interface RaffleService {
 
   List<RaffleVO> activeRaffles(ActiveRafflesVO activeRafflesVO);
 
+  List<RaffleVO> duplicatedRaffles(RaffleSearchCondition raffleSearchCondition);
 }

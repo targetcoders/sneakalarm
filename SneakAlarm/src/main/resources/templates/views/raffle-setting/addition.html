@@ -17,12 +17,11 @@ $('document').ready(function() {
 
 
 	AWS.config.update({
-	region: bucketRegion,
-	credentials: new AWS.CognitoIdentityCredentials({ IdentityPoolId: IdentityPoolId })
+		region: bucketRegion,
+		credentials: new AWS.CognitoIdentityCredentials({ IdentityPoolId: IdentityPoolId })
 	});
-	var s3 = new AWS.S3({
-	apiVersion: '2006-03-01',
-	params: {Bucket: albumBucketName}
+	var s3 = new AWS.S3({apiVersion: '2006-03-01',
+		params: {Bucket: albumBucketName}
 	});
 
 	function validCheck(){
@@ -45,7 +44,7 @@ $('document').ready(function() {
 			var photoKey = albumPhotosKey + fileName;
 
 			setTimeout(function(){
-					s3.upload({
+				s3.upload({
 					Key: photoKey,
 					Body: file,
 					ACL: 'public-read'

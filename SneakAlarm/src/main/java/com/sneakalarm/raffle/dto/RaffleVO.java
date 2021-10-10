@@ -15,6 +15,7 @@ import lombok.ToString;
 @AllArgsConstructor @Builder
 public class RaffleVO implements Comparable<RaffleVO> {
   private String id;
+  private String raffleSettingId;
   private String productId;
   private String url;
   private String raffleType;
