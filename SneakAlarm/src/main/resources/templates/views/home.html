@@ -44,11 +44,7 @@
 			<div class="home-product" th:each="list : ${goingCardList}">
 				<div class="d-flex flex-column align-items-center" th:id="|card-${list.id}|">
 					<a class="item-zoom" th:if="${#strings.isEmpty(list.imgSrc_home)}" th:href="@{/product-detail(id=${list.id})}" >
-						<picture>
-							<source media="(min-width: 950px)"
-                  				th:srcset="|https://s3.ap-northeast-2.amazonaws.com/sneakalarm.media/product/${list.code}/size450/${#strings.replace(list.model_en,' ','_')}.jpg|" />
-							<img th:if="${#strings.isEmpty(list.imgSrc_home)}" th:data-src="|https://s3.ap-northeast-2.amazonaws.com/sneakalarm.media/product/${list.code}/size200/${#strings.replace(list.model_en,' ','_')}.jpg|" src="image/loading.gif" class="home-product-img lozad" th:alt="${list.model_kr}">
-						</picture>
+						<img th:if="${#strings.isEmpty(list.imgSrc_home)}" th:data-src="|https://s3.ap-northeast-2.amazonaws.com/sneakalarm.media/product/${list.code}/size450/${#strings.replace(list.model_en,' ','_')}.jpg|" src="image/loading.gif" class="home-product-img lozad" th:alt="${list.model_kr}">
 					</a>
 					<a class="item-zoom" th:unless="${#strings.isEmpty(list.imgSrc_home)}" th:href="@{/product-detail(id=${list.id})}" >
 						<img th:data-src="${list.imgSrc_home}" src="image/loading.gif" class="home-product-img lozad" th:alt="${list.model_kr}">
@@ -70,11 +66,7 @@
 			<div class="home-product" th:each="list : ${readyCardList}">
 				<div class="d-flex flex-column align-items-center" th:id="|card-${list.id}|">
 					<a class="item-zoom" th:href="@{/product-detail(id=${list.id})}" th:if="${#strings.isEmpty(list.imgSrc_home)}" style="opacity:0.5;">
-						<picture>
-							<source media="(min-width: 950px)"
-                  				th:srcset="|https://s3.ap-northeast-2.amazonaws.com/sneakalarm.media/product/${list.code}/size450/${#strings.replace(list.model_en,' ','_')}.jpg|" />
-							<img th:if="${#strings.isEmpty(list.imgSrc_home)}" th:data-src="|https://s3.ap-northeast-2.amazonaws.com/sneakalarm.media/product/${list.code}/size200/${#strings.replace(list.model_en,' ','_')}.jpg|" src="image/loading.gif" class="home-product-img lozad" th:alt="${list.model_kr}">
-						</picture>
+						<img th:if="${#strings.isEmpty(list.imgSrc_home)}" th:data-src="|https://s3.ap-northeast-2.amazonaws.com/sneakalarm.media/product/${list.code}/size450/${#strings.replace(list.model_en,' ','_')}.jpg|" src="image/loading.gif" class="home-product-img lozad" th:alt="${list.model_kr}">
 					</a>
 					<a class="item-zoom" th:href="@{/product-detail(id=${list.id})}" th:unless="${#strings.isEmpty(list.imgSrc_home)}" style="opacity:0.5;">
 						<img th:data-src="${list.imgSrc_home}" src="image/loading.gif" class="home-product-img lozad" th:alt="${list.model_kr}">
