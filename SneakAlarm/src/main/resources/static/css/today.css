@@ -293,7 +293,7 @@ a:active {
 }
 .ad-container {
   display:inline-block;
-  width:100%;
+  width:300px;
   height:100px
 }
 .opacity-50 {
@@ -303,7 +303,7 @@ a:active {
 @media(min-width:960px) {
   .ad-container {
       display:inline-block;
-      width:100%;
+      width:728px;
       height:90px
   }
 }
