@@ -14,8 +14,7 @@ $('document').ready(function() {
 	var albumBucketName = 'sneakalarm.media';
 	var bucketRegion = 'ap-northeast-2';
 	var IdentityPoolId = 'ap-northeast-2:e33e44cf-1621-4149-98b8-9dd28c45ecc8';
-
-
+	
 	AWS.config.update({
 		region: bucketRegion,
 		credentials: new AWS.CognitoIdentityCredentials({ IdentityPoolId: IdentityPoolId })
