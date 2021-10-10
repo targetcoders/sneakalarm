@@ -6,10 +6,8 @@ function changeCheckIcon(element){
 
   if(document.getElementById('check-'+raffleId).src == window.location.href+'image/icon/check_off.svg') {
     document.getElementById('check-'+raffleId).src = '/image/icon/check_off_white.svg';
-    console.log(document.getElementById('check-'+raffleId).src);
   } else if(document.getElementById('check-'+raffleId).src == window.location.href+'image/icon/check_off_white.svg') {
     document.getElementById('check-'+raffleId).src = '/image/icon/check_off.svg';
-    console.log(document.getElementById('check-'+raffleId).src);
   }
 }
 function setPopup(){
