@@ -42,8 +42,8 @@ $('document').ready(function() {
   	url: '/products/'+productId,
   	type: 'GET',
   	success: function(responseData){
-  		console.log(responseData)
-			$('#target-product').append(responseData.model_kr);
+  		console.log(responseData);
+		$('#target-product').append(responseData.model_kr);
   	}
   });
 
@@ -88,11 +88,33 @@ $('document').ready(function() {
 		if (validCheck()) {
 			return alert('입력하지 않은 값이 있는지 확인해주세요.');
 		}
-		var formData = new FormData(document.getElementById('raffle-setting--addition__form'));
+
+		$.ajax({
+			type: 'GET',
+			url: '/duplicated-raffles?productId=' + productId + '&raffleSettingId=' + document.getElementById('raffleSettingId').innerHTML,
+			data: {},
+			success: function (responseList) {
+				let jsonResponseList = JSON.parse(responseList);
+				if (jsonResponseList.length == 0) {
+					insertRaffle(productId);
+				} else {
+					let willInsert = confirm('[' + document.getElementById('storeName').value + '] 이미 같은 매장의 드로우가 등록되어있습니다.\n중복해서 등록하시겠습니까?');
+					if (willInsert) {
+						insertRaffle(productId);
+					}
+				}
+			}
+		});
+	});
+});
+
+function insertRaffle(productId){
+	var formData = new FormData(document.getElementById('raffle-setting--addition__form'));
 		$.ajax({
 			url: '/raffles/addition/'+productId,
 			type: 'POST',
 			data:{
+				raffleSettingId: document.getElementById('raffleSettingId').innerHTML,
 				productId: productId,
 				url: $('#url').val(),
 				raffleType: $('input[name="raffleType"]:checked').val(),
@@ -110,19 +132,19 @@ $('document').ready(function() {
 				content: $('#content').val(),
 				model_kr: $('#target-product').text()
 			},
-			success: function(raffleId){
-				let willGo = confirm('['+$('#storeName').val()+'] 응모 카드가 등록되었습니다.\nFeedText 생성 페이지로 이동하시겠습니까?');
-        if(willGo){
-          location.href='/feed-text/'+raffleId;
-        }
+			success: function (raffleId) {
+				let willGo = confirm('[' + $('#storeName').val() + '] 응모 카드가 등록되었습니다.\nFeedText 생성 페이지로 이동하시겠습니까?');
+				if (willGo) {
+					location.href = '/feed-text/' + raffleId;
+				}
 			}
 		});
-	});
-});
+}
 </script>
 </th:block>
 
 <div layout:fragment="content">
+	<div id="raffleSettingId" th:text="${raffleSetting.id}" style="display:none;"></div>
 	<div class="container-fluid d-flex flex-column justify-content-center align-items-center main-container" style="margin-top:80px">
 		<div><img id="logoImg" th:attr="src=${raffleSetting.imgSrc}" style="width:70px;height:70px;"/><span class="text-center" th:text="${raffleSetting.raffleSettingName}" style="font-size:35px;font-weight:bold;"></span></div>
 		<div style="margin-bottom:45px;"><span id="target-product" style="font-size:25px;font-weight:bold;word-break:break-all;"></span></div>
@@ -174,6 +196,7 @@ $('document').ready(function() {
 					</div>
 				</div>
 				<div class="mb-3 row">
+
 					<div class="col-sm-2 text-center">* 수령 방법</div>
 					<div class="col-sm-10">
 						<input type="radio" name="delivery" id="delivery0" value=""> X&nbsp;&nbsp;&nbsp;&nbsp;

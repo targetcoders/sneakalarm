@@ -5,6 +5,7 @@ import com.sneakalarm.raffle.dao.RaffleCardMapper;
 import com.sneakalarm.raffle.dto.ActiveRafflesVO;
 import com.sneakalarm.raffle.dto.RaffleListByDeliveryTypeVO;
 import com.sneakalarm.raffle.dto.RaffleListByStatusVO;
+import com.sneakalarm.raffle.dto.RaffleSearchCondition;
 import com.sneakalarm.util.Week;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -175,5 +176,10 @@ public class RaffleServiceImpl implements RaffleService {
   @Override
   public List<RaffleVO> activeRaffles(ActiveRafflesVO activeRafflesVO) {
     return raffleMapper.activeRaffles(activeRafflesVO);
+  }
+
+  @Override
+  public List<RaffleVO> duplicatedRaffles(RaffleSearchCondition raffleSearchCondition) {
+    return raffleMapper.duplicatedRaffles(raffleSearchCondition);
   }
 }

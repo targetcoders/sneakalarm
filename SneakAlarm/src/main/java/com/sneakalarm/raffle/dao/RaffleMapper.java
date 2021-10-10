@@ -3,6 +3,7 @@ package com.sneakalarm.raffle.dao;
 import com.sneakalarm.raffle.dto.ActiveRafflesVO;
 import com.sneakalarm.raffle.dto.RaffleListByDeliveryTypeVO;
 import com.sneakalarm.raffle.dto.RaffleListByStatusVO;
+import com.sneakalarm.raffle.dto.RaffleSearchCondition;
 import java.util.ArrayList;
 
 import com.sneakalarm.raffle.dto.RaffleUpdateStatusVO;
@@ -36,4 +37,6 @@ public interface RaffleMapper {
   ArrayList<RaffleVO> getRaffleListByDeliveryType(RaffleListByDeliveryTypeVO DeliveryTypeVO);
 
   List<RaffleVO> activeRaffles(ActiveRafflesVO activeRafflesVO);
+
+  List<RaffleVO> duplicatedRaffles(RaffleSearchCondition raffleSearchCondition);
 }

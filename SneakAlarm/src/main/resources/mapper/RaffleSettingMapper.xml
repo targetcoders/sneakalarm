@@ -11,8 +11,8 @@
   </insert>
   <insert id="insertRaffle" useGeneratedKeys="true" keyProperty="id"
     parameterType="com.sneakalarm.raffle.dto.RaffleVO">
-    INSERT	INTO raffle(specialCase, url, productId, raffleType, releasePrice, imgSrc, storeName, country, delivery, payType, startDate, startTime, endDate, endTime, content, model_kr)
-    VALUES 	(#{specialCase}, #{url}, #{productId}, #{raffleType}, #{releasePrice}, #{imgSrc}, #{storeName}, #{country}, #{delivery}, #{payType}, #{startDate}, #{startTime}, #{endDate}, #{endTime}, #{content}, #{model_kr})
+    INSERT	INTO raffle(specialCase, url, raffleSettingId, productId, raffleType, releasePrice, imgSrc, storeName, country, delivery, payType, startDate, startTime, endDate, endTime, content, model_kr)
+    VALUES 	(#{specialCase}, #{url}, #{raffleSettingId}, #{productId}, #{raffleType}, #{releasePrice}, #{imgSrc}, #{storeName}, #{country}, #{delivery}, #{payType}, #{startDate}, #{startTime}, #{endDate}, #{endTime}, #{content}, #{model_kr})
   </insert>
 
   <select id="getRaffleSetting" parameterType="Long"
