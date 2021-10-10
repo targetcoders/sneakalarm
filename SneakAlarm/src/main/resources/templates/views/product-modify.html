@@ -78,7 +78,7 @@ $('document').ready(function(){
 			contentType: false,
 			type: 'POST',
 			success: function () {
-				const mainImageFileName = document.getElementById('model_en').innerHTML.replace(/ /g, '_');
+				const mainImageFileName = document.getElementById('model_en').value.replace(/ /g, '_');
 				const albumPhotosKey = 'product/' + encodeURIComponent($('#code').val()) + '/';
 				
 				if (photouploadLength > 0) {
@@ -93,6 +93,8 @@ $('document').ready(function(){
 							Quiet: false
 						}
 					};
+
+					console.log(mainImagesParams);
 
 					s3.deleteObjects(mainImagesParams, function (err, data) {
 						if (err) {
@@ -125,6 +127,8 @@ $('document').ready(function(){
 							Key: albumPhotosKey + 'size900/' + mainImageFileName + i + '.jpg'
 						});
 					}
+
+					console.log(objectsToDelete);
 
 					let detailImagesParams = {
 						Bucket: s3Config.albumBucketName,
