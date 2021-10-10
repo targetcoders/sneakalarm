@@ -1,12 +1,13 @@
 function changeCheckIcon(element){
   const raffleId = element.dataset.raffleId;
-  if(document.getElementById('check-'+raffleId).src == window.location.href+'image/icon/check_on.svg') {
+  const origin = window.location.origin;
+  if(document.getElementById('check-'+raffleId).src == origin+'/image/icon/check_on.svg') {
     return;
   }
 
-  if(document.getElementById('check-'+raffleId).src == window.location.href+'image/icon/check_off.svg') {
+  if(document.getElementById('check-'+raffleId).src == origin+'/image/icon/check_off.svg') {
     document.getElementById('check-'+raffleId).src = '/image/icon/check_off_white.svg';
-  } else if(document.getElementById('check-'+raffleId).src == window.location.href+'image/icon/check_off_white.svg') {
+  } else if(document.getElementById('check-'+raffleId).src == origin+'/image/icon/check_off_white.svg') {
     document.getElementById('check-'+raffleId).src = '/image/icon/check_off.svg';
   }
 }
