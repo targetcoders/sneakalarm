@@ -120,7 +120,7 @@ hr {
 				</div>
 
 				<div class="mb-3 row">
-					<label for="photoupload_detail" class="col-sm-2 col-form-label text-center">* 상세 이미지</label>
+					<label for="photoupload_detail" class="col-sm-2 col-form-label text-center"> 상세 이미지</label>
 					<div class="col-sm-10">
 						<input class="form-control form-control-lg" type="file" id="photoupload_detail"
 							name="fileList_detail" multiple required="required">
@@ -149,7 +149,7 @@ hr {
 	<script type="text/javascript">
 		function validCheck() {
 			return $('#photoupload').val().length == 0 ||
-				$('#brand').val() == '' || $('#code').val() == '' || $('#releaseDate').val() == '' ||
+				$('#brand').val() == '' || $('#code').val() == '' || $('#releaseDate').val() == '' || $('#photoupload').val() == '' ||
 				$('#model_kr').val() == '' || $('#model_en').val() == '' || $('#retailPrice').val() == '';
 		}
 

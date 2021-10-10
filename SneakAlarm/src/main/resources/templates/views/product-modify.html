@@ -18,7 +18,7 @@
 <script type="text/javascript">
 
 function validCheck(){
-	return 	$('#brand').val()=='' || $('#code').val()=='' || $('#releaseDate').val()=='' ||
+	return 	$('#brand').val()=='' || $('#code').val()=='' || $('#releaseDate').val()=='' || $('#photoupload').val() == '' ||
 	$('#model_kr').val()=='' || $('#model_en').val()=='' || $('#retailPrice').val()=='';
 }		
 
@@ -68,7 +68,11 @@ $('document').ready(function(){
 		if(photoupload_detailLength > 0) {
 			formData.append('detailImagesSize', photoupload_detailLength);
 		} else {
-			formData.append('detailImagesSize', document.getElementById("detailImagesSize").innerHTML);
+			if(document.getElementById("detailImagesSize").innerHTML == '') {
+				formData.append('detailImagesSize', 0);
+			} else {
+				formData.append('detailImagesSize', document.getElementById("detailImagesSize").innerHTML);
+			}
 		}
 
 		$.ajax({
@@ -271,7 +275,7 @@ $('document').ready(function(){
 		</div>
 		<hr>
 		<div class="mb-3 row">
- 			<label for="photoupload" class="col-sm-2 col-form-label text-center">홈 이미지</label>
+ 			<label for="photoupload" class="col-sm-2 col-form-label text-center">* 홈 이미지</label>
  			<div class="col-sm-10">
  				<input class="form-control form-control-lg" type="file" id="photoupload" name="fileList_home" multiple required="required" >
  			</div>
