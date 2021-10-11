@@ -121,15 +121,18 @@
       <article class="checked-draws-group">
         <div th:id="|endedDraw-${drawGroup.productVO.id}|" class="todayDrawContainer" th:each="drawGroup,index : ${checkedDrawGroupList}">
           <div class="checked-product-area">
-            <a th:href="|/product-detail?id=${drawGroup.productVO.id}|">
-              <img th:if="${drawGroup.productVO.imgSrc_home != null}" th:id="|todayProductImg-${drawGroup.productVO.id}|" class="checked-product__image lozad"
-                th:data-src="${drawGroup.productVO.imgSrc_home}" src="image/loading.gif" th:alt="${drawGroup.productVO.model_kr}" />
+            <a th:if="${drawGroup.productVO.imgSrc_home != null}" th:href="|/product-detail?id=${drawGroup.productVO.id}|">
+              <img th:id="|todayProductImg-${drawGroup.productVO.id}|" class="checked-product__image lozad"
+                th:data-src="${drawGroup.productVO.imgSrc_home}" src="image/loading.gif"
+                th:alt="${drawGroup.productVO.model_kr}" />
+            </a>
+            <a th:unless="${drawGroup.productVO.imgSrc_home != null}" th:href="|/product-detail?id=${drawGroup.productVO.id}|">
               <img th:unless="${drawGroup.productVO.imgSrc_home != null}" th:id="|todayProductImg-${drawGroup.productVO.id}|"
                 class="checked-product__image lozad"
                 th:data-src="|https://s3.ap-northeast-2.amazonaws.com/sneakalarm.media/product/${drawGroup.productVO.code}/size200/${#strings.replace(drawGroup.productVO.model_en,' ','_')}.jpg|"
                 src="image/loading.gif" alt="loading..." />
+              <div class="checked-product__model_kr" th:text="${drawGroup.productVO.model_kr}"></div>
             </a>
-            <div class="checked-product__model_kr" th:text="${drawGroup.productVO.model_kr}"></div>
           </div>
           <div class="checked-draws-area">
             <div th:each="raffle : ${drawGroup.targetRaffleVOList}">
