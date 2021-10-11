@@ -68,11 +68,7 @@ $('document').ready(function(){
 		if(photoupload_detailLength > 0) {
 			formData.append('detailImagesSize', photoupload_detailLength);
 		} else {
-			if(document.getElementById("detailImagesSize").innerHTML == '') {
-				formData.append('detailImagesSize', 0);
-			} else {
-				formData.append('detailImagesSize', document.getElementById("detailImagesSize").innerHTML);
-			}
+			formData.append('detailImagesSize', 0);
 		}
 
 		$.ajax({
