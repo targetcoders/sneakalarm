@@ -26,13 +26,10 @@ $('#endedDrawProductCardsDiv').on('click',function(){
   			page: page
   		},
   		success: function(resultList) {
-  			for (var i in resultList) {
+  			for (let i in resultList) {
 				if(resultList[i].imgSrc_home != null){
   					$("#endedDrawProductCards").append('<div class="home-product endedDrawProductCard"><div class="d-flex flex-column align-items-center endedDrawProductCard" id="card-' + resultList[i].id + '"><a class="endedDrawProductCard item-zoom" href="/product-detail?id=' + resultList[i].id + '" style="opacity:0.4;"><img src="' + resultList[i].imgSrc_home + '" class="home-product-img"></a><span class="endedDrawProductCard home-product-model_kr">' + resultList[i].model_kr + '</span><span class="endedDrawProductCard" id="home-product-releaseDate">' + resultList[i].releaseDate + ' 출시</span></div></div>');
 				} else {
-					console.log(resultList[i].code);
-					console.log(resultList[i].model_en.replace(/ /g, '_'));
-					console.log('https://s3.ap-northeast-2.amazonaws.com/sneakalarm.media/product/'+resultList[i].code+'/size450/'+resultList[i].model_en.replace(/ /g, '_')+'.jpg');
 					$("#endedDrawProductCards").append('<div class="home-product endedDrawProductCard"><div class="d-flex flex-column align-items-center endedDrawProductCard" id="card-' + resultList[i].id + '"><a class="endedDrawProductCard item-zoom" href="/product-detail?id=' + resultList[i].id + '" style="opacity:0.4;"><img src="https://s3.ap-northeast-2.amazonaws.com/sneakalarm.media/product/'+resultList[i].code+'/size450/'+resultList[i].model_en.replace(/ /g, '_')+'.jpg" class="home-product-img lozad" alt="'+resultList[i].model_kr+'"></a><span class="endedDrawProductCard home-product-model_kr">' + resultList[i].model_kr + '</span><span class="endedDrawProductCard" id="home-product-releaseDate">' + resultList[i].releaseDate + ' 출시</span></div></div>');
 				}
   			}
@@ -56,8 +53,12 @@ $('#endedDrawProductCardsDiv').on('click',function(){
 				},
 				success: function(resultList) {
 					setTimeout(function() {
-						for (var i in resultList) {
-							$("#endedDrawProductCards").append("<div class=\"home-product endedDrawProductCard\"><div class=\"d-flex flex-column align-items-center endedDrawProductCard\" id=\"card-" + resultList[i].id + "\"><a class=\"endedDrawProductCard\" href=\"/product-detail?id=" + resultList[i].id + "\" style=\"opacity:0.4;\"><img src=\"" + resultList[i].imgSrc_home + "\" class=\"home-product-img\"></a><span class=\"endedDrawProductCard home-product-model_kr\">" + resultList[i].model_kr + "</span><span class=\"endedDrawProductCard\" id=\"home-product-releaseDate\">" + resultList[i].releaseDate + " 출시</span></div></div>");
+						for (let i in resultList) {
+							if (resultList[i].imgSrc_home != null) {
+								$("#endedDrawProductCards").append('<div class="home-product endedDrawProductCard"><div class="d-flex flex-column align-items-center endedDrawProductCard" id="card-' + resultList[i].id + '"><a class="endedDrawProductCard item-zoom" href="/product-detail?id=' + resultList[i].id + '" style="opacity:0.4;"><img src="' + resultList[i].imgSrc_home + '" class="home-product-img"></a><span class="endedDrawProductCard home-product-model_kr">' + resultList[i].model_kr + '</span><span class="endedDrawProductCard" id="home-product-releaseDate">' + resultList[i].releaseDate + ' 출시</span></div></div>');
+							} else {
+								$("#endedDrawProductCards").append('<div class="home-product endedDrawProductCard"><div class="d-flex flex-column align-items-center endedDrawProductCard" id="card-' + resultList[i].id + '"><a class="endedDrawProductCard item-zoom" href="/product-detail?id=' + resultList[i].id + '" style="opacity:0.4;"><img src="https://s3.ap-northeast-2.amazonaws.com/sneakalarm.media/product/' + resultList[i].code + '/size450/' + resultList[i].model_en.replace(/ /g, '_') + '.jpg" class="home-product-img lozad" alt="' + resultList[i].model_kr + '"></a><span class="endedDrawProductCard home-product-model_kr">' + resultList[i].model_kr + '</span><span class="endedDrawProductCard" id="home-product-releaseDate">' + resultList[i].releaseDate + ' 출시</span></div></div>');
+							}
 						}
 						if (resultList.length < 8)
 							getFlag = 0;
@@ -112,11 +113,19 @@ $('#endedDrawProductCardsDiv').on('click',function(){
 					keyword: keyword
 				},	
 				success: function(resultList) {
-					for (var i in resultList) {
-						if(resultList[i].status=='going'){
-							$("#productSearchResult").append("<div class=\"home-product\"><div class=\"d-flex flex-column align-items-center endedDrawProductCard\" id=\"card-" + resultList[i].id + "\"><a class=\"endedDrawProductCard\" href=\"/product-detail?id=" + resultList[i].id + "\"><img src=\"" + resultList[i].imgSrc_home + "\" class=\"home-product-img\"></a><span class=\"endedDrawProductCard home-product-model_kr\">" + resultList[i].model_kr + "</span><span class=\"endedDrawProductCard\" id=\"home-product-releaseDate\">" + resultList[i].releaseDate + " 출시</span></div></div>");
+					for (let i in resultList) {
+						if (resultList[i].status == 'going') {
+							if (resultList[i].imgSrc_home != null) {
+								$("#productSearchResult").append('<div class="home-product endedDrawProductCard"><div class="d-flex flex-column align-items-center endedDrawProductCard" id="card-' + resultList[i].id + '"><a class="endedDrawProductCard item-zoom" href="/product-detail?id=' + resultList[i].id + '"><img src="' + resultList[i].imgSrc_home + '" class="home-product-img"></a><span class="endedDrawProductCard home-product-model_kr">' + resultList[i].model_kr + '</span><span class="endedDrawProductCard" id="home-product-releaseDate">' + resultList[i].releaseDate + ' 출시</span></div></div>');
+							} else {
+								$("#productSearchResult").append('<div class="home-product endedDrawProductCard"><div class="d-flex flex-column align-items-center endedDrawProductCard" id="card-' + resultList[i].id + '"><a class="endedDrawProductCard item-zoom" href="/product-detail?id=' + resultList[i].id + '"><img src="https://s3.ap-northeast-2.amazonaws.com/sneakalarm.media/product/' + resultList[i].code + '/size450/' + resultList[i].model_en.replace(/ /g, '_') + '.jpg" class="home-product-img lozad" alt="' + resultList[i].model_kr + '"></a><span class="endedDrawProductCard home-product-model_kr">' + resultList[i].model_kr + '</span><span class="endedDrawProductCard" id="home-product-releaseDate">' + resultList[i].releaseDate + ' 출시</span></div></div>');
+							}
 						} else {
-							$("#productSearchResult").append("<div class=\"home-product\"><div class=\"d-flex flex-column align-items-center endedDrawProductCard\" id=\"card-" + resultList[i].id + "\"><a class=\"endedDrawProductCard\" href=\"/product-detail?id=" + resultList[i].id + "\" style=\"opacity: 0.4\"><img src=\"" + resultList[i].imgSrc_home + "\" class=\"home-product-img\"></a><span class=\"endedDrawProductCard home-product-model_kr\">" + resultList[i].model_kr + "</span><span class=\"endedDrawProductCard\" id=\"home-product-releaseDate\">" + resultList[i].releaseDate + " 출시</span></div></div>");
+							if (resultList[i].imgSrc_home != null) {
+								$("#productSearchResult").append('<div class="home-product endedDrawProductCard"><div class="d-flex flex-column align-items-center endedDrawProductCard" id="card-' + resultList[i].id + '"><a class="endedDrawProductCard item-zoom" href="/product-detail?id=' + resultList[i].id + '" style="opacity:0.4;"><img src="' + resultList[i].imgSrc_home + '" class="home-product-img"></a><span class="endedDrawProductCard home-product-model_kr">' + resultList[i].model_kr + '</span><span class="endedDrawProductCard" id="home-product-releaseDate">' + resultList[i].releaseDate + ' 출시</span></div></div>');
+							} else {
+								$("#productSearchResult").append('<div class="home-product endedDrawProductCard"><div class="d-flex flex-column align-items-center endedDrawProductCard" id="card-' + resultList[i].id + '"><a class="endedDrawProductCard item-zoom" href="/product-detail?id=' + resultList[i].id + '" style="opacity:0.4;"><img src="https://s3.ap-northeast-2.amazonaws.com/sneakalarm.media/product/' + resultList[i].code + '/size450/' + resultList[i].model_en.replace(/ /g, '_') + '.jpg" class="home-product-img lozad" alt="' + resultList[i].model_kr + '"></a><span class="endedDrawProductCard home-product-model_kr">' + resultList[i].model_kr + '</span><span class="endedDrawProductCard" id="home-product-releaseDate">' + resultList[i].releaseDate + ' 출시</span></div></div>');
+							}
 						}
 					}
 				},
