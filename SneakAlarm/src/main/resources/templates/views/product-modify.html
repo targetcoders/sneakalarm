@@ -85,84 +85,80 @@ $('document').ready(function(){
 				const mainImageFileName = document.getElementById('model_en').value.replace(/ /g, '_');
 				const albumPhotosKey = 'product/' + encodeURIComponent($('#code').val()) + '/';
 				
-				if (photouploadLength > 0) {
-					let mainImagesParams = {
-						Bucket: albumBucketName,
-						Delete: {
-							Objects: [
-								{ Key: albumPhotosKey + 'size200/' + mainImageFileName + '.jpg' },
-								{ Key: albumPhotosKey + 'size450/' + mainImageFileName + '.jpg'	},
-								{ Key: albumPhotosKey + 'size900/' + mainImageFileName + '.jpg'	}
-							],
-							Quiet: false
-						}
-					};
+				let mainImagesParams = {
+					Bucket: albumBucketName,
+					Delete: {
+						Objects: [
+							{ Key: albumPhotosKey + 'size200/' + mainImageFileName + '.jpg' },
+							{ Key: albumPhotosKey + 'size450/' + mainImageFileName + '.jpg' },
+							{ Key: albumPhotosKey + 'size900/' + mainImageFileName + '.jpg' }
+						],
+						Quiet: false
+					}
+				};
 
-					console.log(mainImagesParams);
+				console.log(mainImagesParams);
 
-					s3.deleteObjects(mainImagesParams, function (err, data) {
-						if (err) {
-							console.log('S3 main images 삭제 실패')
-						}
+				s3.deleteObjects(mainImagesParams, function (err, data) {
+					if (err) {
+						console.log('S3 main images 삭제 실패')
+					}
+				});
+
+				const productMainImage = document.getElementById('photoupload').files[0];
+				console.log(productMainImage);
+				let data = {
+					albumPhotosKey: s3Config.albumPhotosKey,
+					file: productMainImage
+				};
+				setTimeout(() => { s3ResizedUpload(data, albumPhotosKey + 'size200/' + mainImageFileName + '.jpg', 200); }, 300);
+				setTimeout(() => { s3ResizedUpload(data, albumPhotosKey + 'size450/' + mainImageFileName + '.jpg', 450); }, 450);
+				setTimeout(() => { s3ResizedUpload(data, albumPhotosKey + 'size900/' + mainImageFileName + '.jpg', 900); }, 600);
+
+
+				let detailImagesSize = Number(document.getElementById("detailImagesSize").innerHTML);
+				console.log(detailImagesSize);
+
+				let objectsToDelete = [];
+				for (let i = 1; i <= detailImagesSize; i++) {
+					objectsToDelete.push({
+						Key: albumPhotosKey + 'size450/' + mainImageFileName + i + '.jpg'
 					});
-
-					const productMainImage = document.getElementById('photoupload').files[0];
-					console.log(productMainImage);
-					let data = {
-						albumPhotosKey: s3Config.albumPhotosKey,
-						file: productMainImage
-					};
-					setTimeout(() => { s3ResizedUpload(data, albumPhotosKey + 'size200/' + mainImageFileName + '.jpg', 200); }, 300);
-					setTimeout(() => { s3ResizedUpload(data, albumPhotosKey + 'size450/' + mainImageFileName + '.jpg', 450); }, 450);
-					setTimeout(() => { s3ResizedUpload(data, albumPhotosKey + 'size900/' + mainImageFileName + '.jpg', 900); }, 600);
+					objectsToDelete.push({
+						Key: albumPhotosKey + 'size900/' + mainImageFileName + i + '.jpg'
+					});
 				}
 
-				if (photoupload_detailLength > 0) {
-					
-					let detailImagesSize = Number(document.getElementById("detailImagesSize").innerHTML);
-					console.log(detailImagesSize);
+				console.log(objectsToDelete);
 
-					let objectsToDelete = [];
-					for (let i = 1; i <= detailImagesSize; i++) {
-						objectsToDelete.push({
-							Key: albumPhotosKey + 'size450/' + mainImageFileName + i + '.jpg'
-						});
-						objectsToDelete.push({
-							Key: albumPhotosKey + 'size900/' + mainImageFileName + i + '.jpg'
-						});
+				let detailImagesParams = {
+					Bucket: s3Config.albumBucketName,
+					Delete: {
+						Objects: objectsToDelete,
+						Quiet: false
 					}
+				};
 
-					console.log(objectsToDelete);
-
-					let detailImagesParams = {
-						Bucket: s3Config.albumBucketName,
-						Delete: {
-							Objects: objectsToDelete,
-							Quiet: false
+				setTimeout(() => {
+					s3.deleteObjects(detailImagesParams, function (err, data) {
+						if (err) {
+							console.log('S3 detail images 삭제 실패')
 						}
-					};
+					})
+				}, 100);
 
+				const productDetailImages = document.getElementById('photoupload_detail').files;
+				console.log(productDetailImages);
+				for (let i = 1; i <= productDetailImages.length; i++) {
 					setTimeout(() => {
-						s3.deleteObjects(detailImagesParams, function (err, data) {
-							if (err) {
-								console.log('S3 detail images 삭제 실패')
-							}
-						})
-					}, 100);
-
-					const productDetailImages = document.getElementById('photoupload_detail').files;
-					console.log(productDetailImages);
-					for (let i = 1; i <= productDetailImages.length; i++) {
-						setTimeout(() => {
-							const file = productDetailImages[i - 1];
-							let data = {
-								albumPhotosKey: albumPhotosKey,
-								file: file
-							};
-							setTimeout(() => { s3ResizedUpload(data, albumPhotosKey + 'size900/' + mainImageFileName + i + '.jpg', 900); }, 150);
-							setTimeout(() => { s3ResizedUpload(data, albumPhotosKey + 'size450/' + mainImageFileName + i + '.jpg', 450); }, 300);
-						}, i * 700);
-					}
+						const file = productDetailImages[i - 1];
+						let data = {
+							albumPhotosKey: albumPhotosKey,
+							file: file
+						};
+						setTimeout(() => { s3ResizedUpload(data, albumPhotosKey + 'size900/' + mainImageFileName + i + '.jpg', 900); }, 150);
+						setTimeout(() => { s3ResizedUpload(data, albumPhotosKey + 'size450/' + mainImageFileName + i + '.jpg', 450); }, 300);
+					}, i * 700);
 				}
 				
 				if (photoupload_detailLength > 0) {
