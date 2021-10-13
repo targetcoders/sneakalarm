@@ -14,29 +14,29 @@
 </th:block>
 
 <div layout:fragment="content">
-  <div class="container-fluid d-flex flex-column justify-content-center align-items-center main-container" style="margin-top:80px">
+  <div class="container-fluid d-flex flex-column justify-content-center align-items-center main-container"
+    style="margin-top:80px">
     <h1>응모카드 자동등록</h1>
-    <h3 id="productName"th:text="${productName}"></h3>
+    <h3 id="productName" th:text="${productName}"></h3>
     <span id="productId" th:text="${productId}" style="display:none;"></span>
     <hr>
-
-    <div class="raffle-auto-insert-form">
-      <form id="auto-insert-form">
-        <div class="row mb-3">
-          <label for="target-url" class="form-label">URL</label>
-          <input type="text" class="form-control" id="target-url" name="target-url">
-        </div>
-        <div class="row mb-3">
-          <label for="target-store-name" class="form-label">StoreName</label>
-          <input type="text" class="form-control" id="target-store-name" name="target-store-name">
-        </div>
-        <div class="row mb-3" id="model_kr_tr" style="display:none;">
-          <label for="model_kr" class="form-label">제품명</label>
-          <input type="text" class="form-control" id="model_kr" name="model_kr">
-        </div>
-      </form>
-      <button id="auto-insert-submit" class="btn btn-danger" style="width:300px">자동 등록</button>
-    </div>
+    <form id="auto-insert-form"
+      style="display:flex; flex-direction:column; justify-content:center; align-items:center; width:95%;">
+      <div class="row mb-3 w-100">
+        <label for="target-url" class="form-label">URL</label>
+        <textarea type="text" class="form-control w-100" id="target-url" name="target-url"
+          style="height:80px; word-break:break-all;"></textarea>
+      </div>
+      <div class="row mb-3 w-100">
+        <label for="target-store-name" class="form-label">StoreName</label>
+        <input type="text" class="form-control w-100" id="target-store-name" name="target-store-name">
+      </div>
+      <div class="row mb-3 w-100" id="model_kr_tr" style="display:none;">
+        <label for="model_kr" class="form-label">제품명</label>
+        <input type="text" class="form-control w-100" id="model_kr" name="model_kr">
+      </div>
+    </form>
+    <input id="auto-insert-submit" type="submit" class="btn btn-danger" style="width:100%" value="자동 등록">
   </div>
   <div style="margin-top:50px; padding:5px; background-color:#b8b8b8; border:solid 1px;">
     <span style="font-weight:bold; color:#fe0100;">[필독]아래의 요건 세 가지를 만족할 때 응모카드 auto-insert가 가능합니다 !</span><br><br>

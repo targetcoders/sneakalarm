@@ -1,13 +1,20 @@
-$('document').ready(function () {
-  if ($('#productName').text() == '?') {
-    $('#model_kr_tr').show();
-  }
-  $('#auto-insert-submit').on('click', function () {
+$('document').ready(function () {  
+  window.addEventListener("keydown", (e) => {
+    if(e.key == 'Enter'){
+      autoInsert();
+    }
+  });
+
+  $('#auto-insert-submit').on('click', function() {
+    autoInsert();
+  });
+
+  function autoInsert() {
     let productId = $('#productId').text();
     let url = $('#target-url').val();
     let storeName = $('#target-store-name').val();
     let model_kr = $('#model_kr').val();
-
+  
     $.ajax({
       type: 'GET',
       url: '/raffles/' + productId + '/' + storeName,
@@ -24,7 +31,7 @@ $('document').ready(function () {
         }
       }
     });
-
+  
     function insertRaffle() {
       $.ajax({
         type: 'POST',
@@ -46,5 +53,12 @@ $('document').ready(function () {
         }
       });
     }
-  });
+  }
+
+
+  if ($('#productName').text() == '?') {
+    $('#model_kr_tr').show();
+  }
+  $('#auto-insert-submit').on('click', autoInsert());
 });
+
