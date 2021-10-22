@@ -16,7 +16,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Setter @Getter
-public class DrawGroup implements Comparable<DrawGroup>, Group {
+public class DrawGroup_nz implements Comparable<DrawGroup_nz>, Group {
   public final static String STATUS_ACTIVE = "active";
   public final static String STATUS_READY = "ready";
 
@@ -24,7 +24,7 @@ public class DrawGroup implements Comparable<DrawGroup>, Group {
   private List<RaffleVO> targetRaffleVOList;
   private Date firstEndDateTime;
 
-  public DrawGroup(String productId, String[] deliveryTypes, String status, ProductMapper productMapper, RaffleMapper raffleMapper)
+  public DrawGroup_nz(String productId, String[] deliveryTypes, String status, ProductMapper productMapper, RaffleMapper raffleMapper)
       throws Exception {
     this.productVO = productMapper.getProductList(productId).get(0);
     this.targetRaffleVOList =
@@ -34,7 +34,7 @@ public class DrawGroup implements Comparable<DrawGroup>, Group {
     this.firstEndDateTime = firstEndDateTime(targetRaffleVOList);
   }
 
-  public DrawGroup(RaffleVO raffleVO, ProductMapper productMapper) throws Exception {
+  public DrawGroup_nz(RaffleVO raffleVO, ProductMapper productMapper) throws Exception {
     this.productVO = productMapper.getProductList(raffleVO.getProductId()).get(0);
     this.targetRaffleVOList = new ArrayList<>();
     convertToTodayFormat(raffleVO);
@@ -42,25 +42,26 @@ public class DrawGroup implements Comparable<DrawGroup>, Group {
     this.firstEndDateTime = firstEndDateTime(targetRaffleVOList);
   }
 
-  private List<RaffleVO> filterKr(List<RaffleVO> targetRaffleList) {
+  private List<RaffleVO> activeRaffleList(String[] deliveryTypes, RaffleMapper raffleMapper) throws Exception {
+    List<RaffleVO> targetRaffleList = formattedTargetRaffleList(deliveryTypes, activeRaffleVOList(productVO.getId(),raffleMapper));
+    return filterNz(targetRaffleList);
+  }
+
+  private List<RaffleVO> readyRaffleList(String[] deliveryTypes, RaffleMapper raffleMapper) throws Exception {
+    List<RaffleVO> targetRaffleList = formattedTargetRaffleList(deliveryTypes, readyRaffleVOList(productVO.getId(),raffleMapper));
+    return filterNz(targetRaffleList);
+  }
+
+  private List<RaffleVO> filterNz(List<RaffleVO> targetRaffleList) {
     List<RaffleVO> result = new ArrayList<>();
     for(RaffleVO raffle : targetRaffleList) {
       String country = raffle.getCountry().toUpperCase();
-      if(country.equals("한국")) {
+      System.out.println(raffle);
+      if(country.equals("NZ") || country.equals("NZL") || country.equals("NEW ZEALAND") || country.equals("뉴질랜드")) {
         result.add(raffle);
       }
     }
     return result;
-  }
-
-  private List<RaffleVO> activeRaffleList(String[] deliveryTypes, RaffleMapper raffleMapper) throws Exception {
-    List<RaffleVO> raffleList = formattedTargetRaffleList(deliveryTypes, activeRaffleVOList(productVO.getId(),raffleMapper));
-    return filterKr(raffleList);
-  }
-
-  private List<RaffleVO> readyRaffleList(String[] deliveryTypes, RaffleMapper raffleMapper) throws Exception {
-    List<RaffleVO> raffleList = formattedTargetRaffleList(deliveryTypes, readyRaffleVOList(productVO.getId(),raffleMapper));
-    return filterKr(raffleList);
   }
 
   private List<RaffleVO> formattedTargetRaffleList(String[] deliveryTypes, List<RaffleVO> activeRaffleList)
@@ -79,9 +80,9 @@ public class DrawGroup implements Comparable<DrawGroup>, Group {
 
   private void convertToTodayFormat(RaffleVO raffle) throws Exception {
     raffle.setStartWeek(
-        new DateTranslator(new SimpleDateFormat("yyyy-MM-dd").parse(raffle.getStartDate())).krWeek());
+        new DateTranslator(new SimpleDateFormat("yyyy-MM-dd").parse(raffle.getStartDate())).enWeek());
     raffle.setEndWeek(
-        new DateTranslator(new SimpleDateFormat("yyyy-MM-dd").parse(raffle.getEndDate())).krWeek());
+        new DateTranslator(new SimpleDateFormat("yyyy-MM-dd").parse(raffle.getEndDate())).enWeek());
     raffle.setStartDate(raffle.getStartDate().replaceAll("-", "/").substring(5));
     raffle.setEndDate(raffle.getEndDate().replaceAll("-", "/").substring(5));
     raffle.setStartTime(raffle.getStartTime().substring(0, 5));
@@ -108,7 +109,7 @@ public class DrawGroup implements Comparable<DrawGroup>, Group {
   }
 
   @Override
-  public int compareTo(DrawGroup o) {
+  public int compareTo(DrawGroup_nz o) {
     return this.getFirstEndDateTime().compareTo(o.getFirstEndDateTime());
   }
 

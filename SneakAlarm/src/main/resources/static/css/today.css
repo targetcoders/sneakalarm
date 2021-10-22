@@ -205,9 +205,19 @@ a:active {
   font-size: 12px;
   color: #F11900;
 }
+.draw__raffle-type--firstcome--nz {
+  font-weight: 700;
+  font-size: 11px;
+  color: #F11900;
+}
 .draw__raffle-type--raffle {
   font-weight: 700;
   font-size: 12px;
+  color:#4971FF;
+}
+.draw__raffle-type--raffle--nz {
+  font-weight: 700;
+  font-size: 11px;
   color:#4971FF;
 }
 .draw__raffle-type--ready-firstcome {
@@ -298,6 +308,12 @@ a:active {
 }
 .opacity-50 {
   opacity: 0.5;
+}
+.description {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  font-size: 13px;
 }
 
 @media(min-width:960px) {

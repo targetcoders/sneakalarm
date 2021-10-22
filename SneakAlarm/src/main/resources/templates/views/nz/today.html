@@ -11,50 +11,16 @@
 <div layout:fragment="content" class="container" id="today-page-width">
   <div class="today-main-container">
     <div id="activeDrawsContainer">
-      <th:block th:if="${unregisteredRaffleListSize &gt; 0}">
-        <h2 class="product-unregistered" style="text-align: center; font-weight:bold;">미등록 제품 응모: <span
-            th:text="${unregisteredRaffleListSize}"></span></h2>
-    
-        <div class="product-unregistered" id="activeDraws-unregistered">
-          <div th:each="drawGroup : ${unregisteredDrawGroupList}" th:id="|todayUnregisteredDraw-${drawGroup.productVO.id}|"
-               th:if="${#lists.size(drawGroup.targetRaffleVOList) &gt; 0}" class="todayDrawContainer">
-            <a class="item-zoom" th:href="|/product-detail?id=${drawGroup.productVO.id}|">
-              <th:block th:include="fragments/today-product-image"></th:block>
-            </a>
-            <div
-              th:class="|todayContentUnregistered-${drawGroup.productVO.id} todayDrawContentBox d-flex flex-wrap justify-content-center|">
-              <div th:each="raffle : ${drawGroup.targetRaffleVOList}">
-                <div th:if="${raffle.raffleType} == '응모'" class="todayDrawContent">
-                  <a th:id="|drawCard-${raffle.id}|" th:href="${raffle.url}" style="text-decoration: none;">
-                    <div class="div-draw-model_kr"><span class="draw-model_kr" th:text="${raffle.model_kr}"></span></div>
-                    <th:block th:include="fragments/active-raffle-content"></th:block>
-                  </a>
-                </div>
-                <div th:unless="${raffle.raffleType} == '응모'" class="todayDrawContent">
-                  <a th:id="|drawCard-${raffle.id}|" th:href="${raffle.url}" style="text-decoration: none;">
-                    <div class="div-draw-model_kr"><span class="draw-model_kr" th:text="${raffle.model_kr}"></span></div>
-                    <th:block th:include="fragments/active-firstcome-content"></th:block>
-                  </a>
-                </div>
-                <div class="check" th:data-raffle-id="${raffle.id}" onmouseover="changeCheckIcon(this)" onmouseout="changeCheckIcon(this)">
-                  <img th:id="|check-${raffle.id}|" class="check__img" src="/image/icon/check_off.svg">
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <hr class="today-draws-hr product-unregistered">
-      </th:block>
-    
-      <th:block th:if="${koreaRaffleListSize &gt; 0}">
-        <h2 style="text-align: center; font-weight:bold;">국내 응모: <span th:text="${koreaRaffleListSize}"></span></h2>
-    
+
+      <th:block th:if="${nzRaffleListSize &gt; 0}">
+        <h2 style="text-align: center; font-weight:bold;">NZ Raffles&nbsp;<span th:text="${nzRaffleListSize}"></span></h2>
+        <div class="description">Live raffles in New Zealand</div>
         <div id="activeDraws-korea">
-          <div th:each="drawGroup,index : ${koreaDrawGroupList}" th:id="|todayKoreaDraw-${drawGroup.productVO.id}|"
+          <div th:each="drawGroup,index : ${nzDrawGroupList}" th:id="|todayKoreaDraw-${drawGroup.productVO.id}|"
                th:if="${#lists.size(drawGroup.targetRaffleVOList) &gt; 0}" class="todayDrawContainer">
-            <a class="item-zoom" th:href="|/product-detail?id=${drawGroup.productVO.id}|">
+            <div class="item-zoom">
               <th:block th:include="fragments/today-product-image"></th:block>
-            </a>
+            </div>
             <div class="todayDraw-model_kr" th:text="${drawGroup.productVO.model_kr}"></div>
             <div
               th:class="|todayDrawContentKorea-${drawGroup.productVO.id} todayDrawContentBox d-flex flex-wrap justify-content-center|">
@@ -62,14 +28,14 @@
                 <div th:if="${raffle.raffleType} == '응모'">
                   <div class="todayDrawContent">
                     <a th:id="|drawCard-${raffle.id}|" th:href="${raffle.url}" style="text-decoration: none;">
-                      <th:block th:include="fragments/active-raffle-content"></th:block>
+                      <th:block th:include="fragments/active-raffle-content-nz"></th:block>
                     </a>
                   </div>
                 </div>
                 <div th:unless="${raffle.raffleType} == '응모'">
                   <div class="todayDrawContent">
                     <a th:id="|drawCard-${raffle.id}|" th:href="${raffle.url}" style="text-decoration: none;">
-                      <th:block th:include="fragments/active-firstcome-content"></th:block>
+                      <th:block th:include="fragments/active-firstcome-content-nz"></th:block>
                     </a>
                   </div>
                 </div>
@@ -78,7 +44,7 @@
                 </div>
               </div>
             </div>
-
+            
             <!-- NOW 고정형 -->
             <section class="raffle-ad-area" th:if="${index.index == 1}">
               <ins class="adsbygoogle ad-container" data-ad-client="ca-pub-2682527241610745"
@@ -93,26 +59,26 @@
     
       <th:block th:if="${directRaffleListSize &gt; 0}">
         <hr class="today-draws-hr">
-        <h2 style="text-align: center; font-weight:bold;">직배 응모: <span th:text="${directRaffleListSize}"></span></h2>
-    
+        <h2 style="text-align: center; font-weight:bold;">Overseas Raffles&nbsp;<span th:text="${directRaffleListSize}"></span></h2>
+        <div class="description">Direct delivery to  New Zealand</div>
         <div class="product-direct" id="activeDraws-direct">
           <div th:each="drawGroup : ${directDrawGroupList}" th:id="|todayDirectDraw-${drawGroup.productVO.id}|"
                th:if="${#lists.size(drawGroup.targetRaffleVOList) &gt; 0}" class="todayDrawContainer">
-            <a class="item-zoom" th:href="|/product-detail?id=${drawGroup.productVO.id}|">
+            <div class="item-zoom">
               <th:block th:include="fragments/today-product-image"></th:block>
-            </a>
+            </div>
             <div class="todayDraw-model_kr" th:text="${drawGroup.productVO.model_kr}"></div>
             <div
               th:class="|todayDrawContentDirect-${drawGroup.productVO.id} todayDrawContentBox d-flex flex-wrap justify-content-center|">
               <div th:each="raffle : ${drawGroup.targetRaffleVOList}">
                 <div th:if="${raffle.raffleType} == '응모'" class="todayDrawContent">
                   <a th:id="|drawCard-${raffle.id}|" th:href="${raffle.url}" style="text-decoration: none;">
-                    <th:block th:include="fragments/active-raffle-content"></th:block>
+                    <th:block th:include="fragments/active-raffle-content-nz"></th:block>
                   </a>
                 </div>
                 <div th:unless="${raffle.raffleType} == '응모'" class="todayDrawContent">
                   <a th:id="|drawCard-${raffle.id}|" th:href="${raffle.url}" style="text-decoration: none;">
-                    <th:block th:include="fragments/active-firstcome-content"></th:block>
+                    <th:block th:include="fragments/active-firstcome-content-nz"></th:block>
                   </a>
                 </div>
                 <div class="check" th:data-raffle-id="${raffle.id}" onmouseover="changeCheckIcon(this)" onmouseout="changeCheckIcon(this)">
@@ -126,14 +92,14 @@
     
       <th:block th:if="${agentRaffleListSize &gt; 0}">
         <hr class="today-draws-hr">
-        <h2 style="text-align: center; font-weight:bold;">배대지 응모: <span th:text="${agentRaffleListSize}"></span></h2>
-    
+        <h2 style="text-align: center; font-weight:bold;">Freight Forwarder Raffles&nbsp;<span th:text="${agentRaffleListSize}"></span></h2>
+        <div class="description">Third party shipping service needed to deliver to New Zealand</div>
         <div class="product-agnet" id="activeDraws-agent">
           <div th:each="drawGroup : ${agentDrawGroupList}" th:id="|todayAgentDraw-${drawGroup.productVO.id}|"
                th:if="${#lists.size(drawGroup.targetRaffleVOList) &gt; 0}" class="todayDrawContainer">
-            <a class="item-zoom" th:href="|/product-detail?id=${drawGroup.productVO.id}|">
+            <div class="item-zoom">
               <th:block th:include="fragments/today-product-image"></th:block>
-            </a>
+            </div>
             <div class="todayDraw-model_kr" th:text="${drawGroup.productVO.model_kr}"></div>
             <div
               th:class="|todayDrawContentAgent-${drawGroup.productVO.id} todayDrawContentBox d-flex flex-wrap justify-content-center|">
@@ -141,12 +107,12 @@
     
                 <div th:if="${raffle.raffleType} == '응모'" class="todayDrawContent">
                   <a th:id="|drawCard-${raffle.id}|" th:href="${raffle.url}" style="text-decoration: none;">
-                    <th:block th:include="fragments/active-raffle-content"></th:block>
+                    <th:block th:include="fragments/active-raffle-content-nz"></th:block>
                   </a>
                 </div>
                 <div th:unless="${raffle.raffleType} == '응모'" class="todayDrawContent">
                   <a th:id="|drawCard-${raffle.id}|" th:href="${raffle.url}" style="text-decoration: none;">
-                    <th:block th:include="fragments/active-firstcome-content"></th:block>
+                    <th:block th:include="fragments/active-firstcome-content-nz"></th:block>
                   </a>
                 </div>
                 <div class="check" th:data-raffle-id="${raffle.id}" onmouseover="changeCheckIcon(this)" onmouseout="changeCheckIcon(this)">
@@ -159,54 +125,16 @@
       </th:block>
     </div>
     <div id="readyDrawsContainer">
-      <th:block th:if="${readyUnregisteredRaffleListSize &gt; 0}">
-        <hr class="today-draws-hr--ready product-unregistered">
-        <h2 class="product-unregistered" style="text-align: center; font-weight:bold;">미등록 제품 응모 예정: <span
-            th:text="${readyUnregisteredRaffleListSize}"></span></h2>
-    
-        <div class="draw-area">
-          <div th:each="drawGroup : ${readyUnregisteredDrawGroupList}" th:id="|todayUnregisteredDraw-${drawGroup.productVO.id}|"
-               th:if="${#lists.size(drawGroup.targetRaffleVOList) &gt; 0}" class="todayDrawContainer">
-            <a class="item-zoom opacity-50" th:href="|/product-detail?id=${drawGroup.productVO.id}|">
-              <th:block th:include="fragments/today-product-image"></th:block>
-            </a>
-            <div
-              class="todayContentUnregistered-${drawGroup.productVO.id} todayDrawContentBox d-flex flex-wrap justify-content-center">
-              <div th:each="raffle : ${drawGroup.targetRaffleVOList}">
-    
-                <div th:if="${raffle.raffleType} == '응모'" class="todayReadyDrawContent">
-                  <a th:id="|drawCard-${raffle.id}|" th:href="${raffle.url}" style="text-decoration: none;">
-                    <div class="div-draw-model_kr"><span class="draw-model_kr" th:text="${raffle.model_kr}"></span>
-                    </div>
-                    <th:block th:include="fragments/ready-raffle-content"></th:block>
-                  </a>
-                </div>
-                <div th:unless="${raffle.raffleType} == '응모'" class="todayReadyDrawContent">
-                  <a th:id="|drawCard-${raffle.id}|" th:href="${raffle.url}" style="text-decoration: none;">
-                    <div class="div-draw-model_kr"><span class="draw-model_kr" th:text="${raffle.model_kr}"></span>
-                    </div>
-                    <th:block th:include="fragments/ready-firstcome-content"></th:block>
-                  </a>
-                </div>
-                <div class="check" th:data-raffle-id="${raffle.id}" onmouseover="changeCheckIcon(this)" onmouseout="changeCheckIcon(this)">
-                  <img th:id="|check-${raffle.id}|" class="check__img" src="/image/icon/check_off.svg">
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </th:block>
-    
       <th:block th:if="${readyKoreaRaffleListSize &gt; 0}">
         <hr class="today-draws-hr--ready">
-        <h2 id="readyDraws-korea" style="text-align: center; font-weight:bold;">국내 응모 예정: <span th:text="${readyKoreaRaffleListSize}"></span></h2>
+        <h2 id="readyDraws-korea" style="text-align: center; font-weight:bold;">Upcoming NZ Raffles&nbsp;<span th:text="${readyKoreaRaffleListSize}"></span></h2>
     
         <div class="draw-area">
           <div th:each="drawGroup,index : ${readyKoreaDrawGroupList}" th:id="|todayKoreaDraw-${drawGroup.productVO.id}|"
                th:if="${#lists.size(drawGroup.targetRaffleVOList) &gt; 0}" class="todayDrawContainer">
-            <a class="item-zoom opacity-50" th:href="|/product-detail?id=${drawGroup.productVO.id}|">
+            <div class="item-zoom opacity-50">
               <th:block th:include="fragments/today-product-image"></th:block>
-            </a>
+            </div>
             <div class="todayDraw-model_kr" th:text="${drawGroup.productVO.model_kr}"></div>
             <div
               th:class="|todayDrawContentKorea-${drawGroup.productVO.id} todayDrawContentBox d-flex flex-wrap justify-content-center|">
@@ -214,12 +142,12 @@
     
                 <div th:if="${raffle.raffleType} == '응모'" class="todayReadyDrawContent">
                   <a th:id="|drawCard-${raffle.id}|" th:href="${raffle.url}" style="text-decoration: none;">
-                    <th:block th:include="fragments/ready-raffle-content"></th:block>
+                    <th:block th:include="fragments/ready-raffle-content-nz"></th:block>
                   </a>
                 </div>
                 <div th:unless="${raffle.raffleType} == '응모'" class="todayReadyDrawContent">
                   <a th:id="|drawCard-${raffle.id}|" th:href="${raffle.url}" style="text-decoration: none;">
-                    <th:block th:include="fragments/ready-firstcome-content"></th:block>
+                    <th:block th:include="fragments/ready-firstcome-content-nz"></th:block>
                   </a>
                 </div>
                 <div class="check" th:data-raffle-id="${raffle.id}" onmouseover="changeCheckIcon(this)" onmouseout="changeCheckIcon(this)">
@@ -241,27 +169,27 @@
     
       <th:block th:if="${readyDirectRaffleListSize &gt; 0}">
         <hr class="today-draws-hr--ready">
-        <h2 style="text-align: center; font-weight:bold;">직배 응모 예정: <span th:text="${readyDirectRaffleListSize}"></span>
+        <h2 style="text-align: center; font-weight:bold;">Upcoming Overseas Raffles&nbsp;<span th:text="${readyDirectRaffleListSize}"></span>
         </h2>
     
         <div class="draw-area">
           <div th:each="drawGroup : ${readyDirectDrawGroupList}" th:id="|todayDirectDraw-${drawGroup.productVO.id}|"
                th:if="${#lists.size(drawGroup.targetRaffleVOList) &gt; 0}" class="todayDrawContainer">
-            <a class="item-zoom opacity-50" th:href="|/product-detail?id=${drawGroup.productVO.id}|">
+            <div class="item-zoom opacity-50">
               <th:block th:include="fragments/today-product-image"></th:block>
-            </a>
+            </div>
             <div class="todayDraw-model_kr" th:text="${drawGroup.productVO.model_kr}"></div>
             <div
               th:class="|todayDrawContentDirect-${drawGroup.productVO.id} todayDrawContentBox d-flex flex-wrap justify-content-center|">
               <div th:each="raffle : ${drawGroup.targetRaffleVOList}">
                 <div th:if="${raffle.raffleType} == '응모'" class="todayReadyDrawContent">
                   <a th:id="|drawCard-${raffle.id}|" th:href="${raffle.url}" style="text-decoration: none;">
-                    <th:block th:include="fragments/ready-raffle-content"></th:block>
+                    <th:block th:include="fragments/ready-raffle-content-nz"></th:block>
                   </a>
                 </div>
                 <div th:unless="${raffle.raffleType} == '응모'" class="todayReadyDrawContent">
                   <a th:id="|drawCard-${raffle.id}|" th:href="${raffle.url}" style="text-decoration: none;">
-                    <th:block th:include="fragments/ready-firstcome-content"></th:block>
+                    <th:block th:include="fragments/ready-firstcome-content-nz"></th:block>
                   </a>
                 </div>
                 <div class="check" th:data-raffle-id="${raffle.id}" onmouseover="changeCheckIcon(this)" onmouseout="changeCheckIcon(this)">
@@ -275,15 +203,15 @@
     
       <th:block th:if="${readyAgentRaffleListSize &gt; 0}">
         <hr class="today-draws-hr--ready">
-        <h2 style="text-align: center; font-weight:bold;">배대지 응모 예정: <span th:text="${readyAgentRaffleListSize}"></span>
+        <h2 style="text-align: center; font-weight:bold;">Upcoming Freight Forwarder Raffles&nbsp;<span th:text="${readyAgentRaffleListSize}"></span>
         </h2>
     
         <div class="draw-area">
           <div th:each="drawGroup : ${readyAgentDrawGroupList}" th:id="|todayAgentDraw-${drawGroup.productVO.id}|"
                th:if="${#lists.size(drawGroup.targetRaffleVOList) &gt; 0}" class="todayDrawContainer">
-            <a class="item-zoom opacity-50" th:href="|/product-detail?id=${drawGroup.productVO.id}|">
+            <div class="item-zoom opacity-50">
               <th:block th:include="fragments/today-product-image"></th:block>
-            </a>
+            </div>
             <div class="todayDraw-model_kr" th:text="${drawGroup.productVO.model_kr}"></div>
             <div
               th:class="|todayDrawContentAgent-${drawGroup.productVO.id} todayDrawContentBox d-flex flex-wrap justify-content-center|">
@@ -291,12 +219,12 @@
     
                 <div th:if="${raffle.raffleType} == '응모'" class="todayReadyDrawContent">
                   <a th:id="|drawCard-${raffle.id}|" th:href="${raffle.url}" style="text-decoration: none;">
-                    <th:block th:include="fragments/ready-raffle-content"></th:block>
+                    <th:block th:include="fragments/ready-raffle-content-nz"></th:block>
                   </a>
                 </div>
                 <div th:unless="${raffle.raffleType} == '응모'" class="todayReadyDrawContent">
                   <a th:id="|drawCard-${raffle.id}|" th:href="${raffle.url}" style="text-decoration: none;">
-                    <th:block th:include="fragments/ready-firstcome-content"></th:block>
+                    <th:block th:include="fragments/ready-firstcome-content-nz"></th:block>
                   </a>
                 </div>
                 <div class="check" th:data-raffle-id="${raffle.id}" onmouseover="changeCheckIcon(this)" onmouseout="changeCheckIcon(this)">
@@ -328,10 +256,6 @@
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lozad/dist/lozad.min.js"></script>
   <script>
     $(function () {
-      $('.product-unregistered').hide();
-      if ($('#activeDraws-unregistered').children().length > 0) {
-        $('.product-unregistered').show();
-      }
       setPopup();
       setScrollMoving(new ScrollController());
       setCookieSearchConditions();

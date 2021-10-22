@@ -20,6 +20,7 @@ public class RaffleVO implements Comparable<RaffleVO> {
   private String url;
   private String raffleType;
   private String releasePrice;
+  private String releasePrice_nz;
   private String imgSrc;
   private String storeName;
   private String country;
@@ -30,6 +31,7 @@ public class RaffleVO implements Comparable<RaffleVO> {
   private String endDate;
   private String endTime;
   private String specialCase;
+  private String specialCase_nz;
   private String content;
   private String status;
   private String model_kr;
@@ -38,10 +40,12 @@ public class RaffleVO implements Comparable<RaffleVO> {
 
   public RaffleVO(RaffleInsertVO raffleInsertVO) {
     specialCase = raffleInsertVO.getSpecialCase();
+    specialCase_nz = raffleInsertVO.getSpecialCase_nz();
     url = raffleInsertVO.getUrl();
     productId = raffleInsertVO.getProductId();
     raffleType = raffleInsertVO.getRaffleType();
     releasePrice = raffleInsertVO.getReleasePrice();
+    releasePrice_nz = raffleInsertVO.getReleasePrice_nz();
     storeName = raffleInsertVO.getStoreName();
     country = raffleInsertVO.getCountry();
     delivery = raffleInsertVO.getDelivery();

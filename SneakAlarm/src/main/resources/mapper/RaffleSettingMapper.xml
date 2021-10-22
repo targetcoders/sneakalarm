@@ -5,14 +5,14 @@
   <insert id="createRaffleSetting" useGeneratedKeys="true" keyProperty="id"
     parameterType="com.sneakalarm.rafflesetting.domain.RaffleSetting">
     INSERT INTO raffle_setting (raffleSettingName, raffleType, storeName, country, delivery, payType,
-    specialCase, content, releasePrice, imgSrc, insertDateTime)
+    specialCase, content, releasePrice, imgSrc, insertDateTime, specialCase_nz, releasePrice_nz)
     VALUES (#{raffleSettingName}, #{raffleType}, #{storeName}, #{country}, #{delivery}, #{payType}, #{specialCase}, #{content},
-    #{releasePrice}, #{imgSrc}, now())
+    #{releasePrice}, #{imgSrc}, now(), #{specialCase_nz}, #{releasePrice_nz})
   </insert>
   <insert id="insertRaffle" useGeneratedKeys="true" keyProperty="id"
     parameterType="com.sneakalarm.raffle.dto.RaffleVO">
-    INSERT	INTO raffle(specialCase, url, raffleSettingId, productId, raffleType, releasePrice, imgSrc, storeName, country, delivery, payType, startDate, startTime, endDate, endTime, content, model_kr)
-    VALUES 	(#{specialCase}, #{url}, #{raffleSettingId}, #{productId}, #{raffleType}, #{releasePrice}, #{imgSrc}, #{storeName}, #{country}, #{delivery}, #{payType}, #{startDate}, #{startTime}, #{endDate}, #{endTime}, #{content}, #{model_kr})
+    INSERT	INTO raffle(specialCase, url, raffleSettingId, productId, raffleType, releasePrice, imgSrc, storeName, country, delivery, payType, startDate, startTime, endDate, endTime, content, model_kr, specialCase_nz, releasePrice_nz)
+    VALUES 	(#{specialCase}, #{url}, #{raffleSettingId}, #{productId}, #{raffleType}, #{releasePrice}, #{imgSrc}, #{storeName}, #{country}, #{delivery}, #{payType}, #{startDate}, #{startTime}, #{endDate}, #{endTime}, #{content}, #{model_kr}, #{specialCase_nz}, #{releasePrice_nz})
   </insert>
 
   <select id="getRaffleSetting" parameterType="Long"
