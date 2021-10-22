@@ -1,0 +1,6 @@
+<div><span class="draw__store-name" th:text="${raffle.storeName}"></span></div>
+<div>
+  <div class="draw__raffle-type--firstcome--nz">FIRST COME FIRST SERVED</div>
+  <span class="draw__time">From</span>&nbsp;<span class="draw__week" th:text="${raffle.startWeek}"></span>&nbsp;<span class="draw__date" th:text="${raffle.startDate}"></span>&nbsp;<span class="draw__time" th:text="|${raffle.startTime}|"></span>
+</div>
+<div class="draw__specialcase"><span th:text="${raffle.specialCase}"></span></div>

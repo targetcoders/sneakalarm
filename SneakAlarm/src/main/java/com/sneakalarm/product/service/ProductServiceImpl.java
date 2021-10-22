@@ -15,7 +15,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 import com.sneakalarm.product.ProductConst;
 import com.sneakalarm.product.dao.ProductCardMapper;
 import com.sneakalarm.product.dao.ProductMapper;
@@ -27,9 +26,7 @@ import com.sneakalarm.product.dto.ProductUpdateStartDateTimeVO;
 import com.sneakalarm.product.dto.ProductUpdateStatusVO;
 import com.sneakalarm.product.dto.ProductVO;
 import com.sneakalarm.raffle.service.RaffleService;
-import com.sneakalarm.util.Week;
 import com.sneakalarm.util.StringUtil;
-import com.sneakalarm.util.dto.BucketVO;
 
 import ch.qos.logback.classic.Logger;
 import groovy.util.logging.Slf4j;

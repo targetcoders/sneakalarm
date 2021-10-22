@@ -5,7 +5,7 @@ import com.sneakalarm.product.dao.ProductMapper;
 import com.sneakalarm.product.dto.ProductVO;
 import com.sneakalarm.product.service.ProductService;
 import com.sneakalarm.raffle.dao.RaffleMapper;
-import com.sneakalarm.today.domain.DrawGroup;
+import com.sneakalarm.today.domain.DrawGroup_nz;
 import com.sneakalarm.today.dto.TodayProductResponseVO;
 import com.sneakalarm.raffle.service.RaffleService;
 import java.util.ArrayList;
@@ -36,7 +36,7 @@ public class TodayRestController {
 
   @GetMapping("/now/draw-list/unregistered")
   public String drawListUnregistered() throws Exception {
-    List<DrawGroup> drawGroupList = new ArrayList<>();
+    List<DrawGroup_nz> drawGroupList = new ArrayList<>();
     String[] deliveryTypes = {"택배배송", "방문수령"};
     Set<ProductVO> productSet = new HashSet<>();
     for (String deliveryType : deliveryTypes) {
@@ -48,7 +48,7 @@ public class TodayRestController {
       }
     }
     for (ProductVO product : new ArrayList<>(productSet)) {
-      drawGroupList.add(new DrawGroup(product.getId(), deliveryTypes, DrawGroup.STATUS_ACTIVE, productMapper, raffleMapper));
+      drawGroupList.add(new DrawGroup_nz(product.getId(), deliveryTypes, DrawGroup_nz.STATUS_ACTIVE, productMapper, raffleMapper));
     }
     Collections.sort(drawGroupList);
     return new ObjectMapper().writeValueAsString(drawGroupList);
@@ -56,7 +56,7 @@ public class TodayRestController {
 
   @GetMapping("/now/draw-list/korea")
   public String drawListKorea() throws Exception {
-    List<DrawGroup> drawGroupList = new ArrayList<>();
+    List<DrawGroup_nz> drawGroupList = new ArrayList<>();
     String[] deliveryTypes = {"택배배송", "방문수령"};
     Set<ProductVO> productSet = new HashSet<>();
     for (String deliveryType : deliveryTypes) {
@@ -66,7 +66,7 @@ public class TodayRestController {
       if(product.getModel_kr().equals("?")){
         continue;
       }
-      drawGroupList.add(new DrawGroup(product.getId(), deliveryTypes, DrawGroup.STATUS_ACTIVE, productMapper, raffleMapper));
+      drawGroupList.add(new DrawGroup_nz(product.getId(), deliveryTypes, DrawGroup_nz.STATUS_ACTIVE, productMapper, raffleMapper));
     }
     Collections.sort(drawGroupList);
     return new ObjectMapper().writeValueAsString(drawGroupList);
@@ -74,7 +74,7 @@ public class TodayRestController {
 
   @GetMapping("/now/draw-list/direct")
   public String drawListDirect() throws Exception {
-    List<DrawGroup> drawGroupList = new ArrayList<>();
+    List<DrawGroup_nz> drawGroupList = new ArrayList<>();
     String[] deliveryTypes = {"직배"};
     Set<ProductVO> productSet = new HashSet<>();
     for (String deliveryType : deliveryTypes) {
@@ -84,7 +84,7 @@ public class TodayRestController {
       if(product.getModel_kr().equals("?")){
         continue;
       }
-      drawGroupList.add(new DrawGroup(product.getId(), deliveryTypes, DrawGroup.STATUS_ACTIVE, productMapper, raffleMapper));
+      drawGroupList.add(new DrawGroup_nz(product.getId(), deliveryTypes, DrawGroup_nz.STATUS_ACTIVE, productMapper, raffleMapper));
     }
     Collections.sort(drawGroupList);
     return new ObjectMapper().writeValueAsString(drawGroupList);
@@ -92,7 +92,7 @@ public class TodayRestController {
 
   @GetMapping("/now/draw-list/agent")
   public String drawListAgent() throws Exception {
-    List<DrawGroup> drawGroupList = new ArrayList<>();
+    List<DrawGroup_nz> drawGroupList = new ArrayList<>();
     String[] deliveryTypes = {"배대지"};
     Set<ProductVO> productSet = new HashSet<>();
     for (String deliveryType : deliveryTypes) {
@@ -102,7 +102,7 @@ public class TodayRestController {
       if(product.getModel_kr().equals("?")){
         continue;
       }
-      drawGroupList.add(new DrawGroup(product.getId(), deliveryTypes, DrawGroup.STATUS_ACTIVE, productMapper, raffleMapper));
+      drawGroupList.add(new DrawGroup_nz(product.getId(), deliveryTypes, DrawGroup_nz.STATUS_ACTIVE, productMapper, raffleMapper));
     }
     Collections.sort(drawGroupList);
     return new ObjectMapper().writeValueAsString(drawGroupList);

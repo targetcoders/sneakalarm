@@ -8,7 +8,7 @@ public class WeekTest {
 
   @Test
   public void constructor() throws Exception {
-    String week = new Week(new SimpleDateFormat("yyyy-MM-dd HH:mm").parse("2021-08-11 00:30")).get();
+    String week = new DateTranslator(new SimpleDateFormat("yyyy-MM-dd HH:mm").parse("2021-08-11 00:30")).krWeek();
 
     Assert.assertEquals("수", week);
   }

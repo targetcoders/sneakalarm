@@ -1,30 +1,29 @@
 package com.sneakalarm.raffle.service;
 
+import com.sneakalarm.product.ProductConst;
+import com.sneakalarm.product.dao.ProductMapper;
 import com.sneakalarm.raffle.RaffleConst;
 import com.sneakalarm.raffle.dao.RaffleCardMapper;
+import com.sneakalarm.raffle.dao.RaffleMapper;
 import com.sneakalarm.raffle.dto.ActiveRafflesVO;
+import com.sneakalarm.raffle.dto.RaffleCardVO;
+import com.sneakalarm.raffle.dto.RaffleInsertVO;
 import com.sneakalarm.raffle.dto.RaffleListByDeliveryTypeVO;
 import com.sneakalarm.raffle.dto.RaffleListByStatusVO;
 import com.sneakalarm.raffle.dto.RaffleSearchCondition;
-import com.sneakalarm.util.Week;
+import com.sneakalarm.raffle.dto.RaffleUpdateStatusVO;
+import com.sneakalarm.raffle.dto.RaffleVO;
+import com.sneakalarm.util.DateTranslator;
+import com.sneakalarm.util.StringUtil;
+import com.sneakalarm.util.dto.BucketVO;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-
-import com.sneakalarm.raffle.dto.RaffleUpdateStatusVO;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import com.sneakalarm.product.ProductConst;
-import com.sneakalarm.product.dao.ProductMapper;
-import com.sneakalarm.raffle.dao.RaffleMapper;
-import com.sneakalarm.raffle.dto.RaffleCardVO;
-import com.sneakalarm.raffle.dto.RaffleInsertVO;
-import com.sneakalarm.raffle.dto.RaffleVO;
-import com.sneakalarm.util.StringUtil;
-import com.sneakalarm.util.dto.BucketVO;
 
 @Service
 public class RaffleServiceImpl implements RaffleService {
@@ -75,8 +74,8 @@ public class RaffleServiceImpl implements RaffleService {
   public ArrayList<RaffleVO> getRaffleList(String raffleId) throws Exception {
     ArrayList<RaffleVO> result = raffleMapper.getRaffle(raffleId);
     for(RaffleVO raffleVO : result){
-      raffleVO.setEndWeek(new Week(new SimpleDateFormat("yyyy-MM-dd").parse(raffleVO.getEndDate())).get());
-      raffleVO.setStartWeek(new Week(new SimpleDateFormat("yyyy-MM-dd").parse(raffleVO.getStartDate())).get());
+      raffleVO.setEndWeek(new DateTranslator(new SimpleDateFormat("yyyy-MM-dd").parse(raffleVO.getEndDate())).krWeek());
+      raffleVO.setStartWeek(new DateTranslator(new SimpleDateFormat("yyyy-MM-dd").parse(raffleVO.getStartDate())).krWeek());
     }
     return result;
   }
