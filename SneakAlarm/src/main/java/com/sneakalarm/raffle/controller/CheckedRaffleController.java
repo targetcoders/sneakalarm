@@ -4,7 +4,7 @@ import com.sneakalarm.product.dao.ProductMapper;
 import com.sneakalarm.product.service.ProductService;
 import com.sneakalarm.raffle.dto.RaffleVO;
 import com.sneakalarm.raffle.service.RaffleService;
-import com.sneakalarm.today.domain.DrawGroup_nz;
+import com.sneakalarm.today.domain.DrawGroup;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -48,10 +48,10 @@ public class CheckedRaffleController {
     }
 
     List<RaffleVO> checkedRaffleVOList = raffleService.getCheckedRaffleList(splitMyRaffles);
-    List<DrawGroup_nz> drawGroupList = checkedDrawGroups(conditions, checkedRaffleVOList);
+    List<DrawGroup> drawGroupList = checkedDrawGroups(conditions, checkedRaffleVOList);
     model.addAttribute("checkedDrawGroupList", drawGroupList);
     int raffleListSize = 0;
-    for(DrawGroup_nz drawGroup : drawGroupList) {
+    for(DrawGroup drawGroup : drawGroupList) {
       raffleListSize += drawGroup.getTargetRaffleVOList().size();
     }
     model.addAttribute("checkedDrawNumbers", raffleListSize);
@@ -59,31 +59,33 @@ public class CheckedRaffleController {
     return "views/checked-raffles/list";
   }
 
-  private List<DrawGroup_nz> checkedDrawGroups(String conditions, List<RaffleVO> checkedRaffleVOList)
+  private List<DrawGroup> checkedDrawGroups(String conditions, List<RaffleVO> checkedRaffleVOList)
       throws Exception {
-    List<DrawGroup_nz> drawGroupList = new ArrayList<>();
+    List<DrawGroup> drawGroupList = new ArrayList<>();
     for(RaffleVO raffleVO : checkedRaffleVOList) {
       if(!conditions.contains(raffleVO.getStatus())){
         continue;
       }
-      DrawGroup_nz drawGroup = existingDrawGroup(drawGroupList, raffleVO.getProductId());
+      DrawGroup drawGroup = existingDrawGroup(drawGroupList, raffleVO.getProductId());
       if(drawGroup == null) {
-        DrawGroup_nz newDrawGroup = new DrawGroup_nz(raffleVO, productMapper);
+        DrawGroup newDrawGroup = new DrawGroup(raffleVO, productMapper);
         newDrawGroup.setProductVO(productService.getProductList(raffleVO.getProductId()).get(0));
         drawGroupList.add(newDrawGroup);
         continue;
       }
       drawGroup.addRaffle(raffleVO);
     }
-    for(DrawGroup_nz drawGroup : drawGroupList) {
-      drawGroup.sortRaffleList();
-    }
     Collections.sort(drawGroupList);
+    for(DrawGroup drawGroup : drawGroupList) {
+      drawGroup.sortRaffleList();
+      drawGroup.convertFormat();
+    }
+
     return drawGroupList;
   }
 
-  private DrawGroup_nz existingDrawGroup(List<DrawGroup_nz> drawGroupList, String productId) {
-    for(DrawGroup_nz drawGroup : drawGroupList) {
+  private DrawGroup existingDrawGroup(List<DrawGroup> drawGroupList, String productId) {
+    for(DrawGroup drawGroup : drawGroupList) {
       if(drawGroup.getProductVO().getId().equals(productId)){
         return drawGroup;
       }

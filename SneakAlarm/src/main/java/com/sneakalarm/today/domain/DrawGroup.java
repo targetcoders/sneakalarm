@@ -38,16 +38,19 @@ public class DrawGroup implements Comparable<DrawGroup>, Group {
   public DrawGroup(RaffleVO raffleVO, ProductMapper productMapper) throws Exception {
     this.productVO = productMapper.getProductList(raffleVO.getProductId()).get(0);
     this.targetRaffleVOList = new ArrayList<>();
-    formatted(raffleVO);
     this.targetRaffleVOList.add(raffleVO);
     this.firstEndDateTime = firstEndDateTime(targetRaffleVOList);
+  }
+
+  public void convertFormat() throws Exception {
+    this.targetRaffleVOList = formattedRaffleList(targetRaffleVOList);
   }
 
   private List<RaffleVO> filterKr(List<RaffleVO> targetRaffleList) {
     List<RaffleVO> result = new ArrayList<>();
     for(RaffleVO raffle : targetRaffleList) {
       String country = raffle.getCountry().toUpperCase();
-      if(country.equals("한국")) {
+      if(!(country.equals("NZ") || country.equals("NZL") || country.equals("NEW ZEALAND") || country.equals("뉴질랜드"))) {
         result.add(raffle);
       }
     }
@@ -106,6 +109,15 @@ public class DrawGroup implements Comparable<DrawGroup>, Group {
     return sdf.parse(firstRaffle.getEndDate() + " " + firstRaffle.getEndTime());
   }
 
+  private Date firstEndDateTime_formatted(List<RaffleVO> raffleVOList) throws ParseException {
+    if(raffleVOList.isEmpty()){
+      return new Date();
+    }
+    RaffleVO firstRaffle = raffleVOList.get(0);
+    SimpleDateFormat sdf = new SimpleDateFormat("MM/dd HH:mm");
+    return sdf.parse(firstRaffle.getEndDate() + " " + firstRaffle.getEndTime());
+  }
+
   private List<RaffleVO> activeRaffleVOList(String productId, RaffleMapper raffleMapper) {
     return raffleMapper.getRaffleListByStatus(new RaffleListByStatusVO(productId, "active"));
   }
@@ -120,8 +132,7 @@ public class DrawGroup implements Comparable<DrawGroup>, Group {
   }
 
   @Override
-  public void addRaffle(RaffleVO raffleVO) throws Exception {
-    formatted(raffleVO);
+  public void addRaffle(RaffleVO raffleVO) {
     this.targetRaffleVOList.add(raffleVO);
   }
 
