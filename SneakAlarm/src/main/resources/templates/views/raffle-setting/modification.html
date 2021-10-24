@@ -101,8 +101,10 @@ $('document').ready(function() {
 								delivery: formData.get('delivery'),
 								payType: formData.get('payType'),
 								specialCase: $('#specialCase').val(),
+								specialCase_nz: $('#specialCase_nz').val(),
 								content: $('#content').val(),
 								releasePrice: $('#releasePrice').val(),
+								releasePrice_nz: $('#releasePrice_nz').val(),
 								imgSrc: fileName
 							},
 							success: function(){
@@ -129,8 +131,10 @@ $('document').ready(function() {
 				  delivery: formData.get('delivery'),
 					payType: formData.get('payType'),
 				  specialCase: $('#specialCase').val(),
+				  specialCase_nz: $('#specialCase_nz').val(),
 				  content: $('#content').val(),
 				  releasePrice: $('#releasePrice').val(),
+				  releasePrice_nz: $('#releasePrice_nz').val(),
 				  imgSrc: $('#imgSrc').val()
 				},
 				success: function(){
@@ -225,6 +229,19 @@ $('document').ready(function() {
 					<label for="photoupload" class="col-sm-2 col-form-label text-center">* 이미지</label>
 					<div class="col-sm-10">
 						<input class="form-control form-control-lg" type="file" id="photoupload" name="file">
+					</div>
+				</div>
+
+				<div class="mb-3 row">
+					<label for="specialCase" class="col-sm-2 col-form-label text-center">특이 사항 (NZ)</label>
+					<div class="col-sm-10">
+						<input class="form-control form-control" id="specialCase_nz" name="specialCase_nz" th:attr="value=${raffleSetting.specialCase_nz}" type="text" placeholder="회원가입 후 응모 / 팔로우 확인 등" />
+					</div>
+				</div>
+				<div class="mb-3 row">
+					<div class="col-sm-2 text-center">판매 가격 (NZ)</div>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" name="releasePrice_nz" id="releasePrice_nz" th:attr="value=${raffleSetting.releasePrice_nz}" placeholder="1,000,000"/>
 					</div>
 				</div>
 				<input type="hidden" id="imgSrc" th:attr="value=${raffleSetting.imgSrc}"/>
