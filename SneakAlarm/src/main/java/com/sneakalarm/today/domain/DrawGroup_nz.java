@@ -9,6 +9,7 @@ import com.sneakalarm.util.DateTranslator;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -56,8 +57,7 @@ public class DrawGroup_nz implements Comparable<DrawGroup_nz>, Group {
     List<RaffleVO> result = new ArrayList<>();
     for(RaffleVO raffle : targetRaffleList) {
       String country = raffle.getCountry().toUpperCase();
-      System.out.println(raffle);
-      if(country.equals("NZ") || country.equals("NZL") || country.equals("NEW ZEALAND") || country.equals("뉴질랜드")) {
+      if(!(country.equals("한국"))) {
         result.add(raffle);
       }
     }
@@ -79,6 +79,16 @@ public class DrawGroup_nz implements Comparable<DrawGroup_nz>, Group {
       throws Exception {
     List<RaffleVO> result = new ArrayList<>();
     for (RaffleVO raffle : activeRaffleList) {
+      SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+      Date startDateTime = sdf.parse(raffle.getStartDate() + " " + raffle.getStartTime());
+
+      Calendar cal = Calendar.getInstance();
+      cal.setTime(startDateTime);
+      cal.add(Calendar.HOUR, 4);
+
+      String[] splitDateTime = sdf.format(cal.getTime()).split(" ");
+      raffle.setStartDate(splitDateTime[0]);
+      raffle.setStartTime(splitDateTime[1]);
       result.add(formatted(raffle));
     }
     return result;
@@ -99,7 +109,7 @@ public class DrawGroup_nz implements Comparable<DrawGroup_nz>, Group {
   }
 
   private Date firstEndDateTime(List<RaffleVO> raffleVOList) throws ParseException {
-    if(raffleVOList.isEmpty()){
+    if(raffleVOList.isEmpty()) {
       return new Date();
     }
     RaffleVO firstRaffle = raffleVOList.get(0);
