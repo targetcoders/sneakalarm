@@ -26,8 +26,6 @@ public interface RaffleService {
 
   void deleteRaffle(String id);
 
-  String calcRaffleStatus(String startDate, String startTime, String endDate, String endTime) throws ParseException;
-
   void updateDrawStatus(String id, String status);
 
   String getDrawStatus(String id);
@@ -39,4 +37,6 @@ public interface RaffleService {
   List<RaffleVO> activeRaffles(ActiveRafflesVO activeRafflesVO);
 
   List<RaffleVO> duplicatedRaffles(RaffleSearchCondition raffleSearchCondition);
+
+  String calcRaffleStatus(RaffleVO raffleVO) throws ParseException;
 }

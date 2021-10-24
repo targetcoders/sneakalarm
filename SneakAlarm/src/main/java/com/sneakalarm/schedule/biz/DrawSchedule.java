@@ -18,11 +18,7 @@ public class DrawSchedule {
   public void updateDrawStatus() throws ParseException {
     ArrayList<RaffleVO> list = raffleService.getRaffleListAll();
     for (RaffleVO raffleVO : list) {
-      String startDate = raffleVO.getStartDate();
-      String endDate = raffleVO.getEndDate();
-      String startTime = raffleVO.getStartTime();
-      String endTime = raffleVO.getEndTime();
-      String status = raffleService.calcRaffleStatus(startDate, startTime, endDate, endTime);
+      String status = raffleService.calcRaffleStatus(raffleVO);
       if ((raffleVO.getRaffleType().equals("선착순") && status.equals(ProductConst.STATUS_READY))
           || status.equals(ProductConst.STATUS_GOING)) {
         status = ProductConst.STATUS_ACTIVE;

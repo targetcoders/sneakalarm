@@ -1,5 +1,6 @@
 package com.sneakalarm.product.controller;
 
+import com.sneakalarm.raffle.dto.RaffleVO;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -179,18 +180,19 @@ public class ProductController {
     ArrayList<RaffleCardVO> goingFirstcomeRet_direct = new ArrayList<RaffleCardVO>();
 
     for (RaffleCardVO raffleCardVO : raffleCardList) {
-      String startDate = raffleCardVO.getStartDate();
-      String endDate = raffleCardVO.getEndDate();
-      String startTime = raffleCardVO.getStartTime();
-      String endTime = raffleCardVO.getEndTime();
-      String status = raffleService.calcRaffleStatus(startDate, startTime, endDate, endTime);
-      String startWeek = new DateTranslator(new SimpleDateFormat("yyyy-MM-dd").parse(startDate)).krWeek();
-      String endWeek = new DateTranslator(new SimpleDateFormat("yyyy-MM-dd").parse(endDate)).krWeek();
+      RaffleVO raffleVO = new RaffleVO();
+      raffleVO.setStartDate(raffleCardVO.getStartDate());
+      raffleVO.setEndDate(raffleCardVO.getEndDate());
+      raffleVO.setStartTime(raffleCardVO.getStartTime());
+      raffleVO.setEndTime(raffleCardVO.getEndTime());
+      String status = raffleService.calcRaffleStatus(raffleVO);
+      String startWeek = new DateTranslator(new SimpleDateFormat("yyyy-MM-dd").parse(raffleVO.getStartDate())).krWeek();
+      String endWeek = new DateTranslator(new SimpleDateFormat("yyyy-MM-dd").parse(raffleVO.getEndDate())).krWeek();
 
-      raffleCardVO.setStartDate(startDate.replaceAll("-", "/") + " " + startWeek);
-      raffleCardVO.setEndDate(endDate.replaceAll("-", "/") + " " + endWeek);
-      raffleCardVO.setStartTime(startTime.substring(0, 5));
-      raffleCardVO.setEndTime(endTime.substring(0, 5));
+      raffleCardVO.setStartDate(raffleVO.getStartDate().replaceAll("-", "/") + " " + startWeek);
+      raffleCardVO.setEndDate(raffleVO.getEndDate().replaceAll("-", "/") + " " + endWeek);
+      raffleCardVO.setStartTime(raffleVO.getStartTime().substring(0, 5));
+      raffleCardVO.setEndTime(raffleVO.getEndTime().substring(0, 5));
       raffleCardVO.setStatus(status);
 
       String delivery = raffleCardVO.getDelivery();
