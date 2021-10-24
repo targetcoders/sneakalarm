@@ -118,15 +118,14 @@ public class RaffleServiceImpl implements RaffleService {
     raffleMapper.deleteRaffle(id);
   }
 
-
   @Override
-  public String calcRaffleStatus(String startDate, String startTime, String endDate, String endTime)
+  public String calcRaffleStatus(RaffleVO raffleVO)
       throws ParseException {
     String status;
     SimpleDateFormat sdf = new SimpleDateFormat(ProductConst.DATE_FORMAT.replaceAll("/", "-"));
     Date nowDateTime = new Date();
-    Date startDateTime = sdf.parse(startDate + " " + startTime);
-    Date endDateTime = sdf.parse(endDate + " " + endTime);
+    Date startDateTime = sdf.parse(raffleVO.getStartDate() + " " + raffleVO.getStartTime());
+    Date endDateTime = sdf.parse( raffleVO.getEndDate()+ " " + raffleVO.getEndTime());
     
     int res = nowDateTime.compareTo(endDateTime);
     if (res > 0)
