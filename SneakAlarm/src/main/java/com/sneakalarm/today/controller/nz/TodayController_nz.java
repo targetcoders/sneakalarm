@@ -82,8 +82,28 @@ public class TodayController_nz {
     Collections.sort(drawGroupList);
     return drawGroupList;
   }
-  private List<DrawGroup_nz> drawListReadyNz() {
-    return null;
+  private List<DrawGroup_nz> drawListReadyNz() throws Exception {
+    List<DrawGroup_nz> drawGroupList = new ArrayList<>();
+    String[] deliveryTypes = {"택배배송", "방문수령"};
+    Set<ProductVO> productSet = new HashSet<>();
+    for (String deliveryType : deliveryTypes) {
+      productSet.addAll(productService.getProductByDeliveryType(deliveryType));
+    }
+    for (ProductVO product : new ArrayList<>(productSet)) {
+      List<RaffleVO> list = raffleMapper
+          .getRaffleListByStatus(new RaffleListByStatusVO(product.getId(), DrawGroup_nz.STATUS_READY));
+      if (!hasTargetDeliveryType(deliveryTypes, list)) {
+        continue;
+      }
+      if(product.getModel_kr().equals("?")){
+        continue;
+      }
+      DrawGroup_nz readyKoreaDrawGroup = new DrawGroup_nz(product.getId(), deliveryTypes, DrawGroup_nz.STATUS_READY, productMapper, raffleMapper);
+      koreaRaffleListSize[1] += readyKoreaDrawGroup.getTargetRaffleVOList().size();
+      drawGroupList.add(readyKoreaDrawGroup);
+    }
+    Collections.sort(drawGroupList);
+    return drawGroupList;
   }
 
   private List<DrawGroup> drawListKorea() throws Exception {
