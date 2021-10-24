@@ -91,7 +91,7 @@ public class DrawGroup_nz implements Comparable<DrawGroup_nz>, Group {
       endCalendar.add(Calendar.HOUR, 4);
 
       String[] splitStartDateTime = sdf.format(startCalendar.getTime()).split(" ");
-      String[] splitEndDateTime = sdf.format(startCalendar.getTime()).split(" ");
+      String[] splitEndDateTime = sdf.format(endCalendar.getTime()).split(" ");
       raffle.setStartDate(splitStartDateTime[0]);
       raffle.setStartTime(splitStartDateTime[1]);
       raffle.setEndDate(splitEndDateTime[0]);
