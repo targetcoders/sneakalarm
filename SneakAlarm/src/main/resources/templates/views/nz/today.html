@@ -14,7 +14,7 @@
 
       <th:block th:if="${nzRaffleListSize &gt; 0}">
         <h2 style="text-align: center; font-weight:bold;">NZ Raffles&nbsp;<span th:text="${nzRaffleListSize}"></span></h2>
-        <div class="description">Live raffles in New Zealand</div>
+        <div class="description">Raffles in New Zealand</div>
         <div id="activeDraws-korea">
           <div th:each="drawGroup,index : ${nzDrawGroupList}" th:id="|todayKoreaDraw-${drawGroup.productVO.id}|"
                th:if="${#lists.size(drawGroup.targetRaffleVOList) &gt; 0}" class="todayDrawContainer">
