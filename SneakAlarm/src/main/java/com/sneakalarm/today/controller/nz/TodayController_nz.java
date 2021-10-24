@@ -54,8 +54,8 @@ public class TodayController_nz {
     model.addAttribute("readyAgentRaffleListSize", agentRaffleListSize[1]);
     model.addAttribute("nzDrawGroupList", drawListNz());
     model.addAttribute("nzRaffleListSize", nzRaffleListSize[0]);
-    //model.addAttribute("readyNzDrawGroupList", drawListReadyNz());
-    //model.addAttribute("readyNzRaffleListSize", nzRaffleListSize[1]);
+    model.addAttribute("readyNzDrawGroupList", drawListReadyNz());
+    model.addAttribute("readyNzRaffleListSize", nzRaffleListSize[1]);
     return "views/nz/today";
   }
 
@@ -76,9 +76,6 @@ public class TodayController_nz {
         continue;
       }
       DrawGroup_nz nzDrawGroup = new DrawGroup_nz(product.getId(), deliveryTypes, DrawGroup_nz.STATUS_ACTIVE, productMapper, raffleMapper);
-      //if(nzDrawGroup.getTargetRaffleVOList().isEmpty()) {
-      //  continue;
-      //}
       nzRaffleListSize[0] += nzDrawGroup.getTargetRaffleVOList().size();
       drawGroupList.add(nzDrawGroup);
     }

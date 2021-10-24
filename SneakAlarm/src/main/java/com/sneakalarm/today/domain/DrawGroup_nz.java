@@ -81,14 +81,21 @@ public class DrawGroup_nz implements Comparable<DrawGroup_nz>, Group {
     for (RaffleVO raffle : activeRaffleList) {
       SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
       Date startDateTime = sdf.parse(raffle.getStartDate() + " " + raffle.getStartTime());
+      Date endDateTime = sdf.parse(raffle.getEndDate() + " " + raffle.getEndTime());
 
-      Calendar cal = Calendar.getInstance();
-      cal.setTime(startDateTime);
-      cal.add(Calendar.HOUR, 4);
+      Calendar startCalendar = Calendar.getInstance();
+      startCalendar.setTime(startDateTime);
+      startCalendar.add(Calendar.HOUR, 4);
+      Calendar endCalendar = Calendar.getInstance();
+      endCalendar.setTime(endDateTime);
+      endCalendar.add(Calendar.HOUR, 4);
 
-      String[] splitDateTime = sdf.format(cal.getTime()).split(" ");
-      raffle.setStartDate(splitDateTime[0]);
-      raffle.setStartTime(splitDateTime[1]);
+      String[] splitStartDateTime = sdf.format(startCalendar.getTime()).split(" ");
+      String[] splitEndDateTime = sdf.format(startCalendar.getTime()).split(" ");
+      raffle.setStartDate(splitStartDateTime[0]);
+      raffle.setStartTime(splitStartDateTime[1]);
+      raffle.setEndDate(splitEndDateTime[0]);
+      raffle.setEndTime(splitEndDateTime[1]);
       result.add(formatted(raffle));
     }
     return result;
