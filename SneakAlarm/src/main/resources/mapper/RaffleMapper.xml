@@ -5,8 +5,8 @@
 
 	<insert id="raffleInsert" 
 	parameterType="com.sneakalarm.raffle.dto.RaffleVO">
-		INSERT	INTO raffle(specialCase, url, productId, raffleType, releasePrice, imgSrc, storeName, country, delivery, payType, startDate, startTime, endDate, endTime, content)
-		VALUES 	(#{specialCase}, #{url}, #{productId}, #{raffleType}, #{releasePrice}, #{imgSrc}, #{storeName}, #{country}, #{delivery}, #{payType}, #{startDate}, #{startTime}, #{endDate}, #{endTime}, #{content})
+		INSERT	INTO raffle(specialCase, specialCase_nz, url, productId, raffleType, releasePrice, releasePrice_nz, imgSrc, storeName, country, delivery, payType, startDate, startTime, endDate, endTime, content)
+		VALUES 	(#{specialCase}, #{specialCase_nz}, #{url}, #{productId}, #{raffleType}, #{releasePrice}, #{releasePrice_nz}, #{imgSrc}, #{storeName}, #{country}, #{delivery}, #{payType}, #{startDate}, #{startTime}, #{endDate}, #{endTime}, #{content})
 	</insert>
 	
 	<select id="getRaffleList" parameterType="String" 
@@ -82,11 +82,11 @@
 	
 	<update id="updateRaffle" parameterType="com.sneakalarm.raffle.dto.RaffleVO">
 		UPDATE 	raffle
-		SET			url=#{url}, raffleType=#{raffleType}, releasePrice=#{releasePrice},
+		SET			url=#{url}, raffleType=#{raffleType}, releasePrice=#{releasePrice}, releasePrice_nz=#{releasePrice_nz},
 						storeName=#{storeName}, country=#{country}, delivery=#{delivery},
 						payType=#{payType}, startDate=#{startDate}, startTime=#{startTime},
 						endDate=#{endDate}, endTime=#{endTime}, content=#{content},
-						specialCase=#{specialCase}, imgSrc=#{imgSrc}, model_kr=#{model_kr}
+						specialCase=#{specialCase}, specialCase_nz=#{specialCase_nz}, imgSrc=#{imgSrc}, model_kr=#{model_kr}
 		WHERE		id=#{id}
 	</update>
 

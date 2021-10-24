@@ -44,8 +44,8 @@
     SET raffleSettingName=#{raffleSettingName},
         raffleType=#{raffleType}, storeName=#{storeName},
         country=#{country}, delivery=#{delivery},
-        payType=#{payType}, specialCase=#{specialCase}, content=#{content},
-        releasePrice=#{releasePrice},
+        payType=#{payType}, specialCase=#{specialCase}, specialCase_nz=#{specialCase_nz}, content=#{content},
+        releasePrice=#{releasePrice}, releasePrice_nz=#{releasePrice_nz},
         <if test="imgSrc != null">
           imgSrc=#{imgSrc},
         </if>

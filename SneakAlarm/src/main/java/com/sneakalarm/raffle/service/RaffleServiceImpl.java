@@ -98,7 +98,9 @@ public class RaffleServiceImpl implements RaffleService {
     raffleVO.setPayType(raffleInsertVO.getPayType());
     raffleVO.setRaffleType(raffleInsertVO.getRaffleType());
     raffleVO.setReleasePrice(raffleInsertVO.getReleasePrice());
+    raffleVO.setReleasePrice_nz(raffleInsertVO.getReleasePrice_nz());
     raffleVO.setSpecialCase(raffleInsertVO.getSpecialCase());
+    raffleVO.setSpecialCase_nz(raffleInsertVO.getSpecialCase_nz());
     raffleVO.setStartDate(raffleInsertVO.getStartDate());
     raffleVO.setStartTime(raffleInsertVO.getStartTime());
     raffleVO.setStoreName(raffleInsertVO.getStoreName());
