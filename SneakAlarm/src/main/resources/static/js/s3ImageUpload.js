@@ -32,9 +32,8 @@ async function s3ResizedUpload(data, path, maxSize) {
     data.path = path;
     console.log(maxSize + ' ' + path);
     console.log(data);
-    const ok = resizeImage({
+    await resizeImage({
         data: data,
         maxSize: maxSize,
-    });
-    await s3Upload(ok);
+    }).then((ok)=>s3Upload(ok));
 }
