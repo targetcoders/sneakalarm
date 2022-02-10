@@ -85,10 +85,8 @@ public class DrawGroup_nz implements Comparable<DrawGroup_nz>, Group {
 
       Calendar startCalendar = Calendar.getInstance();
       startCalendar.setTime(startDateTime);
-      startCalendar.add(Calendar.HOUR, 4);
       Calendar endCalendar = Calendar.getInstance();
       endCalendar.setTime(endDateTime);
-      endCalendar.add(Calendar.HOUR, 4);
 
       String[] splitStartDateTime = sdf.format(startCalendar.getTime()).split(" ");
       String[] splitEndDateTime = sdf.format(endCalendar.getTime()).split(" ");
