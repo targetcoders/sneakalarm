@@ -1,4 +1,4 @@
-var resizeImage = function (settings) {
+var resizeImage = async function (settings) {
     var file = settings.data.file;
     var maxSize = settings.maxSize;
     var reader = new FileReader();
@@ -15,7 +15,7 @@ var resizeImage = function (settings) {
             ia[i] = bytes.charCodeAt(i);
         return new Blob([ia], { type: mime });
     };
-    var resize = function () {
+    var resize = async function () {
         var width = image.width;
         var height = image.height;
         if (width > height) {
@@ -44,7 +44,7 @@ var resizeImage = function (settings) {
             return;
         }
         reader.onload = function (readerEvent) {
-            image.onload = function () { return ok(resize()); };
+            image.onload = () => { return resize(); };
             image.src = readerEvent.target.result;
         };
         reader.readAsDataURL(file);

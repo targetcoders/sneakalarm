@@ -169,7 +169,7 @@ hr {
 					processData: false,
 					contentType: false,
 					type: 'POST',
-					success: function (productId) {
+					success: async function (productId) {
 						const productMainImage = document.getElementById('photoupload').files[0];
 						const productDetailImages = document.getElementById('photoupload_detail').files;
 						const mainImageFileName = document.getElementById('model_en').value.replace(/ /g, '_');
@@ -180,27 +180,23 @@ hr {
 							albumPhotosKey: albumPhotosKey,
 							file: productMainImage
 						};
-						setTimeout(() => { s3ResizedUpload(data, albumPhotosKey + 'size200/' + mainImageFileName + '.jpg', 200); }, 300);
-						setTimeout(() => { s3ResizedUpload(data, albumPhotosKey + 'size450/' + mainImageFileName + '.jpg', 450); }, 600);
-						setTimeout(() => { s3ResizedUpload(data, albumPhotosKey + 'size900/' + mainImageFileName + '.jpg', 900); }, 900);
+						await s3ResizedUpload(data, albumPhotosKey + 'size200/' + mainImageFileName + '.jpg', 200);
+						await s3ResizedUpload(data, albumPhotosKey + 'size450/' + mainImageFileName + '.jpg', 450);
+						await s3ResizedUpload(data, albumPhotosKey + 'size900/' + mainImageFileName + '.jpg', 900);
 						
 						console.log(productDetailImages);
 						for (let i = 1; i <= productDetailImages.length; i++) {
-							setTimeout(()=> {
-								const file = productDetailImages[i-1];
-								let data = {
-									albumPhotosKey: albumPhotosKey,
-									file: file
-								};
-								setTimeout(() => { s3ResizedUpload(data, albumPhotosKey + 'size900/' + mainImageFileName + i + '.jpg', 900); }, 300);
-								setTimeout(() => { s3ResizedUpload(data, albumPhotosKey + 'size450/' + mainImageFileName + i + '.jpg', 450); }, 600);
-								if(i == productDetailImages.length) {
-									setTimeout(() => {
-										alert('제품 등록 완료');
-										location.replace('/product-detail?id='+productId);
-									}, 800);
-								}
-							}, i*1000);
+							const file = productDetailImages[i - 1];
+							let data = {
+								albumPhotosKey: albumPhotosKey,
+								file: file
+							};
+							await s3ResizedUpload(data, albumPhotosKey + 'size900/' + mainImageFileName + i + '.jpg', 900);
+							await s3ResizedUpload(data, albumPhotosKey + 'size450/' + mainImageFileName + i + '.jpg', 450);
+							if (i === productDetailImages.length) {
+								alert('제품 등록 완료');
+								location.replace('/product-detail?id=' + productId);
+							}
 						}
 					},
 					error: function () {
