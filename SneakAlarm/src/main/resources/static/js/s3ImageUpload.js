@@ -11,10 +11,10 @@ var s3 = new AWS.S3({
     params: { Bucket: albumBucketName }
 });
 
-function s3Upload(resizedResult) {
+async function s3Upload(resizedResult) {
         console.log("upload resized image")
         console.log(resizedResult);
-        s3.upload({
+        await s3.upload({
             Key: resizedResult.data.path,
             Body: resizedResult.resizedImage,
             ACL: 'public-read'
@@ -28,14 +28,13 @@ function s3Upload(resizedResult) {
     
 }
 
-function s3ResizedUpload(data, path, maxSize) {
+async function s3ResizedUpload(data, path, maxSize) {
     data.path = path;
     console.log(maxSize + ' ' + path);
     console.log(data);
-    resizeImage({
+    const ok = resizeImage({
         data: data,
         maxSize: maxSize,
-    }).then(function (ok) {
-        s3Upload(ok);
     });
+    await s3Upload(ok);
 }
