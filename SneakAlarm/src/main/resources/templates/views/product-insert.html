@@ -181,24 +181,23 @@ hr {
 								albumPhotosKey: albumPhotosKey,
 								file: productMainImage
 							};
+
 							await s3ResizedUpload(data, albumPhotosKey + 'size200/' + mainImageFileName + '.jpg', 200);
 							await s3ResizedUpload(data, albumPhotosKey + 'size450/' + mainImageFileName + '.jpg', 450);
 							await s3ResizedUpload(data, albumPhotosKey + 'size900/' + mainImageFileName + '.jpg', 900);
-
 							console.log(productDetailImages);
 							for (let i = 1; i <= productDetailImages.length; i++) {
+								console.log(`i = ${i}`);
 								const file = productDetailImages[i - 1];
 								let data = {
 									albumPhotosKey: albumPhotosKey,
 									file: file
 								};
-								await s3ResizedUpload(data, albumPhotosKey + 'size900/' + mainImageFileName + i + '.jpg', 900);
 								await s3ResizedUpload(data, albumPhotosKey + 'size450/' + mainImageFileName + i + '.jpg', 450);
-								if (i === productDetailImages.length) {
-									alert('제품 등록 완료');
-									location.replace('/product-detail?id=' + productId);
-								}
+								await s3ResizedUpload(data, albumPhotosKey + 'size900/' + mainImageFileName + i + '.jpg', 900);
 							}
+							alert('제품 등록 완료');
+							//location.replace('/product-detail?id=' + productId);
 						}
 						imageUpload();
 					},
