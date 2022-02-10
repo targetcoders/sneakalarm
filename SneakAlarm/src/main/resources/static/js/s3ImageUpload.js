@@ -12,8 +12,8 @@ var s3 = new AWS.S3({
 });
 
 async function s3Upload(resizedResult) {
-        console.log("upload resized image")
-        console.log(resizedResult);
+        console.log("s3Upload start - upload resized image")
+        console.log(`path: ${resizedResult.data.path}`);
         await s3.upload({
             Key: resizedResult.data.path,
             Body: resizedResult.resizedImage,
@@ -25,15 +25,24 @@ async function s3Upload(resizedResult) {
                 }
             }
         );
-    
+    console.log("s3Upload end - upload resized image")
+}
+
+const sleep = async (ms) => {
+    console.log(`sleep(${ms})...`);
+    await new Promise((resolve) => {
+        setTimeout(() => resolve(), ms);
+    });
 }
 
 async function s3ResizedUpload(data, path, maxSize) {
+    console.log(`s3ResizeUpload Start ${data} ${path} ${maxSize}`);
     data.path = path;
-    console.log(maxSize + ' ' + path);
-    console.log(data);
-    await resizeImage({
+    const ok = await resizeImage({
         data: data,
         maxSize: maxSize,
-    }).then((ok)=>s3Upload(ok));
+    });
+    await s3Upload(ok);
+    console.log(`s3ResizeUpload End ${data} ${path} ${maxSize}`)
+    await sleep(500);
 }

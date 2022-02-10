@@ -1,4 +1,5 @@
 var resizeImage = function (settings) {
+    console.log(`resizeImage start`);
     var file = settings.data.file;
     var maxSize = settings.maxSize;
     var reader = new FileReader();
@@ -44,7 +45,10 @@ var resizeImage = function (settings) {
             return;
         }
         reader.onload = function (readerEvent) {
-            image.onload = function () { return ok(resize()); };
+            image.onload = function () {
+                console.log(`resizeImage end`);
+                ok(resize());
+            };
             image.src = readerEvent.target.result;
         };
         reader.readAsDataURL(file);
