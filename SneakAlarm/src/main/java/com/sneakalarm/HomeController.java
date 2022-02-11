@@ -16,7 +16,9 @@ public class HomeController {
   
   @RequestMapping(value = "/ads.txt")
   @ResponseBody
-  public String adsTxt() {
-       return "google.com, pub-4914706075132106, DIRECT, f08c47fec0942fa0";
+  public String adsTxt(HttpServletResponse response) {
+    String fileName = "ads.txt";
+    response.setHeader("Content-Disposition", "attachment; filename=" + fileName);
+    return "google.com, pub-4914706075132106, DIRECT, f08c47fec0942fa0";
   }
 }
