@@ -17,6 +17,6 @@ public class HomeController {
   @RequestMapping(value = "/ads.txt")
   @ResponseBody
   public String adsTxt() {
-       return "google.com, pub-2682527241610745, DIRECT, f08c47fec0942fa0";
+       return "google.com, pub-4914706075132106, DIRECT, f08c47fec0942fa0";
   }
 }
