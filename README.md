@@ -1,2 +1,0 @@
-# SneakAlarm
-SneakAlarm Web Site
